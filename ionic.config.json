@@ -1,0 +1,7 @@
+{
+  "name": "blobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
