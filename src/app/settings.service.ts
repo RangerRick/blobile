@@ -11,10 +11,11 @@ export type SEGMENT = 'all'|'active'|'favorites';
 })
 
 export class SettingsService {
-  private settings = {
-    segment: 'all' as SEGMENT,
-    favorites: {} as {[key: string]: boolean}
+  private settings: {
+    segment: SEGMENT,
+    favorites: {[key: string]: boolean}
   };
+
   public ready: Promise<boolean>;
 
   constructor() {
@@ -26,9 +27,7 @@ export class SettingsService {
     console.debug('SettingsService initializing.');
     return Storage.get({key: 'favorites'}).then(ret => {
       console.debug('SettingsService: ret=', ret);
-      if (!ret) {
-        this.settings.favorites = {};
-      } else {
+      if (ret && ret.value !== undefined) {
         this.settings.favorites = JSON.parse(ret.value);
       }
       return Storage.get({key: 'segment'}).then(ret => {
@@ -38,6 +37,10 @@ export class SettingsService {
       });
     }).catch(err => {
       console.error('SettingsService: failed to get favorites:', err);
+      this.settings = {
+        segment: 'all',
+        favorites: {}
+      };
       return true;
     });
   }
