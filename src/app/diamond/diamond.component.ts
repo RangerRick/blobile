@@ -80,4 +80,15 @@ export class DiamondComponent implements OnInit {
       }
     }
   }
+
+  getEmoji(type: string) {
+    switch(type) {
+      case 'home':
+        return this.game.homeTeamEmoji.replace(/^0x/, '&#x') + ';';
+      case 'away':
+        return this.game.awayTeamEmoji.replace(/^0x/, '&#x') + ';';
+      default:
+        return '';
+    }
+  }
 }
