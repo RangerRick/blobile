@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { LoadingController } from '@ionic/angular';
+
 import Positions from '../../model/positions';
 import Player from '../../model/player';
 
@@ -24,19 +26,25 @@ export class Tab1Page {
   protected games = [] as any[];
   protected searchTerm: string;
 
-  constructor() {
-    /*
-    setTimeout(() => {
-      this.positions = {
-        first: new Player("John Johnsonjon"),
-        second: null,
-        third: null,
-        home: null,
-        pitcher: null
-      };
-    }, 1000);
-    */
+  protected loading: HTMLIonLoadingElement;
+  constructor(public loadingController: LoadingController) {
+    this.showLoading();
     this.startListening();
+  }
+
+  async showLoading() {
+    this.hideLoading();
+    this.loading = await this.loadingController.create({
+      showBackdrop: false,
+      translucent: true,
+    });
+    this.loading.present();
+  }
+
+  async hideLoading() {
+    if (this.loading) {
+      this.loading.dismiss();
+    }
   }
 
   filterList(evt: any) {
@@ -63,6 +71,7 @@ export class Tab1Page {
     console.log('opening event stream to blaseball.com');
 
     const bases = [ 'first', 'second', 'third' ];
+    // const evtSource = new EventSource('https://cors-proxy.blaseball-reference.com/http://www.blaseball.com/events/streamGameData');
     const evtSource = new EventSource('https://cors-anywhere.herokuapp.com/http://www.blaseball.com/events/streamGameData');
     let latestGameDataState = {} as any;
     evtSource.addEventListener('message', (evt: MessageEvent) => {
@@ -72,9 +81,11 @@ export class Tab1Page {
       //console.debug('got data:', data);
       this.data = data;
       this.doSearch();
+      this.hideLoading();
     });
 
     evtSource.addEventListener('error', (evt: ErrorEvent) => {
+      this.hideLoading();
       console.error(evt);
     });
   }
