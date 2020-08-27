@@ -87,8 +87,11 @@
         <ion-col>
           <div>HOME&nbsp;<div class="scorebox-box">{{game.homeScore}}</div></div>
         </ion-col>
-        <ion-col class="ion-text-center">
-          <div *ngIf="game.gameComplete">FINAL</div>
+        <ion-col *ngIf="game.gameComplete" class="ion-text-center">
+          <div>FINAL</div>
+        </ion-col>
+        <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
+          <div>INNING&nbsp;<div class="scorebox-box">{{game.inning}}</div></div>
         </ion-col>
         <ion-col>
           <div>AWAY&nbsp;<div class="scorebox-box">{{game.awayScore}}</div></div>

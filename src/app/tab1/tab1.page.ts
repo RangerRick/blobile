@@ -31,7 +31,7 @@ export class Tab1Page {
 
   protected loading: HTMLIonLoadingElement;
   constructor(public loadingController: LoadingController, protected settings: SettingsService) {
-    this.showLoading();
+    // this.showLoading();
     settings.ready.finally(() => {
       this.segment = this.settings.getSegment();
       this.startListening();
@@ -72,6 +72,10 @@ export class Tab1Page {
             console.warn(`unhandled segment: ${this.segment}`);
             return false;
         }
+      }).sort((a: any, b: any) => {
+        const nameA = a.homeTeamNickname;
+        const nameB = b.homeTeamNickname;
+        return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
       });
     }
     return [];
@@ -112,10 +116,11 @@ export class Tab1Page {
       const data = JSON.parse(evt.data).value;
       const { lastUpdateTime, ...dataExcludingLastUpdateTime } = data;
 
+      this.hideLoading();
+
       //console.debug('got data:', data);
       this.data = data;
       this.doSearch();
-      this.hideLoading();
     });
 
     evtSource.addEventListener('error', (evt: ErrorEvent) => {

@@ -20,10 +20,14 @@ export class SettingsService {
 
   constructor() {
     console.debug('SettingsService instantiated.');
+    this.settings = {
+      segment: 'all',
+      favorites: {}
+    };
     this.ready = this.init();
   }
 
-  init(): Promise<boolean> {
+  async init(): Promise<boolean> {
     console.debug('SettingsService initializing.');
     return Storage.get({key: 'favorites'}).then(ret => {
       console.debug('SettingsService: ret=', ret);
