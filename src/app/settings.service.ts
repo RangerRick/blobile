@@ -11,24 +11,21 @@ export type SEGMENT = 'all'|'active'|'favorites';
 })
 
 export class SettingsService {
-  private settings: {
-    segment: SEGMENT,
-    favorites: {[key: string]: boolean}
-  };
+  private settings = {
+    segment: 'all',
+    favorites: {}
+  } as any;
 
   public ready: Promise<boolean>;
 
   constructor() {
     console.debug('SettingsService instantiated.');
-    this.settings = {
-      segment: 'all',
-      favorites: {}
-    };
     this.ready = this.init();
   }
 
   async init(): Promise<boolean> {
     console.debug('SettingsService initializing.');
+    this.assertSettings();
     return Storage.get({key: 'favorites'}).then(ret => {
       console.debug('SettingsService: ret=', ret);
       if (ret && ret.value !== undefined) {
@@ -49,11 +46,25 @@ export class SettingsService {
     });
   }
 
+  assertSettings() {
+    if (!this.settings) {
+      this.settings = {};
+    }
+    if (!this.settings.favorites) {
+      this.settings.favorites = {};
+    }
+    if (!this.settings.segment) {
+      this.settings.segment = 'all';
+    }
+  }
+
   isFavorite(teamId: string) {
+    this.assertSettings();
     return Boolean(this.settings.favorites[teamId]);
   }
 
   setFavorite(teamId: string, value: boolean) {
+    this.assertSettings();
     this.settings.favorites[teamId] = value;
     Storage.set({key: 'favorites', value: JSON.stringify(this.settings.favorites)}).then(() => {
       console.debug(`set favorite: ${teamId} = ${value}`);
@@ -61,14 +72,17 @@ export class SettingsService {
   }
 
   toggleFavorite(teamId: string) {
+    this.assertSettings();
     this.setFavorite(teamId, !this.isFavorite(teamId));
   }
 
   getSegment(): SEGMENT {
+    this.assertSettings();
     return this.settings.segment;
   }
 
   setSegment(segment: SEGMENT) {
+    this.assertSettings();
     this.settings.segment = segment;
     Storage.set({key: 'segment', value: segment}).then(() => {
       console.debug(`set segment: ${segment}`);
