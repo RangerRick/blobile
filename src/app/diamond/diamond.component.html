@@ -4,7 +4,7 @@
     <ion-card-title class="green-card">{{game.homeTeamName}} vs. {{game.awayTeamName}}</ion-card-title>
   </ion-card-header>
   -->
-  <ion-card-header color="transparent">
+  <ion-card-header color="transparent" class="ion-no-padding">
     <ion-toolbar color="transparent">
       <ion-buttons slot="start">
         <ion-button fill="clear" shape="round" size="large" (click)="toggleFavorite(game.awayTeam)">
@@ -12,7 +12,7 @@
           <ion-icon *ngIf="isFavorite(game.awayTeam)" name="star"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title>
+      <ion-title class="ion-no-padding">
         <div class="team-header">
           <div class="team-lozenge">
             <span class="team-emoji" style="background-color: {{game.awayTeamColor}}" [innerHTML]="getEmoji('away')"></span>

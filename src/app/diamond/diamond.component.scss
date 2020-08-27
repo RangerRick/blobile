@@ -37,7 +37,7 @@
   text-align: center;
   background-color: black;
   border: 5px solid white;
-  font-size: 3.2vw;
+  font-size: 3.1vw;
   font-weight: bold;
 
   td {
@@ -54,21 +54,13 @@
     height: 6em;
   }
 
-  .rotate-display {
-    /*
-    transition: .1s ease-in-out;
-    animation-name: fadeIn;
-    animation-duration: 0.1s;
-    */
-  }
-
   .scorebox-box {
     font-family: scoreboard, sans-serif;
     border: 2px solid yellow;
     display: inline-block;
     text-align: right;
-    padding: 0.1em 0.5em;
-    width: 2.5em;
+    padding: 0.1em 0.25em;
+    width: 2.8em;
   }
 }
 
