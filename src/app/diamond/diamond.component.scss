@@ -1,0 +1,68 @@
+.green-card {
+  --color: white;
+  --background: #00a831;
+}
+
+.team-header {
+  color: white;
+  font-size: 4vw;
+  font-weight: bold;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.scorebox {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.25em;
+  text-align: center;
+  background-color: black;
+  border: 5px solid white;
+  font-size: 3.2vw;
+  font-weight: bold;
+
+  td {
+    padding: 0.5em;
+  }
+
+  .scorebox-border {
+    border: 2px solid yellow;
+    display: inline-block;
+    text-align: left;
+    padding: 0.1em 0.5em;
+    width: 100%;
+    height: 4em;
+  }
+
+  .rotate-display {
+    transition: .5s ease-in-out;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+  }
+
+  .scorebox-box {
+    border: 2px solid yellow;
+    display: inline-block;
+    text-align: right;
+    padding: 0.1em 0.5em;
+    width: 2.5em;
+  }
+}
