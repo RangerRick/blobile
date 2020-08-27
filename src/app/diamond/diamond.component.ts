@@ -63,9 +63,9 @@ export class DiamondComponent implements OnInit {
   getPitcher() {
     if (this.inProgress()) {
       if (this.game.topOfInning) {
-        return { id: this.game.awayPitcher, name: this.game.awayPitcherName };
-      } else {
         return { id: this.game.homePitcher, name: this.game.homePitcherName };
+      } else {
+        return { id: this.game.awayPitcher, name: this.game.awayPitcherName };
       }
     }
     return null;
