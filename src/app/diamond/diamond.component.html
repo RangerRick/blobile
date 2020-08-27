@@ -4,8 +4,44 @@
     <ion-card-title class="green-card">{{game.homeTeamName}} vs. {{game.awayTeamName}}</ion-card-title>
   </ion-card-header>
   -->
+  <ion-card-header color="transparent">
+    <ion-toolbar color="transparent">
+      <ion-buttons slot="start">
+        <ion-button fill="clear" shape="round" size="large" (click)="toggleFavorite(game.awayTeam)">
+          <ion-icon *ngIf="!isFavorite(game.awayTeam)" name="star-outline"></ion-icon>
+          <ion-icon *ngIf="isFavorite(game.awayTeam)" name="star"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>
+        <div class="team-header">
+          <div class="team-lozenge">
+            <span class="team-emoji" style="background-color: {{game.awayTeamColor}}" [innerHTML]="getEmoji('away')"></span>
+            {{game.awayTeamNickname}}
+          </div>
+          at
+          <div class="team-lozenge">
+            {{game.homeTeamNickname}}
+            <span class="team-emoji" style="background-color: {{game.homeTeamColor}}" [innerHTML]="getEmoji('home')"></span>
+          </div>
+        </div>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button fill="clear" shape="round" size="large" (click)="toggleFavorite(game.homeTeam)">
+          <ion-icon *ngIf="!isFavorite(game.homeTeam)" name="star-outline"></ion-icon>
+          <ion-icon *ngIf="isFavorite(game.homeTeam)" name="star"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card-header>
   <ion-card-content class="ion-no-padding">
-  <div class="team-header"><div class="team-lozenge"><span class="team-emoji" style="background-color: {{game.awayTeamColor}}" [innerHTML]="getEmoji('away')"></span> {{game.awayTeamNickname}}</div> at <div class="team-lozenge">{{game.homeTeamNickname}} <span class="team-emoji" style="background-color: {{game.homeTeamColor}}" [innerHTML]="getEmoji('home')"></span></div></div>
+    <!--
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+    </ion-fab>
+    -->
+    <!--
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+    </ion-fab>
+    -->
     <!-- viewbox="0 0 650 500" -->
     <svg *ngIf="inProgress()" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="diamond" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="0 120 650 390">
       <g id="main">

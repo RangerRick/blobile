@@ -15,6 +15,16 @@
     </ion-toolbar>
   </ion-header>
   -->
-
+  <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="active">
+      <ion-label>Active</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="favorites">
+      <ion-label>Favorites</ion-label>
+    </ion-segment-button>
+  </ion-segment>
   <app-diamond *ngFor="let game of games" [game]="game"></app-diamond>
 </ion-content>

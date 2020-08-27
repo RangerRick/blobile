@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { SettingsService } from '../settings.service';
+
 import Positions from '../../model/positions';
 import Player from '../../model/player';
 
@@ -28,13 +30,22 @@ export class DiamondComponent implements OnInit {
     third:  [ 225, 355 ],
   };
 
-  constructor() {
+  constructor(private settings: SettingsService) {
     console.debug('Diamond component created.');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.debug('Diamond component initialized.');
     console.debug(this.game);
+    return this.settings.ready;
+  }
+
+  isFavorite(teamId: string) {
+    return this.settings.isFavorite(teamId);
+  }
+
+  toggleFavorite(teamId: string) {
+    this.settings.toggleFavorite(teamId);
   }
 
   inProgress() {
