@@ -21,6 +21,8 @@ export class Tab1Page {
   protected awayTeam = "";
 
   protected data = {} as any;
+  protected games = [] as any[];
+  protected searchTerm: string;
 
   constructor() {
     /*
@@ -37,6 +39,26 @@ export class Tab1Page {
     this.startListening();
   }
 
+  filterList(evt: any) {
+    this.searchTerm = evt.srcElement.value;
+    return this.doSearch();
+  }
+
+  doSearch() {
+    if (!this.searchTerm || this.searchTerm.length < 2) {
+      this.games = this.data.schedule;
+      return;
+    }
+
+    this.games = this.data.schedule.filter(game => {
+      return game.homeTeamName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+        || game.awayTeamName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+    });
+
+    return this.games;
+  }
+
+
   startListening() {
     console.log('opening event stream to blaseball.com');
 
@@ -49,32 +71,7 @@ export class Tab1Page {
 
       //console.debug('got data:', data);
       this.data = data;
-
-      // check if updated state data exists
-      if (JSON.stringify(dataExcludingLastUpdateTime) !== JSON.stringify(latestGameDataState)) {
-        latestGameDataState = dataExcludingLastUpdateTime;
-      }
-
-      for (const game of latestGameDataState.schedule) {
-        this.homeTeam = game.homeTeamName;
-        this.awayTeam = game.awayTeamName;
-
-        this.positions.first = null;
-        this.positions.second = null;
-        this.positions.third = null;
-        if (game.baserunnerCount > 0) {
-          for (let i=0; i < game.baserunnerCount; i++) {
-            const name = game.baseRunnerNames[i];
-            const base = game.basesOccupied[i];
-            console.log(`${this.homeTeam}: ${name} is on base ${base}`);
-            this.positions[bases[base]] = new Player(name);
-          }
-        }
-        if (this.homeTeam === 'Hawaii Fridays') {
-          break;
-        }
-      }
-
+      this.doSearch();
     });
 
     evtSource.addEventListener('error', (evt: ErrorEvent) => {

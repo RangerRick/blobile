@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-searchbar debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <!--
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -15,5 +16,5 @@
   </ion-header>
   -->
 
-  <app-diamond *ngFor="let game of data.schedule" [game]="game"></app-diamond>
+  <app-diamond *ngFor="let game of games" [game]="game"></app-diamond>
 </ion-content>

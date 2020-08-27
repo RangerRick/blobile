@@ -29,6 +29,7 @@ export class DiamondComponent implements OnInit {
   };
 
   constructor() {
+    console.debug('Diamond component created.');
   }
 
   ngOnInit() {

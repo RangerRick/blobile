@@ -29,6 +29,7 @@
 }
 
 .scorebox {
+  font-family: scoreboard, sans-serif;
   width: 95%;
   margin-left: auto;
   margin-right: auto;
@@ -44,6 +45,7 @@
   }
 
   .scorebox-border {
+    font-family: scoreboard, sans-serif;
     border: 2px solid yellow;
     display: inline-block;
     text-align: left;
@@ -53,12 +55,15 @@
   }
 
   .rotate-display {
-    transition: .5s ease-in-out;
+    /*
+    transition: .1s ease-in-out;
     animation-name: fadeIn;
-    animation-duration: 0.5s;
+    animation-duration: 0.1s;
+    */
   }
 
   .scorebox-box {
+    font-family: scoreboard, sans-serif;
     border: 2px solid yellow;
     display: inline-block;
     text-align: right;
