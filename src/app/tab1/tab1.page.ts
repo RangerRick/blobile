@@ -115,12 +115,14 @@ export class Tab1Page {
     let latestGameDataState = {} as any;
     evtSource.addEventListener('message', async (evt: MessageEvent) => {
       const data = JSON.parse(evt.data).value;
-      const { lastUpdateTime, ...dataExcludingLastUpdateTime } = data;
 
       this.hideLoading();
 
-      console.debug('got data:', data);
-      this.data = data;
+      for (const key of Object.keys(data)) {
+        this.data[key] = data[key];
+      }
+
+      console.debug('updated data:', this.data);
       this.doSearch();
     });
 

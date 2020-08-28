@@ -28,8 +28,10 @@
   }
 }
 
+$scoreboard: scoreboard, sans-serif;
+
 .scorebox {
-  font-family: scoreboard, sans-serif;
+  font-family: $scoreboard;
   width: 95%;
   margin-left: auto;
   margin-right: auto;
@@ -45,7 +47,7 @@
   }
 
   .scorebox-border {
-    font-family: scoreboard, sans-serif;
+    font-family: $scoreboard;
     border: 2px solid yellow;
     display: inline-block;
     text-align: left;
@@ -55,7 +57,7 @@
   }
 
   .scorebox-box {
-    font-family: scoreboard, sans-serif;
+    font-family: $scoreboard;
     border: 2px solid yellow;
     display: inline-block;
     text-align: right;
