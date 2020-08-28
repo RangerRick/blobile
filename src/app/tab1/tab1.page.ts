@@ -139,4 +139,11 @@ export class Tab1Page {
       this.errors++;
     });
   }
+
+  gameId(index: number, item:any): string {
+    if (item && item.id) {
+      return item.id;
+    }
+    return String(index);
+  }
 }

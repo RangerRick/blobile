@@ -34,17 +34,19 @@
       <ion-label>Favorites</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <ion-list lines="none">
-    <ion-item color="danger" class="ion-text-center">
-      <p style="padding-top: 1em; font-size: 200%; font-weight: bold;">
-        API Error{{'!'.repeat(errors)}}
-      </p>
-    </ion-item>
-    <ion-item color="danger" class="ion-no-margin ion-text-center">
-      <p style="padding-bottom: 1em">
-        Last successful update: {{lastUpdate}}
-      </p>
-    </ion-item>
-  </ion-list>
-  <app-diamond *ngFor="let game of games" [game]="game"></app-diamond>
+  <ion-content *ngIf="errors &gt; 0" color="danger">
+    <ion-grid class="danger">
+      <ion-row>
+        <ion-col class="big">
+          API Error{{'!'.repeat(errors)}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          Last successful update: {{lastUpdate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <app-diamond *ngFor="let game of games; trackBy: gameId" [game]="game"></app-diamond>
 </ion-content>

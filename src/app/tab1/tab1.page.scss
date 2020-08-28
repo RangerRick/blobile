@@ -1,0 +1,10 @@
+.danger {
+  color: white;
+  background-color: var(--ion-color-danger);
+  text-align: center;
+  padding: 4em;
+  .big {
+    font-size: 200%;
+    font-weight: bold;
+  }
+}
