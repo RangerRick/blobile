@@ -109,7 +109,9 @@ export class APIService {
     console.debug('APIService.retry()');
     this.closeSource();
     this.createSource();
-    this.retryMillis = Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback);
+    const newMillis = Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback);
+    console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
+    this.retryMillis = newMillis;
   }
 
   protected createSource() {
