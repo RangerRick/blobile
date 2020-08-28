@@ -130,7 +130,7 @@ export class Tab1Page {
         this.data[key] = data[key];
       }
 
-      console.debug('updated data:', this.data);
+      console.debug('current data:', this.data);
       this.doSearch();
       this.hideLoading();
     }, (err) => {

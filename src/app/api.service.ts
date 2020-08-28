@@ -48,7 +48,7 @@ export class APIService {
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }
 
-    this.defaultRetryMillis = 60 * 1000;
+    this.defaultRetryMillis = 10 * 1000;
     this.defaultCheckIntervalMillis = this.defaultRetryMillis;
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
