@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Blobile <span *ngIf="data && data.games" style="float:right">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</span>
+    <ion-title class="ion-no-padding">
+      <span style="padding-left: 0.5em; padding-right: 0.5em">Blobile <span *ngIf="data && data.games">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</span></span>
     </ion-title>
     <ion-buttons slot="secondary">
       <ion-button *ngIf="loading">

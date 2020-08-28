@@ -34,14 +34,6 @@
     </ion-toolbar>
   </ion-card-header>
   <ion-card-content class="ion-no-padding">
-    <!--
-    <ion-fab vertical="top" horizontal="start" slot="fixed">
-    </ion-fab>
-    -->
-    <!--
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-    </ion-fab>
-    -->
     <!-- viewbox="0 0 650 500" -->
     <svg *ngIf="inProgress()" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="diamond" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="0 120 650 390">
       <g id="main">
@@ -87,11 +79,11 @@
         <ion-col>
           <div>AWAY&nbsp;<div class="scorebox-box">{{game.awayScore}}</div></div>
         </ion-col>
-        <ion-col *ngIf="game.gameComplete" class="ion-text-center">
+        <ion-col *ngIf="game.gameComplete" class="ion-text-end">
           <div>FINAL <span *ngIf="game.inning > 8">({{game.inning + 1}})</span></div>
         </ion-col>
         <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
-          <div>INNING&nbsp;<div class="scorebox-box">{{game.inning + 1}}</div></div>
+          <div>INNING&nbsp;<div class="scorebox-box"><span [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></span> {{game.inning + 1}}</div></div>
         </ion-col>
         <ion-col>
           <div>HOME&nbsp;<div class="scorebox-box">{{game.homeScore}}</div></div>
