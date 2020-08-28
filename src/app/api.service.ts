@@ -133,7 +133,6 @@ export class APIService {
       if (this.observer) {
         this.observer.error(ev);
       }
-      this.retry();
     });
   }
 
