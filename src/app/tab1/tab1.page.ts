@@ -59,8 +59,8 @@ export class Tab1Page {
   }
 
   getSegmentGames() {
-    if (this.data && this.data.schedule) {
-      return this.data.schedule.filter((game: any) => {
+    if (this.data && this.data.games && this.data.games.schedule) {
+      return this.data.games.schedule.filter((game: any) => {
         switch(this.segment) {
           case 'all':
             return true;
@@ -109,8 +109,9 @@ export class Tab1Page {
     console.log('opening event stream to blaseball.com');
 
     const bases = [ 'first', 'second', 'third' ];
-    const evtSource = new EventSource('https://cors-proxy.blaseball-reference.com/events/streamGameData');
-    // const evtSource = new EventSource('https://cors-anywhere.herokuapp.com/http://www.blaseball.com/events/streamGameData');
+    const evtSource = new EventSource('https://cors-proxy.blaseball-reference.com/events/streamData');
+    // const evtSource = new EventSource('https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData');
+    // const evtSource = new EventSource('https://www.blaseball.com/events/streamData');
     let latestGameDataState = {} as any;
     evtSource.addEventListener('message', async (evt: MessageEvent) => {
       const data = JSON.parse(evt.data).value;
@@ -118,7 +119,7 @@ export class Tab1Page {
 
       this.hideLoading();
 
-      //console.debug('got data:', data);
+      console.debug('got data:', data);
       this.data = data;
       this.doSearch();
     });
