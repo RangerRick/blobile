@@ -30,6 +30,8 @@ export class APIService {
   private retryChecker: number | null;
   // current retry interval; on a successful message this resets to `defaultRetryMillis`
   private retryMillis: number;
+  // max out at 10 minutes for a retry interval
+  private maxRetryMillis = 10 * 60 * 1000;
 
   private observable: Observable<MessageEvent> | null;
   private observer: Observer<MessageEvent> | null;
@@ -48,7 +50,7 @@ export class APIService {
 
     this.defaultRetryMillis = 60 * 1000;
     this.defaultCheckIntervalMillis = this.defaultRetryMillis;
-    this.defaultRetryFallback = 1.5;
+    this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
 
     this.observable = Observable.create((observer: Observer<MessageEvent>) => {
@@ -107,7 +109,7 @@ export class APIService {
     console.debug('APIService.retry()');
     this.closeSource();
     this.createSource();
-    this.retryMillis = this.retryMillis * this.defaultRetryFallback;
+    this.retryMillis = Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback);
   }
 
   protected createSource() {
@@ -132,6 +134,8 @@ export class APIService {
       console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', ev);
       if (this.observer) {
         this.observer.error(ev);
+      } else {
+        console.debug('APIService.createSource(): No observer?');
       }
     });
   }
@@ -160,9 +164,9 @@ export class APIService {
   protected checkLastUpdated() {
     const now = Date.now();
     const threshold = this.lastUpdated + this.retryMillis;
-    console.log('now=', now, 'threshold=', threshold, 'lastUpdated=', this.lastUpdated, 'retryMillis=', this.retryMillis);
+    console.log(`now=${now}, threshold=${threshold}, lastUpdated=${this.lastUpdated}, retryMillis=${(this.retryMillis / 1000.0 / 60.0).toPrecision(4)}m`);
     if (now > (this.lastUpdated + this.retryMillis)) {
-      console.debug(`APIService.checkLastUpdated(): now (this.formatDate(${now})) > ${this.formatDate(threshold)} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
+      console.debug(`APIService.checkLastUpdated(): now (${this.formatDate(now)}) > ${this.formatDate(threshold)} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
       this.retry();
     } else {
       console.debug(`APIService.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);

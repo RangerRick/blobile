@@ -7,7 +7,7 @@
       <ion-button *ngIf="loading">
         <ion-spinner></ion-spinner>
       </ion-button>
-      <ion-button *ngIf="error">
+      <ion-button *ngIf="errors &gt; 0">
         <ion-icon name="bug-outline" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -34,5 +34,17 @@
       <ion-label>Favorites</ion-label>
     </ion-segment-button>
   </ion-segment>
+  <ion-list lines="none">
+    <ion-item color="danger" class="ion-text-center">
+      <p style="padding-top: 1em; font-size: 200%; font-weight: bold;">
+        API Error{{'!'.repeat(errors)}}
+      </p>
+    </ion-item>
+    <ion-item color="danger" class="ion-no-margin ion-text-center">
+      <p style="padding-bottom: 1em">
+        Last successful update: {{lastUpdate}}
+      </p>
+    </ion-item>
+  </ion-list>
   <app-diamond *ngFor="let game of games" [game]="game"></app-diamond>
 </ion-content>

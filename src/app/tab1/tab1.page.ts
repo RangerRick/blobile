@@ -30,7 +30,8 @@ export class Tab1Page {
 
   // protected loading: HTMLIonLoadingElement;
   protected loading: boolean;
-  protected error = false;
+  protected errors = 0;
+  protected lastUpdate = "look, it's been a while, OK?";
 
   private api = new APIService();
 
@@ -121,7 +122,8 @@ export class Tab1Page {
 
     const observable = this.api.start();
     observable.subscribe(evt => {
-      this.error = false;
+      this.lastUpdate = new Date().toISOString();
+      this.errors = 0;
       const data = JSON.parse(evt.data).value;
 
       for (const key of Object.keys(data)) {
@@ -134,7 +136,7 @@ export class Tab1Page {
     }, (err) => {
       this.hideLoading();
       this.loading = false;
-      this.error = true;
+      this.errors++;
     });
   }
 }
