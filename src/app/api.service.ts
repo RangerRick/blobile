@@ -5,17 +5,40 @@ import { Observable, Observer } from 'rxjs';
   providedIn: 'root'
 })
 export class APIService {
+  /**
+   * default interval since the last successful message before retrying
+   */
   public defaultRetryMillis = 10 * 1000;
+
+  /**
+   * how often to check if a retry is necessary
+   */
   public defaultCheckIntervalMillis = this.defaultRetryMillis;
+
+  /**
+   * if a retry fails, the multiplier to apply to the retry interval for exponential fallback
+   */
   public defaultRetryFallback = 1.2;
 
-  private lastUpdated = 0;
-  private source: EventSource;
-  private retryChecker: number;
-  private retryMillis = this.defaultRetryMillis;
-  private observable: Observable<MessageEvent>;
-  private observer: Observer<MessageEvent>;
 
+  // the event source to pull from
+  private source: EventSource | null;
+
+  // when we last got a successful message (epoch)
+  private lastUpdated = 0;
+  // the `setInterval` handle for the active background retry checker
+  private retryChecker: number | null;
+  // current retry interval; on a successful message this resets to `defaultRetryMillis`
+  private retryMillis = this.defaultRetryMillis;
+
+  private observable: Observable<MessageEvent> | null;
+  private observer: Observer<MessageEvent> | null;
+
+  /**
+   * Create an API object that can subscribe to an event stream.
+   *
+   * @param url the URL with an EventStream to stream from (defaults to the SIBR CORS proxy)
+   */
   constructor(public url?: string) {
     if (!url) {
       // this.url = 'https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData';
@@ -27,6 +50,11 @@ export class APIService {
     });
   }
 
+  /**
+   * Start listening on the event stream.
+   *
+   * @returns an {@link Observable} that can be subscribed to.
+   */
   start(): Observable<MessageEvent> {
     console.info('APIService.start()');
 
@@ -36,19 +64,39 @@ export class APIService {
     return this.observable;
   }
 
+  /**
+   * Stop listening on the event stream.
+   *
+   * Completes the {@link Observable} and closes all resources.
+   */
   stop() {
     console.info('APIService.stop()');
 
-    this.closeSource();
+    // disable checker
     if (this.retryChecker) {
       clearInterval(this.retryChecker);
+      this.retryChecker = null;
     }
 
-    // reset everything
+    // close the event source
+    this.closeSource();
+    this.source = null;
+
+    // clean up observable
+    this.observer.complete();
+    this.observer = null;
+    this.observable = null;
+
+    // reset retry state
     this.retryMillis = this.defaultRetryMillis;
-    this.source = undefined;
+    this.lastUpdated = 0;
   }
 
+  /**
+   * Force a retry.
+   *
+   * This will close the stream and create a new one, and logarithmically extend the retry time by {@link defaultRetryFallback}.
+   */
   public retry() {
     console.debug('APIService.retry()');
     this.closeSource();
@@ -76,6 +124,9 @@ export class APIService {
     // errors should do a retry
     this.source.addEventListener('error', (ev: Event) => {
       console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', ev);
+      if (this.observer) {
+        this.observer.error(ev);
+      }
       this.retry();
     });
   }
@@ -101,11 +152,11 @@ export class APIService {
 
   protected checkLastUpdated() {
     const now = new Date().getTime();
-    console.debug('APIService.checkLastUpdated():', now);
-
     if (now > (this.lastUpdated + this.retryMillis)) {
       console.debug(`APIService.checkLastUpdated(): now (${now}) > ${this.lastUpdated + this.retryMillis} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
       this.retry();
+    } else {
+      console.debug(`APIService.checkLastUpdated(): ${now} < ${this.lastUpdated + this.retryMillis}`);
     }
   }
 }
