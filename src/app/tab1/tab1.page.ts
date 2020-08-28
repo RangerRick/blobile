@@ -120,10 +120,14 @@ export class Tab1Page {
     console.log('opening event stream to blaseball.com');
     this.showLoading();
 
+    const errorWait = 1000;
+
     const observable = this.api.start();
     observable.subscribe(evt => {
       this.lastUpdate = new Date().toISOString();
-      this.errors = 0;
+      setTimeout(() => {
+        this.errors = 0;
+      }, errorWait);
       const data = JSON.parse(evt.data).value;
 
       for (const key of Object.keys(data)) {
@@ -136,7 +140,10 @@ export class Tab1Page {
     }, (err) => {
       this.hideLoading();
       this.loading = false;
-      this.errors++;
+      // wait a couple of seconds before actually marking it as an error
+      setTimeout(() => {
+        this.errors++;
+      }, errorWait);
     });
   }
 
