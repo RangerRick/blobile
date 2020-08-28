@@ -5,8 +5,6 @@ import { APIService } from '../api.service';
 import { SettingsService, SEGMENT } from '../settings.service';
 
 import Positions from '../../model/positions';
-import Player from '../../model/player';
-
 
 @Component({
   selector: 'app-tab1',
@@ -30,12 +28,14 @@ export class Tab1Page {
   protected searchTerm: string;
   protected segment = 'all' as SEGMENT;
 
-  protected loading: HTMLIonLoadingElement;
+  // protected loading: HTMLIonLoadingElement;
+  protected loading: boolean;
+  protected error = false;
 
   private api = new APIService();
 
   constructor(public loadingController: LoadingController, protected settings: SettingsService) {
-    // this.showLoading();
+    this.showLoading();
     settings.ready.finally(() => {
       this.segment = this.settings.getSegment();
       this.startListening();
@@ -43,18 +43,24 @@ export class Tab1Page {
   }
 
   async showLoading() {
+    this.loading = true;
+    /*
     this.hideLoading();
     this.loading = await this.loadingController.create({
       showBackdrop: false,
       translucent: true,
     });
     this.loading.present();
+    */
   }
 
   async hideLoading() {
+    this.loading = false;
+    /*
     if (this.loading) {
       this.loading.dismiss();
     }
+    */
   }
 
   filterList(evt: any) {
@@ -111,14 +117,12 @@ export class Tab1Page {
 
   startListening() {
     console.log('opening event stream to blaseball.com');
-
-    const bases = [ 'first', 'second', 'third' ];
+    this.showLoading();
 
     const observable = this.api.start();
     observable.subscribe(evt => {
+      this.error = false;
       const data = JSON.parse(evt.data).value;
-
-      this.hideLoading();
 
       for (const key of Object.keys(data)) {
         this.data[key] = data[key];
@@ -126,6 +130,11 @@ export class Tab1Page {
 
       console.debug('updated data:', this.data);
       this.doSearch();
+      this.hideLoading();
+    }, (err) => {
+      this.hideLoading();
+      this.loading = false;
+      this.error = true;
     });
   }
 }

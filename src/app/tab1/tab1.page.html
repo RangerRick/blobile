@@ -3,6 +3,14 @@
     <ion-title>
       Blobile
     </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button *ngIf="loading">
+        <ion-spinner></ion-spinner>
+      </ion-button>
+      <ion-button *ngIf="error">
+        <ion-icon name="bug-outline" color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
