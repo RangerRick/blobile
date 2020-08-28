@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-
 import { LoadingController } from '@ionic/angular';
 
+import { APIService } from '../api.service';
 import { SettingsService, SEGMENT } from '../settings.service';
 
 import Positions from '../../model/positions';
 import Player from '../../model/player';
+
 
 @Component({
   selector: 'app-tab1',
@@ -30,6 +31,9 @@ export class Tab1Page {
   protected segment = 'all' as SEGMENT;
 
   protected loading: HTMLIonLoadingElement;
+
+  private api = new APIService();
+
   constructor(public loadingController: LoadingController, protected settings: SettingsService) {
     // this.showLoading();
     settings.ready.finally(() => {
@@ -109,11 +113,9 @@ export class Tab1Page {
     console.log('opening event stream to blaseball.com');
 
     const bases = [ 'first', 'second', 'third' ];
-    const evtSource = new EventSource('https://cors-proxy.blaseball-reference.com/events/streamData');
-    // const evtSource = new EventSource('https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData');
-    // const evtSource = new EventSource('https://www.blaseball.com/events/streamData');
-    let latestGameDataState = {} as any;
-    evtSource.addEventListener('message', async (evt: MessageEvent) => {
+
+    const observable = this.api.start();
+    observable.subscribe(evt => {
       const data = JSON.parse(evt.data).value;
 
       this.hideLoading();
@@ -124,11 +126,6 @@ export class Tab1Page {
 
       console.debug('updated data:', this.data);
       this.doSearch();
-    });
-
-    evtSource.addEventListener('error', (evt: ErrorEvent) => {
-      this.hideLoading();
-      console.error(evt);
     });
   }
 }
