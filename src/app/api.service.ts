@@ -8,17 +8,17 @@ export class APIService {
   /**
    * default interval since the last successful message before retrying
    */
-  public defaultRetryMillis = 10 * 1000;
+  public defaultRetryMillis: number;
 
   /**
    * how often to check if a retry is necessary
    */
-  public defaultCheckIntervalMillis = this.defaultRetryMillis;
+  public defaultCheckIntervalMillis: number;
 
   /**
    * if a retry fails, the multiplier to apply to the retry interval for exponential fallback
    */
-  public defaultRetryFallback = 1.2;
+  public defaultRetryFallback: number;
 
 
   // the event source to pull from
@@ -29,7 +29,7 @@ export class APIService {
   // the `setInterval` handle for the active background retry checker
   private retryChecker: number | null;
   // current retry interval; on a successful message this resets to `defaultRetryMillis`
-  private retryMillis = this.defaultRetryMillis;
+  private retryMillis: number;
 
   private observable: Observable<MessageEvent> | null;
   private observer: Observer<MessageEvent> | null;
@@ -45,6 +45,12 @@ export class APIService {
       // this.url = 'https://www.blaseball.com/events/streamData';
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }
+
+    this.defaultRetryMillis = 60 * 1000;
+    this.defaultCheckIntervalMillis = this.defaultRetryMillis;
+    this.defaultRetryFallback = 1.5;
+    this.retryMillis = this.defaultRetryMillis;
+
     this.observable = Observable.create((observer: Observer<MessageEvent>) => {
       this.observer = observer;
     });
@@ -58,7 +64,7 @@ export class APIService {
   start(): Observable<MessageEvent> {
     console.info('APIService.start()');
 
-    this.lastUpdated = new Date().getTime();
+    this.lastUpdated = Date.now();
     this.createSource();
     this.startCheckingLastUpdated();
     return this.observable;
@@ -114,7 +120,7 @@ export class APIService {
     this.source.addEventListener('message', (evt: MessageEvent) => {
       // successful message, reset retry and last updated
       this.retryMillis = this.defaultRetryMillis;
-      this.lastUpdated = new Date().getTime();
+      this.lastUpdated = Date.now();
 
       if (this.observer) {
         this.observer.next(evt);
@@ -147,16 +153,25 @@ export class APIService {
     if (this.retryChecker) {
       clearInterval(this.retryChecker);
     }
-    this.retryChecker = setInterval(this.checkLastUpdated, this.defaultCheckIntervalMillis) as unknown as number;
+    this.retryChecker = setInterval(() => {
+      this.checkLastUpdated();
+    }, this.defaultCheckIntervalMillis) as unknown as number;
   }
 
   protected checkLastUpdated() {
-    const now = new Date().getTime();
+    const now = Date.now();
+    const threshold = this.lastUpdated + this.retryMillis;
+    console.log('now=', now, 'threshold=', threshold, 'lastUpdated=', this.lastUpdated, 'retryMillis=', this.retryMillis);
     if (now > (this.lastUpdated + this.retryMillis)) {
-      console.debug(`APIService.checkLastUpdated(): now (${now}) > ${this.lastUpdated + this.retryMillis} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
+      console.debug(`APIService.checkLastUpdated(): now (this.formatDate(${now})) > ${this.formatDate(threshold)} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
       this.retry();
     } else {
-      console.debug(`APIService.checkLastUpdated(): ${now} < ${this.lastUpdated + this.retryMillis}`);
+      console.debug(`APIService.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);
     }
+  }
+
+  private formatDate(d: Date | number) {
+    const date = typeof(d) === 'number' ? new Date(d) : d;
+    return date.toISOString();
   }
 }
