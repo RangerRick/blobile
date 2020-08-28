@@ -166,7 +166,7 @@ export class APIService {
   protected checkLastUpdated() {
     const now = Date.now();
     const threshold = this.lastUpdated + this.retryMillis;
-    console.log(`now=${now}, threshold=${threshold}, lastUpdated=${this.lastUpdated}, retryMillis=${(this.retryMillis / 1000.0 / 60.0).toPrecision(4)}m`);
+    console.log(`now=${now}, lastUpdated=${this.lastUpdated}, threshold=${threshold}, retryMillis=${(this.retryMillis / 1000.0 / 60.0).toPrecision(4)}m`);
     if (now > (this.lastUpdated + this.retryMillis)) {
       console.debug(`APIService.checkLastUpdated(): now (${this.formatDate(now)}) > ${this.formatDate(threshold)} -- last updated (${this.lastUpdated}) + retry (${this.retryMillis})`);
       this.retry();
