@@ -78,7 +78,7 @@
     <key>IonChannelName</key>
     <string>Production</string>
     <key>IonUpdateMethod</key>
-    <string>background</string>
+    <string>auto</string>
     <key>IonMaxVersions</key>
     <string>2</string>
     <key>IonMinBackgroundDuration</key>
