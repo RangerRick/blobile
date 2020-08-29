@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 })
 export class AppModule {
   constructor(private alertController: AlertController, private deploy: Deploy) {
+    this.doUpdate();
   }
 
   async doUpdate() {
