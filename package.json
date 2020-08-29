@@ -2,7 +2,7 @@
   "name": "blobile",
   "description": "An app for Blaseball",
   "version": "1.0.0",
-  "build": 2,
+  "build": 3,
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
@@ -60,6 +60,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "watch": "ionic cap run ios --watch --livereload --external",
+    "version": "npm run postinstall",
     "postinstall": "node src/version.js"
   }
 }
