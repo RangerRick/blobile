@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { SettingsService } from '../settings.service';
 
@@ -21,6 +21,7 @@ export class DiamondComponent implements OnInit {
   @Input() public homeTeam: string;
   @Input() public awayTeam: string;
   @Input() public game: any;
+  @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
 
   protected playerFontSize = '1.1rem';
 
@@ -46,6 +47,10 @@ export class DiamondComponent implements OnInit {
 
   toggleFavorite(teamId: string) {
     this.settings.toggleFavorite(teamId);
+    if (this.refresh) {
+      console.debug('toggleFavorite(): refreshing');
+      this.refresh.emit();
+    }
   }
 
   inProgress() {

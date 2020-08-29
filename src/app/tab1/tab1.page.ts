@@ -66,7 +66,7 @@ export class Tab1Page {
 
   filterList(evt: any) {
     this.searchTerm = evt.srcElement.value;
-    return this.doSearch();
+    return this.refresh();
   }
 
   getSegmentGames() {
@@ -92,7 +92,8 @@ export class Tab1Page {
     return [];
   }
 
-  doSearch() {
+  refresh() {
+    const start = performance.now();
     let ret = this.getSegmentGames();
 
     if (this.searchTerm && this.searchTerm.length >= 2) {
@@ -104,6 +105,8 @@ export class Tab1Page {
     }
 
     this.games = ret;
+    const end = performance.now();
+    console.debug(`doSearch(): ${end - start}ms`);
     return this.games;
   }
 
@@ -113,7 +116,7 @@ export class Tab1Page {
       this.settings.setSegment(this.segment);
     }
     console.debug('segment changed:', evt);
-    this.doSearch();
+    this.refresh();
   }
 
   startListening() {
@@ -135,7 +138,7 @@ export class Tab1Page {
       }
 
       console.debug('current data:', this.data);
-      this.doSearch();
+      this.refresh();
       this.hideLoading();
     }, (err) => {
       this.hideLoading();

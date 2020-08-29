@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title class="ion-no-padding">
-      <span style="padding-left: 0.5em; padding-right: 0.5em">Blobile <span *ngIf="data && data.games">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</span></span>
+    <ion-title>
+      Blases Loaded
     </ion-title>
     <ion-buttons slot="secondary">
       <ion-button *ngIf="loading">
@@ -19,7 +19,7 @@
   <!--
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title>Blobile</ion-title>
+      <ion-title>Blases Loaded</ion-title>
     </ion-toolbar>
   </ion-header>
   -->
@@ -34,6 +34,9 @@
       <ion-label>Favorites</ion-label>
     </ion-segment-button>
   </ion-segment>
+  <ion-item lines="none">
+    <h4 *ngIf="data && data.games">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
+  </ion-item>
   <ion-content *ngIf="errors &gt; 0" color="danger">
     <ion-grid class="danger">
       <ion-row>
@@ -48,5 +51,5 @@
       </ion-row>
     </ion-grid>
   </ion-content>
-  <app-diamond *ngFor="let game of games; trackBy: gameId" [game]="game"></app-diamond>
+  <app-diamond *ngFor="let game of games; trackBy: gameId" [game]="game" (refresh)="refresh()"></app-diamond>
 </ion-content>
