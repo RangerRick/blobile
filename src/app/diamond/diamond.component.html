@@ -83,7 +83,7 @@
           <div>FINAL <span *ngIf="game.inning > 8">({{game.inning + 1}})</span></div>
         </ion-col>
         <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
-          <div>INNING&nbsp;<div class="scorebox-box"><span class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></span> {{game.inning + 1}}</div></div>
+          <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning + 1}}</div></div>
         </ion-col>
         <ion-col>
           <div>HOME&nbsp;<div class="scorebox-box">{{game.homeScore}}</div></div>
