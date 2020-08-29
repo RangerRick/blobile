@@ -28,8 +28,11 @@ export class Tab1Page {
   // protected loading: HTMLIonLoadingElement;
   public loading: boolean;
   public errors = 0;
-  public lastUpdate = "look, it's been a while, OK?";
+  //public lastUpdate = "look, it's been a while, OK?";
+  public lastUpdate = Date.now();
   public filterVisible = false;
+  public stale = false;
+  public staleThreshold = 30 * 1000; // 30 seconds
 
   private api = new APIService();
 
@@ -119,6 +122,14 @@ export class Tab1Page {
     this.refresh();
   }
 
+  checkStale() {
+    if (this.lastUpdate + this.staleThreshold < Date.now()) {
+      this.stale = true;
+    } else {
+      this.stale = false;
+    }
+  }
+
   startListening() {
     console.log('opening event stream to blaseball.com');
     this.showLoading();
@@ -127,9 +138,10 @@ export class Tab1Page {
 
     const observable = this.api.start();
     observable.subscribe(evt => {
-      this.lastUpdate = new Date().toISOString();
+      this.lastUpdate = Date.now();
       setTimeout(() => {
         this.errors = 0;
+        this.checkStale();
       }, errorWait);
       const data = JSON.parse(evt.data).value;
 
@@ -146,6 +158,7 @@ export class Tab1Page {
       // wait a couple of seconds before actually marking it as an error
       setTimeout(() => {
         this.errors++;
+        this.checkStale();
       }, errorWait);
     });
   }

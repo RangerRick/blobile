@@ -4,7 +4,7 @@
       Blases Loaded
     </ion-title>
     <ion-buttons slot="secondary">
-      <ion-button *ngIf="loading">
+      <ion-button *ngIf="loading || stale">
         <ion-spinner></ion-spinner>
       </ion-button>
       <ion-button *ngIf="errors &gt; 0">
@@ -43,6 +43,7 @@
   <ion-item lines="none">
     <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
   </ion-item>
+  <!--
   <ion-content *ngIf="errors &gt; 0" color="danger">
     <ion-grid class="danger">
       <ion-row>
@@ -57,6 +58,7 @@
       </ion-row>
     </ion-grid>
   </ion-content>
+  -->
   <ion-grid>
     <ion-row>
       <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
