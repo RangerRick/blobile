@@ -10,19 +10,15 @@
       <ion-button *ngIf="errors &gt; 0">
         <ion-icon name="bug-outline" color="danger"></ion-icon>
       </ion-button>
+      <ion-button (click)="toggleSearchbar()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
-  <!--
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title>Blases Loaded</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  -->
+  <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
     <ion-segment-button value="all">
       <ion-label>All</ion-label>

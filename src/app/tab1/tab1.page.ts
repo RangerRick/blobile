@@ -32,6 +32,7 @@ export class Tab1Page {
   protected loading: boolean;
   protected errors = 0;
   protected lastUpdate = "look, it's been a while, OK?";
+  protected filterVisible = false;
 
   private api = new APIService();
 
@@ -62,6 +63,11 @@ export class Tab1Page {
       this.loading.dismiss();
     }
     */
+  }
+
+  toggleSearchbar() {
+    this.filterVisible = !this.filterVisible;
+    console.debug(`filterVisible=${this.filterVisible}`);
   }
 
   filterList(evt: any) {
