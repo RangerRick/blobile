@@ -42,7 +42,7 @@ export class AppModule {
           message: 'An update is available. Apply now?',
           buttons: [
             {
-              text: 'Skip',
+              text: 'Not Now',
               role: 'cancel',
               cssClass: 'secondary',
             },
