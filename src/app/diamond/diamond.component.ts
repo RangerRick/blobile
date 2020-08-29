@@ -23,9 +23,9 @@ export class DiamondComponent implements OnInit {
   @Input() public game: any;
   @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
 
-  protected playerFontSize = '1.1rem';
+  public playerFontSize = '1.1rem';
 
-  protected coordinates = {
+  public coordinates = {
     first:  [ 430, 355 ],
     second: [ 328, 190 ],
     third:  [ 225, 355 ],

@@ -20,19 +20,16 @@ export class Tab1Page {
     pitcher: null,
   } as Positions;
 
-  protected homeTeam = "";
-  protected awayTeam = "";
-
-  protected data = {} as any;
-  protected games = [] as any[];
-  protected searchTerm: string;
-  protected segment = 'all' as SEGMENT;
+  public data = {} as any;
+  public games = [] as any[];
+  public searchTerm: string;
+  public segment = 'all' as SEGMENT;
 
   // protected loading: HTMLIonLoadingElement;
-  protected loading: boolean;
-  protected errors = 0;
-  protected lastUpdate = "look, it's been a while, OK?";
-  protected filterVisible = false;
+  public loading: boolean;
+  public errors = 0;
+  public lastUpdate = "look, it's been a while, OK?";
+  public filterVisible = false;
 
   private api = new APIService();
 

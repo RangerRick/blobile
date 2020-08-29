@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
+/*
 @Injectable({
   providedIn: 'root'
 })
+*/
 export class APIService {
+  /**
+   * the URL to connect to when creating an event source
+   */
+  public url: string;
+
   /**
    * default interval since the last successful message before retrying
    */
@@ -41,8 +48,10 @@ export class APIService {
    *
    * @param url the URL with an EventStream to stream from (defaults to the SIBR CORS proxy)
    */
-  constructor(public url?: string) {
-    if (!url) {
+  constructor(url?: string) {
+    if (url) {
+      this.url = url;
+    } else {
       // this.url = 'https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData';
       // this.url = 'https://www.blaseball.com/events/streamData';
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
