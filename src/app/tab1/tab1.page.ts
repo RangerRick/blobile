@@ -99,7 +99,6 @@ export class Tab1Page {
   }
 
   refresh() {
-    const start = performance.now();
     let ret = this.getSegmentGames();
 
     if (this.searchTerm && this.searchTerm.length >= 2) {
@@ -111,8 +110,6 @@ export class Tab1Page {
     }
 
     this.games = ret;
-    const end = performance.now();
-    console.debug(`doSearch(): ${end - start}ms`);
     return this.games;
   }
 
