@@ -10,8 +10,23 @@
       <ion-button *ngIf="errors &gt; 0">
         <ion-icon name="bug-outline" color="danger"></ion-icon>
       </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="active">
+        <ion-label>Active</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorites">
+        <ion-label>Favorites</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons slot="secondary">
       <ion-button (click)="toggleSearchbar()">
-        <ion-icon name="filter-outline"></ion-icon>
+        <ion-icon name="search-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,19 +34,8 @@
 
 <ion-content>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
-  <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
-    <ion-segment-button value="all">
-      <ion-label>All</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="active">
-      <ion-label>Active</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="favorites">
-      <ion-label>Favorites</ion-label>
-    </ion-segment-button>
-  </ion-segment>
   <ion-item lines="none">
-    <h4 *ngIf="data && data.games">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
+    <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
   </ion-item>
   <ion-content *ngIf="errors &gt; 0" color="danger">
     <ion-grid class="danger">
@@ -47,5 +51,11 @@
       </ion-row>
     </ion-grid>
   </ion-content>
-  <app-diamond *ngFor="let game of games; trackBy: gameId" [game]="game" (refresh)="refresh()"></app-diamond>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" *ngFor="let game of games; trackBy: gameId">
+        <app-diamond [game]="game" (refresh)="refresh()"></app-diamond>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
