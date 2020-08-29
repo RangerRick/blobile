@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
+
+import { Plugins, NetworkPlugin, PluginListenerHandle } from '@capacitor/core';
+const { Network } = Plugins;
 
 /*
 @Injectable({
@@ -27,6 +30,10 @@ export class APIService {
    */
   public defaultRetryFallback: number;
 
+  /**
+   * whether or not the user has started the service
+   */
+  public handler: PluginListenerHandle;
 
   // the event source to pull from
   private source: EventSource | null;
@@ -57,14 +64,32 @@ export class APIService {
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }
 
-    this.defaultRetryMillis = 10 * 1000; // 10s
+    this.defaultRetryMillis = 1 * 1000; // 1s
     this.defaultCheckIntervalMillis = this.defaultRetryMillis;
-    this.defaultRetryFallback = 1.2;
+    this.defaultRetryFallback = 1.5;
     this.retryMillis = this.defaultRetryMillis;
 
     this.observable = Observable.create((observer: Observer<MessageEvent>) => {
       this.observer = observer;
     });
+  }
+
+  doStart() {
+    this.lastUpdated = Date.now();
+    this.createSource();
+    this.startCheckingLastUpdated();
+  };
+
+  doStop() {
+    // disable checker
+    if (this.retryChecker) {
+      clearInterval(this.retryChecker);
+      this.retryChecker = null;
+    }
+
+    // close the event source
+    this.closeSource();
+    this.source = null;
   }
 
   /**
@@ -75,9 +100,16 @@ export class APIService {
   start(): Observable<MessageEvent> {
     console.info('APIService.start()');
 
-    this.lastUpdated = Date.now();
-    this.createSource();
-    this.startCheckingLastUpdated();
+    this.handler = Network.addListener('networkStatusChange', status => {
+      if (status.connected && !this.source) {
+        this.doStart();
+      } else if (!status.connected) {
+        this.doStop();
+      }
+    });
+
+    this.doStart();
+
     return this.observable;
   }
 
@@ -89,15 +121,11 @@ export class APIService {
   stop() {
     console.info('APIService.stop()');
 
-    // disable checker
-    if (this.retryChecker) {
-      clearInterval(this.retryChecker);
-      this.retryChecker = null;
+    if (this.handler) {
+      this.handler.remove();
     }
 
-    // close the event source
-    this.closeSource();
-    this.source = null;
+    this.doStop();
 
     // clean up observable
     this.observer.complete();
