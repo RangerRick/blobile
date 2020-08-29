@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
     <ion-segment-button value="all">
