@@ -13,6 +13,12 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
+    <ion-buttons slot="primary">
+      <!-- this is just to fix spacing for now, I'll figure out something better eventually -->
+      <ion-button>
+        <ion-icon></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
       <ion-segment-button value="all">
         <ion-label>All</ion-label>
