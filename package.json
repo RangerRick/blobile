@@ -59,6 +59,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "watch": "ionic cap run ios --watch --livereload --external",
     "postinstall": "node src/version.js"
   }
 }
