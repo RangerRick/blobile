@@ -76,7 +76,7 @@
     <key>IonAppId</key>
     <string>15a91f4a</string>
     <key>IonChannelName</key>
-    <string>Master</string>
+    <string>Production</string>
     <key>IonUpdateMethod</key>
     <string>background</string>
     <key>IonMaxVersions</key>

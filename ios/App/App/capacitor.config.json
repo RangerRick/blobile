@@ -9,9 +9,5 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {},
-  "server": {
-    "url": "http://bad-witch.local:8100",
-    "cleartext": true
-  }
+  "cordova": {}
 }
