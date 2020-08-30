@@ -7,12 +7,12 @@
       <ion-button *ngIf="loading || stale">
         <ion-spinner></ion-spinner>
       </ion-button>
-      <ion-button *ngIf="errors &gt; 0">
-        <ion-icon name="bug-outline" color="danger"></ion-icon>
+      <ion-button *ngIf="errors &gt; 0 && !isFinished()">
+        <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="ready && !isFinished()">
     <ion-buttons slot="primary">
       <!-- this is just to fix spacing for now, I'll figure out something better eventually -->
       <ion-button>
@@ -40,31 +40,31 @@
 
 <ion-content>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
-  <ion-item lines="none">
-    <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
-  </ion-item>
-  <!--
-  <ion-content *ngIf="errors &gt; 0" color="danger">
-    <ion-grid class="danger">
+  <span *ngIf="isFinished()">
+    <ion-item lines="none">
+      <h4>Season {{data.games.season.seasonNumber + 1}} is over.</h4>
+    </ion-item>
+    <ion-item lines="none">
+      <h4>The <span style="color: {{getWinner().mainColor}}">{{getWinner().fullName}}</span> are the Champions!</h4>
+    </ion-item>
+    <ion-item lines="none">
+      <h4>Next Season Starts In {{getNextSeasonStart()}}.</h4>
+    </ion-item>
+  </span>
+  <span *ngIf="!isFinished()">
+    <ion-item lines="none" *ngIf="isPostseason()">
+      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber + 1}}, Day {{data.games.postseason.playoffs.playoffDay + 1}}</h4>
+    </ion-item>
+    <ion-item lines="none" *ngIf="!isPostseason()">
+      <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
+    </ion-item>
+    <ion-grid>
       <ion-row>
-        <ion-col class="big">
-          API Error{{'!'.repeat(errors)}}
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          Last successful update: {{lastUpdate}}
+        <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
+        <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
+          <app-diamond [game]="game" (refresh)="refresh()"></app-diamond>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-content>
-  -->
-  <ion-grid>
-    <ion-row>
-      <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
-      <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-        <app-diamond [game]="game" (refresh)="refresh()"></app-diamond>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  </span>
 </ion-content>

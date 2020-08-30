@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 
 import { APIService } from '../api.service';
 import { SettingsService, SEGMENT } from '../settings.service';
 
 import Positions from '../../model/positions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit, OnDestroy {
   protected positions = {
     first: null,
     second: null,
@@ -27,6 +28,7 @@ export class Tab1Page {
 
   // protected loading: HTMLIonLoadingElement;
   public loading: boolean;
+  public ready = false;
   public errors = 0;
   //public lastUpdate = "look, it's been a while, OK?";
   public lastUpdate = Date.now();
@@ -34,14 +36,35 @@ export class Tab1Page {
   public stale = false;
   public staleThreshold = 30 * 1000; // 30 seconds
 
+  private subscription: Subscription;
   private api = new APIService();
 
+  private clockUpdater: number;
+  private countdown = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  };
+
   constructor(public loadingController: LoadingController, protected settings: SettingsService) {
+  }
+
+  async ngOnInit() {
     this.showLoading();
-    settings.ready.finally(() => {
+    this.settings.ready.finally(() => {
       this.segment = this.settings.getSegment();
       this.startListening();
+      this.ready = true;
     });
+  }
+
+  async ngOnDestroy() {
+    this.ready = false;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = undefined;
+      this.api.stop();
+    }
   }
 
   async showLoading() {
@@ -98,6 +121,45 @@ export class Tab1Page {
     return [];
   }
 
+  isPostseason() {
+    return Boolean(this?.data?.games?.postseason?.playoffs !== undefined);
+  }
+
+  isFinished() {
+    const isFinished = Boolean(this.getWinner() !== undefined);
+
+    if (this.clockUpdater && !isFinished) {
+      clearInterval(this.clockUpdater);
+      this.clockUpdater = undefined;
+    } else if (!this.clockUpdater && isFinished) {
+      this.clockUpdater = setInterval(() => {
+        const now = Date.now();
+        const start = new Date(this.data.games.sim.nextSeasonStart).getTime();
+        const diff = Math.floor((start - now) / 1000.0); // drop millis
+
+        this.countdown.hours = Math.floor(diff / 60 / 60);
+        let remainder = diff - (this.countdown.hours * 60 * 60);
+        this.countdown.minutes = Math.floor(remainder / 60);
+        this.countdown.seconds = remainder - (this.countdown.minutes * 60);
+      });
+    }
+
+    return isFinished;
+  }
+
+  getWinner() {
+    const winner = this?.data?.games?.postseason?.playoffs?.winner;
+    if (winner) {
+      return this.data.leagues.teams.find((team:any) => team.id === winner);
+    }
+    return undefined;
+  }
+
+  getNextSeasonStart() {
+    
+    return `${this.countdown.hours} ${this.countdown.hours === 1? 'hour':'hours'}, ${this.countdown.minutes} ${this.countdown.minutes === 1? 'minute':'minutes'}, ${this.countdown.seconds} ${this.countdown.seconds === 1? 'second':'seconds'}`;
+  }
+
   refresh() {
     let ret = this.getSegmentGames();
 
@@ -137,7 +199,7 @@ export class Tab1Page {
     const errorWait = 1000;
 
     const observable = this.api.start();
-    observable.subscribe(evt => {
+    this.subscription = observable.subscribe(evt => {
       this.lastUpdate = Date.now();
       setTimeout(() => {
         this.errors = 0;
