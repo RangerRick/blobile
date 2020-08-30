@@ -1,8 +1,8 @@
 // import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-import { Plugins, NetworkPlugin, PluginListenerHandle } from '@capacitor/core';
-const { Network } = Plugins;
+import { AppState, Plugins } from '@capacitor/core';
+const { App, Device, Network } = Plugins;
 
 /*
 @Injectable({
@@ -33,7 +33,16 @@ export class APIService {
   /**
    * whether or not the user has started the service
    */
-  public handler: PluginListenerHandle;
+  public isStarted: boolean;
+
+  /**
+   * whether or not we are in the foreground
+   */
+  public isActive: boolean;
+  /**
+   * whether or not we are connected to a network
+   */
+  public isConnected: boolean;
 
   // the event source to pull from
   private source: EventSource | null;
@@ -56,6 +65,13 @@ export class APIService {
    * @param url the URL with an EventStream to stream from (defaults to the SIBR CORS proxy)
    */
   constructor(url?: string) {
+    this.init(url);
+  }
+
+  async init(url?: string) {
+    console.debug('APIService.init(): initializing.');
+    this.isStarted = false;
+
     if (url) {
       this.url = url;
     } else {
@@ -64,9 +80,46 @@ export class APIService {
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }
 
-    this.defaultRetryMillis = 1 * 1000; // 1s
+    try {
+      this.isActive = (await App.getState()).isActive;
+    } catch (err) {
+      console.error('APIService.init(): failed to get app state, assuming active.', err);
+      this.isActive = true;
+    }
+    try {
+      this.isConnected = (await Network.getStatus()).connected;
+    } catch (err) {
+      console.error('APIService.init(): failed to get connection state, assuming connected.', err);
+      this.isConnected = true;
+    }
+
+    App.addListener('appStateChange', async (state: AppState) => {
+      try {
+        const info = await Device.getInfo();
+        console.debug(`APIService.init() isActive: ${this.isActive} -> ${state.isActive}`);
+        if (info.platform === 'web') {
+          console.debug('APIService.init() isActive: platform is web, assuming active.');
+          this.isActive = true;
+        } else {
+          this.isActive = state.isActive;
+        }
+        this.handleSystemChange();
+      } catch (err) {
+        console.debug('APIService.init() isActive: Device.getInfo() failed, assuming web', err);
+        this.isActive = true;
+        this.handleSystemChange();
+      };
+    });
+
+    Network.addListener('networkStatusChange', status => {
+      console.debug(`APIService.init() isConnected: ${this.isConnected} -> ${status.connected}`);
+      this.isConnected = status.connected;
+      this.handleSystemChange();
+    });
+
+    this.defaultRetryMillis = 60 * 1000; // 60s
     this.defaultCheckIntervalMillis = this.defaultRetryMillis;
-    this.defaultRetryFallback = 1.5;
+    this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
 
     this.observable = Observable.create((observer: Observer<MessageEvent>) => {
@@ -74,24 +127,29 @@ export class APIService {
     });
   }
 
-  doStart() {
-    this.lastUpdated = Date.now();
-    this.createSource();
-    this.startCheckingLastUpdated();
-  };
+  handleSystemChange() {
+    console.debug(`APIService.handleSystemChange(): isStarted=${this.isStarted}, isActive=${this.isActive}, isConnected=${this.isConnected}`);
+    if (this.isStarted && this.isActive && this.isConnected) {
+      if (!this.source) {
+        console.debug('APIService.handleSystemChange(): starting up');
+        this.lastUpdated = Date.now();
+        this.createSource();
+        this.startCheckingLastUpdated();
+      }
+    } else {
+      console.debug('APIService.handleSystemChange(): shutting down');
+      // disable checker
+      if (this.retryChecker) {
+        clearInterval(this.retryChecker);
+        this.retryChecker = null;
+      }
 
-  doStop() {
-    // disable checker
-    if (this.retryChecker) {
-      clearInterval(this.retryChecker);
-      this.retryChecker = null;
+      // close the event source
+      this.closeSource();
+      this.source = null;
     }
-
-    // close the event source
-    this.closeSource();
-    this.source = null;
   }
-
+  
   /**
    * Start listening on the event stream.
    *
@@ -100,16 +158,8 @@ export class APIService {
   start(): Observable<MessageEvent> {
     console.info('APIService.start()');
 
-    this.handler = Network.addListener('networkStatusChange', status => {
-      if (status.connected && !this.source) {
-        this.doStart();
-      } else if (!status.connected) {
-        this.doStop();
-      }
-    });
-
-    this.doStart();
-
+    this.isStarted = true;
+    this.handleSystemChange();
     return this.observable;
   }
 
@@ -121,11 +171,8 @@ export class APIService {
   stop() {
     console.info('APIService.stop()');
 
-    if (this.handler) {
-      this.handler.remove();
-    }
-
-    this.doStop();
+    this.isStarted = false;
+    this.handleSystemChange();
 
     // clean up observable
     this.observer.complete();
