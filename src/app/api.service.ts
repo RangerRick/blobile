@@ -42,7 +42,7 @@ export class APIService {
   /**
    * whether or not we are connected to a network
    */
-  public isConnected: boolean;
+  public isConnected = true;
 
   // the event source to pull from
   private source: EventSource | null;
@@ -71,6 +71,10 @@ export class APIService {
   async init(url?: string) {
     console.debug('APIService.init(): initializing.');
     this.isStarted = false;
+
+    this.observable = Observable.create((observer: Observer<MessageEvent>) => {
+      this.observer = observer;
+    });
 
     if (url) {
       this.url = url;
@@ -121,10 +125,6 @@ export class APIService {
     this.defaultCheckIntervalMillis = this.defaultRetryMillis;
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
-
-    this.observable = Observable.create((observer: Observer<MessageEvent>) => {
-      this.observer = observer;
-    });
   }
 
   handleSystemChange() {
@@ -134,7 +134,9 @@ export class APIService {
         console.debug('APIService.handleSystemChange(): starting up');
         this.lastUpdated = Date.now();
         this.createSource();
-        this.startCheckingLastUpdated();
+        setTimeout(() => {
+          this.startCheckingLastUpdated();
+        }, 1000);
       }
     } else {
       console.debug('APIService.handleSystemChange(): shutting down');
