@@ -31,3 +31,11 @@ infoPlist.CFBundleShortVersionString = String(version);
 writeFileSync(infoFile, plist.build(infoPlist));
 
 console.log(`Updated ${relative(resolve(__dirname, '..'), infoFile)}`);
+
+const gradleFile = resolve(__dirname, '..', 'android', 'app', 'build.gradle');
+const gradleText = readFileSync(gradleFile, 'utf-8')
+    .replace(/versionCode[^\r\n]*/mgs, `versionCode ${build}`)
+    .replace(/versionName[^\r\n]*/mgs, `versionName "${version}"`);
+writeFileSync(gradleFile, gradleText);
+
+console.log(`Updated ${relative(resolve(__dirname, '..'), gradleFile)}`);
