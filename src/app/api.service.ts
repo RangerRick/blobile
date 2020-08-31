@@ -49,6 +49,10 @@ export class APIService {
 
   // when we last got a successful message (epoch)
   private lastUpdated = 0;
+  // the last update received
+  private lastUpdate: any;
+  // when the last retry happened
+  private lastRetry = 0;
   // the `setInterval` handle for the active background retry checker
   private retryChecker: number | null;
   // current retry interval; on a successful message this resets to `defaultRetryMillis`
@@ -56,8 +60,8 @@ export class APIService {
   // max out at 10 minutes for a retry interval
   private maxRetryMillis = 10 * 60 * 1000; // 10 minutes
 
-  private observable: Observable<MessageEvent> | null;
-  private observer: Observer<MessageEvent> | null;
+  private observable: Observable<MessageEvent|Event> | null;
+  private observer: Observer<MessageEvent|Event> | null;
 
   /**
    * Create an API object that can subscribe to an event stream.
@@ -72,7 +76,7 @@ export class APIService {
     console.debug('APIService.init(): initializing.');
     this.isStarted = false;
 
-    this.observable = Observable.create((observer: Observer<MessageEvent>) => {
+    this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
       this.observer = observer;
     });
 
@@ -121,8 +125,8 @@ export class APIService {
       this.handleSystemChange();
     });
 
-    this.defaultRetryMillis = 60 * 1000; // 60s
-    this.defaultCheckIntervalMillis = this.defaultRetryMillis;
+    this.defaultRetryMillis = 10 * 1000; // 10s
+    this.defaultCheckIntervalMillis = Math.round(this.defaultRetryMillis / 5.0);
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
   }
@@ -157,7 +161,7 @@ export class APIService {
    *
    * @returns an {@link Observable} that can be subscribed to.
    */
-  start(): Observable<MessageEvent> {
+  start(): Observable<MessageEvent|Event> {
     console.info('APIService.start()');
 
     this.isStarted = true;
@@ -193,9 +197,11 @@ export class APIService {
    */
   public retry() {
     console.debug('APIService.retry()');
+    this.lastRetry = Date.now();
+
     this.closeSource();
 
-    const newMillis = Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback);
+    const newMillis = Math.floor(Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback));
     console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
     this.retryMillis = newMillis;
 
@@ -204,16 +210,22 @@ export class APIService {
 
   private onMessage(ev: MessageEvent) {
     console.debug('APIService.onMessage()');
-    // successful message, reset retry and last updated
-    if (this.retryMillis !== this.defaultRetryMillis) {
-      console.debug(`APIService.onMessage(): ${this.retryMillis} -> ${this.defaultRetryMillis}`);
-      this.retryMillis = this.defaultRetryMillis;
-    }
-    this.lastUpdated = Date.now();
+    if (this.lastUpdate !== ev?.data) {
+      // console.debug('APIService.onMessage(): change:', this.lastUpdate, ev?.data);
 
-    // tell the observable about the update
-    if (this.observer) {
-      this.observer.next(ev);
+      // successful/new message, reset retry and last updated
+      if (this.retryMillis !== this.defaultRetryMillis) {
+        console.debug(`APIService.onMessage(): ${this.retryMillis} -> ${this.defaultRetryMillis}`);
+        this.retryMillis = this.defaultRetryMillis;
+      }
+
+      this.lastUpdated = Date.now();
+
+      this.lastUpdate = ev.data;
+      // tell the observable about the update
+      if (this.observer) {
+        this.observer.next(ev);
+      }
     }
   }
 
@@ -231,10 +243,11 @@ export class APIService {
     this.source.addEventListener('error', (ev: Event) => {
       console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', ev);
       if (this.observer) {
-        this.observer.error(ev);
+        this.observer.next(ev);
       } else {
         console.debug('APIService.createSource(): No observer?');
       }
+      this.checkLastUpdated();
     });
   }
 
@@ -260,9 +273,12 @@ export class APIService {
   }
 
   protected checkLastUpdated() {
+    const lastCheck = Math.max(this.lastUpdated, this.lastRetry);
+
     const now = Date.now();
-    const threshold = this.lastUpdated + this.retryMillis;
-    console.log(`APIService.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / 1000.0).toPrecision(2)}s`);
+
+    const threshold = lastCheck + this.retryMillis;
+    console.log(`APIService.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / 1000.0).toPrecision(2)}s`);
     if (now > threshold) {
       this.retry();
     } else {
