@@ -4,6 +4,10 @@ import { Observable, Observer } from 'rxjs';
 import { AppState, Plugins } from '@capacitor/core';
 const { App, Device, Network } = Plugins;
 
+const ONE_MINUTE = 60 * 1000;
+const ONE_HOUR = 60 * ONE_MINUTE;
+const ONE_DAY = 60 * ONE_HOUR;
+
 /*
 @Injectable({
   providedIn: 'root'
@@ -56,9 +60,11 @@ export class APIService {
   // the `setInterval` handle for the active background retry checker
   private retryChecker: number | null;
   // current retry interval; on a successful message this resets to `defaultRetryMillis`
+  // the `setTimeout` handle for checking on the top of the next hour
+  private hourChecker: number | null;
   private retryMillis: number;
   // max out at 10 minutes for a retry interval
-  private maxRetryMillis = 10 * 60 * 1000; // 10 minutes
+  private maxRetryMillis = 10 * ONE_MINUTE;
 
   private observable: Observable<MessageEvent|Event> | null;
   private observer: Observer<MessageEvent|Event> | null;
@@ -105,24 +111,19 @@ export class APIService {
       try {
         const info = await Device.getInfo();
         console.debug(`APIService.init() isActive: ${this.isActive} -> ${state.isActive}`);
-        if (info.platform === 'web') {
-          console.debug('APIService.init() isActive: platform is web, assuming active.');
-          this.isActive = true;
-        } else {
-          this.isActive = state.isActive;
+        if (info.platform !== 'web' && state.isActive) {
+          this.handleSystemChange(true);
         }
-        this.handleSystemChange();
       } catch (err) {
         console.debug('APIService.init() isActive: Device.getInfo() failed, assuming web', err);
-        this.isActive = true;
-        this.handleSystemChange();
       };
     });
 
     Network.addListener('networkStatusChange', status => {
       console.debug(`APIService.init() isConnected: ${this.isConnected} -> ${status.connected}`);
-      this.isConnected = status.connected;
-      this.handleSystemChange();
+      if (status.connected) {
+        this.handleSystemChange(true);
+      }
     });
 
     this.defaultRetryMillis = 10 * 1000; // 10s
@@ -131,11 +132,12 @@ export class APIService {
     this.retryMillis = this.defaultRetryMillis;
   }
 
-  handleSystemChange() {
-    console.debug(`APIService.handleSystemChange(): isStarted=${this.isStarted}, isActive=${this.isActive}, isConnected=${this.isConnected}`);
-    if (this.isStarted && this.isActive && this.isConnected) {
-      if (!this.source) {
-        console.debug('APIService.handleSystemChange(): starting up');
+  handleSystemChange(retrigger?: boolean) {
+    console.debug(`APIService.handleSystemChange(): retrigger=${retrigger}`);
+
+    if (this.isStarted) {
+      if (retrigger || !this.source) {
+        console.debug('APIService.handleSystemChange(): (re)creating connection');
         this.lastUpdated = Date.now();
         this.createSource();
         setTimeout(() => {
@@ -210,6 +212,7 @@ export class APIService {
 
   private onMessage(ev: MessageEvent) {
     console.debug('APIService.onMessage()');
+
     if (this.lastUpdate !== ev?.data) {
       // console.debug('APIService.onMessage(): change:', this.lastUpdate, ev?.data);
 
@@ -276,6 +279,28 @@ export class APIService {
     const lastCheck = Math.max(this.lastUpdated, this.lastRetry);
 
     const now = Date.now();
+
+    if (!this.hourChecker) {
+      const remainder = now % ONE_HOUR;
+      const nextHour = now - remainder + ONE_HOUR;
+
+      this.hourChecker = setTimeout(() => {
+        console.debug('APIService.checkLastUpdate(): new hour, force a check.');
+        this.checkLastUpdated();
+      }, nextHour) as unknown as number;
+    }
+
+    // check how far through the hour we are
+    const lastRetryPercent = Math.round((this.lastRetry % ONE_HOUR) / ONE_HOUR);
+    const nowPercent = Math.round((now % ONE_HOUR) / ONE_HOUR);
+
+    if (nowPercent < lastRetryPercent) {
+      console.debug(`APIService.checkLastUpdated(): hour reset (${nowPercent} < ${lastRetryPercent})`);
+      // we've hit a new hour, knock retryMillis back down
+      this.retryMillis = this.defaultRetryMillis;
+      clearTimeout(this.hourChecker);
+      this.hourChecker = null;
+    }
 
     const threshold = lastCheck + this.retryMillis;
     console.log(`APIService.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / 1000.0).toPrecision(2)}s`);

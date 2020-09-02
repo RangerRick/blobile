@@ -34,7 +34,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   public lastUpdate = Date.now();
   public filterVisible = false;
   public stale = false;
-  public staleThreshold = 30 * 1000; // 30 seconds
+  public staleThreshold = 30 * 1000; // 30s
 
   private subscription: Subscription;
   private api = new APIService();
@@ -96,7 +96,7 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   filterList(evt: any) {
     this.searchTerm = evt.srcElement.value;
-    return this.refresh();
+    return this.refreshUI();
   }
 
   getSegmentGames() {
@@ -161,8 +161,8 @@ export class Tab1Page implements OnInit, OnDestroy {
     return `${this.countdown.hours} ${this.countdown.hours === 1? 'hour':'hours'}, ${this.countdown.minutes} ${this.countdown.minutes === 1? 'minute':'minutes'}, ${this.countdown.seconds} ${this.countdown.seconds === 1? 'second':'seconds'}`;
   }
 
-  refresh() {
-    console.debug('Stream.refresh()');
+  refreshUI() {
+    console.debug('Stream.refreshUI()');
 
     let ret = this.getSegmentGames();
 
@@ -184,16 +184,27 @@ export class Tab1Page implements OnInit, OnDestroy {
       this.settings.setSegment(this.segment);
     }
     console.debug('Stream.segmentChanged():', evt);
-    this.refresh();
+    this.refreshUI();
   }
 
   checkStale() {
     const current = this.stale;
-    if (this.lastUpdate + this.staleThreshold < Date.now()) {
-      this.stale = true;
-    } else {
-      this.stale = false;
+    if (this.games && this.games.length > 0) {
+      const active = this.games.find(game => !game.gameComplete);
+      if (active) {
+        // there are still active games, check staleness based on the last update received
+        if (this.lastUpdate + this.staleThreshold < Date.now()) {
+          this.stale = true;
+        } else {
+          this.stale = false;
+        }
+      } else {
+        // all active games have completed
+        this.stale = false;
+        // const percent = Math.round(Date.now() % (60 * 60 * 1000) / (60 * 60 * 1000)); // how far through the hour are we?
+      }
     }
+
     console.debug(`Stream.checkStale(): ${current} -> ${this.stale}`);
   }
 
@@ -220,7 +231,7 @@ export class Tab1Page implements OnInit, OnDestroy {
     }
 
     console.debug('Stream.onEvent(): current data:', this.data);
-    this.refresh();
+    this.refreshUI();
     this.hideLoading();
   }
 
