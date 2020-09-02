@@ -7,9 +7,11 @@
       <ion-button *ngIf="loading || stale">
         <ion-spinner></ion-spinner>
       </ion-button>
+      <!--
       <ion-button *ngIf="errors &gt; 0 && !isFinished()">
         <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
       </ion-button>
+      -->
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar *ngIf="ready && !isFinished()">
@@ -57,6 +59,9 @@
     </ion-item>
     <ion-item lines="none" *ngIf="!isPostseason()">
       <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
+    </ion-item>
+    <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
+      No more active games for day {{data.games.sim.day + 1}}.
     </ion-item>
     <ion-grid>
       <ion-row>
