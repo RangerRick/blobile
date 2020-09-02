@@ -89,6 +89,12 @@ export class Tab1Page implements OnInit, OnDestroy {
     */
   }
 
+  forceRefresh(evt: any) {
+    this.api.retry().finally(() => {
+      evt.target.complete();
+    });
+  }
+
   toggleSearchbar() {
     this.filterVisible = !this.filterVisible;
     console.debug(`Stream.toggleSearchbar(): filterVisible=${this.filterVisible}`);

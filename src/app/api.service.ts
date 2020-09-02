@@ -199,15 +199,22 @@ export class APIService {
    */
   public retry() {
     console.debug('APIService.retry()');
-    this.lastRetry = Date.now();
+    return new Promise((resolve, reject) => {
+      try {
+        this.lastRetry = Date.now();
 
-    this.closeSource();
+        this.closeSource();
 
-    const newMillis = Math.floor(Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback));
-    console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
-    this.retryMillis = newMillis;
+        const newMillis = Math.floor(Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback));
+        console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
+        this.retryMillis = newMillis;
 
-    this.createSource();
+        this.createSource();
+        resolve(true);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   private onMessage(ev: MessageEvent) {

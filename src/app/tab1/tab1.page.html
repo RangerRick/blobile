@@ -41,6 +41,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="forceRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <span *ngIf="isFinished()">
     <ion-item lines="none">
@@ -67,7 +70,7 @@
       <ion-row>
         <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
         <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-          <app-diamond [game]="game" (refresh)="refresh()"></app-diamond>
+          <app-diamond [game]="game" (refresh)="refreshUI()"></app-diamond>
         </ion-col>
       </ion-row>
     </ion-grid>
