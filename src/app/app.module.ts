@@ -4,6 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { AlertController, IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
+import { LoadingController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -23,17 +24,31 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private alertController: AlertController, private deploy: Deploy) {
-    this.doUpdate();
+  constructor(private alertController: AlertController, private deploy: Deploy, private loadingController: LoadingController) {
+    this.checkUpdate();
   }
 
   async doUpdate() {
+    const loading = await this.loadingController.create({
+      message: 'Updating...'
+    });
+    await loading.present();
+    await this.deploy.sync({updateMethod: 'background'}, percentDone => {
+      console.debug(`Update is ${percentDone}% done!`);
+    }).finally(() => {
+      loading.dismiss();
+      this.deploy.reloadApp();
+    });
+  }
+
+  async checkUpdate() {
     try {
       const currentVersion = await this.deploy.getCurrentVersion();
-      const resp = await this.deploy.sync({updateMethod: 'background'}, percentDone => {
-        console.debug(`Update is ${percentDone}% done!`);
-      });
-      if (!currentVersion || currentVersion.versionId !== resp.versionId) {
+      const update = await this.deploy.checkForUpdate();
+
+      if (update.available) {
+        this.doUpdate();
+        /*
         // We found an update, as if they want to update!
         const alert = await this.alertController.create({
           // cssClass: 'my-custom-class',
@@ -49,14 +64,13 @@ export class AppModule {
             {
               text: 'Apply',
               handler: () => {
-                this.deploy.reloadApp();
+                this.doUpdate();
               }
             }
           ]
         });
         await alert.present();
-      } else {
-        // No update available
+        */
       }
     } catch (err) {
       console.error('Something went wrong attempting to update:', err);
