@@ -90,9 +90,11 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   forceRefresh(evt: any) {
-    this.api.retry().finally(() => {
-      evt.target.complete();
-    });
+    setTimeout(() => {
+      this.api.retry().finally(() => {
+        evt.target.complete();
+      });
+    }, 500);
   }
 
   toggleSearchbar() {

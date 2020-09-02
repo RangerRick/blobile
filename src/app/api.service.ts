@@ -209,8 +209,7 @@ export class APIService {
         console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
         this.retryMillis = newMillis;
 
-        this.createSource();
-        resolve(true);
+        resolve(this.createSource());
       } catch (err) {
         reject(err);
       }
@@ -242,22 +241,26 @@ export class APIService {
   protected createSource() {
     console.debug('APIService.createSource()');
 
-    // clean up existing and create new event source
-    this.closeSource();
-    this.source = new EventSource(this.url);
-    this.source.addEventListener('message', (ev: MessageEvent) => {
-      this.onMessage(ev);
-    });
+    return new Promise((resolve, reject) => {
+      // clean up existing and create new event source
+      this.closeSource();
+      this.source = new EventSource(this.url);
+      this.source.addEventListener('message', (ev: MessageEvent) => {
+        this.onMessage(ev);
+        resolve(true);
+      });
 
-    // errors should do a retry
-    this.source.addEventListener('error', (ev: Event) => {
-      console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', ev);
-      if (this.observer) {
-        this.observer.next(ev);
-      } else {
-        console.debug('APIService.createSource(): No observer?');
-      }
-      this.checkLastUpdated();
+      // errors should do a retry
+      this.source.addEventListener('error', (ev: Event) => {
+        console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', ev);
+        reject(true);
+        if (this.observer) {
+          this.observer.next(ev);
+        } else {
+          console.debug('APIService.createSource(): No observer?');
+        }
+        this.checkLastUpdated();
+      });
     });
   }
 

@@ -63,6 +63,7 @@
     "watch": "ionic cap run ios --watch --livereload --external",
     "increment": "node increment.js && npm run version",
     "version": "node src/version.js",
+    "prep": "ionic build --prod && ionic cap copy --no-build --prod",
     "postinstall": "npm run version"
   }
 }

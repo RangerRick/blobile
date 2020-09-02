@@ -42,7 +42,10 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="forceRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+    <ion-refresher-content
+      pullingIcon="baseball-outline"
+    ><ion-spinner name="default"></ion-spinner>
+    </ion-refresher-content>
   </ion-refresher>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <span *ngIf="isFinished()">
