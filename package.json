@@ -45,6 +45,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "plist": "^3.0.1",
     "protractor": "~7.0.0",
+    "rimraf": "^3.0.2",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"
@@ -60,7 +61,7 @@
     "increment": "node increment.js && npm run version",
     "version": "node src/version.js",
     "dev": "ionic build && ionic cap copy --no-build",
-    "prep": "ionic build --prod && ionic cap copy --no-build --prod",
+    "prep": "rimraf www/* && ionic build --prod && ionic deploy manifest && ionic cap copy --no-build --prod",
     "postinstall": "npm run version"
   }
 }
