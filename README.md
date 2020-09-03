@@ -7,6 +7,11 @@ Blases Loaded is a mobile app for live-viewing Blaseball games.
 * [iPhone/iPad](https://apps.apple.com/us/app/id1529695719)
 * [Android](https://play.google.com/store/apps/details?id=com.raccoonfink.blobile)
 
+## Beta Testing
+
+* [iPhone/iPad]()
+* [Android](https://play.google.com/apps/testing/com.raccoonfink.blobile)
+
 ## Building
 
 It's an [Ionic](https://ionicframework.com/) [Angular](https://angular.io/) app, so standard Ionic and Angular tools are used for building.

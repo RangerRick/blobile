@@ -24,7 +24,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(async () => {
       SplashScreen.hide();
-      return this.checkUpdate();
+      this.checkUpdate();
+      return true;
     });
   }
 
@@ -48,6 +49,9 @@ export class AppComponent {
               text: 'Not Now',
               role: 'cancel',
               cssClass: 'secondary',
+              handler: () => {
+                return true;
+              }
             },
             {
               text: 'Apply',
