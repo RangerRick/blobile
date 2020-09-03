@@ -21,16 +21,16 @@ export const VERSION = ${JSON.stringify(gitInfo, null, 4)};
 /* tslint:enable */
 `, { encoding: 'utf-8' });
 
-console.log(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
+console.info(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
 
 const infoFile = resolve(__dirname, '..', 'ios', 'App', 'App', 'Info.plist');
 const infoPlist = plist.parse(readFileSync(infoFile, 'utf-8'));
 infoPlist.CFBundleVersion = String(build);
 infoPlist.CFBundleShortVersionString = String(version);
-// console.log(infoPlist);
+// console.info(infoPlist);
 writeFileSync(infoFile, plist.build(infoPlist));
 
-console.log(`Updated ${relative(resolve(__dirname, '..'), infoFile)}`);
+console.info(`Updated ${relative(resolve(__dirname, '..'), infoFile)}`);
 
 const gradleFile = resolve(__dirname, '..', 'android', 'app', 'build.gradle');
 const gradleText = readFileSync(gradleFile, 'utf-8')
@@ -38,4 +38,4 @@ const gradleText = readFileSync(gradleFile, 'utf-8')
     .replace(/versionName[^\r\n]*/mgs, `versionName "${version}"`);
 writeFileSync(gradleFile, gradleText);
 
-console.log(`Updated ${relative(resolve(__dirname, '..'), gradleFile)}`);
+console.info(`Updated ${relative(resolve(__dirname, '..'), gradleFile)}`);
