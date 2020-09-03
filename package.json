@@ -1,8 +1,8 @@
 {
   "name": "blobile",
   "description": "An app for Blaseball",
-  "version": "1.1.0",
-  "build": 20,
+  "version": "1.1.1",
+  "build": 21,
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
@@ -57,6 +57,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "inst": "npm --pure-lockfile --prefer-offline --no-progress install",
     "watch": "ionic cap run ios --watch --livereload --external",
     "increment": "node increment.js && npm run version",
     "version": "node src/version.js",
