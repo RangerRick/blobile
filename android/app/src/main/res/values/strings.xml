@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Blases Loaded</string>
-    <string name="title_activity_main">Blases Loaded</string>
-    <string name="package_name">com.raccoonfink.blobile</string>
-    <string name="custom_url_scheme">com.raccoonfink.blobile</string>
+  <string name="app_name">Blases Loaded</string>
+  <string name="title_activity_main">Blases Loaded</string>
+  <string name="package_name">com.raccoonfink.blobile</string>
+  <string name="custom_url_scheme">com.raccoonfink.blobile</string>
+  <string name="ionic_app_id">15a91f4a</string>
+  <string name="ionic_channel_name">Stable</string>
+  <string name="ionic_update_method">background</string>
 </resources>
