@@ -61,7 +61,7 @@
     "increment": "node increment.js && npm run version",
     "version": "node src/version.js",
     "dev": "ionic build && ionic cap copy --no-build",
-    "prep": "rimraf www/* && ionic build --prod && ionic deploy manifest && ionic cap copy --no-build --prod",
+    "prep": "rimraf www/* && ionic build --prod && ionic deploy manifest && ionic cap sync --no-build --prod",
     "postinstall": "npm run version"
   }
 }
