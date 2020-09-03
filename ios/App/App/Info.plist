@@ -30,7 +30,7 @@
       </dict>
     </array>
     <key>CFBundleVersion</key>
-    <string>19</string>
+    <string>20</string>
     <key>IonApi</key>
     <string>https://api.ionicjs.com</string>
     <key>IonMaxVersions</key>
@@ -38,11 +38,11 @@
     <key>IonMinBackgroundDuration</key>
     <string>30</string>
     <key>LSRequiresIPhoneOS</key>
-    <true />
+    <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
-      <true />
+      <true/>
     </dict>
     <key>NSCameraUsageDescription</key>
     <string>To Take Photos and Video</string>
@@ -78,7 +78,7 @@
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
-    <true />
+    <true/>
     <key>IonAppId</key>
     <string>15a91f4a</string>
     <key>IonChannelName</key>
