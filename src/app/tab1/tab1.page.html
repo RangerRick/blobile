@@ -53,7 +53,7 @@
       <h4>Season {{data.games.season.seasonNumber + 1}} is over.</h4>
     </ion-item>
     <ion-item lines="none">
-      <h4>The <span style="color: {{getWinner().mainColor}}">{{getWinner().fullName}}</span> are the Champions!</h4>
+      <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
     </ion-item>
     <ion-item lines="none">
       <h4>Next Season Starts In {{getNextSeasonStart()}}.</h4>
@@ -61,7 +61,7 @@
   </span>
   <span *ngIf="!isFinished()">
     <ion-item lines="none" *ngIf="isPostseason()">
-      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber + 1}}, Day {{data.games.postseason.playoffs.playoffDay + 1}}</h4>
+      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber + 1}}, Day {{getPlayoffDay()}}</h4>
     </ion-item>
     <ion-item lines="none" *ngIf="!isPostseason()">
       <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>

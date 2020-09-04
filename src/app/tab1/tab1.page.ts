@@ -158,11 +158,15 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   getWinner() {
-    const winner = this?.data?.games?.postseason?.playoffs?.winner;
+    const winner = this.data?.games?.postseason?.playoffs?.winner;
     if (winner) {
       return this.data.leagues.teams.find((team:any) => team.id === winner);
     }
     return undefined;
+  }
+
+  getPlayoffDay() {
+    return (this.data?.games?.postseason?.playoffs?.playoffDay || -1) + 1;
   }
 
   getNextSeasonStart() {
