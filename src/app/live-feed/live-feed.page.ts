@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 
-import { APIService } from '../api.service';
+import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../settings.service';
 
 import Positions from '../../model/positions';
@@ -37,7 +37,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public staleThreshold = 30 * 1000; // 30s
 
   private subscription: Subscription;
-  private api = new APIService();
+  private api = new APIStream();
 
   private clockUpdater: number;
   private countdown = {

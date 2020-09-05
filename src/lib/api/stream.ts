@@ -17,7 +17,7 @@ const ONE_DAY = 60 * ONE_HOUR;
   providedIn: 'root'
 })
 */
-export class APIService {
+export class APIStream {
   /**
    * the URL to connect to when creating an event source
    */
@@ -82,9 +82,9 @@ export class APIService {
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
 
-    console.debug(`APIService(): default retry:          ${this.defaultRetryMillis}ms`);
-    console.debug(`APIService(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
-    console.debug(`APIService(): default retry fallback: ${this.defaultRetryFallback}x`);
+    console.debug(`APIStream(): default retry:          ${this.defaultRetryMillis}ms`);
+    console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
+    console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
     Device.getInfo().then(info => {
       if (info.platform !== 'web') {
@@ -98,7 +98,7 @@ export class APIService {
   }
 
   async init(url?: string) {
-    console.debug('APIService.init(): initializing.');
+    console.debug('APIStream.init(): initializing.');
     this.isStarted = false;
 
     this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
@@ -106,7 +106,7 @@ export class APIService {
     });
 
     if (url) {
-      console.debug(`APIService.init(): pre-configured URL: ${url}`);
+      console.debug(`APIStream.init(): pre-configured URL: ${url}`);
       this.url = url;
     } else {
       // this.url = 'https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData';
@@ -117,32 +117,32 @@ export class APIService {
     try {
       this.isActive = (await App.getState()).isActive;
     } catch (err) {
-      console.error('APIService.init(): failed to get app state, assuming active.', err);
+      console.error('APIStream.init(): failed to get app state, assuming active.', err);
       this.isActive = true;
     }
     try {
       this.isConnected = (await Network.getStatus()).connected;
     } catch (err) {
-      console.error('APIService.init(): failed to get connection state, assuming connected.', err);
+      console.error('APIStream.init(): failed to get connection state, assuming connected.', err);
       this.isConnected = true;
     }
 
     App.addListener('appStateChange', async (state: AppState) => {
       try {
         const info = await Device.getInfo();
-        console.debug(`APIService.init() isActive: ${this.isActive} -> ${state.isActive}`);
+        console.debug(`APIStream.init() isActive: ${this.isActive} -> ${state.isActive}`);
         if (state.isActive) {
           this.handleSystemChange(true);
         } else if (info.platform !== 'web') {
           this.handleSystemChange();
         }
       } catch (err) {
-        console.debug('APIService.init() isActive: Device.getInfo() failed, assuming web', err);
+        console.debug('APIStream.init() isActive: Device.getInfo() failed, assuming web', err);
       };
     });
 
     Network.addListener('networkStatusChange', status => {
-      console.debug(`APIService.init() isConnected: ${this.isConnected} -> ${status.connected}`);
+      console.debug(`APIStream.init() isConnected: ${this.isConnected} -> ${status.connected}`);
       if (status.connected) {
         this.handleSystemChange(true);
       }
@@ -150,16 +150,16 @@ export class APIService {
   }
 
   handleSystemChange(retrigger?: boolean) {
-    console.debug(`APIService.handleSystemChange(): retrigger=${retrigger}`);
+    console.debug(`APIStream.handleSystemChange(): retrigger=${retrigger}`);
 
     if (this.isStarted) {
       if (retrigger || !this.source) {
-        console.debug('APIService.handleSystemChange(): (re)creating connection');
+        console.debug('APIStream.handleSystemChange(): (re)creating connection');
         this.createSource();
         this.startCheckingLastUpdated();
       }
     } else {
-      console.debug('APIService.handleSystemChange(): shutting down');
+      console.debug('APIStream.handleSystemChange(): shutting down');
       // disable checker
       if (this.retryChecker) {
         clearInterval(this.retryChecker);
@@ -178,7 +178,7 @@ export class APIService {
    * @returns an {@link Observable} that can be subscribed to.
    */
   start(): Observable<MessageEvent|Event> {
-    console.info('APIService.start()');
+    console.info('APIStream.start()');
 
     this.isStarted = true;
     this.handleSystemChange();
@@ -191,7 +191,7 @@ export class APIService {
    * Completes the {@link Observable} and closes all resources.
    */
   stop() {
-    console.info('APIService.stop()');
+    console.info('APIStream.stop()');
 
     this.isStarted = false;
     this.handleSystemChange();
@@ -212,7 +212,7 @@ export class APIService {
    * This will close the stream and create a new one, and logarithmically extend the retry time by {@link defaultRetryFallback}.
    */
   public retry() {
-    console.debug('APIService.retry()');
+    console.debug('APIStream.retry()');
     return new Promise((resolve, reject) => {
       try {
         this.lastRetry = Date.now();
@@ -220,7 +220,7 @@ export class APIService {
         this.closeSource();
 
         const newMillis = Math.floor(Math.min(this.maxRetryMillis, this.retryMillis * this.defaultRetryFallback));
-        console.debug(`APIService.retry(): ${this.retryMillis} -> ${newMillis}`);
+        console.debug(`APIStream.retry(): ${this.retryMillis} -> ${newMillis}`);
         this.retryMillis = newMillis;
 
         resolve(this.createSource());
@@ -231,18 +231,18 @@ export class APIService {
   }
 
   private onMessage(data:any) {
-    console.debug('APIService.onMessage()');
+    console.debug('APIStream.onMessage()');
 
     const ev = new MessageEvent('message', {
       data: data
     });
 
     if (this.lastUpdate !== ev.data) {
-      // console.debug('APIService.onMessage(): change:', this.lastUpdate, ev?.data);
+      // console.debug('APIStream.onMessage(): change:', this.lastUpdate, ev?.data);
 
       // successful/new message, reset retry and last updated
       if (this.retryMillis !== this.defaultRetryMillis) {
-        console.debug(`APIService.onMessage(): ${this.retryMillis} -> ${this.defaultRetryMillis}`);
+        console.debug(`APIStream.onMessage(): ${this.retryMillis} -> ${this.defaultRetryMillis}`);
         this.retryMillis = this.defaultRetryMillis;
       }
 
@@ -257,7 +257,7 @@ export class APIService {
   }
 
   protected createSource() {
-    console.debug('APIService.createSource()');
+    console.debug('APIStream.createSource()');
 
     return new Promise((resolve, reject) => {
       // clean up existing and create new event source
@@ -270,7 +270,7 @@ export class APIService {
 
       // errors should do a retry
       EventSource.addListener('error', (res: ErrorResult) => {
-        console.error('APIService.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
+        console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
         reject(true);
         if (this.observer) {
           const ev = new ErrorEvent('error', {
@@ -278,7 +278,7 @@ export class APIService {
           });
           this.observer.next(ev);
         } else {
-          console.debug('APIService.createSource(): No observer?');
+          console.debug('APIStream.createSource(): No observer?');
         }
         this.checkLastUpdated();
       });
@@ -293,12 +293,12 @@ export class APIService {
       EventSource.close();
       this.source = null;
     } catch (err) {
-      console.warn('APIService.closeSource(): failed to close event source:', err);
+      console.warn('APIStream.closeSource(): failed to close event source:', err);
     };
   }
 
   protected startCheckingLastUpdated() {
-    console.debug('APIService.startCheckingLastUpdated()');
+    console.debug('APIStream.startCheckingLastUpdated()');
     if (this.retryChecker) {
       clearInterval(this.retryChecker);
     }
@@ -319,7 +319,7 @@ export class APIService {
       const nextHour = now - remainder + ONE_HOUR;
 
       this.hourChecker = setTimeout(() => {
-        console.debug('APIService.checkLastUpdate(): new hour, force a check.');
+        console.debug('APIStream.checkLastUpdate(): new hour, force a check.');
         this.checkLastUpdated();
       }, nextHour) as unknown as number;
     }
@@ -329,7 +329,7 @@ export class APIService {
     const nowPercent = Math.round((now % ONE_HOUR) / ONE_HOUR * 100);
 
     if (nowPercent < lastRetryPercent) {
-      console.debug(`APIService.checkLastUpdated(): hour reset (${nowPercent} < ${lastRetryPercent})`);
+      console.debug(`APIStream.checkLastUpdated(): hour reset (${nowPercent} < ${lastRetryPercent})`);
       // we've hit a new hour, knock retryMillis back down
       this.retryMillis = this.defaultRetryMillis;
       clearTimeout(this.hourChecker);
@@ -337,11 +337,11 @@ export class APIService {
     }
 
     const threshold = lastCheck + this.retryMillis;
-    console.debug(`APIService.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / SECOND / 1.0).toPrecision(2)}s`);
+    console.debug(`APIStream.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / SECOND / 1.0).toPrecision(2)}s`);
     if (now > threshold) {
       this.retry();
     } else {
-      console.debug(`APIService.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);
+      console.debug(`APIStream.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);
     }
   }
 
