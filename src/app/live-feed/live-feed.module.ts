@@ -2,19 +2,19 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { LiveFeedPage } from './live-feed.page';
 import { DiamondComponentModule } from '../diamond/diamond.module';
 
-import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { LiveFeedPageRoutingModule } from './live-feed-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab1PageRoutingModule,
+    LiveFeedPageRoutingModule,
     DiamondComponentModule,
   ],
-  declarations: [Tab1Page]
+  declarations: [LiveFeedPage]
 })
-export class Tab1PageModule {}
+export class LiveFeedPageModule {}

@@ -8,11 +8,11 @@ import Positions from '../../model/positions';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-live-feed',
+  templateUrl: 'live-feed.page.html',
+  styleUrls: ['live-feed.page.scss']
 })
-export class Tab1Page implements OnInit, OnDestroy {
+export class LiveFeedPage implements OnInit, OnDestroy {
   protected positions = {
     first: null,
     second: null,
