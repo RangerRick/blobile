@@ -4,7 +4,6 @@ import { AlertController, Platform } from '@ionic/angular';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { Plugins } from '@capacitor/core';
-import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
 const { SplashScreen } = Plugins;
 
 @Component({
@@ -13,6 +12,8 @@ const { SplashScreen } = Plugins;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  public updateAvailable = false;
+
   constructor(
     private alertController: AlertController,
     private deploy: Deploy,
@@ -29,6 +30,36 @@ export class AppComponent {
     });
   }
 
+  async triggerUpdate() {
+    console.debug('AppComponent.triggerUpdate()');
+
+    const alert = await this.alertController.create({
+      // cssClass: 'my-custom-class',
+      header: 'Update Available',
+      // subHeader: 'Subtitle',
+      message: 'An update is available. Apply now?',
+      buttons: [
+        {
+          text: 'Not Now',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.debug('AppComponent.triggerUpdate(): skipping reload');
+            return true;
+          }
+        },
+        {
+          text: 'Apply',
+          handler: async () => {
+            console.debug('AppComponent.triggerUpdate(): reloading app');
+            return this.deploy.reloadApp();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async checkUpdate() {
     try {
       const currentVersion = await this.deploy.getCurrentVersion();
@@ -37,32 +68,7 @@ export class AppComponent {
         console.debug(`AppComponent.checkUpdate(): ${percentDone}% done`);
       });
       console.info(`AppComponent.checkUpdate(): update=${update ? update.versionId : 'unknown'}`);
-      if (! currentVersion || currentVersion.versionId !== update.versionId) {
-        // We found an update, ask if they want to update!
-        const alert = await this.alertController.create({
-          // cssClass: 'my-custom-class',
-          header: 'Update Available',
-          // subHeader: 'Subtitle',
-          message: 'An update is available. Apply now?',
-          buttons: [
-            {
-              text: 'Not Now',
-              role: 'cancel',
-              cssClass: 'secondary',
-              handler: () => {
-                return true;
-              }
-            },
-            {
-              text: 'Apply',
-              handler: async () => {
-                return this.deploy.reloadApp();
-              }
-            }
-          ]
-        });
-        await alert.present();
-      }
+      this.updateAvailable = ! currentVersion || currentVersion.versionId !== update.versionId;
       return true;
     } catch (err) {
       console.error(`AppComponent.checkUpdate(): something went wrong attempting to update: ${err.message? err.message : 'unknown'}`);
