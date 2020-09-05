@@ -12,8 +12,8 @@ const routes: Routes = [
         loadChildren: () => import('../live-feed/live-feed.module').then(m => m.LiveFeedPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'standings',
+        loadChildren: () => import('../standings/standings.module').then(m => m.StandingsPageModule)
       },
       {
         path: 'tab3',

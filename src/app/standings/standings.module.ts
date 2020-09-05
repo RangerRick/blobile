@@ -1,19 +1,18 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import { StandingsPage } from './standings.page';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { StandingsPageRoutingModule } from './standings-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab2PageRoutingModule
+    StandingsPageRoutingModule
   ],
-  declarations: [Tab2Page]
+  declarations: [StandingsPage]
 })
-export class Tab2PageModule {}
+export class StandingsPageModule {}
