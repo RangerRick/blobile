@@ -2,8 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { SettingsService } from '../settings.service';
 
-import Positions from '../../model/positions';
-import Player from '../../model/player';
+// import Positions from '../../lib/model/positions';
+// import Player from '../../lib/model/player';
 
 @Component({
   selector: 'app-diamond',
@@ -11,15 +11,6 @@ import Player from '../../model/player';
   styleUrls: ['./diamond.component.scss'],
 })
 export class DiamondComponent implements OnInit {
-  @Input() public positions = {
-    first: null,
-    second: null,
-    third: null,
-    home: null,
-    pitcher: null,
-  } as Positions;
-  @Input() public homeTeam: string;
-  @Input() public awayTeam: string;
   @Input() public game: any;
   @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
 

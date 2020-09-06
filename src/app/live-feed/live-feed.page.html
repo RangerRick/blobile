@@ -50,7 +50,7 @@
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <span *ngIf="isFinished()">
     <ion-item lines="none">
-      <h4>Season {{data.games.season.seasonNumber + 1}} is over.</h4>
+      <h4>Season {{data.games.season.seasonNumber}} is over.</h4>
     </ion-item>
     <ion-item lines="none">
       <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
@@ -61,13 +61,13 @@
   </span>
   <span *ngIf="!isFinished()">
     <ion-item lines="none" *ngIf="isPostseason()">
-      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber + 1}}, Day {{getPlayoffDay()}}</h4>
+      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber}}, Day {{getPlayoffDay()}}</h4>
     </ion-item>
     <ion-item lines="none" *ngIf="!isPostseason()">
-      <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber + 1}}, Day {{data.games.sim.day + 1}}</h4>
+      <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber}}, Day {{data.games.sim.day}}</h4>
     </ion-item>
     <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
-      No more active games for day {{data.games.sim.day + 1}}.
+      No more active games for day {{data.games.sim.day}}.
     </ion-item>
     <ion-grid>
       <ion-row>

@@ -15,13 +15,13 @@
       <ion-title class="ion-no-padding">
         <div class="team-header">
           <div class="team-lozenge">
-            <span class="team-emoji" style="background-color: {{game.awayTeamColor}}" [innerHTML]="getEmoji('away')"></span>
+            <span class="team-emoji" [style]="'background-color: ' + game.awayTeamColor" [innerHTML]="getEmoji('away')"></span>
             {{game.awayTeamNickname}}
           </div>
           at
           <div class="team-lozenge">
             {{game.homeTeamNickname}}
-            <span class="team-emoji" style="background-color: {{game.homeTeamColor}}" [innerHTML]="getEmoji('home')"></span>
+            <span class="team-emoji" [style]="'background-color: ' + game.homeTeamColor" [innerHTML]="getEmoji('home')"></span>
           </div>
         </div>
       </ion-title>
@@ -80,10 +80,10 @@
           <div>AWAY&nbsp;<div class="scorebox-box">{{game.awayScore}}</div></div>
         </ion-col>
         <ion-col *ngIf="game.gameComplete" class="ion-text-end">
-          <div>FINAL <span *ngIf="game.inning > 8">({{game.inning + 1}})</span></div>
+          <div>FINAL <span *ngIf="game.inning > 8">({{game.inning}})</span></div>
         </ion-col>
         <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
-          <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning + 1}}</div></div>
+          <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning}}</div></div>
         </ion-col>
         <ion-col>
           <div>HOME&nbsp;<div class="scorebox-box">{{game.homeScore}}</div></div>

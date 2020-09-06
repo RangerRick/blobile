@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Slettings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none" class="ion-text-wrap">
+    <span *ngIf="platform !== 'web'">
+      <ion-list-header lines="full">
+        <h3>Automatic Updates</h3>
+      </ion-list-header>
+      <ion-item *ngIf="updateService.updateAvailable" color="danger">
+        You have an update available.
+        <ion-button slot="end" color="light">Reload</ion-button>
+      </ion-item>
+      <ion-item>
+        Receive beta updates?
+        <ion-toggle (ionChange)="setBeta()" [(ngModel)]="betaEnabled" slot="end"></ion-toggle>
+      </ion-item>
+      </span>
+  </ion-list>
+</ion-content>

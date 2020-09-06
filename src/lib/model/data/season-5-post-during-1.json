@@ -1,0 +1,331 @@
+{
+  "sim": {
+    "id": "thisidisstaticyo",
+    "day": 104,
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "nextElectionEnd": "2020-09-06T19:00:00.745Z",
+    "nextPhaseTime": "2020-09-05T13:00:00.390Z",
+    "nextSeasonStart": "2020-09-07T16:00:00.745Z",
+    "phase": 4,
+    "playOffRound": 1,
+    "playoffs": "8e354ba9-7825-468d-b81f-6f5654ef66aa",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "season": 4,
+    "seasonId": "9465ef83-c4c7-4aaa-83d0-d78854652618",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+    "eraColor": "#ff0000",
+    "eraTitle": "The Discipline Era",
+    "twgo": "JHFMTOJMNPSMLMDGFOSEZDTMJWHPADAACGRTBBPBBCJRTPMJCSNKKAOMVMSTAJTVTCJIMPSSSTBFHRSSMSDKIRLWLVWSSMEIMCCDMDRTEI",
+    "subEraColor": "#61b3ff",
+    "subEraTitle": "Reverb",
+    "attr": [
+      "OPENED_BOOK",
+      "UNLOCKED_PEANUTS",
+      "EAT_THE_RICH",
+      "UNLOCKED_INTERVIEWS"
+    ]
+  },
+  "season": {
+    "id": "9465ef83-c4c7-4aaa-83d0-d78854652618",
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "schedule": "de797ddc-e17f-4530-a336-ff13411a5c88",
+    "seasonNumber": 4,
+    "standings": "48789741-69b1-4aa9-a46c-eda3351a3f5e",
+    "stats": "51c29a58-a4c6-435a-8c60-ab49a493d98f",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b"
+  },
+  "standings": {
+    "id": "48789741-69b1-4aa9-a46c-eda3351a3f5e",
+    "losses": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 34,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 76,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 48,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 48,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 39,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 53,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 59,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 51,
+      "7966eb04-efcc-499b-8f03-d13916330531": 54,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 35,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 34,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 53,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 64,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 50,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 44,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 44,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 56,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 60,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 47,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 41
+    },
+    "wins": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 65,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 23,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 51,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 51,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 60,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 46,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 40,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 48,
+      "7966eb04-efcc-499b-8f03-d13916330531": 45,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 64,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 65,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 46,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 35,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 49,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 55,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 55,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 43,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 39,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 52,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 58
+    }
+  },
+  "schedule": [
+    {
+      "id": "4934a7f1-0198-4885-b364-e99d42a7ecb0",
+      "basesOccupied": [],
+      "baseRunners": [],
+      "baseRunnerNames": [],
+      "outcomes": [],
+      "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+      "lastUpdate": "Top of 4, Breckenridge Jazz Hands batting.",
+      "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+      "statsheet": "4ea12cd9-0e36-46e3-8886-041b841ebcb4",
+      "awayPitcher": "f3c07eaf-3d6c-4cc3-9e54-cbecc9c08286",
+      "awayPitcherName": "Campos Arias",
+      "awayBatter": null,
+      "awayBatterName": "",
+      "awayTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+      "awayTeamName": "Breckenridge Jazz Hands",
+      "awayTeamNickname": "Jazz Hands",
+      "awayTeamColor": "#6388ad",
+      "awayTeamEmoji": "0x1F450",
+      "awayOdds": 0.5768707326055956,
+      "awayStrikes": 3,
+      "awayScore": 0,
+      "awayTeamBatterCount": 10,
+      "homePitcher": "9ba361a1-16d5-4f30-b590-fc4fc2fb53d2",
+      "homePitcherName": "Mooney Doctor",
+      "homeBatter": null,
+      "homeBatterName": "",
+      "homeTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+      "homeTeamName": "Canada Moist Talkers",
+      "homeTeamNickname": "Moist Talkers",
+      "homeTeamColor": "#f5feff",
+      "homeTeamEmoji": "0x1F5E3",
+      "homeOdds": 0.42312926739440415,
+      "homeStrikes": 3,
+      "homeScore": 0,
+      "homeTeamBatterCount": 9,
+      "season": 4,
+      "isPostseason": true,
+      "day": 104,
+      "phase": 3,
+      "gameComplete": false,
+      "finalized": false,
+      "gameStart": true,
+      "halfInningOuts": 0,
+      "halfInningScore": 0,
+      "inning": 3,
+      "topOfInning": true,
+      "atBatBalls": 0,
+      "atBatStrikes": 0,
+      "seriesIndex": 2,
+      "seriesLength": 5,
+      "shame": false,
+      "weather": 7,
+      "baserunnerCount": 0
+    },
+    {
+      "id": "4f7f5e40-8d8c-4e15-bf2f-880a71552455",
+      "basesOccupied": [
+        0
+      ],
+      "baseRunners": [
+        "23110c0f-2cf9-4d9c-ab2d-634f2f18867e"
+      ],
+      "baseRunnerNames": [
+        "Kennedy Meh"
+      ],
+      "outcomes": [],
+      "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+      "lastUpdate": "Strike, looking. 1-1",
+      "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+      "statsheet": "317ee1bc-8bcb-46bc-9a6c-07d1c3916dcb",
+      "awayPitcher": "db33a54c-3934-478f-bad4-fc313ac2580e",
+      "awayPitcherName": "Percival Wheeler",
+      "awayBatter": "2b157c5c-9a6a-45a6-858f-bf4cf4cbc0bd",
+      "awayBatterName": "Ortiz Lopez",
+      "awayTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+      "awayTeamName": "San Francisco Lovers",
+      "awayTeamNickname": "Lovers",
+      "awayTeamColor": "#780018",
+      "awayTeamEmoji": "0x1F48B",
+      "awayOdds": 0.43427270500619125,
+      "awayStrikes": 3,
+      "awayScore": 0,
+      "awayTeamBatterCount": 11,
+      "homePitcher": "d23a1f7e-0071-444e-8361-6ae01f13036f",
+      "homePitcherName": "Edric Tosser",
+      "homeBatter": null,
+      "homeBatterName": "",
+      "homeTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+      "homeTeamName": "Chicago Firefighters",
+      "homeTeamNickname": "Firefighters",
+      "homeTeamColor": "#8c2a3e",
+      "homeTeamEmoji": "0x1F525",
+      "homeOdds": 0.5657272949938088,
+      "homeStrikes": 3,
+      "homeScore": 0,
+      "homeTeamBatterCount": 7,
+      "season": 4,
+      "isPostseason": true,
+      "day": 104,
+      "phase": 5,
+      "gameComplete": false,
+      "finalized": false,
+      "gameStart": true,
+      "halfInningOuts": 1,
+      "halfInningScore": 0,
+      "inning": 2,
+      "topOfInning": true,
+      "atBatBalls": 1,
+      "atBatStrikes": 1,
+      "seriesIndex": 2,
+      "seriesLength": 5,
+      "shame": false,
+      "weather": 13,
+      "baserunnerCount": 1
+    }
+  ],
+  "tomorrowSchedule": [],
+  "postseason": {
+    "playoffs": {
+      "id": "8e354ba9-7825-468d-b81f-6f5654ef66aa",
+      "name": "Season 5 Postseason",
+      "numberOfRounds": 3,
+      "playoffDay": 5,
+      "rounds": [
+        "34c99cbf-1d7d-4715-8957-8abcba3c5b89",
+        "79cbac29-c60f-4962-9a11-60f9aacca7dc",
+        "e647b1d5-829d-4aeb-b50d-3426c99b5c21"
+      ],
+      "season": 4,
+      "tomorrowRound": 1,
+      "winner": null
+    },
+    "round": {
+      "id": "79cbac29-c60f-4962-9a11-60f9aacca7dc",
+      "gameIndex": 1,
+      "games": [
+        [
+          "9fb487ca-f154-4b3d-9872-aeec3ddd55d3",
+          "ffbe372c-58ec-4175-87a2-9499c40ccd9e",
+          "none",
+          "none"
+        ],
+        [
+          "4f7f5e40-8d8c-4e15-bf2f-880a71552455",
+          "4934a7f1-0198-4885-b364-e99d42a7ecb0"
+        ]
+      ],
+      "matchups": [
+        "5841f3b1-1930-456d-b51c-bf9edc894ce2",
+        "7e1d1179-35c5-4dc7-8a9f-3d0a153ffaa6"
+      ],
+      "name": "Round 2",
+      "roundNumber": 1,
+      "special": false,
+      "winnerSeeds": [
+        -1,
+        -1
+      ],
+      "winners": [
+        "none",
+        "none"
+      ]
+    },
+    "matchups": [
+      {
+        "id": "5841f3b1-1930-456d-b51c-bf9edc894ce2",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 1
+      },
+      {
+        "id": "7e1d1179-35c5-4dc7-8a9f-3d0a153ffaa6",
+        "name": null,
+        "awaySeed": 3,
+        "awayTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "awayWins": 1,
+        "homeSeed": 1,
+        "homeTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+        "homeWins": 0
+      }
+    ],
+    "tomorrowRound": {
+      "id": "79cbac29-c60f-4962-9a11-60f9aacca7dc",
+      "gameIndex": 1,
+      "games": [
+        [
+          "9fb487ca-f154-4b3d-9872-aeec3ddd55d3",
+          "ffbe372c-58ec-4175-87a2-9499c40ccd9e",
+          "none",
+          "none"
+        ],
+        [
+          "4f7f5e40-8d8c-4e15-bf2f-880a71552455",
+          "4934a7f1-0198-4885-b364-e99d42a7ecb0"
+        ]
+      ],
+      "matchups": [
+        "5841f3b1-1930-456d-b51c-bf9edc894ce2",
+        "7e1d1179-35c5-4dc7-8a9f-3d0a153ffaa6"
+      ],
+      "name": "Round 2",
+      "roundNumber": 1,
+      "special": false,
+      "winnerSeeds": [
+        -1,
+        -1
+      ],
+      "winners": [
+        "none",
+        "none"
+      ]
+    },
+    "tomorrowMatchups": [
+      {
+        "id": "5841f3b1-1930-456d-b51c-bf9edc894ce2",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 1
+      },
+      {
+        "id": "7e1d1179-35c5-4dc7-8a9f-3d0a153ffaa6",
+        "name": null,
+        "awaySeed": 3,
+        "awayTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "awayWins": 1,
+        "homeSeed": 1,
+        "homeTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+        "homeWins": 0
+      }
+    ]
+  },
+  "clientMeta": {
+    "timestamp": 1599329499655,
+    "processId": "868ad523-fa3d-4db0-bd0c-8b60e20008fb",
+    "lastEventId": ""
+  }
+}

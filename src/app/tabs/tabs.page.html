@@ -3,7 +3,7 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="live-feed">
       <ion-icon name="baseball-outline"></ion-icon>
-      <!-- <ion-label>Live Feed</ion-label> -->
+      <ion-label>Live Feed</ion-label>
     </ion-tab-button>
 
     <!--
@@ -11,11 +11,17 @@
       <ion-icon name="podium-outline"></ion-icon>
       <ion-label>Standings</ion-label>
     </ion-tab-button>
+
+    <ion-tab-button tab="settings">
+      <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>Slettings</ion-label>
+      <ion-badge *ngIf="updateService.updateAvailable" color="danger"><ion-icon name="cloud-download-outline"></ion-icon></ion-badge>
+    </ion-tab-button>
     -->
 
     <ion-tab-button tab="about">
       <ion-icon name="information-circle-outline"></ion-icon>
-      <!-- <ion-label>About</ion-label> -->
+      <ion-label>About</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

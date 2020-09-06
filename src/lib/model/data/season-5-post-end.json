@@ -1,0 +1,256 @@
+{
+  "sim": {
+    "id": "thisidisstaticyo",
+    "day": 112,
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "nextElectionEnd": "2020-09-06T19:00:00.912Z",
+    "nextPhaseTime": "2020-09-06T12:00:00.183Z",
+    "nextSeasonStart": "2020-09-07T16:00:00.184Z",
+    "phase": 5,
+    "playOffRound": 2,
+    "playoffs": "8e354ba9-7825-468d-b81f-6f5654ef66aa",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "season": 4,
+    "seasonId": "9465ef83-c4c7-4aaa-83d0-d78854652618",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+    "eraColor": "#ff0000",
+    "eraTitle": "The Discipline Era",
+    "twgo": "JHFMTOJMNPSMLMDGFOSEZDTMJWHPADAACGRTBBPBBCJRTPMJCSNKKAOMVMSTAJTVTCJIMPSSSTBFHRSSMSDKIRLWLVWSSMEIMCCDMDRTEI",
+    "subEraColor": "#61b3ff",
+    "subEraTitle": "Reverb",
+    "attr": [
+      "OPENED_BOOK",
+      "UNLOCKED_PEANUTS",
+      "EAT_THE_RICH",
+      "UNLOCKED_INTERVIEWS"
+    ]
+  },
+  "season": {
+    "id": "9465ef83-c4c7-4aaa-83d0-d78854652618",
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "schedule": "de797ddc-e17f-4530-a336-ff13411a5c88",
+    "seasonNumber": 4,
+    "standings": "48789741-69b1-4aa9-a46c-eda3351a3f5e",
+    "stats": "51c29a58-a4c6-435a-8c60-ab49a493d98f",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b"
+  },
+  "standings": {
+    "id": "48789741-69b1-4aa9-a46c-eda3351a3f5e",
+    "losses": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 34,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 76,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 48,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 48,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 39,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 53,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 59,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 51,
+      "7966eb04-efcc-499b-8f03-d13916330531": 54,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 35,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 34,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 53,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 64,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 50,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 44,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 44,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 56,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 60,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 47,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 41
+    },
+    "wins": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 65,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 23,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 51,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 51,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 60,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 46,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 40,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 48,
+      "7966eb04-efcc-499b-8f03-d13916330531": 45,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 64,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 65,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 46,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 35,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 49,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 55,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 55,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 43,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 39,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 52,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 58
+    }
+  },
+  "schedule": [
+    {
+      "id": "52f6274e-e0dc-4c23-87e8-686f6d2b2bbf",
+      "basesOccupied": [],
+      "baseRunners": [],
+      "baseRunnerNames": [],
+      "outcomes": [],
+      "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+      "lastUpdate": "Game over.",
+      "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+      "statsheet": "12dad0d2-5aba-4c76-962c-4005b3272414",
+      "awayPitcher": "4bf352d2-6a57-420a-9d45-b23b2b947375",
+      "awayPitcherName": "Rivers Rosa",
+      "awayBatter": null,
+      "awayBatterName": "",
+      "awayTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+      "awayTeamName": "Chicago Firefighters",
+      "awayTeamNickname": "Firefighters",
+      "awayTeamColor": "#8c2a3e",
+      "awayTeamEmoji": "0x1F525",
+      "awayOdds": 0.5668865337951325,
+      "awayStrikes": 3,
+      "awayScore": 6,
+      "awayTeamBatterCount": 37,
+      "homePitcher": "bf122660-df52-4fc4-9e70-ee185423ff93",
+      "homePitcherName": "Walton Sports",
+      "homeBatter": null,
+      "homeBatterName": "",
+      "homeTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+      "homeTeamName": "Breckenridge Jazz Hands",
+      "homeTeamNickname": "Jazz Hands",
+      "homeTeamColor": "#6388ad",
+      "homeTeamEmoji": "0x1F450",
+      "homeOdds": 0.43311346620486757,
+      "homeStrikes": 3,
+      "homeScore": 0,
+      "homeTeamBatterCount": 31,
+      "season": 4,
+      "isPostseason": true,
+      "day": 112,
+      "phase": 6,
+      "gameComplete": true,
+      "finalized": true,
+      "gameStart": true,
+      "halfInningOuts": 0,
+      "halfInningScore": 0,
+      "inning": 8,
+      "topOfInning": false,
+      "atBatBalls": 0,
+      "atBatStrikes": 0,
+      "seriesIndex": 5,
+      "seriesLength": 5,
+      "shame": false,
+      "weather": 13,
+      "baserunnerCount": 0
+    }
+  ],
+  "tomorrowSchedule": [],
+  "postseason": {
+    "playoffs": {
+      "id": "8e354ba9-7825-468d-b81f-6f5654ef66aa",
+      "name": "Season 5 Postseason",
+      "numberOfRounds": 3,
+      "playoffDay": 13,
+      "rounds": [
+        "34c99cbf-1d7d-4715-8957-8abcba3c5b89",
+        "79cbac29-c60f-4962-9a11-60f9aacca7dc",
+        "e647b1d5-829d-4aeb-b50d-3426c99b5c21"
+      ],
+      "season": 4,
+      "tomorrowRound": 2,
+      "winner": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16"
+    },
+    "round": {
+      "id": "e647b1d5-829d-4aeb-b50d-3426c99b5c21",
+      "gameIndex": 4,
+      "games": [
+        [
+          "ddfd2b7f-e547-4b1e-b597-9ef2af3a1775",
+          "none"
+        ],
+        [
+          "af6ca8ef-62af-4b39-bdc2-9b3d649fb353"
+        ],
+        [
+          "8f4397cf-d15a-4b89-879d-87d775f402fb"
+        ],
+        [
+          "9298a48f-c2fc-4821-9466-1ecacfd35a56"
+        ],
+        [
+          "52f6274e-e0dc-4c23-87e8-686f6d2b2bbf"
+        ]
+      ],
+      "matchups": [
+        "937187dc-4d7d-45d3-95f6-dfb2ae2972a9"
+      ],
+      "name": "The Internet Series",
+      "roundNumber": 2,
+      "special": true,
+      "winnerSeeds": [
+        2
+      ],
+      "winners": [
+        "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16"
+      ]
+    },
+    "matchups": [
+      {
+        "id": "937187dc-4d7d-45d3-95f6-dfb2ae2972a9",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+        "awayWins": 3,
+        "homeSeed": 1,
+        "homeTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+        "homeWins": 2
+      }
+    ],
+    "tomorrowRound": {
+      "id": "e647b1d5-829d-4aeb-b50d-3426c99b5c21",
+      "gameIndex": 4,
+      "games": [
+        [
+          "ddfd2b7f-e547-4b1e-b597-9ef2af3a1775",
+          "none"
+        ],
+        [
+          "af6ca8ef-62af-4b39-bdc2-9b3d649fb353"
+        ],
+        [
+          "8f4397cf-d15a-4b89-879d-87d775f402fb"
+        ],
+        [
+          "9298a48f-c2fc-4821-9466-1ecacfd35a56"
+        ],
+        [
+          "52f6274e-e0dc-4c23-87e8-686f6d2b2bbf"
+        ]
+      ],
+      "matchups": [
+        "937187dc-4d7d-45d3-95f6-dfb2ae2972a9"
+      ],
+      "name": "The Internet Series",
+      "roundNumber": 2,
+      "special": true,
+      "winnerSeeds": [
+        2
+      ],
+      "winners": [
+        "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16"
+      ]
+    },
+    "tomorrowMatchups": [
+      {
+        "id": "937187dc-4d7d-45d3-95f6-dfb2ae2972a9",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16",
+        "awayWins": 3,
+        "homeSeed": 1,
+        "homeTeam": "a37f9158-7f82-46bc-908c-c9e2dda7c33b",
+        "homeWins": 2
+      }
+    ]
+  },
+  "clientMeta": {
+    "timestamp": 1599359121437,
+    "processId": "868ad523-fa3d-4db0-bd0c-8b60e20008fb",
+    "lastEventId": ""
+  }
+}
