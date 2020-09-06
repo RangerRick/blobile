@@ -157,7 +157,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     if (winner) {
       return this.data.leagues.teams.find((team:Team) => team.id === winner);
     }
-    return {};
+    return new Team();
   }
 
   getPlayoffDay() {

@@ -2,7 +2,21 @@ import { Entry } from './_entry';
 
 export class Team extends Entry {
   public id: string;
-
+  public championships: number;
+  public emoji: string;
+  public fullName: string;
+  public location: string;
+  public mainColor: string;
+  public nickname: string;
+  public seasonShames: number;
+  public seasonShamings: number;
+  public secondaryColor: string;
+  public shameRuns: number;
+  public shorthand: string;
+  public slogan: string;
+  public totalShames: number;
+  public totalShamings: number;
+  
   constructor(data?: any) {
     super(data);
 
