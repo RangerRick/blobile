@@ -2,21 +2,16 @@
 import { Observable, Observer } from 'rxjs';
 
 import { AppState, Plugins } from '@capacitor/core';
-const { App, Device, EventSource, Network } = Plugins;
+const { App, Device, /* EventSource,*/ Network } = Plugins;
 
 import 'capacitor-eventsource';
-import { MessageResult, ErrorResult, EventSourcePlugin } from 'capacitor-eventsource';
+import { MessageResult, ErrorResult, EventSourcePlugin, EventSourceWeb } from 'capacitor-eventsource';
 
 const SECOND = 1000;
 const ONE_MINUTE = 60 * SECOND;
 const ONE_HOUR = 60 * ONE_MINUTE;
-const ONE_DAY = 60 * ONE_HOUR;
+// const ONE_DAY = 60 * ONE_HOUR;
 
-/*
-@Injectable({
-  providedIn: 'root'
-})
-*/
 export class APIStream {
   /**
    * the URL to connect to when creating an event source
@@ -86,6 +81,7 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
+    /*
     Device.getInfo().then(info => {
       if (info.platform !== 'web') {
         this.init('https://www.blaseball.com/events/streamData');
@@ -95,6 +91,9 @@ export class APIStream {
     }).catch(err => {
       this.init();
     });
+    */
+
+    this.init();
   }
 
   async init(url?: string) {
@@ -262,14 +261,17 @@ export class APIStream {
     return new Promise((resolve, reject) => {
       // clean up existing and create new event source
       this.closeSource();
-      EventSource.configure({ url: this.url });
-      EventSource.addListener('message', (res: MessageResult) => {
+      const es = new EventSourceWeb();
+      // const es = EventSource;
+
+      es.configure({ url: this.url });
+      es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);
       });
 
       // errors should do a retry
-      EventSource.addListener('error', (res: ErrorResult) => {
+      es.addListener('error', (res: ErrorResult) => {
         console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
         reject(true);
         if (this.observer) {
@@ -283,15 +285,17 @@ export class APIStream {
         this.checkLastUpdated();
       });
 
-      EventSource.open();
-      this.source = EventSource;
+      es.open();
+      this.source = es;
     });
   }
 
   protected closeSource() {
     try {
-      EventSource.close();
-      this.source = null;
+      if (this.source) {
+        this.source.close();
+        this.source = null;
+      }
     } catch (err) {
       console.warn('APIStream.closeSource(): failed to close event source:', err);
     };
