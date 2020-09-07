@@ -1,11 +1,11 @@
 // import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-import { AppState, Plugins } from '@capacitor/core';
-const { App, Device, /* EventSource,*/ Network } = Plugins;
+import { AppState, Plugins, DeviceInfo } from '@capacitor/core';
+const { App, Device, EventSource, Network } = Plugins;
 
 import 'capacitor-eventsource';
-import { MessageResult, ErrorResult, EventSourcePlugin, EventSourceWeb } from 'capacitor-eventsource';
+import { MessageResult, ErrorResult, EventSourcePlugin /*, EventSourceWeb */ } from 'capacitor-eventsource';
 
 const SECOND = 1000;
 const ONE_MINUTE = 60 * SECOND;
@@ -67,6 +67,7 @@ export class APIStream {
 
   private observable: Observable<MessageEvent|Event> | null;
   private observer: Observer<MessageEvent|Event> | null;
+  private deviceInfo: DeviceInfo | null;
 
   /**
    * Create an API object that can subscribe to the Blaseball event stream.
@@ -81,19 +82,20 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
-    /*
     Device.getInfo().then(info => {
+      this.deviceInfo = info;
       if (info.platform !== 'web') {
         this.init('https://www.blaseball.com/events/streamData');
       } else {
         this.init();
       }
-    }).catch(err => {
+    }).catch((err) => {
+      console.error('APIStream(): failed to get device info, assuming web', err);
+      this.deviceInfo = {
+        platform: 'web'
+      } as DeviceInfo;
       this.init();
     });
-    */
-
-    this.init();
   }
 
   async init(url?: string) {
@@ -127,34 +129,33 @@ export class APIStream {
     }
 
     App.addListener('appStateChange', async (state: AppState) => {
-      try {
-        const info = await Device.getInfo();
-        console.debug(`APIStream.init() isActive: ${this.isActive} -> ${state.isActive}`);
-        if (state.isActive) {
-          this.handleSystemChange(true);
-        } else if (info.platform !== 'web') {
-          this.handleSystemChange();
-        }
-      } catch (err) {
-        console.debug('APIStream.init() isActive: Device.getInfo() failed, assuming web', err);
-      };
+      const isActive = this.isActive;
+
+      console.debug(`APIStream.init() isActive: ${isActive} -> ${state.isActive}`);
+      if (!isActive && state.isActive) {
+        // always reload on switch from inactive to active
+        await this.handleSystemChange(true);
+      } else if (state.isActive) {
+        // conditionally reload if otherwise active
+        await this.handleSystemChange();
+      }
     });
 
-    Network.addListener('networkStatusChange', status => {
+    Network.addListener('networkStatusChange', async status => {
       console.debug(`APIStream.init() isConnected: ${this.isConnected} -> ${status.connected}`);
       if (status.connected) {
-        this.handleSystemChange(true);
+        await this.handleSystemChange(true);
       }
     });
   }
 
-  handleSystemChange(retrigger?: boolean) {
+  async handleSystemChange(retrigger?: boolean) {
     console.debug(`APIStream.handleSystemChange(): retrigger=${retrigger}`);
 
     if (this.isStarted) {
       if (retrigger || !this.source) {
         console.debug('APIStream.handleSystemChange(): (re)creating connection');
-        this.createSource();
+        await this.createSource();
         this.startCheckingLastUpdated();
       }
     } else {
@@ -166,7 +167,7 @@ export class APIStream {
       }
 
       // close the event source
-      this.closeSource();
+      await this.closeSource();
       this.source = null;
     }
   }
@@ -210,7 +211,7 @@ export class APIStream {
    *
    * This will close the stream and create a new one, and logarithmically extend the retry time by {@link defaultRetryFallback}.
    */
-  public retry() {
+  public async retry() {
     console.debug('APIStream.retry()');
     return new Promise((resolve, reject) => {
       try {
@@ -255,16 +256,17 @@ export class APIStream {
     }
   }
 
-  protected createSource() {
+  protected async createSource() {
     console.debug('APIStream.createSource()');
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       // clean up existing and create new event source
-      this.closeSource();
-      const es = new EventSourceWeb();
-      // const es = EventSource;
+      await this.closeSource();
+      // const es = new EventSourceWeb();
+      const es = EventSource;
+      this.source = es;
 
-      es.configure({ url: this.url });
+      await es.configure({ url: this.url });
       es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);
@@ -285,15 +287,15 @@ export class APIStream {
         this.checkLastUpdated();
       });
 
-      es.open();
-      this.source = es;
+      await es.open();
     });
   }
 
-  protected closeSource() {
+  protected async closeSource() {
     try {
       if (this.source) {
-        this.source.close();
+        this.source.removeAllListeners();
+        await this.source.close();
         this.source = null;
       }
     } catch (err) {
