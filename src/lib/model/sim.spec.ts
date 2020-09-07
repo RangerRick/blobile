@@ -11,6 +11,7 @@ const postSeasonDuring1    = require('./data/season-5-post-during-1.json').sim;
 const postSeasonDuring2    = require('./data/season-5-post-during-2.json').sim;
 const postSeasonEnd        = require('./data/season-5-post-end.json').sim;
 const seasonFinished       = require('./data/season-5-finished.json').sim;
+const seasonVeryFinished   = require('./data/season-5-very-end.json').sim;
 
 describe('Sim', () => {
   let sim: Sim;
@@ -89,13 +90,17 @@ describe('Sim', () => {
   });
 
   describe('Postseason Finished', () => {
-    beforeEach(() => {
-      sim = new Sim(seasonFinished);
-    });
-
     it('should be a postseason game', () => {
+      sim = new Sim(seasonFinished);
       expect(sim.isRegularSeason()).toBeFalsy();
       expect(sim.isPostseason()).toBeTruthy();
+      expect(sim.isPostseasonComplete()).toBeTruthy();
+    });
+
+    it('should be a postseason game (very end)', () => {
+      sim = new Sim(seasonVeryFinished);
+      expect(sim.isRegularSeason()).toBeFalsy();
+      expect(sim.isPostseason()).toBeFalsy();
       expect(sim.isPostseasonComplete()).toBeTruthy();
     });
   });

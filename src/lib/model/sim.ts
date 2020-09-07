@@ -37,12 +37,19 @@ export class Sim extends Entry {
     ]);
   }
 
+  public isPreseason() {
+    const nextSeason = new Date(this.data.nextSeasonStart).getTime();
+    if (this.data.day === 0 && nextSeason > Date.now()) {
+      return true;
+    }
+  }
+
   public isRegularSeason() {
-    return this.data?.day !== undefined? (this.data.day < 99) : false;
+    return !this.isPreseason() && this.data?.day !== undefined? (this.data.day < 99) : false;
   }
 
   public isPostseason() {
-    return this.data?.day !== undefined? (this.data.day >= 99) : false;
+    return !this.isPreseason() && this.data?.day !== undefined? (this.data.day >= 99) : false;
   }
 
   public isPostseasonComplete() {
@@ -56,7 +63,7 @@ export class Sim extends Entry {
       return true;
     }
 
-    return false;
+    return this.isPreseason();
   }
 
   countdownToNextPhase(from?: number) {
@@ -91,15 +98,15 @@ export class Sim extends Entry {
     return ret;
   }
 
-  public get nextSeasonStart() {
+  public get nextSeasonStart(): Date | undefined {
     return this.data.nextSeasonStart ? new Date(this.data.nextSeasonStart) : undefined;
   }
 
-  public get nextPhaseTime() {
+  public get nextPhaseTime(): Date | undefined {
     return this.data.nextPhaseTime ? new Date(this.data.nextPhaseTime) : undefined;
   }
 
-  public get nextElectionEnd() {
+  public get nextElectionEnd(): Date | undefined {
     return this.data.nextElectionEnd ? new Date(this.data.nextElectionEnd) : undefined;
   }
 }
