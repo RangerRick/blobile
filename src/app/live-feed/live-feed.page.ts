@@ -55,8 +55,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     return this.settings.ready.finally(() => {
       this.segment = this.settings.getSegment();
       this.startListening();
-      this.ready = true;
-      return this.ready;
+      return true;
     });
   }
 
@@ -84,6 +83,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   async hideLoading() {
     this.loading = false;
+    this.ready = true;
     /*
     if (this.loading) {
       this.loading.dismiss();

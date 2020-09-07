@@ -40,7 +40,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="ready">
   <ion-refresher slot="fixed" (ionRefresh)="forceRefresh($event)">
     <ion-refresher-content
       pullingIcon="baseball-outline"
