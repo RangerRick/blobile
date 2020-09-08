@@ -1,7 +1,7 @@
 // import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-import { AppState, Plugins, DeviceInfo } from '@capacitor/core';
+import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
 const { App, Device, EventSource, Network } = Plugins;
 
 import 'capacitor-eventsource';
@@ -69,6 +69,8 @@ export class APIStream {
   private observer: Observer<MessageEvent|Event> | null;
   private deviceInfo: DeviceInfo | null;
 
+  private handles = {} as { [key: string]: PluginListenerHandle };
+
   /**
    * Create an API object that can subscribe to the Blaseball event stream.
    */
@@ -84,7 +86,7 @@ export class APIStream {
 
     Device.getInfo().then(info => {
       this.deviceInfo = info;
-      if (info.platform !== 'web') {
+      if (this.deviceInfo.platform !== 'web') {
         this.init('https://www.blaseball.com/events/streamData');
       } else {
         this.init();
@@ -267,13 +269,13 @@ export class APIStream {
       this.source = es;
 
       await es.configure({ url: this.url });
-      es.addListener('message', (res: MessageResult) => {
+      this.handles.message = es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);
       });
 
       // errors should do a retry
-      es.addListener('error', (res: ErrorResult) => {
+      this.handles.error = es.addListener('error', (res: ErrorResult) => {
         console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
         reject(true);
         if (this.observer) {
@@ -294,7 +296,10 @@ export class APIStream {
   protected async closeSource() {
     try {
       if (this.source) {
-        this.source.removeAllListeners();
+        for (const key of Object.keys(this.handles)) {
+          this.handles[key].remove();
+        }
+        this.handles = {};
         await this.source.close();
         this.source = null;
       }
