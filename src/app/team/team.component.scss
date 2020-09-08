@@ -1,0 +1,21 @@
+div.bl-team {
+  display: inline-block;
+}
+
+.bl-team-emoji {
+  font-size: 110%;
+  border: 1px solid #008024;
+  border-radius: 1em;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.25em;
+
+  &.home {
+    margin-left: 0.25em;
+  }
+
+  &.away {
+    margin-right: 0.25em;
+  }
+}

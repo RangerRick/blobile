@@ -14,15 +14,9 @@
       </ion-buttons>
       <ion-title class="ion-no-padding">
         <div class="team-header">
-          <div class="team-lozenge">
-            <span class="team-emoji" [style]="'background-color: ' + game.awayTeamColor" [innerHTML]="getEmoji('away')"></span>
-            {{game.awayTeamNickname}}
-          </div>
+          <bl-team team="away" [backgroundColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname"></bl-team>
           at
-          <div class="team-lozenge">
-            {{game.homeTeamNickname}}
-            <span class="team-emoji" [style]="'background-color: ' + game.homeTeamColor" [innerHTML]="getEmoji('home')"></span>
-          </div>
+          <bl-team team="home" [backgroundColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname"></bl-team>
         </div>
       </ion-title>
       <ion-buttons slot="end">

@@ -86,24 +86,3 @@ $scoreboard: scoreboard, sans-serif;
     vertical-align: middle;
   }
 }
-
-.team-lozenge {
-  display: inline-block;
-  /*
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid white;
-  border-radius: 1em;
-  padding-left: .5em;
-  padding-right: .5em;
-  */
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-
-.team-emoji {
-  border: 1px solid #008024;
-  border-radius: 1em;
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-}
