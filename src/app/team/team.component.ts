@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import * as Color from 'color';
+
 @Component({
   selector: 'bl-team',
   templateUrl: './team.component.html',
@@ -37,7 +39,11 @@ export class TeamComponent implements OnInit {
 
   getNameStyle() {
     // return `color: ${this.teamColor};`;
-    return '';
+    const color = Color(this.teamColor);
+    if (color.isLight()) {
+      return 'color: black';
+    }
+    return 'color: white';
   }
 
   getTeamStyle() {
