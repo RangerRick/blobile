@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { LoadingController, IonContent } from '@ionic/angular';
 
 import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../settings.service';
 
 import { Subscription } from 'rxjs';
 import { StreamData } from '../../lib/model/streamData';
-import { Games } from '../../lib/model/games';
 import { Game } from '../../lib/model/game';
 import { Team } from 'src/lib/model/team';
 
@@ -16,6 +15,7 @@ import { Team } from 'src/lib/model/team';
   styleUrls: ['live-feed.page.scss']
 })
 export class LiveFeedPage implements OnInit, OnDestroy {
+  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   public data = new StreamData({});
   public games = [] as Game[];
@@ -67,6 +67,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.api.stop();
     }
     return true;
+  }
+
+  async scrollToTop() {
+    this.content.scrollToTop();
   }
 
   async showLoading() {
