@@ -35,6 +35,42 @@
 }
 
 @font-face {
-  font-family: scoreboard;
-  src: url(assets/scoreboard.ttf);
+  font-family: "scoreboard";
+  src: url(assets/fonts/scoreboard.ttf);
+}
+
+@font-face {
+  font-family: "Arial Narrow";
+  src: url(assets/fonts/arial-narrow.ttf);
+}
+@font-face {
+  font-family: "Arial Narrow Bold";
+  src: url(assets/fonts/arial-narrow-bold.ttf);
+}
+@font-face {
+  font-family: "Arial Narrow Italic";
+  src: url(assets/fonts/arial-narrow-italic.ttf);
+}
+@font-face {
+  font-family: "Arial Narrow Bold Italic";
+  src: url(assets/fonts/arial-narrow-bold-italic.ttf);
+}
+
+@font-face {
+  font-family: "Impact";
+  src: url(assets/fonts/impact.ttf);
+}
+
+@mixin bl-text-outline($outline-size: 1px, $outline-color: black, $outline-alpha: 0.7) {
+  $color: rgba($outline-color, $outline-alpha);
+  $size: $outline-size;
+  text-shadow: $size 0 0 $color, 0 $size 0 $color, -$size 0 0 $color, 0 -$size 0 $color;
+}
+
+@mixin text-outline-dark($size: 1px) {
+  @include bl-text-outline($size, black, 0.7);
+}
+
+@mixin text-outline-light($size: 1px) {
+  @include bl-text-outline($size, white, 0.5);
 }

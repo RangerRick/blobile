@@ -8,8 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TeamComponent implements OnInit {
   @Input() public team: 'home'|'away'|undefined;
   @Input() public emoji: number;
-  @Input() public foregroundColor: string;
-  @Input() public backgroundColor = 'transparent';
+  @Input() public textColor: string;
+  @Input() public teamColor = 'transparent';
   @Input() public name: string;
 
   constructor() {
@@ -24,10 +24,26 @@ export class TeamComponent implements OnInit {
     return this.emoji? String.fromCodePoint(this.emoji) : undefined;
   }
 
-  getStyle() {
-    let ret = `background-color: ${this.backgroundColor};`;
-    if (this.foregroundColor) {
-      ret += `color: ${this.foregroundColor};`;
+  getEmojiStyle() {
+    return '';
+    /*
+    let ret = `background-color: ${this.teamColor};`;
+    if (this.textColor) {
+      ret += `color: ${this.textColor};`;
+    }
+    return ret;
+    */
+  }
+
+  getNameStyle() {
+    // return `color: ${this.teamColor};`;
+    return '';
+  }
+
+  getTeamStyle() {
+    let ret = `background-color: ${this.teamColor};`;
+    if (this.textColor) {
+      ret += `color: ${this.textColor};`;
     }
     return ret;
   }

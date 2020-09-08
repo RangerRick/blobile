@@ -1,21 +1,41 @@
+@import '../../global';
+
 div.bl-team {
   display: inline-block;
+  border-radius: 2em;
+  height: 2.25em;
+  padding: 0.25em 0.5em;
+  vertical-align: middle;
+  margin: 0 0.5em;
+}
+
+.bl-team-name {
+  color: white;
+  // @include bl-text-outline(1px, black, 0.9);
+  text-shadow: 0 0 0.05em black, 0 0 0.1em black, 0 0 0.25em rgba(black, 0.8);
+  margin: 0.5em;
+  vertical-align: middle;
 }
 
 .bl-team-emoji {
-  font-size: 110%;
-  border: 1px solid #008024;
+  font-size: 125%;
+  line-height: 125%;
+  vertical-align: middle;
+
+  &.home {
+    margin-right: 0.25em;
+  }
+
+  &.away {
+    margin-left: 0.25em;
+  }
+
+  /*
   border-radius: 1em;
   display: inline-block;
   width: 2em;
   height: 2em;
-  padding: 0.25em;
+  padding: 0.35em;
 
-  &.home {
-    margin-left: 0.25em;
-  }
-
-  &.away {
-    margin-right: 0.25em;
-  }
+  */
 }

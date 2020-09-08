@@ -1,5 +1,5 @@
-<div class="bl-team">
-  <span *ngIf="team !== 'home'" class="bl-team-emoji away" [style]="getStyle()" [innerHTML]="getEmoji()"></span>
-  {{name}}
-  <span *ngIf="team === 'home'" class="bl-team-emoji home" [style]="getStyle()" [innerHTML]="getEmoji()"></span>
+<div class="bl-team" [style]="getTeamStyle()">
+  <span *ngIf="team !== 'home'" class="bl-team-emoji away" [style]="getEmojiStyle()" [innerHTML]="getEmoji()"></span>
+  <span class="bl-team-name" [style]="getNameStyle()">{{name}}</span>
+  <span *ngIf="team === 'home'" class="bl-team-emoji home" [style]="getEmojiStyle()" [innerHTML]="getEmoji()"></span>
 </div>

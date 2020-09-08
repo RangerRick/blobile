@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { SettingsService } from '../../lib/settings.service';
+import { APIDatabase } from '../../lib/api/database';
+import { Team } from 'src/lib/model/team';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
@@ -14,7 +16,13 @@ export class DiamondComponent implements OnInit {
   @Input() public game: any;
   @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
 
-  public playerFontSize = '1.1rem';
+  public font = {
+    color: 'white',
+    family: 'Arial Narrow Bold, Arial Narrow, Impact, sans-serif',
+    size: '2rem',
+    strokeWidth: 0.75,
+    weight: '500',
+  };
 
   public coordinates = {
     first:  [ 430, 355 ],
@@ -22,14 +30,24 @@ export class DiamondComponent implements OnInit {
     third:  [ 225, 355 ],
   };
 
-  constructor(private settings: SettingsService) {
+  private teams = {} as { [key: string]: Team };
+
+  constructor(
+    private database: APIDatabase,
+    private settings: SettingsService,
+  ) {
     // console.debug('Diamond component created.');
   }
 
   async ngOnInit() {
     // console.debug('Diamond component initialized.');
     // console.debug(this.game);
-    return this.settings.ready;
+    await this.settings.ready;
+    for (const team of (await this.database.teams())) {
+      this.teams[team.id] = team;
+    }
+
+    return true;
   }
 
   isFavorite(teamId: string) {
@@ -97,5 +115,9 @@ export class DiamondComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  openTeam(id: string) {
+    console.debug(`opening team: ${id}`);
   }
 }
