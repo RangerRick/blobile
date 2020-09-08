@@ -8,7 +8,7 @@ import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
   providedIn: 'root'
 })
 export class UpdateService {
-  public updateAvailable = true;
+  public updateAvailable = false;
 
   constructor(
     private alertController: AlertController,
