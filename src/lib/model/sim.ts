@@ -7,8 +7,19 @@ export interface Countdown {
 }
 
 export class Sim extends Entry {
-  day: number;
-  phase: number;
+  public id: string;
+  public day: number;
+  public eraColor: string;
+  public eraTitle: string;
+  public league: string;
+  public phase: number;
+  public playoffs: string;
+  public rules: string;
+  public season: number;
+  public seasonId: string;
+  public subEraColor: string;
+  public subEraTitle: string;
+  public terminology: string;
 
   constructor(data?: any) {
     super(data);

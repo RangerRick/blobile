@@ -11,7 +11,7 @@ def capacitor_pods
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCommunityHttp', :path => '../../node_modules/@capacitor-community/http'
-  pod 'CapacitorEventsource', :path => '../../node_modules/capacitor-eventsource'
+  pod 'CapacitorEventsource', :path => '../../../eventsource'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
   # Do not delete
 end

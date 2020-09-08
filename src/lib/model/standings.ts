@@ -7,6 +7,8 @@ export interface Record {
 }
 
 export class Standings extends Entry {
+  public id: string;
+
   constructor(data?: any) {
     super(data);
 
