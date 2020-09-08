@@ -22,9 +22,9 @@ export class APIDatabase {
     });
   }
 
-  private async get(cacheKey: string, url: string) {
-    if (this.cache[cacheKey]) {
-      return this.cache[cacheKey];
+  private async get(url: string, force?: boolean) {
+    if (!force && this.cache[url]) {
+      return this.cache[url];
     }
 
     const { Http } = Plugins;
@@ -32,14 +32,15 @@ export class APIDatabase {
       method: 'GET',
       url: url,
     })) as HttpResponse;
+    this.cache[url] = ret.data;
     return ret.data;
   }
 
-  public async teams() {
+  public async teams(force?: boolean) {
     const url = `${this.root}/allTeams`;
     console.debug(`APIDatabase.teams(): GET ${url}`);
     try {
-      return (await this.get('teams', url)) as Team[];
+      return (await this.get(url, force)) as Team[];
     } catch (err) {
       console.error('APIDatabase.teams(): failed to get list of teams', err);
       return [];
