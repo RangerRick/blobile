@@ -118,6 +118,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     return [];
   }
 
+  getActiveGameCount(): number {
+    return this.getActiveGames().length;
+  }
+
   getFavoriteGames(): Game[] {
     if (this.data?.games?.schedule) {
       return this.data?.games?.schedule.filter((game:Game) => {
