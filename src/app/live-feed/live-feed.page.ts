@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { LoadingController, IonContent } from '@ionic/angular';
 
 import { APIStream } from '../../lib/api/stream';
-import { SettingsService, SEGMENT } from '../settings.service';
+import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
 import { Subscription } from 'rxjs';
 import { StreamData } from '../../lib/model/streamData';

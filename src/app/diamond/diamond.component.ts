@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { SettingsService } from '../settings.service';
+import { SettingsService } from '../../lib/settings.service';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';

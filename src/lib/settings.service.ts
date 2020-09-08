@@ -13,6 +13,8 @@ export class SettingsService {
   private settings = {
     segment: 'all',
     favorites: {},
+    disableSleep: false,
+    favoriteTeam: undefined,
   } as any;
 
   public ready: Promise<boolean>;
@@ -34,11 +36,19 @@ export class SettingsService {
 
       const segment = await Storage.get({key: 'segment'});
       this.settings.segment = (segment?.value as SEGMENT) || 'all';
+
+      const disableSleep = await Storage.get({key: 'disableSleep'});
+      this.settings.disableSleep = Boolean(disableSleep?.value || false);
+
+      const favoriteTeam = await Storage.get({key: 'favoriteTeam'});
+      this.settings.favoriteTeam = favoriteTeam?.value;
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
         segment: 'all',
         favorites: {},
+        disableSleep: false,
+        favoriteTeam: undefined,
       };
     }
 
@@ -55,6 +65,9 @@ export class SettingsService {
     }
     if (!this.settings.segment) {
       this.settings.segment = 'all';
+    }
+    if(this.settings.disableSleep === undefined) {
+      this.settings.disableSleep = false;
     }
   }
 
@@ -88,6 +101,34 @@ export class SettingsService {
     return Storage.set({key: 'segment', value: segment}).then(() => {
       console.debug(`set segment: ${segment}`);
       return segment;
+    });
+  }
+
+  disableSleep(): boolean {
+    this.assertSettings();
+    return this.settings.disableSleep;
+  }
+
+  async setDisableSleep(disable: boolean) {
+    this.assertSettings();
+    this.settings.disableSleep = disable;
+    return Storage.set({key: 'disableSleep', value: String(disable)}).then(() => {
+      console.debug(`set disableSleep: ${disable}`);
+      return disable;
+    });
+  }
+
+  favoriteTeam(): string {
+    this.assertSettings();
+    return this.settings.favoriteTeam;
+  }
+
+  async setFavoriteTeam(id: string) {
+    this.assertSettings();
+    this.settings.favoriteTeam = id;
+    return Storage.set({key: 'favoriteTeam', value: id}).then(() => {
+      console.debug(`set favoriteTeam: ${id}`);
+      return id;
     });
   }
 

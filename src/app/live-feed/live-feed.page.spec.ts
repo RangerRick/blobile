@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, LoadingController } from '@ionic/angular';
 
 import { LiveFeedPage } from './live-feed.page';
-import { SettingsService, SEGMENT } from '../settings.service';
+import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
 describe('LiveFeedPage', () => {
   let component: LiveFeedPage;
