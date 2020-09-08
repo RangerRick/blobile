@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { LoadingController, IonContent } from '@ionic/angular';
 
+import { Plugins } from '@capacitor/core';
+
 import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
@@ -41,6 +43,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     minutes: 0,
     seconds: 0,
   };
+  private keepAwake = false;
 
   constructor(public loadingController: LoadingController, protected settings: SettingsService) {
   }
@@ -50,7 +53,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    console.debug('Stream.ngOnInit()');
+    console.debug('LiveFeed.ngOnInit()');
     this.showLoading();
     return this.settings.ready.finally(() => {
       this.segment = this.settings.getSegment();
@@ -105,7 +108,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   toggleSearchbar() {
     this.filterVisible = !this.filterVisible;
-    console.debug(`Stream.toggleSearchbar(): filterVisible=${this.filterVisible}`);
+    console.debug(`LiveFeed.toggleSearchbar(): filterVisible=${this.filterVisible}`);
   }
 
   filterList(evt: any) {
@@ -136,7 +139,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getSegmentGames(): Game[] {
-    console.debug('Stream.getSegmentGames()');
+    console.debug('LiveFeed.getSegmentGames()');
 
     let ret = [] as Game[];
     switch(this.segment) {
@@ -150,7 +153,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         ret = this.getFavoriteGames();
         break;
       default:
-        console.warn(`Stream.getSegmentGames(): unhandled segment: ${this.segment}`);
+        console.warn(`LiveFeed.getSegmentGames(): unhandled segment: ${this.segment}`);
         ret = [];
         break;
     }
@@ -210,7 +213,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   refreshUI(): Game[] {
-    console.debug('Stream.refreshUI()');
+    console.debug('LiveFeed.refreshUI()');
 
     let ret = this.getSegmentGames();
 
@@ -231,7 +234,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.segment = evt.detail.value;
       this.settings.setSegment(this.segment);
     }
-    console.debug('Stream.segmentChanged():', evt);
+    console.debug('LiveFeed.segmentChanged():', evt);
     this.refreshUI();
   }
 
@@ -253,7 +256,29 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       }
     }
 
-    console.debug(`Stream.checkStale(): ${current} -> ${this.stale}`);
+    console.debug(`LiveFeed.checkStale(): ${current} -> ${this.stale}`);
+  }
+
+  checkDisableSleep() {
+    const disableSleep = this.settings.disableSleep();
+
+    try {
+      if (disableSleep && this.getActiveGameCount() > 0) {
+        if (!this.keepAwake) {
+          console.debug('LiveFeed.checkDisableSleep(): keeping awake');
+          this.keepAwake = true;
+          Plugins.KeepAwake.keepAwake();
+        }
+      } else {
+        if (this.keepAwake) {
+          console.debug('LiveFeed.checkDisableSleep(): allowing sleep');
+          this.keepAwake = false;
+          Plugins.KeepAwake.allowSleep();
+        }
+      }
+    } catch(err) {
+      console.error('An error occurred setting keep-awake status.', err);
+    }
   }
 
   onEvent(evt: MessageEvent|Event) {
@@ -278,13 +303,14 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.data.data[key] = data[key];
     }
 
-    console.debug('Stream.onEvent(): current data:', this.data);
+    console.debug('LiveFeed.onEvent(): current data:', this.data);
     this.refreshUI();
     this.hideLoading();
+    this.checkDisableSleep();
   }
 
   onError(evt: Event) {
-    console.debug('Stream.onError():', evt);
+    console.debug('LiveFeed.onError():', evt);
     this.hideLoading();
     this.loading = false;
     // wait a couple of seconds before actually marking it as an error
@@ -295,7 +321,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   startListening() {
-    console.debug('Stream.startListening(): opening event stream to blaseball.com');
+    console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
 
     const errorWait = 1000;

@@ -2,6 +2,9 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
+include ':boosten-capacitor-keep-awake'
+project(':boosten-capacitor-keep-awake').projectDir = new File('../node_modules/@boosten/capacitor-keep-awake/android')
+
 include ':capacitor-community-http'
 project(':capacitor-community-http').projectDir = new File('../node_modules/@capacitor-community/http/android')
 
