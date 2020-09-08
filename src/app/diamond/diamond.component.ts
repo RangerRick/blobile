@@ -28,7 +28,7 @@ export class DiamondComponent implements OnInit {
 
   async ngOnInit() {
     console.debug('Diamond component initialized.');
-    console.debug(this.game);
+    // console.debug(this.game);
     return this.settings.ready;
   }
 
