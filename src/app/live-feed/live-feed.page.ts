@@ -162,6 +162,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         return -1;
       } else if (b.homeTeam === favoriteTeam) {
         return 1;
+      } else if (a.awayTeam === favoriteTeam) {
+        return -1;
+      } else if (b.awayTeam === favoriteTeam) {
+        return 1;
       }
 
       const nameA = a.homeTeamNickname;
