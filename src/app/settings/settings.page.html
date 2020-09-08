@@ -31,7 +31,10 @@
       <h3>Teams</h3>
     </ion-list-header>
     <ion-item>
-      <ion-label>Choose Your Team:</ion-label>
+      <ion-label class="ion-text-wrap">
+        <h4>Choose Your Team:</h4>
+        <ion-note>Your team is first in the live feed.</ion-note>
+      </ion-label>
       <ion-select (ionChange)="setFavoriteTeam($event.detail)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [(ngModel)]="favoriteTeam">
         <ion-select-option *ngFor="let team of teams" [value]="team.id">{{team.fullName}}</ion-select-option>
       </ion-select>
