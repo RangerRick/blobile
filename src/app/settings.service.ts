@@ -9,11 +9,10 @@ export type SEGMENT = 'all'|'active'|'favorites';
 @Injectable({
   providedIn: 'root'
 })
-
 export class SettingsService {
   private settings = {
     segment: 'all',
-    favorites: {}
+    favorites: {},
   } as any;
 
   public ready: Promise<boolean>;
@@ -26,24 +25,25 @@ export class SettingsService {
   async init(): Promise<boolean> {
     console.debug('SettingsService initializing.');
     this.assertSettings();
-    return Storage.get({key: 'favorites'}).then(ret => {
-      console.debug('SettingsService: ret=', ret);
-      if (ret && ret.value !== undefined) {
-        this.settings.favorites = JSON.parse(ret.value);
+
+    try {
+      const favorites = await Storage.get({key: 'favorites'});
+      if (favorites && favorites.value !== undefined) {
+        this.settings.favorites = JSON.parse(favorites.value);
       }
-      return Storage.get({key: 'segment'}).then(ret => {
-        this.settings.segment = (ret.value as SEGMENT) || 'all';
-        console.debug('SettingsService: settings=', this.settings);
-        return true;
-      });
-    }).catch(err => {
-      console.error('SettingsService: failed to get favorites:', err);
+
+      const segment = await Storage.get({key: 'segment'});
+      this.settings.segment = (segment?.value as SEGMENT) || 'all';
+    } catch (err) {
+      console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
         segment: 'all',
-        favorites: {}
+        favorites: {},
       };
-      return true;
-    });
+    }
+
+    console.debug('SettingsService.init(): settings=', this.settings);
+    return true;
   }
 
   assertSettings() {
@@ -63,17 +63,18 @@ export class SettingsService {
     return Boolean(this.settings.favorites[teamId]);
   }
 
-  setFavorite(teamId: string, value: boolean) {
+  async setFavorite(teamId: string, value: boolean) {
     this.assertSettings();
     this.settings.favorites[teamId] = value;
-    Storage.set({key: 'favorites', value: JSON.stringify(this.settings.favorites)}).then(() => {
+    return Storage.set({key: 'favorites', value: JSON.stringify(this.settings.favorites)}).then(() => {
       console.debug(`set favorite: ${teamId} = ${value}`);
+      return value;
     });
   }
 
-  toggleFavorite(teamId: string) {
+  async toggleFavorite(teamId: string) {
     this.assertSettings();
-    this.setFavorite(teamId, !this.isFavorite(teamId));
+    return this.setFavorite(teamId, !this.isFavorite(teamId));
   }
 
   getSegment(): SEGMENT {
@@ -81,11 +82,13 @@ export class SettingsService {
     return this.settings.segment;
   }
 
-  setSegment(segment: SEGMENT) {
+  async setSegment(segment: SEGMENT) {
     this.assertSettings();
     this.settings.segment = segment;
-    Storage.set({key: 'segment', value: segment}).then(() => {
+    return Storage.set({key: 'segment', value: segment}).then(() => {
       console.debug(`set segment: ${segment}`);
-    })
+      return segment;
+    });
   }
+
 }

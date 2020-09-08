@@ -7,17 +7,18 @@
 <ion-content>
   <ion-list lines="none" class="ion-text-wrap">
     <span *ngIf="platform !== 'web'">
+      <!-- native-only stuff -->
       <ion-list-header lines="full">
         <h3>Automatic Updates</h3>
       </ion-list-header>
       <ion-item *ngIf="updateService.updateAvailable" color="danger">
-        You have an update available.
+        <ion-label>You have an update available.</ion-label>
         <ion-button slot="end" color="light">Reload</ion-button>
       </ion-item>
       <ion-item>
-        Receive beta updates?
+        <ion-label>Receive beta updates?</ion-label>
         <ion-toggle (ionChange)="setBeta()" [(ngModel)]="betaEnabled" slot="end"></ion-toggle>
       </ion-item>
-      </span>
+    </span>
   </ion-list>
 </ion-content>
