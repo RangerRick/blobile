@@ -19,16 +19,18 @@ export class DiamondComponent implements OnInit {
   public font = {
     color: 'white',
     family: 'Arial Narrow Bold, Arial Narrow, Impact, sans-serif',
-    size: '1.75rem',
+    size: '1.5rem',
     strokeWidth: 0.1,
     weight: '500',
   };
 
   public coordinates = {
     // [ x, y ]
-    first:  [ 440, 355 ],
-    second: [ 328, 190 ],
-    third:  [ 215, 355 ],
+    first:   [ 440, 355 ],
+    second:  [ 328, 190 ],
+    third:   [ 215, 355 ],
+    home:    [ 328, 505 ],
+    pitcher: [ 328, 290 ],
   };
 
   private teams = {} as { [key: string]: Team };
