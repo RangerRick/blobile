@@ -10,7 +10,7 @@ Blases Loaded is a mobile app for live-viewing Blaseball games.
 ## Beta Testing
 
 * [Browser](https://rangerrick.github.io/blobile/)
-* [iPhone/iPad]()
+* [iPhone/iPad](https://testflight.apple.com/join/e8c8K6WG)
 * [Android](https://play.google.com/apps/testing/com.raccoonfink.blobile)
 
 ## Building
