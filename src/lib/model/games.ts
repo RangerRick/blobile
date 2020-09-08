@@ -6,15 +6,15 @@ import { Game } from './game';
 import { Entry } from './_entry';
 
 export class Games extends Entry {
-  public get sim() {
+  public get sim(): Sim {
     return new Sim(this.data?.sim);
   }
 
-  public get season() {
+  public get season(): Season {
     return new Season(this.data?.season);
   }
 
-  public get standings() {
+  public get standings(): Standings {
     return new Standings(this.data?.standings);
   }
 
@@ -26,7 +26,7 @@ export class Games extends Entry {
     return this.data?.tomorrowSchedule?.map((game:any) => new Game(game)) || [];
   }
 
-  public get postseason() {
+  public get postseason(): Postseason {
     return new Postseason(this.data?.postseason);
   }
 }

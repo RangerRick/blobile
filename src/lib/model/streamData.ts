@@ -12,11 +12,6 @@ export class StreamData extends Entry {
     return new Games(this.data?.games);
   }
 
-  public set games(data: any) {
-    if (data !== undefined) {
-    }
-  }
-
   public get leagues() {
     return new Leagues(this.data?.leagues);
   }
