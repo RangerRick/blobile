@@ -109,28 +109,49 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     return this.refreshUI();
   }
 
-  getSegmentGames(): Game[] {
-    console.debug('Stream.getSegmentGames()');
-    if (this.data && this.data.games && this.data.games.schedule) {
-      return this.data.games.schedule.filter((game: any) => {
-        switch(this.segment) {
-          case 'all':
-            return true;
-          case 'active':
-            return !game.gameComplete;
-          case 'favorites':
-            return this.settings.isFavorite(game.homeTeam) || this.settings.isFavorite(game.awayTeam);
-          default:
-            console.warn(`Stream.getSegmentGames(): unhandled segment: ${this.segment}`);
-            return false;
-        }
-      }).sort((a: any, b: any) => {
-        const nameA = a.homeTeamNickname;
-        const nameB = b.homeTeamNickname;
-        return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+  getActiveGames(): Game[] {
+    if (this.data?.games?.schedule) {
+      return this.data.games.schedule.filter((game: Game) => {
+        return !game.gameComplete;
       });
     }
     return [];
+  }
+
+  getFavoriteGames(): Game[] {
+    if (this.data?.games?.schedule) {
+      return this.data?.games?.schedule.filter((game:Game) => {
+        return this.settings.isFavorite(game.homeTeam) || this.settings.isFavorite(game.awayTeam);
+      });
+    }
+    return [];
+  }
+
+  getSegmentGames(): Game[] {
+    console.debug('Stream.getSegmentGames()');
+
+    let ret = [] as Game[];
+    switch(this.segment) {
+      case 'all':
+        ret = this.data?.games?.schedule || [];
+        break;
+      case 'active':
+        ret = this.getActiveGames();
+        break;
+      case 'favorites':
+        ret = this.getFavoriteGames();
+        break;
+      default:
+        console.warn(`Stream.getSegmentGames(): unhandled segment: ${this.segment}`);
+        ret = [];
+        break;
+    }
+
+    return ret.sort((a: any, b: any) => {
+      const nameA = a.homeTeamNickname;
+      const nameB = b.homeTeamNickname;
+      return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+    });
   }
 
   isPostseason(): boolean {

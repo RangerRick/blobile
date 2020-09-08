@@ -40,7 +40,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="ready">
+<ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="forceRefresh($event)">
     <ion-refresher-content
       pullingIcon="baseball-outline"
@@ -48,34 +48,36 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
-  <span *ngIf="isFinished()">
-    <ion-item lines="none">
-      <h4>Season {{data.games.season.seasonNumber}} is over.</h4>
-    </ion-item>
-    <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
-      <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
-    </ion-item>
-    <ion-item lines="none">
-      <h4>Next Season Starts In {{getNextSeasonStart()}}.</h4>
-    </ion-item>
-  </span>
-  <span *ngIf="!isFinished()">
-    <ion-item lines="none" *ngIf="isPostseason()">
-      <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber}}, Day {{getPlayoffDay()}}</h4>
-    </ion-item>
-    <ion-item lines="none" *ngIf="!isPostseason()">
-      <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber}}, Day {{data.games.sim.day}}</h4>
-    </ion-item>
-    <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
-      No more active games for day {{data.games.sim.day}}.
-    </ion-item>
-    <ion-grid>
-      <ion-row>
-        <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
-        <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-          <app-diamond [game]="game" (refresh)="refreshUI()"></app-diamond>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <span *ngIf="ready">
+    <span *ngIf="isFinished()">
+      <ion-item lines="none">
+        <h4>Season {{data.games.season.seasonNumber}} is over.</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
+        <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
+      </ion-item>
+      <ion-item lines="none">
+        <h4>Next Season Starts In {{getNextSeasonStart()}}.</h4>
+      </ion-item>
+    </span>
+    <span *ngIf="!isFinished()">
+      <ion-item lines="none" *ngIf="isPostseason()">
+        <h4 *ngIf="data && data.games" class="ion-no-margin">Postseason Round {{data.games.postseason.round.roundNumber}}, Day {{getPlayoffDay()}}</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!isPostseason()">
+        <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber}}, Day {{data.games.sim.day}}</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
+        No more active games for day {{data.games.sim.day}}.
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
+          <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
+            <app-diamond [game]="game" (refresh)="refreshUI()"></app-diamond>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </span>
   </span>
 </ion-content>
