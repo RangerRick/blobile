@@ -348,11 +348,11 @@ export class APIStream {
     }
 
     const threshold = lastCheck + this.retryMillis;
-    console.debug(`APIStream.checkLastUpdated(): now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / SECOND / 1.0).toPrecision(2)}s`);
     if (now > threshold) {
+      console.debug(`APIStream.checkLastUpdated(): threshold reached: now=${this.formatDate(now)}, lastUpdated=${this.formatDate(this.lastUpdated)}, lastRetry=${this.formatDate(this.lastRetry)}, threshold=${this.formatDate(threshold)}, retryMillis=${(this.retryMillis / SECOND / 1.0).toPrecision(2)}s`);
       this.retry();
     } else {
-      console.debug(`APIStream.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);
+      // console.debug(`APIStream.checkLastUpdated(): ${this.formatDate(now)} < ${this.formatDate(threshold)}`);
     }
   }
 

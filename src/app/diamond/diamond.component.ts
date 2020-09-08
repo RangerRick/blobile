@@ -23,11 +23,11 @@ export class DiamondComponent implements OnInit {
   };
 
   constructor(private settings: SettingsService) {
-    console.debug('Diamond component created.');
+    // console.debug('Diamond component created.');
   }
 
   async ngOnInit() {
-    console.debug('Diamond component initialized.');
+    // console.debug('Diamond component initialized.');
     // console.debug(this.game);
     return this.settings.ready;
   }

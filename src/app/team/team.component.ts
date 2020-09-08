@@ -13,11 +13,11 @@ export class TeamComponent implements OnInit {
   @Input() public name: string;
 
   constructor() {
-    console.debug('TeamComponent instantiated.');
+    // console.debug('TeamComponent instantiated.');
   }
 
   async ngOnInit() {
-    console.debug('TeamComponent initialized.');
+    // console.debug('TeamComponent initialized.');
   }
 
   getEmoji() {
