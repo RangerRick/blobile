@@ -16,6 +16,11 @@ export class UpdateService {
   ) {
   }
 
+  async reload() {
+    console.debug('UpdateService.triggerUpdate()');
+    await this.deploy.reloadApp();
+  }
+
   async triggerUpdate() {
     console.debug('UpdateService.triggerUpdate()');
 

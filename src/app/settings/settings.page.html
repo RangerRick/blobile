@@ -13,7 +13,7 @@
       </ion-list-header>
       <ion-item *ngIf="updateService.updateAvailable" color="danger">
         <ion-label>You have an update available.</ion-label>
-        <ion-button slot="end" color="light">Reload</ion-button>
+        <ion-button slot="end" color="light" (click)="updateService.reload()">Reload</ion-button>
       </ion-item>
       <ion-item>
         <ion-label>Receive beta updates?</ion-label>
