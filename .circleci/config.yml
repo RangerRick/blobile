@@ -74,7 +74,7 @@ jobs:
         - cached-npm-install
         - run:
             name: Build Artifacts
-            command: npm --prefer-offline --no-progress run build-release
+            command: npm --prefer-offline --no-progress run prep-web
         - generate-changelog
         - run:
             name: Commit and Push Updated Artifacts
@@ -101,7 +101,7 @@ jobs:
         - cached-npm-install
         - run:
             name: Build Artifacts
-            command: npm run prep
+            command: npm run prep-web
         - run:
             name: Sync build assets to docs/
             command: rsync -avr --delete www/ docs/
