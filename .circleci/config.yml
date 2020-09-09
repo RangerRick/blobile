@@ -1,0 +1,147 @@
+version: 2.1
+
+commands:
+  cached-checkout:
+      description: "checkout with caching"
+      steps:
+        - restore_cache:
+            name: Restore Git Cache
+            keys:
+              - git-{{ .Branch }}-{{ .Revision }}
+              - git-{{ .Branch }}-
+              - git-
+        - checkout:
+            name: Check Out Code
+        - run:
+            name: Fetch from Git
+            command: |
+              git fetch origin
+              git config user.name 'CircleCI Automated Commit'
+              git config user.email 'github@raccoonfink.com'
+        - save_cache:
+            name: Save Git Cache
+            key: git-{{ .Branch }}-{{ .Revision }}
+            paths:
+              - ".git"
+  generate-changelog:
+      steps:
+        - run:
+            name: Generate Change Log
+            command: npm run changelog
+  cached-npm-install:
+      description: run "npm install", updating cache
+      steps:
+        - restore_cache:
+            name: Restore Package Cache
+            keys:
+              - npm-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
+              - npm-packages-{{ .Branch }}
+              - npm-packages-
+        - run:
+            name: Install Node Dependencies
+            command: npm --pure-lockfile --prefer-offline --no-progress install
+        - save_cache:
+            name: Save Package Cache
+            key: npm-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            paths:
+              - node_modules/
+
+jobs:
+  run-tests:
+      docker:
+        - image: circleci/node:12-browsers
+          environment:
+            TZ: "America/New_York"
+      steps:
+        - cached-checkout
+        - cached-npm-install
+        - run:
+            name: Run Tests
+            command: npm --prefer-offline --no-progress run test-headless
+  merge-main:
+      docker:
+        - image: circleci/node:12-browsers
+          environment:
+            TZ: "America/New_York"
+      steps:
+        - cached-checkout
+        - run:
+            name: Merge v1.x to Main
+            command: |
+              git checkout main
+              git pull
+              git merge -m 'automated merge from v1.x -> main' --log v1.x
+        - cached-npm-install
+        - run:
+            name: Build Artifacts
+            command: npm --prefer-offline --no-progress run build-release
+        - generate-changelog
+        - run:
+            name: Commit and Push Updated Artifacts
+            command: |
+              git add -A
+              if [ `git diff HEAD | wc -l` -gt 0 ]; then
+                echo "changes detected; committing updated dist/"
+                git commit -m 'build: automated merge from v1.x'
+              fi
+              git push
+  merge-pages:
+      docker:
+        - image: circleci/node:12-browsers
+          environment:
+            TZ: "America/New_York"
+      steps:
+        - cached-checkout
+        - run:
+            name: Merge v1.x to GitHub pages
+            command: |
+              git checkout pages
+              git pull
+              git merge -m 'automated merge from v1.x -> main' --log v1.x
+        - cached-npm-install
+        - run:
+            name: Build Artifacts
+            command: npm run prep
+        - run:
+            name: Sync build assets to docs/
+            command: rsync -avr --delete www/ docs/
+        - run:
+            name: Commit and Push Updated Artifacts
+            command: |
+              git add -A
+              if [ `git diff HEAD | wc -l` -gt 0 ]; then
+                echo "changes detected; committing updated docs/"
+                git commit -m 'build: automated merge from v1.x'
+              fi
+              git push
+
+workflows:
+  run-tests:
+    jobs:
+      - run-tests:
+          filters:
+            branches:
+              ignore:
+                - v1.x
+  run-tests-and-deploy:
+    jobs:
+      - run-tests:
+          filters:
+            branches:
+              only:
+                - v1.x
+      - merge-main:
+          requires:
+            - run-tests
+          filters:
+            branches:
+              only:
+                - v1.x
+      - merge-pages:
+          requires:
+            - run-tests
+          filters:
+            branches:
+              only:
+                - v1.x
+
