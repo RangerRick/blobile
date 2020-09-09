@@ -9,7 +9,7 @@ import { SettingsService, SEGMENT } from '../../lib/settings.service';
 import { Subscription } from 'rxjs';
 import { StreamData } from '../../lib/model/streamData';
 import { Game } from '../../lib/model/game';
-import { Team } from 'src/lib/model/team';
+import { Team } from '../../lib/model/team';
 
 @Component({
   selector: 'app-live-feed',

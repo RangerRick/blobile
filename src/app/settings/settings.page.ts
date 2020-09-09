@@ -5,7 +5,7 @@ const { Device } = Plugins;
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
-import { Team } from 'src/lib/model/team';
+import { Team } from '../../lib/model/team';
 
 import { UpdateService } from '../../lib/update.service';
 import { APIDatabase } from '../../lib/api/database';

@@ -1,8 +1,12 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
+import { ModalController } from '@ionic/angular';
+
 import { SettingsService } from '../../lib/settings.service';
 import { APIDatabase } from '../../lib/api/database';
-import { Team } from 'src/lib/model/team';
+import { Team } from '../../lib/model/team';
+
+import { TeamPage } from '../team-page/team-page.page';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
@@ -36,8 +40,9 @@ export class DiamondComponent implements OnInit {
   private teams = {} as { [key: string]: Team };
 
   constructor(
-    private database: APIDatabase,
-    private settings: SettingsService,
+    public database: APIDatabase,
+    public modalController: ModalController,
+    public settings: SettingsService,
   ) {
     // console.debug('Diamond component created.');
   }
@@ -120,7 +125,14 @@ export class DiamondComponent implements OnInit {
     }
   }
 
-  openTeam(id: string) {
+  async openTeam(id: string) {
     console.debug(`opening team: ${id}`);
+    const modal = await this.modalController.create({
+      component: TeamPage,
+      componentProps: {
+        id: id,
+      },
+    });
+    return await modal.present();
   }
 }

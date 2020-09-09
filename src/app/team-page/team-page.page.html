@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary" lines="none">
+    <ion-buttons slot="primary">
+      <ion-button (click)="close()">
+        Close
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{team.fullName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleFavorite()">
+      <ion-icon *ngIf="!isFavorite()" name="star-outline"></ion-icon>
+      <ion-icon *ngIf="isFavorite()"  name="star"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list lines="none" class="ion-no-padding ion-padding-bottom">
+    <ion-item-group>
+      <ion-item-divider color="primary" lines="none">
+        <h4>Lineup</h4>
+        <ion-label>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item *ngIf="!lineup || lineup.length === 0">
+        <ion-spinner></ion-spinner>
+      </ion-item>
+      <ion-item *ngFor="let player of lineup" lines="none">
+        <ion-label>{{player.name}}</ion-label>
+        <ion-icon *ngIf="player.peanutAllergy" src="assets/Noto_Emoji_Pie_1f95c.svg" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item-divider color="primary" lines="none">
+        <h4>Rotation</h4>
+      </ion-item-divider>
+      <ion-item *ngIf="!rotation || rotation.length === 0">
+        <ion-spinner></ion-spinner>
+      </ion-item>
+      <ion-item *ngFor="let player of rotation" lines="none">
+        <ion-label>{{player.name}}</ion-label>
+        <ion-icon *ngIf="player.peanutAllergy" src="assets/Noto_Emoji_Pie_1f95c.svg" slot="end"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
