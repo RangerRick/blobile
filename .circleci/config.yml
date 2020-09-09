@@ -76,6 +76,9 @@ jobs:
             name: Build Artifacts
             command: npm --prefer-offline --no-progress run prep-web
         - generate-changelog
+        - add_ssh_keys:
+            fingerprints:
+              - "8a:75:48:b0:a2:c5:9d:53:05:11:4c:bd:3f:31:b4:7a"
         - run:
             name: Commit and Push Updated Artifacts
             command: |
@@ -108,6 +111,9 @@ jobs:
         - run:
             name: Sync build assets to docs/
             command: rsync -avr --delete www/ docs/
+        - add_ssh_keys:
+            fingerprints:
+              - "8a:75:48:b0:a2:c5:9d:53:05:11:4c:bd:3f:31:b4:7a"
         - run:
             name: Commit and Push Updated Artifacts
             command: |
