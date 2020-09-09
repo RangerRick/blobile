@@ -1,32 +1,11 @@
 <ion-card class="green-card ion-no-padding ion-no-margin">
-  <ion-card-header color="transparent" class="ion-no-padding">
-    <ion-toolbar color="transparent">
-      <!--
-      <ion-buttons slot="start">
-        <ion-button fill="clear" shape="round" size="large" (click)="toggleFavorite(game.awayTeam)">
-          <ion-icon *ngIf="!isFavorite(game.awayTeam)" name="star-outline"></ion-icon>
-          <ion-icon *ngIf="isFavorite(game.awayTeam)" name="star"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      -->
-      <ion-title class="ion-no-padding">
-        <div class="team-header">
-          <bl-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam)"></bl-team>
-          at
-          <bl-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam)"></bl-team>
-        </div>
-      </ion-title>
-      <!--
-      <ion-buttons slot="end">
-        <ion-button fill="clear" shape="round" size="large" (click)="toggleFavorite(game.homeTeam)">
-          <ion-icon *ngIf="!isFavorite(game.homeTeam)" name="star-outline"></ion-icon>
-          <ion-icon *ngIf="isFavorite(game.homeTeam)" name="star"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      -->
-    </ion-toolbar>
-  </ion-card-header>
   <ion-card-content class="ion-no-padding">
+    <div class="team-header">
+      <bl-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam)"></bl-team>
+      at
+      <bl-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam)"></bl-team>
+    </div>
+
     <!-- viewbox="0 0 650 500" -->
     <svg *ngIf="inProgress()" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="diamond" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="10 120 635 390">
       <g id="main">
