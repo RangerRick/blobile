@@ -100,6 +100,9 @@ jobs:
               git merge -m 'automated merge from v1.x -> main' --log v1.x
         - cached-npm-install
         - run:
+            name: Install rsync
+            command: sudo apt-get update && sudo apt-get -y install rsync
+        - run:
             name: Build Artifacts
             command: npm run prep-web
         - run:
