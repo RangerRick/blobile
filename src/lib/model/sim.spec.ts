@@ -99,9 +99,9 @@ describe('Sim', () => {
 
     it('should be a postseason game (very end)', () => {
       sim = new Sim(seasonVeryFinished);
-      expect(sim.isRegularSeason()).toBeFalsy();
-      expect(sim.isPostseason()).toBeFalsy();
-      expect(sim.isPostseasonComplete()).toBeTruthy();
+      expect(sim.isRegularSeason(1599400000000)).toBeFalsy();
+      expect(sim.isPostseason(1599400000000)).toBeFalsy();
+      expect(sim.isPostseasonComplete(1599400000000)).toBeTruthy();
     });
   });
 

@@ -36,21 +36,23 @@ export class APIDatabase {
     }).catch((err:any) => {
       console.error('request failed, trying again in 1s:', err);
       return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          Http.request({
-            method: 'GET',
-            url: url,
-          }).then((response:HttpResponse) => {
+        setTimeout(async () => {
+          try {
+            const response = await Http.request({
+              method: 'GET',
+              url: url,
+            }) as HttpResponse;
             resolve(response);
-          }).catch((err:any) => {
+          }  catch(err) {
             reject(err);
-          });
+          }
         }, 1000);
       });
     });
-    this.cache[url] = ret.data;
+    console.log('ret=', ret);
+    this.cache[url] = (ret as any).data;
     // console.debug('data=', ret.data);
-    return ret.data;
+    return (ret as any).data;
   }
 
   public async teams(force?: boolean): Promise<Team[]> {
@@ -58,11 +60,13 @@ export class APIDatabase {
     console.debug(`APIDatabase.teams(): GET ${url}`);
     try {
       const ret = await this.get(url, force);
-      return ret.map((team:any) => new Team(team));
+      if (ret) {
+        return ret.map((team:any) => new Team(team));
+      }
     } catch (err) {
       console.error('APIDatabase.teams(): failed to get list of teams', err);
-      return [];
     }
+    return [];
   }
 
   public async players(...args: any[]): Promise<Player[]> {
@@ -77,10 +81,12 @@ export class APIDatabase {
     console.debug(`APIDatabase.players(): GET ${url}`);
     try {
       const ret = await this.get(url, force);
-      return ret.map((player:any) => new Player(player));
+      if (ret) {
+        return ret.map((player:any) => new Player(player));
+      }
     } catch (err) {
       console.error('APIDatabase.players(): failed to get players', err);
-      return [] as Player[];
     }
+    return [] as Player[];
   }
 }

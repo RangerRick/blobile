@@ -31,17 +31,17 @@ export class TeamPage implements OnInit {
   async ngOnInit() {
     this.team = (await this.database.teams()).find((team:Team) => {
       return team.id === this.id;
-    });
-    console.debug('team=', this.team);
+    }) || {} as Team;
+    // console.debug('team=', this.team);
 
     const lineupP = this.database.players(this.team.lineup).then((players: Player[]) => {
       this.lineup = players;
-      console.debug('lineup=', this.lineup);
+      // console.debug('lineup=', this.lineup);
     });
 
     const rotationP = this.database.players(this.team.rotation).then((players: Player[]) => {
       this.rotation = players;
-      console.debug('rotation=', this.rotation);
+      // console.debug('rotation=', this.rotation);
     });
 
     return Promise.all([this.team, lineupP, rotationP]);

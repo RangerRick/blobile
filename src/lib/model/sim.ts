@@ -48,22 +48,23 @@ export class Sim extends Entry {
     ]);
   }
 
-  public isPreseason() {
+  public isPreseason(now = Date.now()) {
     const nextSeason = new Date(this.data.nextSeasonStart).getTime();
-    if (this.data.day === 0 && nextSeason > Date.now()) {
+    console.debug(`nextSeason=${nextSeason}, now=${now}`);
+    if (this.data.day === 0 && nextSeason > now) {
       return true;
     }
   }
 
-  public isRegularSeason() {
-    return !this.isPreseason() && this.data?.day !== undefined? (this.data.day < 99) : false;
+  public isRegularSeason(now = Date.now()) {
+    return !this.isPreseason(now) && (this.data?.day !== undefined? (this.data.day < 99) : false);
   }
 
-  public isPostseason() {
-    return !this.isPreseason() && this.data?.day !== undefined? (this.data.day >= 99) : false;
+  public isPostseason(now = Date.now()) {
+    return !this.isPreseason(now) && (this.data?.day !== undefined? (this.data.day >= 99) : false);
   }
 
-  public isPostseasonComplete() {
+  public isPostseasonComplete(now = Date.now()) {
     if (this.data.nextElectionEnd && this.data.nextPhaseTime) {
       if (this.data.nextElectionEnd === this.data.nextPhaseTime) {
         return true;
@@ -74,7 +75,7 @@ export class Sim extends Entry {
       return true;
     }
 
-    return this.isPreseason();
+    return this.isPreseason(now);
   }
 
   countdownToNextPhase(from?: number) {

@@ -266,7 +266,7 @@ export class APIStream {
       await this.closeSource();
       // const es = new EventSourceWeb();
       const es = EventSource;
-      this.source = es;
+      this.source = es as EventSourcePlugin;
 
       await es.configure({ url: this.url });
       this.handles.message = es.addListener('message', (res: MessageResult) => {
