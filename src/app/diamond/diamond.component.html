@@ -70,7 +70,12 @@
       </ion-row>
       <ion-row class="ion-align-items-end ion-text-end">
         <ion-col>
-          <div><span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span><span *ngIf="!teams[game.awayTeam]">AWAY</span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div></div>
+          <div (click)="openTeam(game.awayTeam)">
+            <span>
+              <span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span>
+              <span *ngIf="!teams[game.awayTeam]">AWAY</span>
+            </span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div>
+          </div>
         </ion-col>
         <ion-col *ngIf="game.gameComplete" class="ion-text-end">
           <div>FINAL <span *ngIf="game.inning > 8">({{game.inning}})</span></div>
@@ -79,7 +84,12 @@
           <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning}}</div></div>
         </ion-col>
         <ion-col>
-          <div><span *ngIf="teams[game.homeTeam]">{{teams[game.homeTeam].shorthand}}</span><span *ngIf="!teams[game.homeTeam]">HOME</span>&nbsp;<div class="scorebox-box">{{game.homeScore}}</div></div>
+          <div (click)="openTeam(game.homeTeam)">
+            <span>
+              <span *ngIf="teams[game.homeTeam]">{{teams[game.homeTeam].shorthand}}</span>
+              <span *ngIf="!teams[game.homeTeam]">HOME</span>
+            </span>&nbsp;<div class="scorebox-box">{{game.homeScore}}</div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
