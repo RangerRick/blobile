@@ -26,7 +26,7 @@ export class SettingsPage implements OnInit {
     header: 'Choose Your Team',
   }
 
-  private teams = [] as Team[];
+  public teams = [] as Team[];
 
   constructor(
     public database: APIDatabase,

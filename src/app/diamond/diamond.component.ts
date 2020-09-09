@@ -37,7 +37,7 @@ export class DiamondComponent implements OnInit {
     pitcher: [ 328, 290 ],
   };
 
-  private teams = {} as { [key: string]: Team };
+  public teams = {} as { [key: string]: Team };
 
   constructor(
     public database: APIDatabase,
