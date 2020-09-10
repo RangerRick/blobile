@@ -67,7 +67,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "inst": "npm --pure-lockfile --prefer-offline --no-progress install",
+    "inst": "npm --package-lock-only --prefer-offline --no-progress install",
     "watch": "ionic cap run ios --watch --livereload --external",
     "increment": "node increment.js && npm run version",
     "version": "node src/version.js",
