@@ -3,13 +3,17 @@ import { LoadingController, IonContent } from '@ionic/angular';
 
 import { Plugins } from '@capacitor/core';
 
+import { Subscription } from 'rxjs';
+
 import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
-import { Subscription } from 'rxjs';
 import { StreamData } from '../../lib/model/streamData';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
+
+import Util from '../../lib/util';
+
 
 @Component({
   selector: 'app-live-feed',
@@ -78,24 +82,11 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   async showLoading() {
     this.loading = true;
-    /*
-    this.hideLoading();
-    this.loading = await this.loadingController.create({
-      showBackdrop: false,
-      translucent: true,
-    });
-    this.loading.present();
-    */
   }
 
   async hideLoading() {
     this.loading = false;
     this.ready = true;
-    /*
-    if (this.loading) {
-      this.loading.dismiss();
-    }
-    */
   }
 
   forceRefresh(evt: any) {
@@ -281,7 +272,18 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  onEvent(evt: MessageEvent|Event) {
+  checkInterestingEvents() {
+    // make sure this happens after a model update tick
+    setTimeout(() => {
+      for (const game of this.games) {
+        if (game.lastUpdate.toLowerCase().indexOf('home run') >= 0) {
+          Util.confetti(`diamond-${game.id}`, 'HOME RUN!');
+        }
+      }
+    });
+  }
+
+  async onEvent(evt: MessageEvent|Event) {
     if (evt['type'] === 'error') {
       this.onError(evt);
       return;
@@ -304,15 +306,16 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
 
     console.debug('LiveFeed.onEvent(): current data:', this.data);
+
+    this.checkDisableSleep();
     this.refreshUI();
     this.hideLoading();
-    this.checkDisableSleep();
+    this.checkInterestingEvents();
   }
 
   onError(evt: Event) {
     console.debug('LiveFeed.onError():', evt);
     this.hideLoading();
-    this.loading = false;
     // wait a couple of seconds before actually marking it as an error
     setTimeout(() => {
       this.errors++;
