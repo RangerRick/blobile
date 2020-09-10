@@ -39,7 +39,7 @@ commands:
               - npm-packages-
         - run:
             name: Install Node Dependencies
-            command: npm --package-lock-only --prefer-offline --no-progress install
+            command: npm --prefer-offline --no-progress ci
         - save_cache:
             name: Save Package Cache
             key: npm-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
