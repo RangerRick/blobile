@@ -50,7 +50,7 @@ export class Sim extends Entry {
 
   public isPreseason(now = Date.now()) {
     const nextSeason = new Date(this.data.nextSeasonStart).getTime();
-    console.debug(`nextSeason=${nextSeason}, now=${now}`);
+    // console.debug(`nextSeason=${nextSeason}, now=${now}`);
     if (this.data.day === 0 && nextSeason > now) {
       return true;
     }
