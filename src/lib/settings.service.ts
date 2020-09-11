@@ -15,6 +15,7 @@ export class SettingsService {
     favorites: {},
     disableSleep: false,
     favoriteTeam: undefined,
+    lastUrl: undefined,
   } as any;
 
   public ready: Promise<boolean>;
@@ -42,6 +43,9 @@ export class SettingsService {
 
       const favoriteTeam = await Storage.get({key: 'favoriteTeam'});
       this.settings.favoriteTeam = favoriteTeam?.value;
+
+      const lastUrl = await Storage.get({key: 'lastUrl'});
+      this.settings.lastUrl = lastUrl?.value;
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
@@ -49,6 +53,7 @@ export class SettingsService {
         favorites: {},
         disableSleep: false,
         favoriteTeam: undefined,
+        lastUrl: undefined,
       };
     }
 
@@ -132,4 +137,17 @@ export class SettingsService {
     });
   }
 
+  lastUrl(): string {
+    this.assertSettings();
+    return this.settings.lastUrl;
+  }
+
+  async setLastUrl(url: string) {
+    this.assertSettings();
+    this.settings.lastUrl = url;
+    return Storage.set({key: 'lastUrl', value: url}).then(() => {
+      console.debug(`set lastUrl: ${url}`);
+      return url;
+    });
+  }
 }

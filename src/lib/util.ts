@@ -17,7 +17,7 @@ interface ConfettiOptions extends MessageOptions {
 
 const BASE_Z_INDEX = 1000;
 
-const DEFAULT_DURATION = 4000;
+const DEFAULT_DURATION = 3500;
 const DEFAULT_FONT_FAMILY = 'impact, Arial Narrow Bold, Arial Narrow, sans-serif';
 const DEFAULT_FONT_SIZE = '4em';
 const DEFAULT_MESSAGE_BLINK_SPEED = 400;

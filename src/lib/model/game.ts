@@ -1,5 +1,7 @@
 import { Entry } from './_entry';
 
+import { sha256 } from 'hash.js';
+
 export class Game extends Entry {
   id: string;
   atBatBalls: number;
@@ -48,6 +50,8 @@ export class Game extends Entry {
   terminology:string;
   topOfInning: boolean;
   weather: number;
+
+  hash: string;
 
   constructor(data?: any) {
     super(data);
@@ -106,7 +110,28 @@ export class Game extends Entry {
       'gameStart',
       'isPostseason',
       'topOfInning',
-    ])
+    ]);
+
+    let hash = sha256();
+    for (const prop of [
+      'awayBatter',
+      'homeBatter',
+      'lastUpdate',
+      'atBatBalls',
+      'atBatStrikes',
+      'awayScore',
+      'baseRunnerCount',
+      'halfInningOuts',
+      'halfInningScore',
+      'homeScore',
+      'inning',
+      'gameComplete',
+      'gameStart',
+      'topOfInning',
+    ]) {
+      hash.update(this.data?.[prop]);
+    }
+    this.hash = hash.digest('hex');
   }
 
   public get baseRunnerNames(): string[] {

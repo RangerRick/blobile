@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, DoCheck, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, DoCheck, OnChanges, ChangeDetectorRef } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -41,7 +41,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
 
   public teams = {} as { [key: string]: Team };
 
-  private oldGame = '';
+  private oldGame = {} as Game;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -65,13 +65,13 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
   }
 
   ngDoCheck(): void {
-    if (JSON.stringify(this.game) !== this.oldGame) {
+    if (this.oldGame.hash !== this.game.hash) {
       this.changeDetector.markForCheck();
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.oldGame = JSON.stringify(this.game);
+  ngOnChanges(/* changes: SimpleChanges */) {
+    this.oldGame = this.game;
     this.checkInterestingEvents();
   }
 
