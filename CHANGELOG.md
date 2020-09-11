@@ -1,3 +1,19 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-25...v1.1.4) (2020-09-11)
+
+
+### Bug Fixes
+
+* **live-feed:** change wording when no games ([5819a1a](https://github.com/RangerRick/blobile/commit/5819a1a0f04a5717768eacdb8fcdf0186fea3096))
+* **live-feed:** fix sorting by starred teams ([e28eaa9](https://github.com/RangerRick/blobile/commit/e28eaa9c9801b3fad206409b85c5c0384c8e3921))
+
+
+### Features
+
+* **live-feed:** more confetti/special options ([bcafb8a](https://github.com/RangerRick/blobile/commit/bcafb8a32854c6ecfe70051de7025f1ab0297e23))
+* **model:** track awayStrikes & homeStrikes in game ([53cc739](https://github.com/RangerRick/blobile/commit/53cc73980e98bd753405db566cf69494c15f7bc8))
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-25...v1.1.4) (2020-09-10)
 
 
