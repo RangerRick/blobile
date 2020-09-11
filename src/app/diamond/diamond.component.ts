@@ -72,7 +72,6 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.oldGame = JSON.stringify(this.game);
-    console.debug('CHANGING THE GAME!');
     this.checkInterestingEvents();
   }
 
