@@ -10,7 +10,7 @@ def capacitor_pods
   # Automatic Capacitor Pod dependencies, do not delete
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  pod 'BoostenCapacitorKeepAwake', :path => '../../../keep-awake'
+  pod 'BoostenCapacitorKeepAwake', :path => '../../node_modules/@boosten/capacitor-keep-awake'
   pod 'CapacitorCommunityHttp', :path => '../../node_modules/@capacitor-community/http'
   pod 'CapacitorEventsource', :path => '../../node_modules/capacitor-eventsource'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'

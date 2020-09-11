@@ -49,7 +49,6 @@ export class APIDatabase {
         }, 1000);
       });
     });
-    console.log('ret=', ret);
     this.cache[url] = (ret as any).data;
     // console.debug('data=', ret.data);
     return (ret as any).data;
