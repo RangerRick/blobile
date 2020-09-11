@@ -27,13 +27,22 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(async () => {
       const url = await this.routeWatcherService.lastUrl();
-      if (url) {
-        await this.router.navigateByUrl(url);
+      try {
+        if (url) {
+          await this.router.navigateByUrl(url);
+        }
+      } catch (err) {
+        console.error(`AppComponent.initializeApp(): failed to navigate to ${url}`);
       }
+
+      try {
+        await this.updateService.checkUpdate();
+      } catch (err) {
+        console.error('AppComponent.initializeApp(): failed to check for updates.', err);
+      }
+
       SplashScreen.hide();
-      return this.updateService.checkUpdate().finally(() => {
-        return true;
-      });
+      return true;
     });
   }
 
