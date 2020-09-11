@@ -378,9 +378,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
     const errorWait = 1000;
 
-    const onError = (err: Event) => {
-    };
-
     const observable = this.api.start();
     this.subscription = observable.subscribe((evt) => {
       this.onEvent(evt);
