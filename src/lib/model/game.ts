@@ -117,7 +117,7 @@ export class Game extends Entry {
     return this.data?.baseRunners || [];
   }
 
-  public get basesOccupied(): string[] {
+  public get basesOccupied(): number[] {
     return this.data?.basesOccupied || [];
   }
 

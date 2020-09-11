@@ -7,6 +7,7 @@ import { APIDatabase } from '../../lib/api/database';
 import { Team } from '../../lib/model/team';
 
 import { TeamPage } from '../team-page/team-page.page';
+import { Game } from 'src/lib/model/game';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
@@ -17,7 +18,7 @@ import { TeamPage } from '../team-page/team-page.page';
   styleUrls: ['./diamond.component.scss'],
 })
 export class DiamondComponent implements OnInit {
-  @Input() public game: any;
+  @Input() public game: Game;
   @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
 
   public font = {
@@ -117,9 +118,9 @@ export class DiamondComponent implements OnInit {
   getEmoji(type: string) {
     switch(type) {
       case 'home':
-        return String.fromCodePoint(this.game.homeTeamEmoji);
+        return String.fromCodePoint(parseInt(this.game.homeTeamEmoji, 16));
       case 'away':
-        return String.fromCodePoint(this.game.awayTeamEmoji);
+        return String.fromCodePoint(parseInt(this.game.awayTeamEmoji, 16));
       default:
         return '';
     }
