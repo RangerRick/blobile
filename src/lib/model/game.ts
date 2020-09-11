@@ -10,6 +10,7 @@ export class Game extends Entry {
   awayPitcher: string;
   awayPitcherName: string;
   awayScore: number;
+  awayStrikes: number;
   awayTeam: string;
   awayTeamBatterCount: number;
   awayTeamColor: string;
@@ -28,6 +29,7 @@ export class Game extends Entry {
   homePitcher: string;
   homePitcherName: string;
   homeScore: number;
+  homeStrikes: number;
   homeTeam: string;
   homeTeamBatterCount: number;
   homeTeamColor: string;
@@ -80,11 +82,13 @@ export class Game extends Entry {
       'atBatStrikes',
       'awayOdds',
       'awayScore',
+      'awayStrikes',
       'awayTeamBatterCount',
       'baseRunnerCount',
       'halfInningOuts',
       'halfInningScore',
       'homeScore',
+      'homeStrikes',
       'homeTeamBatterCount',
       'phase',
       'seriesIndex',
