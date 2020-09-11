@@ -84,6 +84,10 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
+    this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
+      this.observer = observer;
+    });
+
     Device.getInfo().then(info => {
       this.deviceInfo = info;
       if (this.deviceInfo.platform !== 'web') {
@@ -103,10 +107,6 @@ export class APIStream {
   async init(url?: string) {
     console.debug('APIStream.init(): initializing.');
     this.isStarted = false;
-
-    this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
-      this.observer = observer;
-    });
 
     if (url) {
       console.debug(`APIStream.init(): pre-configured URL: ${url}`);

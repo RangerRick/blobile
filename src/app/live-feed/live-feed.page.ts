@@ -277,7 +277,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   checkInterestingEvents() {
     /* just for testing
     if (this.games.length > 0) {
-      this.games[0].data.lastUpdate = 'reverb';
+      this.games[0].data.lastUpdate = 'rogue umpire incinerated';
       this.games[1].data.lastUpdate = 'switched teams and feedback';
       this.games[2].data.lastUpdate = 'hits a grand slam';
     }
@@ -299,6 +299,13 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         ) {
           Util.confetti(id, 'GRAND SLAM!', {
             particleCount: 100,
+          });
+        } else if (
+          update.indexOf('rogue umpire incinerated') >= 0
+        ) {
+          Util.message(id, '🔥 INCINERATED 🔥', {
+            fontSize: '3em',
+            messageColor: '#ffdf19',
           });
         } else if (
           update.indexOf('blooddrain') >= 0
@@ -377,9 +384,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     this.showLoading();
 
     const errorWait = 1000;
-
-    const onError = (err: Event) => {
-    };
 
     const observable = this.api.start();
     this.subscription = observable.subscribe((evt) => {
