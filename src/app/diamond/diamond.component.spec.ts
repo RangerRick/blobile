@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DiamondComponent } from './diamond.component';
+import { Game } from 'src/lib/model/game';
 
 describe('DiamondComponent', () => {
   let component: DiamondComponent;
@@ -24,7 +25,7 @@ describe('DiamondComponent', () => {
       "homeTeamNickname": "Tigers",
       "homeTeamEmoji": "0x1F405",
       "basesOccupied": [],
-    };
+    } as Game;
 
     fixture.detectChanges();
   }));
