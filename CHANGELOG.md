@@ -1,3 +1,17 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-26...v1.1.4) (2020-09-11)
+
+
+### Bug Fixes
+
+* **api:** initialize observable immediately ([d8f5e7f](https://github.com/RangerRick/blobile/commit/d8f5e7fddd99d425ac628a8f638bb5d7d1fcfc92))
+
+
+### Features
+
+* **live-feed:** add incineration ([23846ea](https://github.com/RangerRick/blobile/commit/23846eaefa1c7853db42a8312f91952a5df41058))
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-25...v1.1.4) (2020-09-11)
 
 
