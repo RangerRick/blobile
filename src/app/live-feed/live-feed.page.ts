@@ -150,15 +150,17 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
 
     const favoriteTeam = this.settings.favoriteTeam();
-    return ret.sort((a: any, b: any) => {
+    return ret.sort((a: Game, b: Game) => {
       // always put favorite team first
-      if (a.homeTeam === favoriteTeam) {
+      if (a.homeTeam === favoriteTeam || a.awayTeam === favoriteTeam) {
         return -1;
-      } else if (b.homeTeam === favoriteTeam) {
+      } else if (b.homeTeam === favoriteTeam || b.awayTeam === favoriteTeam) {
         return 1;
-      } else if (a.awayTeam === favoriteTeam) {
+      }
+
+      if (this.settings.isFavorite(a.homeTeam) || this.settings.isFavorite(a.awayTeam)) {
         return -1;
-      } else if (b.awayTeam === favoriteTeam) {
+      } else if (this.settings.isFavorite(b.homeTeam) || this.settings.isFavorite(b.awayTeam)) {
         return 1;
       }
 
