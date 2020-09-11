@@ -274,71 +274,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  checkInterestingEvents() {
-    /* just for testing
-    if (this.games.length > 0) {
-      this.games[0].data.lastUpdate = 'rogue umpire incinerated';
-      this.games[1].data.lastUpdate = 'switched teams and feedback';
-      this.games[2].data.lastUpdate = 'hits a grand slam';
-    }
-    */
-
-    const games = [...this.games];
-
-    // make sure this happens after a model update tick
-    setTimeout(() => {
-      for (const game of games) {
-        const id = `diamond-${game.id}`;
-        const update = game.lastUpdate.toLowerCase();
-        if (
-          update.indexOf('home run') >= 0
-        ) {
-          Util.confetti(id, 'HOME RUN!');
-        } else if (
-          update.indexOf('hits a grand slam') >= 0
-        ) {
-          Util.confetti(id, 'GRAND SLAM!', {
-            particleCount: 100,
-          });
-        } else if (
-          update.indexOf('rogue umpire incinerated') >= 0
-        ) {
-          Util.message(id, '🔥 INCINERATED 🔥', {
-            fontSize: '3em',
-            messageColor: '#ffdf19',
-          });
-        } else if (
-          update.indexOf('blooddrain') >= 0
-        ) {
-          Util.message(id, '🩸 BLOODDRAIN 🩸', {
-            fontSize: '3em',
-            messageColor: '#d00',
-          });
-        } else if (
-          update.indexOf('switched teams') >= 0 && update.indexOf('feedback') >= 0
-        ) {
-          Util.message(id, '🎤 FEEDBACK 🎤', {
-            fontSize: '3em',
-            messageColor: '#f40576',
-          });
-        } else if (
-          update.indexOf('reverb') >= 0
-        ) {
-          Util.message(id, '🌊 REVERB 🌊', {
-            fontSize: '3em',
-            messageColor: '#62b2ff',
-          });
-        } else if (
-          game.halfInningOuts === 2 &&
-          game.atBatBalls === 3 &&
-          (game.atBatStrikes === (game.topOfInning === false? game.homeStrikes : game.awayStrikes) - 1)
-        ) {
-          Util.message(id, 'MAXIMUM\nBLASEBALL!');
-        }
-      }
-    });
-  }
-
   async onEvent(evt: MessageEvent|Event) {
     if (evt['type'] === 'error') {
       this.onError(evt);
@@ -366,7 +301,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     this.checkDisableSleep();
     this.refreshUI();
     this.hideLoading();
-    this.checkInterestingEvents();
   }
 
   onError(evt: Event) {

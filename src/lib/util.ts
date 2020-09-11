@@ -58,22 +58,28 @@ export default abstract class Util {
       textContainer.appendChild(text);
       diamondContents.appendChild(textContainer);
 
-      setTimeout(() => {
-        let on = true;
-        const blink = setInterval(() => {
-          if (on) {
-            text.innerHTML = message;
-          } else {
-            text.innerHTML = '';
-          }
-          on = !on;
-        }, options.blinkSpeed || DEFAULT_MESSAGE_BLINK_SPEED);
+      let blink: number;
 
-        setTimeout(() => {
-          clearInterval(blink);
-          text.remove();
-          textContainer.remove();
-        }, options.duration || DEFAULT_DURATION);
+      setTimeout(() => {
+        if (options.blinkSpeed !== 0) {
+          let on = true;
+          blink = setInterval(() => {
+            if (on) {
+              text.innerHTML = message;
+            } else {
+              text.innerHTML = '';
+            }
+            on = !on;
+          }, options.blinkSpeed || DEFAULT_MESSAGE_BLINK_SPEED) as unknown as number;
+
+          setTimeout(() => {
+            if (blink) {
+              clearInterval(blink);
+            }
+            text.remove();
+            textContainer.remove();
+          }, options.duration || DEFAULT_DURATION);
+        }
       }, 200);
     }
   }
