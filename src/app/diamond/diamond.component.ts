@@ -26,7 +26,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
     color: 'white',
     family: 'Arial Narrow Bold, Arial Narrow, Impact, sans-serif',
     size: '1.5rem',
-    strokeWidth: '2px',
+    strokeWidth: '0.12em',
     weight: '500',
   };
 
