@@ -24,16 +24,19 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
 
   public font = {
     color: 'white',
+    /*
     family: 'Arial Narrow Bold, Arial Narrow, Impact, sans-serif',
-    size: '1.5rem',
-    strokeWidth: '2px',
-    weight: '500',
+    */
+   family: 'sans-serif',
+    size: '1.3rem',
+    strokeWidth: '0.115em',
+    weight: 'bold',
   };
 
   public coordinates = {
     // [ x, y ]
     first:   [ 440, 355 ],
-    second:  [ 328, 190 ],
+    second:  [ 328, 185 ],
     third:   [ 215, 355 ],
     home:    [ 328, 505 ],
     pitcher: [ 328, 290 ],
@@ -147,9 +150,13 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
     return this.game && !this.game.gameComplete;
   }
 
-  getName(person: any) {
+  getName(person?: { name: string }, index?: number) {
     if (person && person.name) {
-      return person.name;
+      if (index === undefined) {
+        return person.name;
+      } else if (person.name.length > 15) {
+        return person.name.split(' ')[index];
+      }
     }
     return null;
   }
