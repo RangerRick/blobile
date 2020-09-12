@@ -62,7 +62,9 @@ export class SettingsPage implements OnInit {
     this.disableSleep = this.settings.disableSleep();
     console.debug(`SettingsPage.ngOnInit(): disableSleep=${this.disableSleep}`);
 
-    this.teams = await this.database.teams();
+    this.teams = (await this.database.teams()).sort((a:Team, b:Team) => {
+      return (a.fullName < b.fullName) ? -1 : (a.fullName > b.fullName) ? 1 : 0;
+    });
     console.debug(`SettingsPage.ngOnInit(): teams=`, this.teams);
 
     this.favoriteTeam = this.settings.favoriteTeam();
