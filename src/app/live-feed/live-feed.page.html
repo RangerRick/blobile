@@ -68,7 +68,12 @@
         <h4 *ngIf="data && data.games" class="ion-no-margin">Season {{data.games.season.seasonNumber}}, Day {{data.games.sim.day}}</h4>
       </ion-item>
       <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
-        No active games for day {{data.games.sim.day}}.
+        <span *ngIf="isPostseason()">
+          No active games for postseason day {{getPlayoffDay()}}.
+        </span>
+        <span *ngIf="!isPostseason()">
+          No active games for day {{data.games.sim.day}}.
+        </span>
       </ion-item>
       <ion-grid>
         <ion-row>

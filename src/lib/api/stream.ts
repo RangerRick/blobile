@@ -75,8 +75,8 @@ export class APIStream {
    * Create an API object that can subscribe to the Blaseball event stream.
    */
   constructor() {
-    this.defaultRetryMillis = 10 * SECOND;
-    this.defaultCheckIntervalMillis = 5 * SECOND;
+    this.defaultRetryMillis = 5 * SECOND;
+    this.defaultCheckIntervalMillis = 2 * SECOND;
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
 
@@ -116,39 +116,6 @@ export class APIStream {
       // this.url = 'https://www.blaseball.com/events/streamData';
       this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }
-
-    try {
-      this.isActive = (await App.getState()).isActive;
-    } catch (err) {
-      console.error('APIStream.init(): failed to get app state, assuming active.', err);
-      this.isActive = true;
-    }
-    try {
-      this.isConnected = (await Network.getStatus()).connected;
-    } catch (err) {
-      console.error('APIStream.init(): failed to get connection state, assuming connected.', err);
-      this.isConnected = true;
-    }
-
-    App.addListener('appStateChange', async (state: AppState) => {
-      const isActive = this.isActive;
-
-      console.debug(`APIStream.init() isActive: ${isActive} -> ${state.isActive}`);
-      if (!isActive && state.isActive) {
-        // always reload on switch from inactive to active
-        await this.handleSystemChange(true);
-      } else if (state.isActive) {
-        // conditionally reload if otherwise active
-        await this.handleSystemChange();
-      }
-    });
-
-    Network.addListener('networkStatusChange', async status => {
-      console.debug(`APIStream.init() isConnected: ${this.isConnected} -> ${status.connected}`);
-      if (status.connected) {
-        await this.handleSystemChange(true);
-      }
-    });
   }
 
   async handleSystemChange(retrigger?: boolean) {
@@ -172,6 +139,7 @@ export class APIStream {
       await this.closeSource();
       this.source = null;
     }
+    return this.source;
   }
   
   /**
@@ -215,7 +183,7 @@ export class APIStream {
    */
   public async retry() {
     console.debug('APIStream.retry()');
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
         this.lastRetry = Date.now();
 
@@ -225,7 +193,9 @@ export class APIStream {
         console.debug(`APIStream.retry(): ${this.retryMillis} -> ${newMillis}`);
         this.retryMillis = newMillis;
 
-        resolve(this.createSource());
+        const ret = await this.createSource();
+        this.handleSystemChange();
+        resolve(ret);
       } catch (err) {
         reject(err);
       }
@@ -309,15 +279,19 @@ export class APIStream {
   }
 
   protected startCheckingLastUpdated() {
-    console.debug('APIStream.startCheckingLastUpdated()');
-    if (this.retryChecker) {
-      clearInterval(this.retryChecker);
-    }
+    this.stopCheckingLastUpdated();
     setTimeout(() => {
       this.retryChecker = setInterval(() => {
         this.checkLastUpdated();
       }, this.defaultCheckIntervalMillis) as unknown as number;
     }, this.defaultCheckIntervalMillis);
+  }
+
+  protected stopCheckingLastUpdated() {
+    console.debug('APIStream.startCheckingLastUpdated()');
+    if (this.retryChecker) {
+      clearInterval(this.retryChecker);
+    }
   }
 
   protected checkLastUpdated() {
