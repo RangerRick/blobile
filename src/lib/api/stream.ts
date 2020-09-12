@@ -1,8 +1,8 @@
-// import { Injectable } from '@angular/core';
+import { OnInit, Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
-const { App, Device, EventSource, Network } = Plugins;
+import { Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
+const { Device, EventSource } = Plugins;
 
 import 'capacitor-eventsource';
 import { MessageResult, ErrorResult, EventSourcePlugin /*, EventSourceWeb */ } from 'capacitor-eventsource';
@@ -12,12 +12,10 @@ const ONE_MINUTE = 60 * SECOND;
 const ONE_HOUR = 60 * ONE_MINUTE;
 // const ONE_DAY = 60 * ONE_HOUR;
 
+@Injectable({
+  providedIn: 'root',
+})
 export class APIStream {
-  /**
-   * the URL to connect to when creating an event source
-   */
-  public url: string;
-
   /**
    * default interval since the last successful message before retrying
    */
@@ -36,12 +34,8 @@ export class APIStream {
   /**
    * whether or not the user has started the service
    */
-  public isStarted: boolean;
+  public isStarted = false;
 
-  /**
-   * whether or not we are in the foreground
-   */
-  public isActive: boolean;
   /**
    * whether or not we are connected to a network
    */
@@ -71,6 +65,8 @@ export class APIStream {
 
   private handles = {} as { [key: string]: PluginListenerHandle };
 
+  private url: Promise<string>;
+
   /**
    * Create an API object that can subscribe to the Blaseball event stream.
    */
@@ -79,6 +75,7 @@ export class APIStream {
     this.defaultCheckIntervalMillis = 2 * SECOND;
     this.defaultRetryFallback = 1.2;
     this.retryMillis = this.defaultRetryMillis;
+    this.isStarted = false;
 
     console.debug(`APIStream(): default retry:          ${this.defaultRetryMillis}ms`);
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
@@ -87,35 +84,30 @@ export class APIStream {
     this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
       this.observer = observer;
     });
+  }
 
-    Device.getInfo().then(info => {
+  async init() {
+    if (this.url) {
+      console.debug('APIStream.init(): already initialized.');
+      return this.url;
+    }
+
+    console.debug('APIStream.ngOnInit(): initializing.');
+    this.isStarted = false;
+
+    return this.url = Device.getInfo().then(info => {
       this.deviceInfo = info;
       if (this.deviceInfo.platform !== 'web') {
-        this.init('https://www.blaseball.com/events/streamData');
-      } else {
-        this.init();
+        return 'https://www.blaseball.com/events/streamData';
       }
+      return 'https://cors-proxy.blaseball-reference.com/events/streamData';
     }).catch((err) => {
       console.error('APIStream(): failed to get device info, assuming web', err);
       this.deviceInfo = {
         platform: 'web'
       } as DeviceInfo;
-      this.init();
+      return 'https://cors-proxy.blaseball-reference.com/events/streamData';
     });
-  }
-
-  async init(url?: string) {
-    console.debug('APIStream.init(): initializing.');
-    this.isStarted = false;
-
-    if (url) {
-      console.debug(`APIStream.init(): pre-configured URL: ${url}`);
-      this.url = url;
-    } else {
-      // this.url = 'https://cors-anywhere.herokuapp.com/https://www.blaseball.com/events/streamData';
-      // this.url = 'https://www.blaseball.com/events/streamData';
-      this.url = 'https://cors-proxy.blaseball-reference.com/events/streamData';
-    }
   }
 
   async handleSystemChange(retrigger?: boolean) {
@@ -150,8 +142,11 @@ export class APIStream {
   start(): Observable<MessageEvent|Event> {
     console.info('APIStream.start()');
 
-    this.isStarted = true;
-    this.handleSystemChange();
+    this.init().finally(() => {
+      this.isStarted = true;
+      this.handleSystemChange();
+    });
+
     return this.observable;
   }
 
@@ -238,7 +233,9 @@ export class APIStream {
       const es = EventSource;
       this.source = es as EventSourcePlugin;
 
-      await es.configure({ url: this.url });
+      const url = await this.url;
+      console.debug(`APIStream.createSource(): url=${url}`);
+      await es.configure({ url: url });
       this.handles.message = es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);

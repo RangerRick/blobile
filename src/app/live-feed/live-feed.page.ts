@@ -39,7 +39,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public staleThreshold = 30 * 1000; // 30s
 
   private subscription: Subscription;
-  private api = new APIStream();
 
   private clockUpdater: number;
   private countdown = {
@@ -49,7 +48,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   };
   private keepAwake = false;
 
-  constructor(public loadingController: LoadingController, protected settings: SettingsService) {
+  constructor(private api: APIStream, public loadingController: LoadingController, protected settings: SettingsService) {
   }
 
   private get schedule(): Game[] {
