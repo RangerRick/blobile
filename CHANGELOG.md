@@ -5,6 +5,27 @@
 
 * **api:** shorten first retry, simplify backgrounding ([f0d6e32](https://github.com/RangerRick/blobile/commit/f0d6e329b4ea524b0bfa95632ae8673a914dd742))
 * **diamond:** fix text outline on diamond ([c405a8e](https://github.com/RangerRick/blobile/commit/c405a8e0ae27181538a9f51de39fa533caaa67cb))
+* **diamond:** tweak black text outline ([eb723dd](https://github.com/RangerRick/blobile/commit/eb723dddff92d2276eb4774bfffc89dc62620626))
+* **live-feed:** fix "no active games" to show postseason day ([a9ad3ab](https://github.com/RangerRick/blobile/commit/a9ad3abcb755f67f08af271cedb0b5a8999dfd0f)), closes [#10](https://github.com/RangerRick/blobile/issues/10)
+* **live-feed:** fix playoff day offset ([c8eb1c1](https://github.com/RangerRick/blobile/commit/c8eb1c1edd5df51df53e3bc5f245fe8b88dbc78a))
+* **live-feed:** race condition in initialization ([da1b3ec](https://github.com/RangerRick/blobile/commit/da1b3ec9bed7e24b22dbfec9e6581279ec400cbb))
+* **settings:** sort team names in chooser ([19c8d1c](https://github.com/RangerRick/blobile/commit/19c8d1c9c7b06ce51c6c4fa840d0460d8d3a8624))
+
+
+### Features
+
+* add apple icon for "add to home screen" ([f132291](https://github.com/RangerRick/blobile/commit/f1322910a1a6967853766361e44721d2985057ff))
+* **diamond:** wrap names, other visual improvements ([7da6b32](https://github.com/RangerRick/blobile/commit/7da6b324e48db91b0fee4686321cee0f773099f5)), closes [#8](https://github.com/RangerRick/blobile/issues/8)
+
+
+
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-28...v1.1.4) (2020-09-12)
+
+
+### Bug Fixes
+
+* **api:** shorten first retry, simplify backgrounding ([f0d6e32](https://github.com/RangerRick/blobile/commit/f0d6e329b4ea524b0bfa95632ae8673a914dd742))
+* **diamond:** fix text outline on diamond ([c405a8e](https://github.com/RangerRick/blobile/commit/c405a8e0ae27181538a9f51de39fa533caaa67cb))
 * **live-feed:** fix "no active games" to show postseason day ([a9ad3ab](https://github.com/RangerRick/blobile/commit/a9ad3abcb755f67f08af271cedb0b5a8999dfd0f)), closes [#10](https://github.com/RangerRick/blobile/issues/10)
 * **live-feed:** fix playoff day offset ([c8eb1c1](https://github.com/RangerRick/blobile/commit/c8eb1c1edd5df51df53e3bc5f245fe8b88dbc78a))
 * **settings:** sort team names in chooser ([19c8d1c](https://github.com/RangerRick/blobile/commit/19c8d1c9c7b06ce51c6c4fa840d0460d8d3a8624))
