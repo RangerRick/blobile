@@ -5,6 +5,10 @@
   --background: #00a831;
 }
 
+#main text {
+  paint-order: stroke;
+}
+
 .team-header {
   color: white;
   font-size: 3.5vw;
