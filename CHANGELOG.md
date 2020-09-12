@@ -1,3 +1,12 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-28...v1.1.4) (2020-09-12)
+
+
+### Bug Fixes
+
+* **live-feed:** fix playoff day offset ([c8eb1c1](https://github.com/RangerRick/blobile/commit/c8eb1c1edd5df51df53e3bc5f245fe8b88dbc78a))
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-28...v1.1.4) (2020-09-11)
 
 
