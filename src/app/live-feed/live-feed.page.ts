@@ -198,7 +198,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getPlayoffDay() {
-    return (this.data?.games?.postseason?.playoffs?.playoffDay || -1) + 1;
+    return (this.data?.games?.postseason?.playoffs?.playoffDay || 0);
   }
 
   getNextSeasonStart() {
