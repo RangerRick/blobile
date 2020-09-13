@@ -41,7 +41,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   private clockUpdater: number;
-  private countdown: {
+  public countdown: {
     hours: number,
     minutes: number,
     seconds: number,
