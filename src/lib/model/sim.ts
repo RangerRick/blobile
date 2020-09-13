@@ -48,36 +48,6 @@ export class Sim extends Entry {
     ]);
   }
 
-  public isPreseason(now = Date.now()) {
-    const nextSeason = new Date(this.data.nextSeasonStart).getTime();
-    // console.debug(`nextSeason=${nextSeason}, now=${now}`);
-    if (this.data.day === 0 && nextSeason > now) {
-      return true;
-    }
-  }
-
-  public isRegularSeason(now = Date.now()) {
-    return !this.isPreseason(now) && (this.data?.day !== undefined? (this.data.day < 99) : false);
-  }
-
-  public isPostseason(now = Date.now()) {
-    return !this.isPreseason(now) && (this.data?.day !== undefined? (this.data.day >= 99) : false);
-  }
-
-  public isPostseasonComplete(now = Date.now()) {
-    if (this.data.nextElectionEnd && this.data.nextPhaseTime) {
-      if (this.data.nextElectionEnd === this.data.nextPhaseTime) {
-        return true;
-      }
-    }
-
-    if (this.phase === 0) {
-      return true;
-    }
-
-    return this.isPreseason(now);
-  }
-
   countdownToNextPhase(from?: number) {
     const start = from || Date.now();
     const end = new Date(this.data.nextPhaseTime).getTime();

@@ -144,6 +144,8 @@
         <ion-col>
           <div (click)="openTeam(game.awayTeam)">
             <span>
+              <span class="atbat" *ngIf="!game.topOfInning">⚾</span>
+              <span class="atbat" *ngIf="game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
               <span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span>
               <span *ngIf="!teams[game.awayTeam]">AWAY</span>
             </span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div>
@@ -158,6 +160,8 @@
         <ion-col>
           <div (click)="openTeam(game.homeTeam)">
             <span>
+              <span class="atbat" *ngIf="game.topOfInning">⚾</span>
+              <span class="atbat" *ngIf="!game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
               <span *ngIf="teams[game.homeTeam]">{{teams[game.homeTeam].shorthand}}</span>
               <span *ngIf="!teams[game.homeTeam]">HOME</span>
             </span>&nbsp;<div class="scorebox-box">{{game.homeScore}}</div>

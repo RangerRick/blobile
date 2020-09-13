@@ -263,12 +263,13 @@ export class APIStream {
   protected async closeSource() {
     try {
       if (this.source) {
+        await this.source.close();
+        this.source = null;
+
         for (const key of Object.keys(this.handles)) {
           this.handles[key].remove();
         }
         this.handles = {};
-        await this.source.close();
-        this.source = null;
       }
     } catch (err) {
       console.warn('APIStream.closeSource(): failed to close event source:', err);

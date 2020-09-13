@@ -46,7 +46,7 @@ export class Game extends Entry {
   season: number;
   seriesIndex: number;
   seriesLength: number;
-  statshieet: string;
+  statsheet: string;
   terminology:string;
   topOfInning: boolean;
   weather: number;
@@ -148,5 +148,9 @@ export class Game extends Entry {
 
   public get outcomes(): string[] {
     return this.data?.outcomes || [];
+  }
+
+  public get series(): number {
+    return this.incremented('seriesIndex');
   }
 }
