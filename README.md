@@ -18,6 +18,13 @@ You can just run it as a "progressive" web app in your browser, with most featur
 * [iPhone/iPad](https://testflight.apple.com/join/e8c8K6WG)
 * [Android](https://play.google.com/apps/testing/com.raccoonfink.blobile)
 
+## Feedback and Helping Out
+
+If you find bugs or have feature suggestions, please open an issue here on the GitHub project.
+
+Also, I lurk on the official Blaseball Discord, and there is a project channel for Blases Loaded development on the [Society for Internet Blaseball Research Discord](https://discord.gg/XTZRmcb).
+Pop on in and say hi!
+
 ## Development
 
 It's an [Ionic](https://ionicframework.com/) [Angular](https://angular.io/) app, so standard Ionic and Angular tools are used for building.
