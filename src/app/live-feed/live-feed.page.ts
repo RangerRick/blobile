@@ -41,10 +41,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   private clockUpdater: number;
-  private countdown = {
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+  private countdown: {
+    hours: number,
+    minutes: number,
+    seconds: number,
   };
   private keepAwake = false;
 
@@ -179,10 +179,11 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     if (this.clockUpdater && !isFinished) {
       clearInterval(this.clockUpdater);
       this.clockUpdater = undefined;
+      this.countdown = undefined;
     } else if (!this.clockUpdater && isFinished) {
       this.clockUpdater = setInterval(() => {
         this.countdown = this.data.sim.countdownToNextSeason();
-      });
+      }, 1000) as unknown as number;
     }
 
     return isFinished;
