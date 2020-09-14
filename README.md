@@ -1,6 +1,6 @@
 # Blases Loaded
 
-Blases Loaded is a mobile app for live-viewing Blaseball games.
+Blases Loaded is a mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.
 
 ## Web App
 
@@ -24,6 +24,23 @@ If you find bugs or have feature suggestions, please open an issue here on the G
 
 Also, I lurk on the official Blaseball Discord, and there is a project channel for Blases Loaded development on the [Society for Internet Blaseball Research Discord](https://discord.gg/XTZRmcb).
 Pop on in and say hi!
+
+## FAQ
+
+Not really a FAQ, because no one has asked me questions yet, but these are what I _bet_ will be frequently asked questions.
+
+* Can you add a feature to bet/change idols/vote/edit things?<br>
+  No. As a member of [SIBR](https://twitter.com/SIBROfficial) I have taken a blood oath to never _write_ to the Blaseball API, only _read_ from it.
+  Don't tempt the Blaseball gods!
+* Can I make a suggestion for a new feature?<br>
+  Absoultely! Just create a [new issue](https://github.com/RangerRick/blobile/issues) with your idea.
+  Note that this is just a side-hobby thing, you are at the mercy of my spare time, unless you want to submit a pull request...
+  Even still, it's my app, and I retain the right to editorial control. 😉
+* What about Blackberry or Windows Phone?<br>
+  This is how you know this isn't a real FAQ.
+  No one is asking this.
+* Why did you make a FAQ when you seem to only have two actual things to mention, one of which is technically also in the "Feedback and Helping Out" section?<br>
+  I honestly thought I had more to put here when I started this, but it's too late now.
 
 ## Development
 
