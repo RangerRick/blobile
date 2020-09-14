@@ -1,3 +1,12 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-30...v1.1.4) (2020-09-14)
+
+
+### Bug Fixes
+
+* **live-feed:** show the season number again ([8aae71a](https://github.com/RangerRick/blobile/commit/8aae71a679f29d37b27c6019a4bbf800b799b51d))
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-28...v1.1.4) (2020-09-14)
 
 
