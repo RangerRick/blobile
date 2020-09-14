@@ -51,7 +51,7 @@
   <span *ngIf="ready">
     <span *ngIf="isFinished()">
       <ion-item lines="none">
-        <h4>Season {{data.games.season.seasonNumber}} is over.</h4>
+        <h4>This season is over.</h4>
       </ion-item>
       <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
         <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
