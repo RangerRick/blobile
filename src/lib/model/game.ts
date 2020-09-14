@@ -1,6 +1,7 @@
 import { Entry } from './_entry';
 
 import { sha256 } from 'hash.js';
+import { Player } from './player';
 
 export class Game extends Entry {
   id: string;
@@ -152,5 +153,18 @@ export class Game extends Entry {
 
   public get series(): number {
     return this.incremented('seriesIndex');
+  }
+
+  /** 0-indexed */
+  public getBaseRunner(baseIndex: number): Player {
+    for (let i = 0; i < this.data?.basesOccupied?.length || 0; i++) {
+      if (this.data?.basesOccupied[i] === baseIndex) {
+        return {
+          id: this.data.baseRunners[i],
+          name: this.data.baseRunnerNames[i],
+        } as Player;
+      }
+    }
+    return undefined;
   }
 }
