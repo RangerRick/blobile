@@ -62,7 +62,7 @@ export class UpdateService {
       this.updateAvailable = ! currentVersion || currentVersion.versionId !== update.versionId;
       return true;
     } catch (err) {
-      console.error(`UpdateService.checkUpdate(): something went wrong attempting to update: ${err.message? err.message : 'unknown'}`);
+      console.error(`UpdateService.checkUpdate(): something went wrong attempting to update: ${err.message ? err.message : 'unknown'}`);
       return false;
     }
   }

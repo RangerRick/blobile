@@ -12,9 +12,9 @@ import { GlobalEvent } from '../model/globalEvent';
 const DEFAULT_CACHE_KEEP = 10 * 60 * 1000; // 10 minutes
 
 interface CacheEntry {
-  url: string,
-  response: Promise<HttpResponse>,
-  time: number,
+  url: string;
+  response: Promise<HttpResponse>;
+  time: number;
 }
 
 @Injectable({
@@ -63,18 +63,18 @@ export class APIDatabase {
     console.debug(`APIDatabase.get(): uncached: ${url}`);
     this.inFlight[url] = Http.request({
       method: 'GET',
-      url: url,
-    }).catch((err:any) => {
+      url,
+    }).catch((err: any) => {
       console.error('APIDatabase.get(): request failed, trying again in 1s:', err);
       return new Promise((resolve, reject) => {
         setTimeout(async () => {
           try {
             const response = await Http.request({
               method: 'GET',
-              url: url,
+              url,
             }) as HttpResponse;
             resolve(response);
-          }  catch(err) {
+          }  catch (err) {
             reject(err);
           }
         }, 1000);
@@ -90,7 +90,7 @@ export class APIDatabase {
       // if it succeeds, cache it
       console.debug(`APIDatabase.get(): caching: ${url}`);
       this.cache[url] = {
-        url: url,
+        url,
         response: Promise.resolve(ret),
         time: now,
       };
@@ -104,7 +104,7 @@ export class APIDatabase {
     try {
       const ret = await this.get(url, force);
       if (ret) {
-        return ret.data.map((team:any) => new Team(team));
+        return ret.data.map((team: any) => new Team(team));
       }
     } catch (err) {
       console.error('APIDatabase.teams(): failed to get list of teams', err);
@@ -114,7 +114,7 @@ export class APIDatabase {
 
   public async players(...args: any[]): Promise<Player[]> {
     let force = false;
-    if (typeof args[args.length-1] === 'boolean') {
+    if (typeof args[args.length - 1] === 'boolean') {
       force = args.pop();
     }
     if (args.length === 0) {
@@ -125,7 +125,7 @@ export class APIDatabase {
     try {
       const ret = await this.get(url, force);
       if (ret) {
-        return ret.data.map((player:any) => new Player(player));
+        return ret.data.map((player: any) => new Player(player));
       }
     } catch (err) {
       console.error('APIDatabase.players(): failed to get players', err);
@@ -138,7 +138,7 @@ export class APIDatabase {
     try {
       const ret = await this.get(url, force);
       if (ret) {
-        return ret.data.map((event:any) => new GlobalEvent(event));
+        return ret.data.map((event: any) => new GlobalEvent(event));
       }
     } catch (err) {
       console.error('APIDatabase.globalEvents(): failed to get events', err);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, DoCheck, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, DoCheck, ChangeDetectorRef } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -18,9 +18,9 @@ import Util from 'src/lib/util';
   templateUrl: './diamond.component.html',
   styleUrls: ['./diamond.component.scss'],
 })
-export class DiamondComponent implements DoCheck, OnChanges, OnInit {
+export class DiamondComponent implements DoCheck, OnInit {
   @Input() public game: Game;
-  @Output("refresh") public refresh: EventEmitter<any> = new EventEmitter();
+  @Output() public refresh: EventEmitter<any> = new EventEmitter();
 
   public font = {
     color: 'white',
@@ -70,12 +70,9 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
   ngDoCheck(): void {
     if (this.oldGame.hash !== this.game.hash) {
       this.changeDetector.markForCheck();
+      this.oldGame = this.game;
+      this.checkInterestingEvents();
     }
-  }
-
-  ngOnChanges(/* changes: SimpleChanges */) {
-    this.oldGame = this.game;
-    this.checkInterestingEvents();
   }
 
   checkInterestingEvents() {
@@ -128,7 +125,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
     } else if (
       this.game.halfInningOuts === 2 &&
       this.game.atBatBalls === 3 &&
-      (this.game.atBatStrikes === (this.game.topOfInning === false? this.game.homeStrikes : this.game.awayStrikes) - 1)
+      (this.game.atBatStrikes === (this.game.topOfInning === false ? this.game.homeStrikes : this.game.awayStrikes) - 1)
     ) {
       Util.message(id, 'MAXIMUM\nBLASEBALL!');
     }
@@ -163,7 +160,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
 
   getBaseRunner(base: number) {
     if (this.inProgress()) {
-      for (let i=0; i < this.game.basesOccupied.length; i++) {
+      for (let i = 0; i < this.game.basesOccupied.length; i++) {
         const b = this.game.basesOccupied[i];
         if (b === base) {
           return { name: this.game.baseRunnerNames[i], id: this.game.baseRunners[i] };
@@ -195,7 +192,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
   }
 
   getEmoji(type: string) {
-    switch(type) {
+    switch (type) {
       case 'home':
         return String.fromCodePoint(parseInt(this.game.homeTeamEmoji, 16));
       case 'away':
@@ -210,7 +207,7 @@ export class DiamondComponent implements DoCheck, OnChanges, OnInit {
     const modal = await this.modalController.create({
       component: TeamPage,
       componentProps: {
-        id: id,
+        id,
       },
     });
     return await modal.present();

@@ -13,7 +13,10 @@ import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
 
-  let deploySpy: Deploy, splashScreenSpy: SplashScreenPlugin, platformReadySpy: Promise<any>, platformSpy: Platform;
+  let deploySpy: Deploy,
+    splashScreenSpy: SplashScreenPlugin,
+    platformReadySpy: Promise<any>,
+    platformSpy: Platform;
 
   beforeEach(async(() => {
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);

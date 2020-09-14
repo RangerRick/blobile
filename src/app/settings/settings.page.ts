@@ -24,7 +24,7 @@ export class SettingsPage implements OnInit {
 
   public teamOptions: any = {
     header: 'Choose Your Team',
-  }
+  };
 
   public teams = [] as Team[];
 
@@ -62,7 +62,7 @@ export class SettingsPage implements OnInit {
     this.disableSleep = this.settings.disableSleep();
     console.debug(`SettingsPage.ngOnInit(): disableSleep=${this.disableSleep}`);
 
-    this.teams = (await this.database.teams()).sort((a:Team, b:Team) => {
+    this.teams = (await this.database.teams()).sort((a: Team, b: Team) => {
       return (a.fullName < b.fullName) ? -1 : (a.fullName > b.fullName) ? 1 : 0;
     });
     console.debug(`SettingsPage.ngOnInit(): teams=`, this.teams);
@@ -93,8 +93,8 @@ export class SettingsPage implements OnInit {
   }
 
   async setFavoriteTeam(detail: { value: string }) {
-    const team = this.teams.find((team:Team) => {
-      return team.id === detail.value;
+    const team = this.teams.find((t: Team) => {
+      return t.id === detail.value;
     });
     this.settings.setFavoriteTeam(team?.id);
   }

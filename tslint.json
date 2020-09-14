@@ -55,14 +55,7 @@
         ]
       }
     ],
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": false,
     "no-empty": false,
     "no-inferrable-types": [
       true,
@@ -76,6 +69,7 @@
       true,
       "as-needed"
     ],
+    "one-variable-per-declaration": false,
     "quotemark": [
       true,
       "single"

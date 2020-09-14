@@ -7,7 +7,7 @@ import { SettingsService } from '../../lib/settings.service';
 import { Player } from '../../lib/model/player';
 
 @Component({
-  selector: 'bl-team-page',
+  selector: 'app-team-page',
   templateUrl: './team-page.page.html',
   styleUrls: ['./team-page.page.scss'],
 })
@@ -29,7 +29,7 @@ export class TeamPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.team = (await this.database.teams()).find((team:Team) => {
+    this.team = (await this.database.teams()).find((team: Team) => {
       return team.id === this.id;
     }) || {} as Team;
     // console.debug('team=', this.team);
@@ -63,7 +63,7 @@ export class TeamPage implements OnInit {
     this.lastToast = await this.toastController.create({
       color: 'primary',
       duration: 1000,
-      message: isFavorite? `The ${this.team.nickname} have been favorited.` : `The ${this.team.nickname} are no longer a favorite team.`,
+      message: isFavorite ? `The ${this.team.nickname} have been favorited.` : `The ${this.team.nickname} are no longer a favorite team.`,
       position: 'top',
     });
     return this.lastToast.present();

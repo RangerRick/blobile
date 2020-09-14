@@ -1,18 +1,18 @@
 import * as confetti from 'canvas-confetti';
 
 interface MessageOptions {
-  blinkSpeed?: number,
-  duration?: number,
-  fontFamily?: string,
-  fontSize?: string,
-  messageColor?: string,
-  zIndex?: number,
+  blinkSpeed?: number;
+  duration?: number;
+  fontFamily?: string;
+  fontSize?: string;
+  messageColor?: string;
+  zIndex?: number;
 }
 
 interface ConfettiOptions extends MessageOptions {
-  particleCount?: number,
-  startVelocity?: number,
-  spread?: number,
+  particleCount?: number;
+  startVelocity?: number;
+  spread?: number;
 }
 
 const BASE_Z_INDEX = 1000;
@@ -42,7 +42,7 @@ export default abstract class Util {
         'display: table'
       );
 
-      const text = document.createElement('div')
+      const text = document.createElement('div');
       text.setAttribute('style',
         'width: 100%; ' +
         'height: 100%; ' +
