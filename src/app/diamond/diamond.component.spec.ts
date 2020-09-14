@@ -17,7 +17,7 @@ describe('DiamondComponent', () => {
     fixture = TestBed.createComponent(DiamondComponent);
     component = fixture.componentInstance;
 
-    component.game = {
+    component.game = new Game({
       awayTeamName: 'Philly Pies',
       awayTeamNickname: 'Pies',
       awayTeamEmoji: '0x1F967',
@@ -25,7 +25,7 @@ describe('DiamondComponent', () => {
       homeTeamNickname: 'Tigers',
       homeTeamEmoji: '0x1F405',
       basesOccupied: [],
-    } as Game;
+    });
 
     fixture.detectChanges();
   }));

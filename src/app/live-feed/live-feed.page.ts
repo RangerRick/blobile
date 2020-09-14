@@ -338,10 +338,12 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
       setTimeout(() => {
         const elem = document.getElementById('marquee');
-        const marquee = new Marquee(elem);
-        setTimeout(() => {
-          elem.setAttribute('style', 'visibility: visible');
-        }, 200);
+        if (elem) {
+          const marquee = new Marquee(elem);
+          setTimeout(() => {
+            elem.setAttribute('style', 'visibility: visible');
+          }, 200);
+        }
       }, 1000);
     });
   }

@@ -4,10 +4,10 @@ import { ModalController } from '@ionic/angular';
 
 import { SettingsService } from '../../lib/settings.service';
 import { APIDatabase } from '../../lib/api/database';
+import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
 import { TeamPage } from '../team-page/team-page.page';
-import { Game } from 'src/lib/model/game';
 import Util from 'src/lib/util';
 
 // import Positions from '../../lib/model/positions';
@@ -83,7 +83,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     // this.game.data.lastUpdate = 'hits a home run';
 
     const id = `diamond-${this.game.id}`;
-    const update = this.game.lastUpdate.toLowerCase();
+    const update = this.game?.lastUpdate?.toLowerCase() || '';
     if (
       update.indexOf('home run') >= 0
     ) {
@@ -153,19 +153,16 @@ export class DiamondComponent implements DoCheck, OnInit {
         return person.name;
       } else if (person.name.length > 15) {
         return person.name.split(' ')[index];
+      } else if (index === 0) {
+        return person.name;
       }
     }
     return null;
   }
 
-  getBaseRunner(base: number) {
+  getBaseRunner(baseIndex: number) {
     if (this.inProgress()) {
-      for (let i = 0; i < this.game.basesOccupied.length; i++) {
-        const b = this.game.basesOccupied[i];
-        if (b === base) {
-          return { name: this.game.baseRunnerNames[i], id: this.game.baseRunners[i] };
-        }
-      }
+      return this.game?.getBaseRunner(baseIndex);
     }
     return null;
   }
