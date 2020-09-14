@@ -41,6 +41,9 @@ Not really a FAQ, because no one has asked me questions yet, but these are what 
   No one is asking this.
 * Why did you make a FAQ when you seem to only have two actual things to mention, one of which is technically also in the "Feedback and Helping Out" section?<br>
   I honestly thought I had more to put here when I started this, but it's too late now.
+* Is this related to the [Blases Loaded TTRPG](https://kmsheehan.itch.io/blases-loaded) in any way?<br>
+  No, but I _swear_ there were only a few hits for "Blases Loaded" before I announced this project, but now the TTRPG is one of the top hits.
+  It looks like a clever, simple Blaseball RPG and you should check it out.
 
 ## Development
 
