@@ -8,6 +8,13 @@ import { Season } from './season';
 import { Sim } from './sim';
 
 export class StreamData extends Entry {
+  public get seasonNumber() {
+    if (this.sim.day === 1 && this.games.isPostseasonComplete() && !this.games.isRegularSeason()) {
+      return this.season.seasonNumber - 1;
+    }
+    return this.season.seasonNumber;
+  }
+
   public get games() {
     return new Games(this.data?.games);
   }
