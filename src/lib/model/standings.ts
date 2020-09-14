@@ -1,9 +1,9 @@
 import { Entry } from './_entry';
 
 export interface Record {
-  id: string,
-  wins: number,
-  losses: number,
+  id: string;
+  wins: number;
+  losses: number;
 }
 
 export class Standings extends Entry {
@@ -21,7 +21,7 @@ export class Standings extends Entry {
     const ret = [] as Record[];
     for (const id of Object.keys(this.data.losses || {})) {
       ret.push({
-        id: id,
+        id,
         wins: this.data.wins[id],
         losses: this.data.losses[id],
       });

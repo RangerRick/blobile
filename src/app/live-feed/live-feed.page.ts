@@ -34,7 +34,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public loading: boolean;
   public ready = false;
   public errors = 0;
-  //public lastUpdate = "look, it's been a while, OK?";
+  // public lastUpdate = "look, it's been a while, OK?";
   public lastUpdate = Date.now();
   public filterVisible = false;
   public stale = false;
@@ -128,7 +128,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   getFavoriteGames(): Game[] {
     if (this.data?.games?.schedule) {
-      return this.data?.games?.schedule.filter((game:Game) => {
+      return this.data?.games?.schedule.filter((game: Game) => {
         return this.settings.isFavorite(game.homeTeam) || this.settings.isFavorite(game.awayTeam);
       });
     }
@@ -139,7 +139,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     console.debug('LiveFeed.getSegmentGames()');
 
     let ret = [] as Game[];
-    switch(this.segment) {
+    switch (this.segment) {
       case 'all':
         ret = this.data?.games?.schedule || [];
         break;
@@ -199,7 +199,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   getWinner() {
     const winner = this.data?.games?.postseason?.playoffs?.winner;
     if (winner) {
-      return this.data.leagues.teams.find((team:Team) => team.id === winner);
+      return this.data.leagues.teams.find((team: Team) => team.id === winner);
     }
     return new Team();
   }
@@ -209,7 +209,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getNextSeasonStart() {
-    return `${this.countdown.hours} ${this.countdown.hours === 1? 'hour':'hours'}, ${this.countdown.minutes} ${this.countdown.minutes === 1? 'minute':'minutes'}, ${this.countdown.seconds} ${this.countdown.seconds === 1? 'second':'seconds'}`;
+    return `${this.countdown.hours} ${this.countdown.hours === 1 ? 'hour' : 'hours'}, ${this.countdown.minutes} ${this.countdown.minutes === 1 ? 'minute' : 'minutes'}, ${this.countdown.seconds} ${this.countdown.seconds === 1 ? 'second' : 'seconds'}`;
   }
 
   refreshUI(): Game[] {
@@ -221,7 +221,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       // search term is long enough, filter based on team names
       ret = ret.filter((game: any) => {
         return game.homeTeamName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
-          || game.awayTeamName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+          || game.awayTeamName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
     }
 
@@ -276,13 +276,13 @@ export class LiveFeedPage implements OnInit, OnDestroy {
           Plugins.KeepAwake.allowSleep();
         }
       }
-    } catch(err) {
+    } catch (err) {
       console.error('An error occurred setting keep-awake status.', err);
     }
   }
 
   async onEvent(evt: MessageEvent|Event) {
-    if (evt['type'] === 'error') {
+    if (evt && evt.type === 'error') {
       this.onError(evt);
       return;
     }
@@ -333,10 +333,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.onError(err);
     });
 
-    this.database.globalEvents().then((events:GlobalEvent[]) => {
-      console.debug('events:', events);
-      this.globalEvents = events.filter((event:GlobalEvent) => event.expire === null);
-      console.debug('globalEvents:', this.globalEvents);
+    this.database.globalEvents().then((events: GlobalEvent[]) => {
+      this.globalEvents = events.filter((event: GlobalEvent) => event.expire === null);
 
       setTimeout(() => {
         const elem = document.getElementById('marquee');
@@ -348,7 +346,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     });
   }
 
-  gameId(index: number, item:any): string {
+  gameId(index: number, item: any): string {
     if (item && item.id) {
       return item.id;
     }

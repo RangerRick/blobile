@@ -6,18 +6,18 @@ import { Subleague } from './subleague';
 
 export class Leagues extends Entry {
   public get divisions(): Division[] {
-    return this.data.divisions?.map((div:any) => new Division(div)) || [];
+    return this.data.divisions?.map((div: any) => new Division(div)) || [];
   }
 
   public get teams(): Team[] {
-    return this.data.teams?.map((team:any) => new Team(team)) || [];
+    return this.data.teams?.map((team: any) => new Team(team)) || [];
   }
 
   public get leagues(): League[] {
-    return this.data.leagues?.map((league:any) => new League(league)) || [];
+    return this.data.leagues?.map((league: any) => new League(league)) || [];
   }
 
   public get subleagues(): Subleague[] {
-    return this.data.leagues?.map((subleague:any) => new Subleague(subleague)) || [];
+    return this.data.leagues?.map((subleague: any) => new Subleague(subleague)) || [];
   }
 }

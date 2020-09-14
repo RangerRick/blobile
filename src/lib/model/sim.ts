@@ -1,9 +1,9 @@
 import { Entry } from './_entry';
 
 export interface Countdown {
-  hours: number,
-  minutes: number,
-  seconds: number,
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
 export class Sim extends Entry {
@@ -58,7 +58,7 @@ export class Sim extends Entry {
       hours: Math.floor(diff / 60 / 60),
     } as Countdown;
 
-    let remainder = diff - (ret.hours * 60 * 60);
+    const remainder = diff - (ret.hours * 60 * 60);
     ret.minutes = Math.floor(remainder / 60);
     ret.seconds = remainder - (ret.minutes * 60);
     return ret;
@@ -74,7 +74,7 @@ export class Sim extends Entry {
       hours: Math.floor(diff / 60 / 60),
     } as Countdown;
 
-    let remainder = diff - (ret.hours * 60 * 60);
+    const remainder = diff - (ret.hours * 60 * 60);
     ret.minutes = Math.floor(remainder / 60);
     ret.seconds = remainder - (ret.minutes * 60);
     return ret;

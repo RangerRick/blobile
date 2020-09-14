@@ -16,7 +16,7 @@ export class Team extends Entry {
   public slogan: string;
   public totalShames: number;
   public totalShamings: number;
-  
+
   constructor(data?: any) {
     super(data);
 

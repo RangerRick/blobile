@@ -71,7 +71,7 @@ export class SettingsService {
     if (!this.settings.segment) {
       this.settings.segment = 'all';
     }
-    if(this.settings.disableSleep === undefined) {
+    if (this.settings.disableSleep === undefined) {
       this.settings.disableSleep = false;
     }
   }

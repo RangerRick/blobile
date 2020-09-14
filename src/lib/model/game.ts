@@ -47,7 +47,7 @@ export class Game extends Entry {
   seriesIndex: number;
   seriesLength: number;
   statsheet: string;
-  terminology:string;
+  terminology: string;
   topOfInning: boolean;
   weather: number;
 
@@ -112,7 +112,7 @@ export class Game extends Entry {
       'topOfInning',
     ]);
 
-    let hash = sha256();
+    const hash = sha256();
     for (const prop of [
       'awayBatter',
       'homeBatter',

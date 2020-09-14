@@ -7,7 +7,7 @@ import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 describe('TabsPage', () => {
   let component: TabsPage;
   let fixture: ComponentFixture<TabsPage>;
-  let deploySpy: Deploy;
+  const deploySpy = Deploy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('TabsPage', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: Deploy, useValue: deploySpy },
-      ]
+      ],
     }).compileComponents();
   }));
 

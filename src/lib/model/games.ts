@@ -19,11 +19,11 @@ export class Games extends Entry {
   }
 
   public get schedule(): Game[] {
-    return this.data?.schedule?.map((game:any) => new Game(game)) || [];
+    return this.data?.schedule?.map((game: any) => new Game(game)) || [];
   }
 
   public get tomorrowSchedule(): Game[] {
-    return this.data?.tomorrowSchedule?.map((game:any) => new Game(game)) || [];
+    return this.data?.tomorrowSchedule?.map((game: any) => new Game(game)) || [];
   }
 
   public get postseason(): Postseason {
@@ -41,11 +41,11 @@ export class Games extends Entry {
   }
 
   public isRegularSeason(now = Date.now()) {
-    return !this.isPreseason(now) && (this.sim.day !== undefined? (this.sim.day < 100) : false);
+    return !this.isPreseason(now) && (this.sim.day !== undefined ? (this.sim.day < 100) : false);
   }
 
   public isPostseason(now = Date.now()) {
-    return this.schedule.find((game:Game) => game.isPostseason) !== undefined;
+    return this.schedule.find((game: Game) => game.isPostseason) !== undefined;
   }
 
   public isPostseasonComplete(now = Date.now()) {

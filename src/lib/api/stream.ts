@@ -81,7 +81,7 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
-    this.observable = Observable.create((observer: Observer<MessageEvent|Event>) => {
+    this.observable = new Observable((observer: Observer<MessageEvent|Event>) => {
       this.observer = observer;
     });
   }
@@ -133,7 +133,7 @@ export class APIStream {
     }
     return this.source;
   }
-  
+
   /**
    * Start listening on the event stream.
    *
@@ -197,11 +197,11 @@ export class APIStream {
     });
   }
 
-  private onMessage(data:any) {
+  private onMessage(data: any) {
     console.debug('APIStream.onMessage()');
 
     const ev = new MessageEvent('message', {
-      data: data
+      data
     });
 
     if (this.lastUpdate !== ev.data) {
@@ -235,7 +235,7 @@ export class APIStream {
 
       const url = await this.url;
       console.debug(`APIStream.createSource(): url=${url}`);
-      await es.configure({ url: url });
+      await es.configure({ url });
       this.handles.message = es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);
@@ -273,7 +273,7 @@ export class APIStream {
       }
     } catch (err) {
       console.warn('APIStream.closeSource(): failed to close event source:', err);
-    };
+    }
   }
 
   protected startCheckingLastUpdated() {

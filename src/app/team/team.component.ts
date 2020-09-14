@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as Color from 'color';
 
 @Component({
-  selector: 'bl-team',
+  selector: 'app-team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
@@ -23,7 +23,7 @@ export class TeamComponent implements OnInit {
   }
 
   getEmoji() {
-    return this.emoji? String.fromCodePoint(this.emoji) : undefined;
+    return this.emoji ? String.fromCodePoint(this.emoji) : undefined;
   }
 
   getEmojiStyle() {
