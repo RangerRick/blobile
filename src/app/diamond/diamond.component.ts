@@ -153,6 +153,8 @@ export class DiamondComponent implements DoCheck, OnInit {
         return person.name;
       } else if (person.name.length > 15) {
         return person.name.split(' ')[index];
+      } else if (index === 0) {
+        return person.name;
       }
     }
     return null;
