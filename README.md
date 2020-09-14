@@ -44,6 +44,8 @@ Not really a FAQ, because no one has asked me questions yet, but these are what 
 * Is this related to the [Blases Loaded TTRPG](https://kmsheehan.itch.io/blases-loaded) in any way?<br>
   No, but I _swear_ there were only a few hits for "Blases Loaded" before I announced this project, but now the TTRPG is one of the top hits.
   It looks like a clever, simple Blaseball RPG and you should check it out.
+* <img src="resources/did-you-mean.png" title='Did you mean: "bases loaded"' width="187" height="34"><br>
+  I most certainly did not.
 
 ## Development
 
