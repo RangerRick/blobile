@@ -1,3 +1,7 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-31...v1.1.4) (2020-09-14)
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-30...v1.1.4) (2020-09-14)
 
 
