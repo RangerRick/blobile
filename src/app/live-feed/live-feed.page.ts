@@ -5,6 +5,8 @@ import { Plugins } from '@capacitor/core';
 
 import { Subscription } from 'rxjs';
 
+import Marquee from '@egstad/marquee';
+
 import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
@@ -12,8 +14,8 @@ import { StreamData } from '../../lib/model/streamData';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
-import Util from '../../lib/util';
-
+import { GlobalEvent } from 'src/lib/model/globalEvent';
+import { APIDatabase } from 'src/lib/api/database';
 
 @Component({
   selector: 'app-live-feed',
@@ -46,9 +48,14 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     minutes: number,
     seconds: number,
   };
+  public globalEvents: GlobalEvent[];
   private keepAwake = false;
 
-  constructor(private api: APIStream, public loadingController: LoadingController, protected settings: SettingsService) {
+  constructor(
+    private api: APIStream,
+    private database: APIDatabase,
+    public loadingController: LoadingController,
+    protected settings: SettingsService) {
   }
 
   private get schedule(): Game[] {
@@ -324,6 +331,20 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.onEvent(evt);
     }, (err) => {
       this.onError(err);
+    });
+
+    this.database.globalEvents().then((events:GlobalEvent[]) => {
+      console.debug('events:', events);
+      this.globalEvents = events.filter((event:GlobalEvent) => event.expire === null);
+      console.debug('globalEvents:', this.globalEvents);
+
+      setTimeout(() => {
+        const elem = document.getElementById('marquee');
+        const marquee = new Marquee(elem);
+        setTimeout(() => {
+          elem.setAttribute('style', 'visibility: visible');
+        }, 200);
+      }, 1000);
     });
   }
 

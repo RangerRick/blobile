@@ -7,6 +7,7 @@ import { HttpResponse } from '@capacitor-community/http';
 
 import { Team } from '../model/team';
 import { Player } from '../model/player';
+import { GlobalEvent } from '../model/globalEvent';
 
 const DEFAULT_CACHE_KEEP = 10 * 60 * 1000; // 10 minutes
 
@@ -130,5 +131,18 @@ export class APIDatabase {
       console.error('APIDatabase.players(): failed to get players', err);
     }
     return [] as Player[];
+  }
+
+  public async globalEvents(force = false) {
+    const url = `${this.root}/globalEvents`;
+    try {
+      const ret = await this.get(url, force);
+      if (ret) {
+        return ret.data.map((event:any) => new GlobalEvent(event));
+      }
+    } catch (err) {
+      console.error('APIDatabase.globalEvents(): failed to get events', err);
+    }
+    return [] as GlobalEvent[];
   }
 }

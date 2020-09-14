@@ -16,3 +16,19 @@ ion-searchbar {
 ion-item {
   transition: 0.1s ease-in-out;
 }
+
+#marquee {
+  visibility: hidden;
+}
+
+.marquee {
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.5em 0;
+}
+
+.marquee-item {
+  display: inline-block;
+}
