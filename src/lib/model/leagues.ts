@@ -18,6 +18,6 @@ export class Leagues extends Entry {
   }
 
   public get subleagues(): Subleague[] {
-    return this.data.leagues?.map((subleague: any) => new Subleague(subleague)) || [];
+    return this.data.subleagues?.map((subleague: any) => new Subleague(subleague)) || [];
   }
 }
