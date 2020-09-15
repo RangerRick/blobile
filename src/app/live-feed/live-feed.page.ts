@@ -77,7 +77,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = undefined;
-      this.api.stop();
     }
     return true;
   }
@@ -326,8 +325,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
     const errorWait = 1000;
 
-    const observable = this.api.start();
-    this.subscription = observable.subscribe((evt) => {
+    this.subscription = this.api.subscribe((evt) => {
       this.onEvent(evt);
     }, (err) => {
       this.onError(err);

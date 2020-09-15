@@ -8,6 +8,7 @@ const { SplashScreen } = Plugins;
 import { UpdateService } from '../lib/update.service';
 import { RouteWatcherService } from './route-watcher';
 import { Router } from '@angular/router';
+import { APIStream } from 'src/lib/api/stream';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +21,25 @@ export class AppComponent {
     private platform: Platform,
     private router: Router,
     private routeWatcherService: RouteWatcherService,
+    private stream: APIStream,
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(async () => {
+      console.debug('AppComponent.initializeApp(): starting stream');
+      const observable = this.stream.start();
+      const subscription = observable.subscribe((evt: MessageEvent|Event) => {
+        // once we get a real message, hide the splash screen
+        SplashScreen.hide();
+        subscription.unsubscribe();
+      }, (err: any) => {
+        // even if we get an error, hide the splash screen
+        SplashScreen.hide();
+        subscription.unsubscribe();
+      });
+
       const url = await this.routeWatcherService.lastUrl();
       try {
         if (url) {
@@ -41,7 +55,6 @@ export class AppComponent {
         console.error('AppComponent.initializeApp(): failed to check for updates.', err);
       }
 
-      SplashScreen.hide();
       return true;
     });
   }

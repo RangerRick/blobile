@@ -151,6 +151,13 @@ export class APIStream {
   }
 
   /**
+   * Subscribe to the ongoing event stream.
+   */
+  subscribe(next?: (value: MessageEvent|Event) => void, error?: (error: any) => void, complete?: () => void) {
+    return this.observable.subscribe(next, error, complete);
+  }
+
+  /**
    * Stop listening on the event stream.
    *
    * Completes the {@link Observable} and closes all resources.
