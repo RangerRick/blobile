@@ -280,9 +280,9 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  async onEvent(evt: MessageEvent|Event) {
-    if (evt && evt.type === 'error') {
-      this.onError(evt);
+  async onEvent(value: StreamData|Event) {
+    if (value && value instanceof Event) {
+      this.onError(value);
       return;
     }
 
@@ -292,15 +292,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.checkStale();
     }, 1000);
 
-    const data = JSON.parse((evt as MessageEvent).data).value;
-
-    if (!this.data) {
-      this.data = new StreamData({});
-    }
-
-    for (const key of Object.keys(data)) {
-      this.data.data[key] = data[key];
-    }
+    this.data = value as StreamData;
 
     console.debug('LiveFeed.onEvent(): current data:', this.data);
 
