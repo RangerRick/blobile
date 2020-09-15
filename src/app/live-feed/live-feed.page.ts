@@ -52,7 +52,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   private keepAwake = false;
 
   constructor(
-    private api: APIStream,
+    private stream: APIStream,
     private database: APIDatabase,
     public loadingController: LoadingController,
     protected settings: SettingsService) {
@@ -65,9 +65,9 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   async ngOnInit() {
     console.debug('LiveFeed.ngOnInit()');
     this.showLoading();
-    return this.settings.ready.finally(() => {
+    return this.settings.ready.finally(async () => {
       this.segment = this.settings.getSegment();
-      this.startListening();
+      await this.startListening();
       return true;
     });
   }
@@ -96,7 +96,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   forceRefresh(evt: any) {
     setTimeout(() => {
-      this.api.retry().finally(() => {
+      this.stream.retry().finally(() => {
         evt.target.complete();
       });
     }, 500);
@@ -311,13 +311,18 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  startListening() {
+  async startListening() {
     console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
 
     const errorWait = 1000;
 
-    this.subscription = this.api.subscribe((evt) => {
+    const currentData = this.stream.currentStreamData();
+    if (currentData) {
+      await this.onEvent(currentData);
+    }
+
+    this.subscription = this.stream.subscribe((evt) => {
       this.onEvent(evt);
     }, (err) => {
       this.onError(err);

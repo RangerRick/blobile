@@ -181,6 +181,13 @@ export class APIStream {
   }
 
   /**
+   * Get the last update returned by the stream.
+   */
+  public currentStreamData() {
+    return this.streamData;
+  }
+
+  /**
    * Force a retry.
    *
    * This will close the stream and create a new one, and logarithmically extend the retry time by {@link defaultRetryFallback}.

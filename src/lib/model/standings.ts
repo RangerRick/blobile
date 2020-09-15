@@ -17,6 +17,14 @@ export class Standings extends Entry {
     ]);
   }
 
+  public get wins(): { [key: string]: number }[] {
+    return this.data?.wins || [];
+  }
+
+  public get losses(): { [key: string]: number }[] {
+    return this.data?.losses || [];
+  }
+
   public get records() {
     const ret = [] as Record[];
     for (const id of Object.keys(this.data.losses || {})) {
