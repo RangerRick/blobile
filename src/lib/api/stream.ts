@@ -7,6 +7,7 @@ const { Device, EventSource } = Plugins;
 import 'capacitor-eventsource';
 import { MessageResult, ErrorResult, EventSourcePlugin /*, EventSourceWeb */ } from 'capacitor-eventsource';
 import { StreamData } from '../model/streamData';
+import { Platform } from '@ionic/angular';
 
 const SECOND = 1000;
 const ONE_MINUTE = 60 * SECOND;
@@ -72,7 +73,9 @@ export class APIStream {
   /**
    * Create an API object that can subscribe to the Blaseball event stream.
    */
-  constructor() {
+  constructor(
+    private platform: Platform,
+  ) {
     this.defaultRetryMillis = 5 * SECOND;
     this.defaultCheckIntervalMillis = 2 * SECOND;
     this.defaultRetryFallback = 1.2;
@@ -89,6 +92,8 @@ export class APIStream {
   }
 
   async init() {
+    await this.platform.ready();
+
     if (this.url) {
       console.debug('APIStream.init(): already initialized.');
       return this.url;
@@ -141,13 +146,12 @@ export class APIStream {
    *
    * @returns an {@link Observable} that can be subscribed to.
    */
-  start(): Observable<StreamData|ErrorEvent> {
+  async start(): Promise<Observable<StreamData|ErrorEvent>> {
     console.info('APIStream.start()');
 
-    this.init().finally(() => {
-      this.isStarted = true;
-      this.handleSystemChange();
-    });
+    await this.init();
+    this.isStarted = true;
+    this.handleSystemChange();
 
     return this.observable;
   }
@@ -155,7 +159,8 @@ export class APIStream {
   /**
    * Subscribe to the ongoing event stream.  Triggers a new event.
    */
-  subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
+  async subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
+    await this.init();
     const subscription = this.observable.subscribe(next, error, complete);
     if (this.streamData) {
       this.observer.next(this.streamData);
@@ -168,11 +173,11 @@ export class APIStream {
    *
    * Completes the {@link Observable} and closes all resources.
    */
-  stop() {
+  async stop() {
     console.info('APIStream.stop()');
 
     this.isStarted = false;
-    this.handleSystemChange();
+    await this.handleSystemChange();
 
     // clean up observable
     this.observer.complete();
@@ -254,15 +259,18 @@ export class APIStream {
     console.debug('APIStream.createSource()');
 
     return new Promise(async (resolve, reject) => {
-      // clean up existing and create new event source
-      await this.closeSource();
       // const es = new EventSourceWeb();
       const es = EventSource;
       this.source = es as EventSourcePlugin;
 
       const url = await this.url;
+
+      // clean up existing and create new event source
+      await this.closeSource();
+
       console.debug(`APIStream.createSource(): url=${url}`);
       await es.configure({ url });
+
       this.handles.message = es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);
         resolve(true);

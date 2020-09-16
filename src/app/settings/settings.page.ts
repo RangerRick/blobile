@@ -10,6 +10,7 @@ import { Team } from '../../lib/model/team';
 import { UpdateService } from '../../lib/update.service';
 import { APIDatabase } from '../../lib/api/database';
 import { SettingsService } from '../../lib/settings.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,7 @@ import { SettingsService } from '../../lib/settings.service';
 export class SettingsPage implements OnInit {
   public betaEnabled = false;
   public disableSleep = false;
-  public platform = 'web';
+  public devicePlatform = 'web';
   public favoriteTeam: string;
 
   public teamOptions: any = {
@@ -31,23 +32,25 @@ export class SettingsPage implements OnInit {
   constructor(
     public database: APIDatabase,
     public deploy: Deploy,
+    private platform: Platform,
     public settings: SettingsService,
     public updateService: UpdateService,
   ) {
   }
 
   async ngOnInit() {
+    await this.platform.ready();
     console.debug('SettingsPage.ngOnInit()');
 
     try {
       const info = await Device.getInfo();
-      this.platform = info.platform;
-      console.debug(`SettingsPage.ngOnInit(): platform=${this.platform}`);
+      this.devicePlatform = info.platform;
+      console.debug(`SettingsPage.ngOnInit(): platform=${this.devicePlatform}`);
     } catch (err) {
       console.error('SettingsPage.ngOnInit(): failed to get device info:', err);
     }
 
-    if (this.platform !== 'web') {
+    if (this.devicePlatform !== 'web') {
       try {
         const configuration = await this.deploy.getConfiguration();
         this.betaEnabled = configuration.channel.toLowerCase() === 'beta';

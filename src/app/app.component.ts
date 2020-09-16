@@ -29,7 +29,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(async () => {
       console.debug('AppComponent.initializeApp(): starting stream');
-      const observable = this.stream.start();
+      const observable = await this.stream.start();
       const subscription = observable.subscribe((evt: any) => {
         // once we get a real message, hide the splash screen
         SplashScreen.hide();

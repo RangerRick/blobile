@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { LoadingController, IonContent } from '@ionic/angular';
+import { LoadingController, IonContent, Platform } from '@ionic/angular';
 
 import { Plugins } from '@capacitor/core';
 
@@ -55,6 +55,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     private stream: APIStream,
     private database: APIDatabase,
     public loadingController: LoadingController,
+    private platform: Platform,
     protected settings: SettingsService) {
   }
 
@@ -63,6 +64,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    await this.platform.ready();
     console.debug('LiveFeed.ngOnInit()');
     this.showLoading();
     return this.settings.ready.finally(async () => {
@@ -325,7 +327,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
 
-    this.subscription = this.stream.subscribe((evt) => {
+    this.subscription = await this.stream.subscribe((evt) => {
       this.onEvent(evt);
     }, (err) => {
       this.onError(err);
