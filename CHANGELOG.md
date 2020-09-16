@@ -1,6 +1,15 @@
 ## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-33...v1.1.5) (2020-09-16)
 
 
+### Bug Fixes
+
+* more attempts at fixing initialization issues ([80edd23](https://github.com/RangerRick/blobile/commit/80edd2335a7e48a236cce3ae05cdd14a2bee57c0))
+
+
+
+## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-33...v1.1.5) (2020-09-16)
+
+
 
 ## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-32...v1.1.5) (2020-09-16)
 
