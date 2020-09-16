@@ -2,6 +2,7 @@ version: 1
 update_configs:
   - package_manager: "javascript"
     directory: "/"
+    target_branch: "v1.x"
     update_schedule: "daily"
     default_reviewers:
       - "rangerrick"
