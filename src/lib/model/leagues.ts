@@ -3,6 +3,7 @@ import { Team } from './team';
 import { League } from './league';
 import { Entry } from './_entry';
 import { Subleague } from './subleague';
+import { Tiebreaker } from './tiebreaker';
 
 export class Leagues extends Entry {
   public get divisions(): Division[] {
@@ -18,6 +19,10 @@ export class Leagues extends Entry {
   }
 
   public get subleagues(): Subleague[] {
-    return this.data.leagues?.map((subleague: any) => new Subleague(subleague)) || [];
+    return this.data.subleagues?.map((subleague: any) => new Subleague(subleague)) || [];
+  }
+
+  public get tiebreakers(): Tiebreaker[] {
+    return this.data.tiebreakers?.map((tiebreaker: any) => new Tiebreaker(tiebreaker)) || [];
   }
 }

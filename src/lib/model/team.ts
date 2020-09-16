@@ -1,3 +1,5 @@
+import * as Color from 'color';
+
 import { Entry } from './_entry';
 
 export class Team extends Entry {
@@ -56,5 +58,26 @@ export class Team extends Entry {
 
   public get rotation(): string[] {
     return this.data.rotation || [];
+  }
+
+  public get emojiColor(): string {
+    const color = Color(this.mainColor);
+    return color.lighten(0.25).toString();
+  }
+
+  public get contrastingMainColor(): string {
+    const color = Color(this.mainColor);
+    if (color.isLight()) {
+      return 'black';
+    }
+    return 'white';
+  }
+
+  public get contrastingSecondaryColor(): string {
+    const color = Color(this.secondaryColor);
+    if (color.isLight()) {
+      return 'black';
+    }
+    return 'white';
   }
 }

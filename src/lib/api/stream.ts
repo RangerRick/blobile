@@ -6,6 +6,7 @@ const { Device, EventSource } = Plugins;
 
 import 'capacitor-eventsource';
 import { MessageResult, ErrorResult, EventSourcePlugin /*, EventSourceWeb */ } from 'capacitor-eventsource';
+import { StreamData } from '../model/streamData';
 
 const SECOND = 1000;
 const ONE_MINUTE = 60 * SECOND;
@@ -59,13 +60,14 @@ export class APIStream {
   // max out at 10 minutes for a retry interval
   private maxRetryMillis = 10 * ONE_MINUTE;
 
-  private observable: Observable<MessageEvent|Event> | null;
-  private observer: Observer<MessageEvent|Event> | null;
+  private observable: Observable<StreamData|Event> | null;
+  private observer: Observer<StreamData|Event> | null;
   private deviceInfo: DeviceInfo | null;
 
   private handles = {} as { [key: string]: PluginListenerHandle };
 
   private url: Promise<string>;
+  private streamData: StreamData;
 
   /**
    * Create an API object that can subscribe to the Blaseball event stream.
@@ -139,7 +141,7 @@ export class APIStream {
    *
    * @returns an {@link Observable} that can be subscribed to.
    */
-  start(): Observable<MessageEvent|Event> {
+  start(): Observable<StreamData|Event> {
     console.info('APIStream.start()');
 
     this.init().finally(() => {
@@ -148,6 +150,13 @@ export class APIStream {
     });
 
     return this.observable;
+  }
+
+  /**
+   * Subscribe to the ongoing event stream.
+   */
+  subscribe(next?: (value: StreamData|Event) => void, error?: (error: any) => void, complete?: () => void) {
+    return this.observable.subscribe(next, error, complete);
   }
 
   /**
@@ -169,6 +178,13 @@ export class APIStream {
     // reset retry state
     this.retryMillis = this.defaultRetryMillis;
     this.lastUpdated = 0;
+  }
+
+  /**
+   * Get the last update returned by the stream.
+   */
+  public currentStreamData() {
+    return this.streamData;
   }
 
   /**
@@ -200,12 +216,8 @@ export class APIStream {
   private onMessage(data: any) {
     console.debug('APIStream.onMessage()');
 
-    const ev = new MessageEvent('message', {
-      data
-    });
-
-    if (this.lastUpdate !== ev.data) {
-      // console.debug('APIStream.onMessage(): change:', this.lastUpdate, ev?.data);
+    if (this.lastUpdate !== data) {
+      // console.debug('APIStream.onMessage(): change:', this.lastUpdate, data);
 
       // successful/new message, reset retry and last updated
       if (this.retryMillis !== this.defaultRetryMillis) {
@@ -215,11 +227,22 @@ export class APIStream {
 
       this.lastUpdated = Date.now();
 
-      this.lastUpdate = ev.data;
-      // tell the observable about the update
-      if (this.observer) {
-        this.observer.next(ev);
+      this.lastUpdate = data;
+
+      const parsed = JSON.parse(this.lastUpdate).value;
+
+      if (!this.streamData) {
+        this.streamData = new StreamData({});
       }
+  
+      for (const key of Object.keys(parsed)) {
+        this.streamData.data[key] = parsed[key];
+      }
+    }
+ 
+    // always publish the latest, so things refresh
+    if (this.observer) {
+      this.observer.next(this.streamData);
     }
   }
 

@@ -52,7 +52,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   private keepAwake = false;
 
   constructor(
-    private api: APIStream,
+    private stream: APIStream,
     private database: APIDatabase,
     public loadingController: LoadingController,
     protected settings: SettingsService) {
@@ -65,9 +65,9 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   async ngOnInit() {
     console.debug('LiveFeed.ngOnInit()');
     this.showLoading();
-    return this.settings.ready.finally(() => {
+    return this.settings.ready.finally(async () => {
       this.segment = this.settings.getSegment();
-      this.startListening();
+      await this.startListening();
       return true;
     });
   }
@@ -77,7 +77,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = undefined;
-      this.api.stop();
     }
     return true;
   }
@@ -97,7 +96,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   forceRefresh(evt: any) {
     setTimeout(() => {
-      this.api.retry().finally(() => {
+      this.stream.retry().finally(() => {
         evt.target.complete();
       });
     }, 500);
@@ -154,6 +153,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         ret = [];
         break;
     }
+
+    // return [ret[0]];
 
     const favoriteTeam = this.settings.favoriteTeam();
     return ret.sort((a: Game, b: Game) => {
@@ -281,9 +282,9 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  async onEvent(evt: MessageEvent|Event) {
-    if (evt && evt.type === 'error') {
-      this.onError(evt);
+  async onEvent(value: StreamData|Event) {
+    if (value && value instanceof Event) {
+      this.onError(value);
       return;
     }
 
@@ -293,15 +294,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.checkStale();
     }, 1000);
 
-    const data = JSON.parse((evt as MessageEvent).data).value;
-
-    if (!this.data) {
-      this.data = new StreamData({});
-    }
-
-    for (const key of Object.keys(data)) {
-      this.data.data[key] = data[key];
-    }
+    this.data = value as StreamData;
 
     console.debug('LiveFeed.onEvent(): current data:', this.data);
 
@@ -320,14 +313,18 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  startListening() {
+  async startListening() {
     console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
 
     const errorWait = 1000;
 
-    const observable = this.api.start();
-    this.subscription = observable.subscribe((evt) => {
+    const currentData = this.stream.currentStreamData();
+    if (currentData) {
+      await this.onEvent(currentData);
+    }
+
+    this.subscription = this.stream.subscribe((evt) => {
       this.onEvent(evt);
     }, (err) => {
       this.onError(err);

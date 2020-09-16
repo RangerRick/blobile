@@ -1,14 +1,30 @@
+import '@capacitor-community/http';
+
 import { Injectable } from '@angular/core';
 
 import { AlertController } from '@ionic/angular';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
+import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
+
+import { VERSION } from '../environments/version';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UpdateService {
+  public currentVersion = {
+    binary_version: VERSION.version,
+    binaryVersion: VERSION.version,
+    binaryVersionCode: String(VERSION.build),
+    binaryVersionName: VERSION.version,
+  } as ISnapshotInfo;
+  public newVersion = {} as ISnapshotInfo;
   public updateAvailable = false;
+  public updateReady = false;
+  public updateError = false;
+  public phase: string;
+  public percentDone: number;
 
   constructor(
     private alertController: AlertController,
@@ -21,48 +37,47 @@ export class UpdateService {
     await this.deploy.reloadApp();
   }
 
-  async triggerUpdate() {
-    console.debug('UpdateService.triggerUpdate()');
-
-    const alert = await this.alertController.create({
-      // cssClass: 'my-custom-class',
-      header: 'Update Available',
-      // subHeader: 'Subtitle',
-      message: 'An update is available. Apply now?',
-      buttons: [
-        {
-          text: 'Not Now',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.debug('UpdateService.triggerUpdate(): skipping reload');
-            return true;
-          }
-        },
-        {
-          text: 'Apply',
-          handler: async () => {
-            console.debug('UpdateService.triggerUpdate(): reloading app');
-            return this.deploy.reloadApp();
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
   async checkUpdate() {
     try {
-      const currentVersion = await this.deploy.getCurrentVersion();
-      console.info(`UpdateService.checkUpdate(): current=${currentVersion ? currentVersion.versionId : 'unknown'}`);
-      const update = await this.deploy.sync({updateMethod: 'background'}, percentDone => {
-        console.debug(`UpdateService.checkUpdate(): ${percentDone}% done`);
-      });
-      console.info(`UpdateService.checkUpdate(): update=${update ? update.versionId : 'unknown'}`);
-      this.updateAvailable = ! currentVersion || currentVersion.versionId !== update.versionId;
+      this.currentVersion = (await this.deploy.getCurrentVersion()) || this.currentVersion;
+      console.info('UpdateService.checkUpdate(): currentVersion:', this.currentVersion);
+
+      const update = await this.deploy.checkForUpdate();
+      this.updateAvailable = update.available;
+      console.debug('UpdateService.checkUpdate(): update info:', update);
+
+      if (this.updateAvailable) {
+        try {
+          await this.deploy.downloadUpdate((progress: number) => {
+            this.phase = 'Downloading';
+            this.percentDone = progress / 100.0;
+          });
+
+          await this.deploy.extractUpdate((progress: number) => {
+            this.phase = 'Extracting';
+            this.percentDone = progress / 100.0;
+          });
+
+          this.phase = undefined;
+          this.updateReady = true;
+        } catch (err) {
+          this.newVersion = await this.deploy.sync({updateMethod: 'background'}, percentDone => {
+            console.debug(`UpdateService.checkUpdate(): ${percentDone}% done`);
+            this.percentDone = percentDone / 100.0;
+          });
+
+          console.info('UpdateService.checkUpdate(): newVersion:', this.newVersion);
+          this.updateAvailable = ! this.currentVersion || this.currentVersion?.versionId !== this.newVersion?.versionId || this.percentDone === 1;
+          if (this.updateAvailable) {
+            this.updateReady = true;
+          }
+        }
+      }
+
       return true;
     } catch (err) {
       console.error(`UpdateService.checkUpdate(): something went wrong attempting to update: ${err.message ? err.message : 'unknown'}`);
+      this.updateError = true;
       return false;
     }
   }

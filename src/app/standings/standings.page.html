@@ -1,19 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>
-      Standings
+      {{data.name}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!--
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-  -->
-  <!-- Eventually put settings here -->
+<ion-content class="ion-no-margin">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let subleague of data.subleagues; trackBy: id">
+        <ion-header class="ion-no-border ion-text-center">
+          <h4>{{subleague.name}}</h4>
+        </ion-header>
+        <ion-card class="ion-no-padding ion-no-margin ion-margin-vertical" *ngFor="let division of subleague.divisions; trackBy: id">
+          <ion-card-header>
+            <ion-card-subtitle>{{division.name}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content class="ion-no-padding">
+            <ion-item
+              lines="none"
+              [style]="'font-weight: bold; --background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
+              *ngFor="let team of division.teams; trackBy: id"
+              (click)="openTeam(team.id)"
+            >
+              <ion-label>{{team.name}}</ion-label>
+              <ion-note slot="end" [style]="'font-weight: bold; --color: ' + team.mainTextColor">{{team.wins}}-{{team.losses}}</ion-note>
+            </ion-item>
+            <!--
+            <ion-item style="font-weight: bold" *ngFor="let team of division.teams; trackBy: id" lines="none">
+              <ion-button class="ion-margin-end" shape="round" [style]="'--background:' + team.emojiColor">{{team.emoji}}</ion-button>
+              <ion-label>{{team.name}}</ion-label>
+              <ion-note slot="end" style="font-weight: bold; color: black">{{team.wins}}-{{team.losses}}</ion-note>
+            </ion-item>
+            -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -11,13 +11,17 @@
       <ion-list-header lines="full">
         <h3>Automatic Updates</h3>
       </ion-list-header>
-      <ion-item *ngIf="updateService.updateAvailable" color="danger">
-        <ion-label class="ion-text-wrap">You have an update available.</ion-label>
-        <ion-button slot="end" color="light" (click)="updateService.reload()">Reload</ion-button>
-      </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">Receive beta updates?</ion-label>
         <ion-toggle (ionChange)="setBeta()" [(ngModel)]="betaEnabled" slot="end"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="updateService.updateAvailable && !updateService.updateReady && updateService.percentDone">
+        <ion-label slot="start">Update {{updateService.phase}}:</ion-label>
+        <ion-progress-bar value="{{updateService.percentDone}}"></ion-progress-bar>
+      </ion-item>
+      <ion-item *ngIf="updateService.updateReady" color="danger">
+        <ion-label class="ion-text-wrap">You have an update ready.</ion-label>
+        <ion-button slot="end" color="light" (click)="updateService.reload()">Reload</ion-button>
       </ion-item>
       <ion-list-header lines="full">
         <h3>Disable Sleep</h3>
