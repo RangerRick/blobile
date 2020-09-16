@@ -56,13 +56,6 @@ export class StandingsPage implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    const currentData = this.stream.currentStreamData();
-    if (currentData) {
-      this.leagues = currentData.leagues;
-      this.standings = currentData.games.standings;
-    }
-    await this.postprocess();
-
     this.stream.subscribe(async (evt: StreamData|Event) => {
       if (evt instanceof StreamData) {
         this.leagues = evt.leagues;

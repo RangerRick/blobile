@@ -25,7 +25,7 @@ import { APIDatabase } from 'src/lib/api/database';
 export class LiveFeedPage implements OnInit, OnDestroy {
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
-  public data = new StreamData({});
+  public streamData = new StreamData({});
   public games = [] as Game[];
   public searchTerm: string;
   public segment = 'all' as SEGMENT;
@@ -59,7 +59,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   private get schedule(): Game[] {
-    return this.data?.games?.schedule || [];
+    return this.streamData?.games?.schedule || [];
   }
 
   async ngOnInit() {
@@ -113,8 +113,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getActiveGames(): Game[] {
-    if (this.data?.games?.schedule) {
-      return this.data.games.schedule.filter((game: Game) => {
+    if (this.streamData?.games?.schedule) {
+      return this.streamData.games.schedule.filter((game: Game) => {
         return !game.gameComplete;
       });
     }
@@ -126,8 +126,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getFavoriteGames(): Game[] {
-    if (this.data?.games?.schedule) {
-      return this.data?.games?.schedule.filter((game: Game) => {
+    if (this.streamData?.games?.schedule) {
+      return this.streamData?.games?.schedule.filter((game: Game) => {
         return this.settings.isFavorite(game.homeTeam) || this.settings.isFavorite(game.awayTeam);
       });
     }
@@ -140,7 +140,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     let ret = [] as Game[];
     switch (this.segment) {
       case 'all':
-        ret = this.data?.games?.schedule || [];
+        ret = this.streamData?.games?.schedule || [];
         break;
       case 'active':
         ret = this.getActiveGames();
@@ -178,11 +178,11 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   isPostseason(): boolean {
-    return Boolean(this.data?.games?.isPostseason());
+    return Boolean(this.streamData?.games?.isPostseason());
   }
 
   isFinished() {
-    const isFinished = Boolean(this.data?.games?.isPostseasonComplete());
+    const isFinished = Boolean(this.streamData?.games?.isPostseasonComplete());
 
     if (this.clockUpdater && !isFinished) {
       clearInterval(this.clockUpdater);
@@ -190,7 +190,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.countdown = undefined;
     } else if (!this.clockUpdater && isFinished) {
       this.clockUpdater = setInterval(() => {
-        this.countdown = this.data.sim.countdownToNextSeason();
+        this.countdown = this.streamData.sim.countdownToNextSeason();
       }, 1000) as unknown as number;
     }
 
@@ -198,15 +198,15 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   getWinner() {
-    const winner = this.data?.games?.postseason?.playoffs?.winner;
+    const winner = this.streamData?.games?.postseason?.playoffs?.winner;
     if (winner) {
-      return this.data.leagues.teams.find((team: Team) => team.id === winner);
+      return this.streamData.leagues.teams.find((team: Team) => team.id === winner);
     }
     return new Team();
   }
 
   getPlayoffDay() {
-    return (this.data?.games?.postseason?.playoffs?.playoffDay || 0);
+    return (this.streamData?.games?.postseason?.playoffs?.playoffDay || 0);
   }
 
   getNextSeasonStart() {
@@ -261,6 +261,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   checkDisableSleep() {
+    console.debug('LiveFeed.checkDisableSleep()');
     const disableSleep = this.settings.disableSleep();
 
     try {
@@ -282,21 +283,26 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  async onEvent(value: StreamData|Event) {
-    if (value && value instanceof Event) {
+  async onEvent(value: StreamData|ErrorEvent) {
+    console.debug('LiveFeed.onEvent()');
+    if (value && value instanceof ErrorEvent) {
+      console.warn('LiveFeed.onEvent(): got an error:', value);
       this.onError(value);
       return;
     }
 
     this.lastUpdate = Date.now();
+    console.debug('LiveFeed.lastUpdate()', this.lastUpdate);
     setTimeout(() => {
       this.errors = 0;
       this.checkStale();
     }, 1000);
 
-    this.data = value as StreamData;
+    for (const key of Object.keys((value as StreamData).data)) {
+      this.streamData.data[key] = (value as StreamData).data[key];
+    }
 
-    console.debug('LiveFeed.onEvent(): current data:', this.data);
+    console.debug('LiveFeed.onEvent(): current data:', this.streamData);
 
     this.checkDisableSleep();
     this.refreshUI();
@@ -316,13 +322,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   async startListening() {
     console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
-
-    const errorWait = 1000;
-
-    const currentData = this.stream.currentStreamData();
-    if (currentData) {
-      await this.onEvent(currentData);
-    }
 
     this.subscription = this.stream.subscribe((evt) => {
       this.onEvent(evt);
