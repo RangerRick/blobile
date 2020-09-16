@@ -7,6 +7,7 @@ interface MessageOptions {
   fontSize?: string;
   messageColor?: string;
   zIndex?: number;
+  classes?: string;
 }
 
 interface ConfettiOptions extends MessageOptions {
@@ -39,13 +40,18 @@ export default abstract class Util {
       );
 
       const text = document.createElement('div');
-      text.setAttribute('class', 'bl-message-text' + (options.blink !== false ? ' bl-blink' : ''));
+      let classes = options.classes || '';
+      if (options.blink !== false) {
+        classes += ' bl-blink';
+      }
+      text.setAttribute('class', `bl-message-text ${classes}`);
       text.setAttribute('style',
         `font-family: ${options.fontFamily || DEFAULT_FONT_FAMILY}; ` +
         `font-size: ${options.fontSize || DEFAULT_FONT_SIZE}; ` +
         `color: ${options.messageColor || DEFAULT_MESSAGE_COLOR}; `,
       );
 
+      textContainer.setAttribute('data-text', message);
       textContainer.appendChild(text);
       diamondContents.appendChild(textContainer);
 
