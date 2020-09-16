@@ -36,7 +36,7 @@
     "@angular/compiler": "^10.0.14",
     "@angular/compiler-cli": "^10.0.14",
     "@angular/language-service": "^10.0.14",
-    "@capacitor/cli": "^2.4.0",
+    "@capacitor/cli": "^2.4.1",
     "@ionic/angular-toolkit": "^2.3.0",
     "@ionic/cli": "^6.11.8",
     "@types/canvas-confetti": "^1.0.0",
