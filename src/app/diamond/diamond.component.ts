@@ -82,7 +82,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     // this.game.data.lastUpdate = 'hits a grand slam';
     // this.game.data.lastUpdate = 'hits a home run';
 
-    const id = `diamond-${this.game.id}`;
+    const id = `diamond-main-${this.game.id}`;
     const update = this.game?.lastUpdate?.toLowerCase() || '';
     if (
       update.indexOf('home run') >= 0

@@ -216,12 +216,8 @@ export class APIStream {
   private onMessage(data: any) {
     console.debug('APIStream.onMessage()');
 
-    const ev = new MessageEvent('message', {
-      data
-    });
-
-    if (this.lastUpdate !== ev.data) {
-      // console.debug('APIStream.onMessage(): change:', this.lastUpdate, ev?.data);
+    if (this.lastUpdate !== data) {
+      // console.debug('APIStream.onMessage(): change:', this.lastUpdate, data);
 
       // successful/new message, reset retry and last updated
       if (this.retryMillis !== this.defaultRetryMillis) {
@@ -231,23 +227,22 @@ export class APIStream {
 
       this.lastUpdated = Date.now();
 
-      this.lastUpdate = ev.data;
+      this.lastUpdate = data;
 
-      const data = JSON.parse(this.lastUpdate).value;
+      const parsed = JSON.parse(this.lastUpdate).value;
 
       if (!this.streamData) {
         this.streamData = new StreamData({});
       }
   
-      for (const key of Object.keys(data)) {
-        this.streamData.data[key] = data[key];
+      for (const key of Object.keys(parsed)) {
+        this.streamData.data[key] = parsed[key];
       }
+    }
  
-
-      // tell the observable about the update
-      if (this.observer) {
-        this.observer.next(this.streamData);
-      }
+    // always publish the latest, so things refresh
+    if (this.observer) {
+      this.observer.next(this.streamData);
     }
   }
 

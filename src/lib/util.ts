@@ -1,7 +1,7 @@
 import * as confetti from 'canvas-confetti';
 
 interface MessageOptions {
-  blinkSpeed?: number;
+  blink?: boolean;
   duration?: number;
   fontFamily?: string;
   fontSize?: string;
@@ -20,7 +20,6 @@ const BASE_Z_INDEX = 1000;
 const DEFAULT_DURATION = 3500;
 const DEFAULT_FONT_FAMILY = 'impact, Arial Narrow Bold, Arial Narrow, sans-serif';
 const DEFAULT_FONT_SIZE = '4em';
-const DEFAULT_MESSAGE_BLINK_SPEED = 400;
 const DEFAULT_MESSAGE_COLOR = 'white';
 const DEFAULT_CONFETTI_PARTICLE_COUNT = 50;
 const DEFAULT_CONFETTI_PARTICLE_START_VELOCITY = 30;
@@ -29,58 +28,33 @@ const DEFAULT_CONFETTI_PARTICLE_SPREAD = 360;
 export default abstract class Util {
 
   static message(id: string, message: string, options: MessageOptions = {}) {
+    console.debug(`Util.message(): id=${id}, message=${message}`)
     const diamondContents = document.getElementById(id);
     if (diamondContents) {
+      console.debug('Util.message(): contents=', diamondContents);
       const textContainer = document.createElement('div');
+      textContainer.setAttribute('class', 'bl-message-container');
       textContainer.setAttribute('style',
-        `z-index: ${options.zIndex || (BASE_Z_INDEX + 1)}; ` +
-        'width: 100%; ' +
-        'height: 100%; ' +
-        'position: absolute; ' +
-        'top: 0; ' +
-        'left: 0; ' +
-        'display: table'
+        `z-index: ${options.zIndex || (BASE_Z_INDEX + 1)}; `,
       );
 
       const text = document.createElement('div');
+      text.setAttribute('class', 'bl-message-text' + (options.blink !== false ? ' bl-blink' : ''));
       text.setAttribute('style',
-        'width: 100%; ' +
-        'height: 100%; ' +
         `font-family: ${options.fontFamily || DEFAULT_FONT_FAMILY}; ` +
         `font-size: ${options.fontSize || DEFAULT_FONT_SIZE}; ` +
-        `color: ${options.messageColor || DEFAULT_MESSAGE_COLOR}; ` +
-        'text-shadow: 1px 0 0 black, 0 1px 0 black, -1px 0 0 black, 0 -1px 0 black; ' +
-        'display: table-cell; ' +
-        'text-align: center; ' +
-        'vertical-align: middle;'
+        `color: ${options.messageColor || DEFAULT_MESSAGE_COLOR}; `,
       );
 
       textContainer.appendChild(text);
       diamondContents.appendChild(textContainer);
 
-      let blink: number;
+      text.innerHTML = message;
 
       setTimeout(() => {
-        if (options.blinkSpeed !== 0) {
-          let on = true;
-          blink = setInterval(() => {
-            if (on) {
-              text.innerHTML = message;
-            } else {
-              text.innerHTML = '';
-            }
-            on = !on;
-          }, options.blinkSpeed || DEFAULT_MESSAGE_BLINK_SPEED) as unknown as number;
-
-          setTimeout(() => {
-            if (blink) {
-              clearInterval(blink);
-            }
-            text.remove();
-            textContainer.remove();
-          }, options.duration || DEFAULT_DURATION);
-        }
-      }, 200);
+        text.remove();
+        textContainer.remove();
+      }, options.duration || DEFAULT_DURATION);
     }
   }
 

@@ -154,6 +154,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         break;
     }
 
+    // return [ret[0]];
+
     const favoriteTeam = this.settings.favoriteTeam();
     return ret.sort((a: Game, b: Game) => {
       // always put favorite team first
