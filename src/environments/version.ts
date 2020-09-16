@@ -2,29 +2,29 @@
 /* tslint:disable */
 export const VERSION = {
     "dirty": true,
-    "raw": "v1.1.5-33-1-g80edd23-dirty",
-    "hash": "g80edd23",
+    "raw": "v1.1.5-34-1-gf3dbb1a-dirty",
+    "hash": "gf3dbb1a",
     "distance": 1,
-    "tag": "v1.1.5-33",
+    "tag": "v1.1.5-34",
     "semver": {
         "options": {
             "loose": false,
             "includePrerelease": false
         },
         "loose": false,
-        "raw": "v1.1.5-33",
+        "raw": "v1.1.5-34",
         "major": 1,
         "minor": 1,
         "patch": 5,
         "prerelease": [
-            33
+            34
         ],
         "build": [],
-        "version": "1.1.5-33"
+        "version": "1.1.5-34"
     },
-    "suffix": "1-g80edd23-dirty",
-    "semverString": "1.1.5-33+1.g80edd23",
+    "suffix": "1-gf3dbb1a-dirty",
+    "semverString": "1.1.5-34+1.gf3dbb1a",
     "version": "1.1.5",
-    "build": 34
+    "build": 35
 };
 /* tslint:enable */
