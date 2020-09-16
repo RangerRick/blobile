@@ -291,6 +291,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       return;
     }
 
+    const streamData = value as StreamData;
+
     this.lastUpdate = Date.now();
     console.debug('LiveFeed.lastUpdate()', this.lastUpdate);
     setTimeout(() => {
@@ -298,8 +300,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.checkStale();
     }, 1000);
 
-    for (const key of Object.keys((value as StreamData).data)) {
-      this.streamData.data[key] = (value as StreamData).data[key];
+    for (const key of Object.keys(streamData.data)) {
+      this.streamData.data[key] = streamData.data[key];
     }
 
     console.debug('LiveFeed.onEvent(): current data:', this.streamData);
