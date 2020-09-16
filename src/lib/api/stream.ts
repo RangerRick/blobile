@@ -60,8 +60,8 @@ export class APIStream {
   // max out at 10 minutes for a retry interval
   private maxRetryMillis = 10 * ONE_MINUTE;
 
-  private observable: Observable<StreamData|Event> | null;
-  private observer: Observer<StreamData|Event> | null;
+  private observable: Observable<StreamData|ErrorEvent> | null;
+  private observer: Observer<StreamData|ErrorEvent> | null;
   private deviceInfo: DeviceInfo | null;
 
   private handles = {} as { [key: string]: PluginListenerHandle };
@@ -83,7 +83,7 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
-    this.observable = new Observable((observer: Observer<MessageEvent|Event>) => {
+    this.observable = new Observable((observer: Observer<StreamData|ErrorEvent>) => {
       this.observer = observer;
     });
   }
@@ -141,7 +141,7 @@ export class APIStream {
    *
    * @returns an {@link Observable} that can be subscribed to.
    */
-  start(): Observable<StreamData|Event> {
+  start(): Observable<StreamData|ErrorEvent> {
     console.info('APIStream.start()');
 
     this.init().finally(() => {
@@ -153,10 +153,14 @@ export class APIStream {
   }
 
   /**
-   * Subscribe to the ongoing event stream.
+   * Subscribe to the ongoing event stream.  Triggers a new event.
    */
-  subscribe(next?: (value: StreamData|Event) => void, error?: (error: any) => void, complete?: () => void) {
-    return this.observable.subscribe(next, error, complete);
+  subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
+    const subscription = this.observable.subscribe(next, error, complete);
+    if (this.streamData) {
+      this.observer.next(this.streamData);
+    }
+    return subscription;
   }
 
   /**
