@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Plugins } from '@capacitor/core';
+import { Platform } from '@ionic/angular';
 
 const { Storage } = Plugins;
 
@@ -20,12 +21,16 @@ export class SettingsService {
 
   public ready: Promise<boolean>;
 
-  constructor() {
+  constructor(
+    private platform: Platform,
+  ) {
     console.debug('SettingsService instantiated.');
     this.ready = this.init();
   }
 
   async init(): Promise<boolean> {
+    await this.platform.ready();
+
     console.debug('SettingsService initializing.');
     this.assertSettings();
 

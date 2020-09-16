@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 
 import { APIStream } from 'src/lib/api/stream';
 import { StreamData } from 'src/lib/model/streamData';
@@ -51,11 +51,13 @@ export class StandingsPage implements OnInit {
   constructor(
     private database: APIDatabase,
     private modalController: ModalController,
+    private platform: Platform,
     private stream: APIStream,
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+    await this.platform.ready();
     this.stream.subscribe(async (evt: StreamData|Event) => {
       if (evt instanceof StreamData) {
         this.leagues = evt.leagues;
