@@ -19,6 +19,15 @@
 ## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-32...v1.1.5) (2020-09-16)
 
 
+### Bug Fixes
+
+* **settings:** shorten text to fit screen ([6e17bba](https://github.com/RangerRick/blobile/commit/6e17bbab95a2a0cbe0ad02babeaad2f756b09960))
+
+
+
+## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-32...v1.1.5) (2020-09-16)
+
+
 
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-31...v1.1.4) (2020-09-16)
 
