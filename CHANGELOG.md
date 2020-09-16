@@ -1,3 +1,18 @@
+## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-31...v1.1.4) (2020-09-16)
+
+
+### Bug Fixes
+
+* **model:** typo in subleagues ([568129f](https://github.com/RangerRick/blobile/commit/568129f0246d1112c326d9f620f22866b2c2508c))
+
+
+### Features
+
+* **standings:** working standings ([d597cbb](https://github.com/RangerRick/blobile/commit/d597cbbd50887d02a8a6b656a4a2c83bf3ab9a45))
+* **updates:** improve update feedback and algorithm ([41c42fa](https://github.com/RangerRick/blobile/commit/41c42fa8743a1698417aef7d19fb17e16aaafb63))
+
+
+
 ## [1.1.4](https://github.com/RangerRick/blobile/compare/v1.1.4-31...v1.1.4) (2020-09-14)
 
 
