@@ -29,12 +29,13 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(async () => {
       console.debug('AppComponent.initializeApp(): starting stream');
-      const observable = await this.stream.start();
-      const subscription = observable.subscribe((evt: any) => {
+      const subscription = await this.stream.subscribe((evt: any) => {
+        console.debug('AppComponent.initializeApp(): got message, hiding splash screen');
         // once we get a real message, hide the splash screen
         SplashScreen.hide();
         subscription.unsubscribe();
       }, (err: any) => {
+        console.debug('AppComponent.initializeApp(): got error, hiding splash screen');
         // even if we get an error, hide the splash screen
         SplashScreen.hide();
         subscription.unsubscribe();
