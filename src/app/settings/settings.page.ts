@@ -9,8 +9,9 @@ import { Team } from '../../lib/model/team';
 
 import { UpdateService } from '../../lib/update.service';
 import { APIDatabase } from '../../lib/api/database';
-import { SettingsService } from '../../lib/settings.service';
+import { Settings, SettingsService } from '../../lib/settings.service';
 import { Platform } from '@ionic/angular';
+import Util from 'src/lib/util';
 
 @Component({
   selector: 'app-settings',
@@ -18,16 +19,17 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
+  public current = {} as Settings;
   public betaEnabled = false;
-  public disableSleep = false;
   public devicePlatform = 'web';
-  public favoriteTeam: string;
 
   public teamOptions: any = {
     header: 'Choose Your Team',
   };
 
   public teams = [] as Team[];
+
+  id = Util.trackById;
 
   constructor(
     public database: APIDatabase,
@@ -60,23 +62,12 @@ export class SettingsPage implements OnInit {
       }
     }
 
-    await this.settings.ready;
-
-    this.disableSleep = this.settings.disableSleep();
-    console.debug(`SettingsPage.ngOnInit(): disableSleep=${this.disableSleep}`);
-
     this.teams = (await this.database.teams()).sort((a: Team, b: Team) => {
       return (a.fullName < b.fullName) ? -1 : (a.fullName > b.fullName) ? 1 : 0;
     });
-    console.debug(`SettingsPage.ngOnInit(): teams=`, this.teams);
 
-    this.favoriteTeam = this.settings.favoriteTeam();
-    /*
-    this.favoriteTeam = this.teams.find((team:Team) => {
-      return team.id === favoriteTeam;
-    });
-    */
-    console.debug(`SettingsPage.ngOnInit(): favoriteTeam=${this.favoriteTeam}`);
+    this.current = await this.settings.getAll();
+    console.debug('SettingsPage.onInit(): current settings=', this.current);
   }
 
   async isBeta() {
@@ -91,8 +82,17 @@ export class SettingsPage implements OnInit {
     return await this.isBeta();
   }
 
+  getTeamName(id: string) {
+    const team = this.teams.find((team: Team) => team.id === id);
+    return team ? team.fullName : '';
+  }
+
   async setDisableSleep() {
-    return await this.settings.setDisableSleep(this.disableSleep);
+    return await this.settings.setDisableSleep(this.current.disableSleep);
+  }
+
+  async setReduceMotion() {
+    return await this.settings.setReduceMotion(this.current.reduceMotion);
   }
 
   async setFavoriteTeam(detail: { value: string }) {

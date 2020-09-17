@@ -1,16 +1,17 @@
 import * as confetti from 'canvas-confetti';
 
-interface MessageOptions {
+export interface MessageOptions {
   blink?: boolean;
   duration?: number;
   fontFamily?: string;
   fontSize?: string;
   messageColor?: string;
   zIndex?: number;
-  classes?: string;
+  classes?: { [id: string]: string };
+  reduceMotion?: boolean;
 }
 
-interface ConfettiOptions extends MessageOptions {
+export interface ConfettiOptions extends MessageOptions {
   particleCount?: number;
   startVelocity?: number;
   spread?: number;
@@ -27,6 +28,12 @@ const DEFAULT_CONFETTI_PARTICLE_START_VELOCITY = 30;
 const DEFAULT_CONFETTI_PARTICLE_SPREAD = 360;
 
 export default abstract class Util {
+  static trackById(item: any) {
+    if (item && item.id) {
+      return item.id;
+    }
+    return item;
+  }
 
   static message(id: string, message: string, options: MessageOptions = {}) {
     console.debug(`Util.message(): id=${id}, message=${message}`)
@@ -36,28 +43,32 @@ export default abstract class Util {
       const textContainer = document.createElement('div');
       textContainer.setAttribute('class', 'bl-message-container');
       textContainer.setAttribute('style',
-        `z-index: ${options.zIndex || (BASE_Z_INDEX + 1)}; `,
-      );
-
-      const text = document.createElement('div');
-      let classes = options.classes || '';
-      if (options.blink !== false) {
-        classes += ' bl-blink';
-      }
-      text.setAttribute('class', `bl-message-text ${classes}`);
-      text.setAttribute('style',
+        `z-index: ${options.zIndex || (BASE_Z_INDEX + 1)}; ` +
         `font-family: ${options.fontFamily || DEFAULT_FONT_FAMILY}; ` +
         `font-size: ${options.fontSize || DEFAULT_FONT_SIZE}; ` +
         `color: ${options.messageColor || DEFAULT_MESSAGE_COLOR}; `,
       );
 
+      const text = document.createElement('div');
+      text.setAttribute('class', `bl-message-text ${options.blink !== false ? 'bl-blink' : ''}`);
+
       textContainer.setAttribute('data-text', message);
       textContainer.appendChild(text);
       diamondContents.appendChild(textContainer);
 
+      const classes = options.classes || {};
+      for (const c of Object.keys(classes)) {
+        const elem = document.getElementById(c);
+        elem.classList.add(classes[c]);
+      }
       text.innerHTML = message;
 
       setTimeout(() => {
+        for (const c of Object.keys(classes)) {
+          const elem = document.getElementById(c);
+          elem.classList.remove(classes[c]);
+        }
+
         text.remove();
         textContainer.remove();
       }, options.duration || DEFAULT_DURATION);
@@ -75,15 +86,17 @@ export default abstract class Util {
         useWorker: true,
       });
 
-      // otherwise the divs aren't initialized yet
+      // give it a little bit, or else the divs aren't initialized yet
       setTimeout(() => {
         Util.message(id, message, options);
 
-        c({
-          particleCount: options.particleCount || DEFAULT_CONFETTI_PARTICLE_COUNT,
-          startVelocity: options.startVelocity || DEFAULT_CONFETTI_PARTICLE_START_VELOCITY,
-          spread: options.spread || DEFAULT_CONFETTI_PARTICLE_SPREAD,
-        });
+        if (!options.reduceMotion) {
+          c({
+            particleCount: options.particleCount || DEFAULT_CONFETTI_PARTICLE_COUNT,
+            startVelocity: options.startVelocity || DEFAULT_CONFETTI_PARTICLE_START_VELOCITY,
+            spread: options.spread || DEFAULT_CONFETTI_PARTICLE_SPREAD,
+          });
+        }
 
         setTimeout(() => {
           el.remove();
