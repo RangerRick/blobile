@@ -43,6 +43,7 @@ interface TeamData {
   styleUrls: ['standings.page.scss']
 })
 export class StandingsPage implements OnInit {
+  loading = true;
   leagues = new Leagues({});
   standings = new Standings({});
 
@@ -146,6 +147,7 @@ export class StandingsPage implements OnInit {
       return sl_d;
     });
 
+    this.loading = false;
     // console.debug('leagues:', this.leagues);
     // console.debug('standings:', this.standings);
     // console.debug('teams:', teams);
