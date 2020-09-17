@@ -146,10 +146,10 @@ export class StandingsPage implements OnInit {
       return sl_d;
     });
 
-    console.debug('leagues:', this.leagues);
-    console.debug('standings:', this.standings);
-    console.debug('teams:', teams);
-    console.debug('data:', this.data);
+    // console.debug('leagues:', this.leagues);
+    // console.debug('standings:', this.standings);
+    // console.debug('teams:', teams);
+    // console.debug('data:', this.data);
   }
 
   id(item: any) {

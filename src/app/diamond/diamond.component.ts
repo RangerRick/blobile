@@ -8,6 +8,7 @@ import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
 import { TeamPage } from '../team-page/team-page.page';
+import { MessageOptions } from '../../lib/util';
 import Util from 'src/lib/util';
 
 // import Positions from '../../lib/model/positions';
@@ -82,19 +83,24 @@ export class DiamondComponent implements DoCheck, OnInit {
     // this.game.data.lastUpdate = 'hits a grand slam';
     // this.game.data.lastUpdate = 'hits a home run';
     // this.game.data.lastUpdate = 'reverb';
+    // this.game.data.lastUpdate = 'blooddrain';
+
+    const options = {
+      reduceMotion: this.settings.reduceMotion()
+    } as MessageOptions;
 
     const id = `diamond-main-${this.game.id}`;
     const update = this.game?.lastUpdate?.toLowerCase() || '';
     if (
       update.indexOf('home run') >= 0
     ) {
-      Util.confetti(id, 'HOME RUN!');
+      Util.confetti(id, 'HOME RUN!', options);
     } else if (
       update.indexOf('hits a grand slam') >= 0
     ) {
-      Util.confetti(id, 'GRAND SLAM!', {
+      Util.confetti(id, 'GRAND SLAM!', Object.assign({
         particleCount: 100,
-      });
+      }, options));
     } else if (
       update.indexOf('rogue umpire incinerated') >= 0
     ) {
@@ -107,7 +113,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     ) {
       Util.message(id, '🩸 BLOODDRAIN 🩸', {
         fontSize: '3em',
-        messageColor: '#d00',
+        messageColor: '#e44',
       });
     } else if (
       update.indexOf('switched teams') >= 0 && update.indexOf('feedback') >= 0

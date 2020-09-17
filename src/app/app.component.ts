@@ -9,6 +9,7 @@ import { UpdateService } from '../lib/update.service';
 import { RouteWatcherService } from './route-watcher';
 import { Router } from '@angular/router';
 import { APIStream } from 'src/lib/api/stream';
+import { SettingsService } from 'src/lib/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,12 @@ import { APIStream } from 'src/lib/api/stream';
 })
 export class AppComponent {
   constructor(
-    private updateService: UpdateService,
     private platform: Platform,
     private router: Router,
     private routeWatcherService: RouteWatcherService,
+    public settings: SettingsService,
     private stream: APIStream,
+    private updateService: UpdateService,
   ) {
     this.initializeApp();
   }

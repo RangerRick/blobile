@@ -114,3 +114,22 @@
     vertical-align: middle;
   }
 }
+
+.reduce-motion {
+  .bl-blink {
+    animation: none;
+  }
+
+  .bl-message-container {
+    justify-content: right;
+    align-items: flex-end;
+
+    .bl-message-text {
+      width: auto;
+      height: auto;
+      font-size: 5vw;
+      bottom: 10vw;
+      right: 2.5vw;
+    }
+  }
+}

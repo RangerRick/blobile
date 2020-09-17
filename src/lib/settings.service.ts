@@ -7,17 +7,27 @@ const { Storage } = Plugins;
 
 export type SEGMENT = 'all'|'active'|'favorites';
 
+export interface Settings {
+  segment: SEGMENT;
+  favorites: { [team: string]: boolean };
+  disableSleep: boolean;
+  favoriteTeam: string;
+  lastUrl: string;
+  reduceMotion: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
-  private settings = {
+  public settings = {
     segment: 'all',
     favorites: {},
     disableSleep: false,
     favoriteTeam: undefined,
     lastUrl: undefined,
-  } as any;
+    reduceMotion: false,
+  } as Settings;
 
   public ready: Promise<boolean>;
 
@@ -51,6 +61,9 @@ export class SettingsService {
 
       const lastUrl = await Storage.get({key: 'lastUrl'});
       this.settings.lastUrl = lastUrl?.value;
+
+      const reduceMotion = await Storage.get({key: 'reduceMotion'});
+      this.settings.reduceMotion = Boolean(reduceMotion?.value || false);
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
@@ -59,6 +72,7 @@ export class SettingsService {
         disableSleep: false,
         favoriteTeam: undefined,
         lastUrl: undefined,
+        reduceMotion: false,
       };
     }
 
@@ -68,7 +82,7 @@ export class SettingsService {
 
   assertSettings() {
     if (!this.settings) {
-      this.settings = {};
+      this.settings = {} as Settings;
     }
     if (!this.settings.favorites) {
       this.settings.favorites = {};
@@ -79,6 +93,15 @@ export class SettingsService {
     if (this.settings.disableSleep === undefined) {
       this.settings.disableSleep = false;
     }
+    if (this.settings.reduceMotion === undefined) {
+      this.settings.reduceMotion = false;
+    }
+    return this.settings;
+  }
+
+  async getAll() {
+    await this.ready;
+    return Object.assign({}, this.assertSettings());
   }
 
   isFavorite(teamId: string) {
@@ -155,4 +178,19 @@ export class SettingsService {
       return url;
     });
   }
+
+  reduceMotion(): boolean {
+    this.assertSettings();
+    return this.settings.reduceMotion;
+  }
+
+  async setReduceMotion(reduce: boolean) {
+    this.assertSettings();
+    this.settings.reduceMotion = reduce;
+    return Storage.set({key: 'reduceMotion', value: String(reduce)}).then(() => {
+      console.debug(`set reduceMotion: ${reduce}`);
+      return reduce;
+    });
+  }
+
 }
