@@ -35,6 +35,7 @@ interface TeamData {
   name: string;
   wins: number;
   losses: number;
+  playoffs: boolean;
 }
 
 @Component({
@@ -46,6 +47,7 @@ export class StandingsPage implements OnInit {
   loading = true;
   leagues = new Leagues({});
   standings = new Standings({});
+  tiebreakers = new Tiebreaker({});
 
   data = { subleagues: [] } as LeagueData;
 
@@ -87,8 +89,23 @@ export class StandingsPage implements OnInit {
 
     this.data.name = l.name;
 
+    const sortByWins = (a: Team, b: Team) => {
+      const aWins = this.standings.wins[a.id];
+      const bWins = this.standings.wins[b.id];
+
+      let ret = bWins - aWins;
+      if (ret === 0) {
+        const aTiebreaker = this.tiebreakers.order.indexOf(a.id);
+        const bTiebreaker = this.tiebreakers.order.indexOf(b.id);
+
+        ret = aTiebreaker - bTiebreaker;
+      }
+
+      return ret;
+    };
+
+    this.tiebreakers = this.leagues.tiebreakers.find((tiebreaker: Tiebreaker) => tiebreaker.id === l.tiebreakers);
     const teams = await this.database.teams();
-    const tiebreakers = this.leagues.tiebreakers.find((tiebreaker: Tiebreaker) => tiebreaker.id === l.tiebreakers);
 
     const sl = this.leagues?.subleagues?.filter((s: Subleague) => {
       return l.subleagues.indexOf(s.id) >= 0;
@@ -100,48 +117,57 @@ export class StandingsPage implements OnInit {
         name: s.name,
       } as SubleagueData;
 
+      const sl_teams = [] as TeamData[];
+
       const d = this.leagues?.divisions?.filter((item: Division) => {
         return s.divisions.indexOf(item.id) >= 0;
       });
 
-      sl_d.divisions = d.map((div: Division) => {
+      sl_d.divisions = d.sort((a: Division, b: Division) => {
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      }).map((div: Division) => {
         const div_d = {
           id: div.id,
           name: div.name,
         } as DivisionData;
 
-        div_d.teams = div.teams.map((id: string) => {
-          const t = teams.find((team: Team) => id === team.id);
+        div_d.teams = div.teams
+          .map((id: string) => teams.find((team: Team) => id === team.id))
+          .sort(sortByWins)
+          .map((team: Team) => {
           const t_d = {
-            id: t.id,
-            name: t.fullName,
-            emoji: String.fromCodePoint(parseInt(t.emoji)),
-            emojiColor: t.emojiColor,
-            mainColor: t.mainColor,
-            secondaryColor: t.secondaryColor,
-            mainTextColor: t.contrastingMainColor,
-            secondaryTextColor: t.contrastingSecondaryColor,
-            wins: this.standings.wins[t.id],
-            losses: this.standings.losses[t.id],
+            id: team.id,
+            name: team.fullName,
+            emoji: String.fromCodePoint(parseInt(team.emoji)),
+            emojiColor: team.emojiColor,
+            mainColor: team.mainColor,
+            secondaryColor: team.secondaryColor,
+            mainTextColor: team.contrastingMainColor,
+            secondaryTextColor: team.contrastingSecondaryColor,
+            wins: this.standings.wins[team.id],
+            losses: this.standings.losses[team.id],
+            playoffs: false,
           };
+
+          sl_teams.push(t_d);
 
           return t_d;
         });
 
-        div_d.teams.sort((a: TeamData, b: TeamData) => {
-          let ret = b.wins - a.wins;
-
-          if (ret === 0) {
-            const aTiebreaker = tiebreakers.order.indexOf(a.id);
-            const bTiebreaker = tiebreakers.order.indexOf(b.id);
-
-            ret = aTiebreaker - bTiebreaker;
-          }
-
-          return ret;
-        });
-
         return div_d;
+      });
+
+      sl_teams.sort((a: TeamData, b: TeamData) => {
+        let ret = b.wins - a.wins;
+        if (ret === 0) {
+          ret = this.tiebreakers.order.indexOf(b.id) - this.tiebreakers.order.indexOf(a.id);
+        }
+
+        return ret;
+      }).filter((_, index) => {
+        return index < 4;
+      }).map((team: TeamData) => {
+        team.playoffs = true;
       });
 
       return sl_d;
