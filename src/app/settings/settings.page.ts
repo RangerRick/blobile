@@ -19,7 +19,7 @@ import Util from 'src/lib/util';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  public current = {} as Settings;
+  public current: Settings;
   public betaEnabled = false;
   public devicePlatform = 'web';
 
@@ -27,7 +27,7 @@ export class SettingsPage implements OnInit {
     header: 'Choose Your Team',
   };
 
-  public teams = [] as Team[];
+  public teams: Team[];
 
   id = Util.trackById;
 
