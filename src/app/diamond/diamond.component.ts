@@ -82,59 +82,62 @@ export class DiamondComponent implements DoCheck, OnInit {
     // this.game.data.lastUpdate = 'switched teams and feedback';
     // this.game.data.lastUpdate = 'hits a grand slam';
     // this.game.data.lastUpdate = 'hits a home run';
-    // this.game.data.lastUpdate = 'reverb';
+    this.game.data.lastUpdate = 'reverb';
     // this.game.data.lastUpdate = 'blooddrain';
 
     const options = {
       reduceMotion: this.settings.reduceMotion()
     } as MessageOptions;
 
-    const id = `diamond-main-${this.game.id}`;
+    const diamondId = `diamond-${this.game.id}`;
+    const svgWrapperId = `diamond-main-${this.game.id}`;
     const update = this.game?.lastUpdate?.toLowerCase() || '';
     if (
       update.indexOf('home run') >= 0
     ) {
-      Util.confetti(id, 'HOME RUN!', options);
+      Util.confetti(svgWrapperId, 'HOME RUN!', options);
     } else if (
       update.indexOf('hits a grand slam') >= 0
     ) {
-      Util.confetti(id, 'GRAND SLAM!', Object.assign({
+      Util.confetti(svgWrapperId, 'GRAND SLAM!', Object.assign({
         particleCount: 100,
       }, options));
     } else if (
       update.indexOf('rogue umpire incinerated') >= 0
     ) {
-      Util.message(id, '🔥 INCINERATED 🔥', {
+      Util.message(svgWrapperId, '🔥 INCINERATED 🔥', {
         fontSize: '3em',
         messageColor: '#ffdf19',
       });
     } else if (
       update.indexOf('blooddrain') >= 0
     ) {
-      Util.message(id, '🩸 BLOODDRAIN 🩸', {
+      Util.message(svgWrapperId, '🩸 BLOODDRAIN 🩸', {
         fontSize: '3em',
         messageColor: '#e44',
       });
     } else if (
       update.indexOf('switched teams') >= 0 && update.indexOf('feedback') >= 0
     ) {
-      Util.message(id, '🎤 FEEDBACK 🎤', {
+      Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
         fontSize: '3em',
         messageColor: '#f40576',
       });
     } else if (
       update.indexOf('reverb') >= 0
     ) {
-      Util.message(id, '🌊 REVERB 🌊', {
+      Util.message(svgWrapperId, '🌊 REVERB 🌊', {
         fontSize: '3em',
         messageColor: '#62b2ff',
+        blink: true,
+        classes: { [diamondId]: 'shake' },
       });
     } else if (
       this.game.halfInningOuts === 2 &&
       this.game.atBatBalls === 3 &&
       (this.game.atBatStrikes === (this.game.topOfInning === false ? this.game.homeStrikes : this.game.awayStrikes) - 1)
     ) {
-      Util.message(id, 'MAXIMUM\nBLASEBALL!');
+      Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
     }
   }
 

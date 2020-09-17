@@ -7,7 +7,7 @@ export interface MessageOptions {
   fontSize?: string;
   messageColor?: string;
   zIndex?: number;
-  classes?: string;
+  classes?: { [id: string]: string };
   reduceMotion?: boolean;
 }
 
@@ -50,19 +50,25 @@ export default abstract class Util {
       );
 
       const text = document.createElement('div');
-      let classes = options.classes || '';
-      if (options.blink !== false) {
-        classes += ' bl-blink';
-      }
-      text.setAttribute('class', `bl-message-text ${classes}`);
+      text.setAttribute('class', `bl-message-text ${options.blink !== false ? 'bl-blink' : ''}`);
 
       textContainer.setAttribute('data-text', message);
       textContainer.appendChild(text);
       diamondContents.appendChild(textContainer);
 
+      const classes = options.classes || {};
+      for (const c of Object.keys(classes)) {
+        const elem = document.getElementById(c);
+        elem.classList.add(classes[c]);
+      }
       text.innerHTML = message;
 
       setTimeout(() => {
+        for (const c of Object.keys(classes)) {
+          const elem = document.getElementById(c);
+          elem.classList.remove(classes[c]);
+        }
+
         text.remove();
         textContainer.remove();
       }, options.duration || DEFAULT_DURATION);

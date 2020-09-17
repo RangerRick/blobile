@@ -1,4 +1,4 @@
-<ion-card class="green-card ion-no-padding ion-no-margin">
+<ion-card class="green-card ion-no-padding ion-no-margin" [id]="'diamond-' + game.id">
   <ion-card-content class="ion-no-padding">
     <div class="team-header">
       <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam)"></app-team>
