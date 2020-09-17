@@ -54,7 +54,7 @@ export class SettingsService {
       this.settings.segment = (segment?.value as SEGMENT) || 'all';
 
       const disableSleep = await Storage.get({key: 'disableSleep'});
-      this.settings.disableSleep = Boolean(disableSleep?.value || false);
+      this.settings.disableSleep = disableSleep?.value === 'true';
 
       const favoriteTeam = await Storage.get({key: 'favoriteTeam'});
       this.settings.favoriteTeam = favoriteTeam?.value;
@@ -63,7 +63,7 @@ export class SettingsService {
       this.settings.lastUrl = lastUrl?.value;
 
       const reduceMotion = await Storage.get({key: 'reduceMotion'});
-      this.settings.reduceMotion = Boolean(reduceMotion?.value || false);
+      this.settings.reduceMotion = reduceMotion?.value === 'true';
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
@@ -106,16 +106,15 @@ export class SettingsService {
 
   isFavorite(teamId: string) {
     this.assertSettings();
-    return Boolean(this.settings.favorites[teamId]);
+    return this.settings.favorites[teamId];
   }
 
   async setFavorite(teamId: string, value: boolean) {
     this.assertSettings();
     this.settings.favorites[teamId] = value;
-    return Storage.set({key: 'favorites', value: JSON.stringify(this.settings.favorites)}).then(() => {
-      console.debug(`set favorite: ${teamId} = ${value}`);
-      return value;
-    });
+    await Storage.set({key: 'favorites', value: JSON.stringify(this.settings.favorites)});
+    console.debug(`set favorite: ${teamId} = ${value}`);
+    return value;
   }
 
   async toggleFavorite(teamId: string) {
@@ -131,10 +130,9 @@ export class SettingsService {
   async setSegment(segment: SEGMENT) {
     this.assertSettings();
     this.settings.segment = segment;
-    return Storage.set({key: 'segment', value: segment}).then(() => {
-      console.debug(`set segment: ${segment}`);
-      return segment;
-    });
+    await Storage.set({key: 'segment', value: segment});
+    console.debug(`set segment: ${segment}`);
+    return segment;
   }
 
   disableSleep(): boolean {
@@ -145,10 +143,9 @@ export class SettingsService {
   async setDisableSleep(disable: boolean) {
     this.assertSettings();
     this.settings.disableSleep = disable;
-    return Storage.set({key: 'disableSleep', value: String(disable)}).then(() => {
-      console.debug(`set disableSleep: ${disable}`);
-      return disable;
-    });
+    await Storage.set({key: 'disableSleep', value: JSON.stringify(disable)});
+    console.debug(`set disableSleep: ${disable}`);
+    return disable;
   }
 
   favoriteTeam(): string {
@@ -159,10 +156,9 @@ export class SettingsService {
   async setFavoriteTeam(id: string) {
     this.assertSettings();
     this.settings.favoriteTeam = id;
-    return Storage.set({key: 'favoriteTeam', value: id}).then(() => {
-      console.debug(`set favoriteTeam: ${id}`);
-      return id;
-    });
+    await Storage.set({key: 'favoriteTeam', value: id});
+    console.debug(`set favoriteTeam: ${id}`);
+    return id;
   }
 
   lastUrl(): string {
@@ -173,10 +169,9 @@ export class SettingsService {
   async setLastUrl(url: string) {
     this.assertSettings();
     this.settings.lastUrl = url;
-    return Storage.set({key: 'lastUrl', value: url}).then(() => {
-      console.debug(`set lastUrl: ${url}`);
-      return url;
-    });
+    await Storage.set({key: 'lastUrl', value: url});
+    console.debug(`set lastUrl: ${url}`);
+    return url;
   }
 
   reduceMotion(): boolean {
@@ -187,10 +182,9 @@ export class SettingsService {
   async setReduceMotion(reduce: boolean) {
     this.assertSettings();
     this.settings.reduceMotion = reduce;
-    return Storage.set({key: 'reduceMotion', value: String(reduce)}).then(() => {
-      console.debug(`set reduceMotion: ${reduce}`);
-      return reduce;
-    });
+    await Storage.set({key: 'reduceMotion', value: JSON.stringify(reduce)});
+    console.debug(`set reduceMotion: ${reduce}`);
+    return reduce;
   }
 
 }

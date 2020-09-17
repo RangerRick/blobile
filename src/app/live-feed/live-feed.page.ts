@@ -180,11 +180,11 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   }
 
   isPostseason(): boolean {
-    return Boolean(this.streamData?.games?.isPostseason());
+    return this.streamData?.games?.isPostseason() || false;
   }
 
   isFinished() {
-    const isFinished = Boolean(this.streamData?.games?.isPostseasonComplete());
+    const isFinished = this.streamData?.games?.isPostseasonComplete() || false;
 
     if (this.clockUpdater && !isFinished) {
       clearInterval(this.clockUpdater);
