@@ -102,8 +102,8 @@ export class SettingsService {
     if (this.settings.reduceMotion === undefined) {
       this.settings.reduceMotion = false;
     }
-    if (!this.settings.darkMode) {
-      this.settings.darkMode = true;
+    if (this.settings.darkMode === undefined) {
+      this.settings.darkMode = false;
     }
     return this.settings;
   }
