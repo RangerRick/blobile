@@ -32,6 +32,12 @@ export class GameDetailPage implements OnInit {
       { time: '04:14', entry: 'blah blah blah' },
     ]
     */
+    setTimeout(() => {
+      this.init();
+    }, 200);
+  }
+
+  async init() {
     this.subscription = await this.stream.subscribe((streamData: StreamData) => {
       this.streamData = streamData;
       const game = streamData?.games?.schedule?.find((game: Game) => game.id === this.id);
