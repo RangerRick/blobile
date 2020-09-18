@@ -93,7 +93,7 @@
         <ion-row>
           <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
           <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-            <app-diamond [game]="game" (refresh)="refreshUI()"></app-diamond>
+            <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
           </ion-col>
         </ion-row>
       </ion-grid>

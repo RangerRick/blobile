@@ -23,6 +23,7 @@ import { GameDetailPage } from '../game-detail/game-detail.page';
 export class DiamondComponent implements DoCheck, OnInit {
   @Input() public game: Game;
   @Input() public allowOpenGame = true;
+  @Input() public prefix = 'diamond';
   @Output() public refresh: EventEmitter<any> = new EventEmitter();
 
   public font = {
@@ -91,8 +92,8 @@ export class DiamondComponent implements DoCheck, OnInit {
       reduceMotion: this.settings.reduceMotion()
     } as MessageOptions;
 
-    const diamondId = `diamond-${this.game.id}`;
-    const svgWrapperId = `diamond-main-${this.game.id}`;
+    const diamondId = `${this.prefix}-${this.game.id}`;
+    const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
     const update = this.game?.lastUpdate?.toLowerCase() || '';
     if (
       update.indexOf('home run') >= 0

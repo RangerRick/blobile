@@ -8,7 +8,7 @@
     <ion-title *ngIf="game">{{game.awayTeamNickname}} at {{game.homeTeamNickname}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<app-diamond *ngIf="game" [allowOpenGame]="false" [game]="game"></app-diamond>
+<app-diamond *ngIf="game" prefix="game-detail" [allowOpenGame]="false" [game]="game"></app-diamond>
 <ion-content *ngIf="game" style="--background: black" class="ion-no-margin ion-no-border">
   <span class="log-entry" *ngFor="let update of updateLog.slice(1)">
     <ion-item class="ion-no-padding ion-no-margin">
