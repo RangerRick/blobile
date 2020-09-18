@@ -1,4 +1,4 @@
-<ion-card class="green-card ion-no-padding ion-no-margin" [id]="prefix + '-' + game.id" (click)="watchGame(game && game.id, allowOpenGame, $event)">
+<ion-card class="green-card ion-no-padding ion-no-margin" [id]="prefix + '-' + game.id">
   <ion-card-content class="ion-no-padding">
     <div class="team-header">
       <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam, $event)"></app-team>
@@ -7,6 +7,11 @@
     </div>
 
     <div [id]="prefix + '-main-' + game.id" style="position: relative">
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!game.gameComplete && allowOpenGame">
+        <ion-button (click)="watchGame(game && game.id, allowOpenGame, $event)" color="dark">
+          <ion-icon name="caret-up-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-fab>
     <!-- viewbox="0 0 650 500" -->
     <svg *ngIf="inProgress()" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="10 120 635 400">
       <filter id="dropShadow">
