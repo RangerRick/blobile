@@ -95,6 +95,15 @@ export class SettingsPage implements OnInit {
     return await this.settings.setReduceMotion(this.current.reduceMotion);
   }
 
+  async setDarkMode() {
+    const darkMode = await this.settings.setDarkMode(this.current.darkMode);
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
   async setFavoriteTeam(detail: { value: string }) {
     const team = this.teams.find((t: Team) => {
       return t.id === detail.value;

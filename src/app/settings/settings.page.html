@@ -32,11 +32,15 @@
       </ion-item>
     </span>
     <ion-list-header lines="full">
-      <h3>Reduce Motion</h3>
+      <h3>Interface</h3>
     </ion-list-header>
     <ion-item>
       <ion-label class="ion-text-wrap">Reduce motion in effects?</ion-label>
       <ion-toggle *ngIf="current" (ionChange)="setReduceMotion()" [(ngModel)]="current.reduceMotion" slot="end"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Always use dark mode?</ion-label>
+      <ion-toggle *ngIf="current" (ionChange)="setDarkMode()" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
     </ion-item>
     <ion-list-header lines="full">
       <h3>Teams</h3>
