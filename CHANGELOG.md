@@ -1,3 +1,18 @@
+## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-39...v1.1.5) (2020-09-18)
+
+
+### Bug Fixes
+
+* **settings:** only show elements once initialized ([8550426](https://github.com/RangerRick/blobile/commit/85504261563a136bdae47659d3aa8bc06ade239d))
+
+
+### Features
+
+* add support for always using dark mode ([36cb5bd](https://github.com/RangerRick/blobile/commit/36cb5bd3ebffe7056c476d174202e36de5d912e2))
+* **standings:** show playoff cutoff ([4ec7cb1](https://github.com/RangerRick/blobile/commit/4ec7cb1fc77cb8bd5d4df1638adaf14ac65ba1ec))
+
+
+
 ## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-39...v1.1.5) (2020-09-17)
 
 
