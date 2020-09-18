@@ -288,6 +288,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     console.debug('LiveFeed.checkDisableSleep()');
     const disableSleep = this.settings.disableSleep();
 
+    if (!Plugins.KeepAwake) {
+      return;
+    }
+
     try {
       if (disableSleep && this.getActiveGameCount() > 0) {
         if (!this.keepAwake) {

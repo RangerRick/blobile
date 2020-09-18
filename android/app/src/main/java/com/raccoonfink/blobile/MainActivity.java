@@ -21,6 +21,7 @@ public class MainActivity extends BridgeActivity {
       // Ex: add(TotallyAwesomePlugin.class);
       add(EventSource.class);
       add(Http.class);
+      add(KeepAwake.class);
     }});
   }
 }
