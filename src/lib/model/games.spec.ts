@@ -13,6 +13,8 @@ const postSeasonEnd        = require('./data/season-5-post-end.json');
 const seasonFinished       = require('./data/season-5-finished.json');
 const seasonVeryFinished   = require('./data/season-5-very-end.json');
 const season6Finished      = require('./data/season-6-finished.json');
+const season7Pre           = require('./data/season-7-pre.json');
+const season7RegularEnd    = require('./data/season-7-regular-end.json');
 
 describe('Games', () => {
   let games: Games;
@@ -21,6 +23,14 @@ describe('Games', () => {
     TestBed.configureTestingModule({});
   });
 
+  describe('Pre-Season', () => {
+    it('should be the preseason', () => {
+      games = new Games(season7Pre);
+      expect(games.isRegularSeason(1600091520000)).toBeFalsy();
+      expect(games.isPostseason(1600091520000)).toBeFalsy();
+      expect(games.isPostseasonComplete(1600091520000)).toBeTruthy();
+    });
+  });
 
   describe('Regular Season Start', () => {
     it('should be a regular season game', () => {
@@ -50,8 +60,15 @@ describe('Games', () => {
     it('should be a regular season game', () => {
       games = new Games(regularSeasonEnd);
       expect(games.isRegularSeason()).toBeTruthy();
-      expect(games.isPostseason()).toBeFalsy();
+      expect(games.isPostseason()).toBeTruthy();
       expect(games.isPostseasonComplete()).toBeFalsy();
+    });
+
+    it('should be the end of regular season', () => {
+      games = new Games(season7RegularEnd);
+      expect(games.isRegularSeason(1600463030386)).toBeTruthy();
+      expect(games.isPostseason(1600463030386)).toBeTruthy();
+      expect(games.isPostseasonComplete(1600463030386)).toBeFalsy();
     });
   });
 

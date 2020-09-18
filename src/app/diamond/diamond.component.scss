@@ -5,8 +5,10 @@
   --background: #00a831;
 }
 
-.strokeme text {
-  paint-order: stroke;
+.strokeme {
+  text, tspan {
+    paint-order: stroke;
+  }
 }
 
 .team-header {

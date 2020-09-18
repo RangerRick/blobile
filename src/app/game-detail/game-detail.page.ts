@@ -23,7 +23,7 @@ export class GameDetailPage implements OnInit {
     public stream: APIStream,
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     /*
     this.updateLog = [
       { time: '04:17', entry: 'really really really really long entry that has some excessive amounts of text' },
@@ -32,6 +32,12 @@ export class GameDetailPage implements OnInit {
       { time: '04:14', entry: 'blah blah blah' },
     ]
     */
+    setTimeout(() => {
+      this.init();
+    }, 200);
+  }
+
+  async init() {
     this.subscription = await this.stream.subscribe((streamData: StreamData) => {
       this.streamData = streamData;
       const game = streamData?.games?.schedule?.find((game: Game) => game.id === this.id);
@@ -42,8 +48,23 @@ export class GameDetailPage implements OnInit {
           time: ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
           entry: game.lastUpdate,
         });
+        if (game.lastUpdate.toLowerCase().indexOf('game over') < 0) {
+          this.read(game.lastUpdate);
+        }
       }
     });
+  }
+
+  public read(text: string) {
+    if (window.speechSynthesis) {
+      try {
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        window.speechSynthesis.speak(msg);
+      } catch (err) {
+        // just eat it
+      }
+    }
   }
 
   public close() {
