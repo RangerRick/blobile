@@ -7,6 +7,30 @@
 * **diamond:** make a button for opening game detail rather than clicking the diamond ([4242433](https://github.com/RangerRick/blobile/commit/4242433f87bfa99c98dfa5150a1fa5c3193ae7fa))
 * **diamond:** make sure the effects apply to the right diamond ([18cd37e](https://github.com/RangerRick/blobile/commit/18cd37eb16a8089e78d5e774d553494e77c1a9b4))
 * **game-detail:** slight delay before opening ([eecf041](https://github.com/RangerRick/blobile/commit/eecf041f91bf33507d78f05d27572bc1f70f1285))
+* **live-feed:** rework display, show countdown to postseason now ([52db567](https://github.com/RangerRick/blobile/commit/52db56746ea838d721e78afab1755db6b5ed9f77))
+* **settings:** load dark mode setting properly ([a339938](https://github.com/RangerRick/blobile/commit/a3399380c6b627944ddf6bcfd2010f4eee30b0fe))
+* **settings:** only show elements once initialized ([8550426](https://github.com/RangerRick/blobile/commit/85504261563a136bdae47659d3aa8bc06ade239d))
+
+
+### Features
+
+* **game-detail:** basic TTS ([de59145](https://github.com/RangerRick/blobile/commit/de59145a470f8d30cf6677453146d1b4d76980a5))
+* add "game detail" view ([f9d875d](https://github.com/RangerRick/blobile/commit/f9d875d761318d9306aaa7378a589df5384f3366))
+* **team:** close icon instead of text ([51d5a77](https://github.com/RangerRick/blobile/commit/51d5a775671452d522a41d4b9b3d7c214341de48))
+* add support for always using dark mode ([36cb5bd](https://github.com/RangerRick/blobile/commit/36cb5bd3ebffe7056c476d174202e36de5d912e2))
+* **standings:** show playoff cutoff ([4ec7cb1](https://github.com/RangerRick/blobile/commit/4ec7cb1fc77cb8bd5d4df1638adaf14ac65ba1ec))
+
+
+
+## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-39...v1.1.5) (2020-09-18)
+
+
+### Bug Fixes
+
+* **diamond:** fix drop-shadow on safari ([3e4a938](https://github.com/RangerRick/blobile/commit/3e4a938a2e5c52cd3d7c13d9b817d633eb199027))
+* **diamond:** make a button for opening game detail rather than clicking the diamond ([4242433](https://github.com/RangerRick/blobile/commit/4242433f87bfa99c98dfa5150a1fa5c3193ae7fa))
+* **diamond:** make sure the effects apply to the right diamond ([18cd37e](https://github.com/RangerRick/blobile/commit/18cd37eb16a8089e78d5e774d553494e77c1a9b4))
+* **game-detail:** slight delay before opening ([eecf041](https://github.com/RangerRick/blobile/commit/eecf041f91bf33507d78f05d27572bc1f70f1285))
 * **settings:** load dark mode setting properly ([a339938](https://github.com/RangerRick/blobile/commit/a3399380c6b627944ddf6bcfd2010f4eee30b0fe))
 * **settings:** only show elements once initialized ([8550426](https://github.com/RangerRick/blobile/commit/85504261563a136bdae47659d3aa8bc06ade239d))
 
