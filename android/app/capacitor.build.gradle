@@ -9,7 +9,6 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-    implementation project(':boosten-capacitor-keep-awake')
     implementation project(':capacitor-community-http')
     implementation project(':capacitor-eventsource')
 

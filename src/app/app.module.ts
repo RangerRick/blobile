@@ -15,6 +15,8 @@ import { environment } from '../environments/environment';
 import { DiamondComponentModule } from './diamond/diamond.module';
 import { GameDetailPageModule } from './game-detail/game-detail.module';
 
+import '../lib/keep-awake';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
