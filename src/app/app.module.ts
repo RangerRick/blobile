@@ -8,7 +8,6 @@ import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APIStream } from '../lib/api/stream';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '../environments/environment';
 
@@ -24,7 +23,6 @@ import '../lib/keep-awake';
     AppRoutingModule,
     BrowserModule,
     IonicModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     DiamondComponentModule,
     GameDetailPageModule,
   ],
