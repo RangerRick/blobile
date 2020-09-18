@@ -20,6 +20,9 @@ You can just run it as a "progressive" web app in your browser, with most featur
 
 ## Feedback and Helping Out
 
+You can follow Blases Loaded [on Twitter](https://twitter.com/BlasesLoadedApp).
+I will generally post about updates and new features there.
+
 If you find bugs or have feature suggestions, please open an issue here on the GitHub project.
 
 Also, I lurk on the official Blaseball Discord, and there is a project channel for Blases Loaded development on the [Society for Internet Blaseball Research Discord](https://discord.gg/XTZRmcb).
