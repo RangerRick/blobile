@@ -44,14 +44,46 @@ export class Games extends Entry {
     return !this.isPreseason(now) && (this.sim.day !== undefined ? (this.sim.day < 100) : false);
   }
 
+  private incompleteGames(games: Game[]) {
+    return games.filter((game: Game) => !game.gameComplete);
+  }
+  
   public isPostseason(now = Date.now()) {
-    return this.schedule.find((game: Game) => game.isPostseason) !== undefined;
+    if (this.schedule.find((game: Game) => game.isPostseason) !== undefined) {
+      // the schedule has postseason games
+      return true;
+    }
+
+    const incompleteRegularSeason = this.incompleteGames(this.schedule)
+      .filter((game: Game) => !game.isPostseason);
+
+    console.debug('day=', this.sim.data);
+    if (incompleteRegularSeason.length === 0) {
+      if (this.sim.day === 99) {
+        // no games are left for day 99
+        return true;
+      }
+      if (this.tomorrowSchedule.find((game: Game) => game.isPostseason) !== undefined) {
+        // there are postseason games tomorrow
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public isPostseasonComplete(now = Date.now()) {
     if (this.isPreseason(now)) {
       return true;
     }
+
+    if (!this.isPostseason()) {
+      // no postseason games in the schedule
+    }
+
+    const incompleteRegularSeasonGames = this.schedule.find((game: Game) => {
+      return !game.isPostseason && !game.gameComplete;
+    });
 
     if (this.sim?.data?.nextElectionEnd && this.sim?.data?.nextPhaseTime) {
       if (this.sim.data.nextElectionEnd === this.sim.data.nextPhaseTime) {
