@@ -28,15 +28,19 @@
       </ion-list-header>
       <ion-item>
         <ion-label class="ion-text-wrap">Disable sleep while games are active?</ion-label>
-        <ion-toggle (ionChange)="setDisableSleep()" [(ngModel)]="current.disableSleep" slot="end"></ion-toggle>
+        <ion-toggle *ngIf="current" (ionChange)="setDisableSleep()" [(ngModel)]="current.disableSleep" slot="end"></ion-toggle>
       </ion-item>
     </span>
     <ion-list-header lines="full">
-      <h3>Reduce Motion</h3>
+      <h3>Interface</h3>
     </ion-list-header>
     <ion-item>
       <ion-label class="ion-text-wrap">Reduce motion in effects?</ion-label>
-      <ion-toggle (ionChange)="setReduceMotion()" [(ngModel)]="current.reduceMotion" slot="end"></ion-toggle>
+      <ion-toggle *ngIf="current" (ionChange)="setReduceMotion()" [(ngModel)]="current.reduceMotion" slot="end"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Always use dark mode?</ion-label>
+      <ion-toggle *ngIf="current" (ionChange)="setDarkMode()" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
     </ion-item>
     <ion-list-header lines="full">
       <h3>Teams</h3>
@@ -50,7 +54,7 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-select class="ion-text-wrap" (ionChange)="setFavoriteTeam($event.detail)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [value]="current.favoriteTeam" [(ngModel)]="current.favoriteTeam">
+      <ion-select *ngIf="current && teams" class="ion-text-wrap" (ionChange)="setFavoriteTeam($event.detail)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [value]="current.favoriteTeam" [(ngModel)]="current.favoriteTeam">
         <ion-select-option *ngFor="let team of teams; trackBy: id" [value]="team.id">{{team.fullName}}</ion-select-option>
       </ion-select>
     </ion-item>

@@ -30,15 +30,11 @@
               (click)="openTeam(team.id)"
             >
               <ion-label>{{team.name}}</ion-label>
-              <ion-note slot="end" [style]="'font-weight: bold; --color: ' + team.mainTextColor">{{team.wins}}-{{team.losses}}</ion-note>
+              <ion-note slot="end" [style]="'font-weight: bold; --color: ' + team.mainTextColor">
+                <span *ngIf="team.playoffs">🏆</span>
+                {{team.wins}}-{{team.losses}}
+              </ion-note>
             </ion-item>
-            <!--
-            <ion-item style="font-weight: bold" *ngFor="let team of division.teams; trackBy: id" lines="none">
-              <ion-button class="ion-margin-end" shape="round" [style]="'--background:' + team.emojiColor">{{team.emoji}}</ion-button>
-              <ion-label>{{team.name}}</ion-label>
-              <ion-note slot="end" style="font-weight: bold; color: black">{{team.wins}}-{{team.losses}}</ion-note>
-            </ion-item>
-            -->
           </ion-card-content>
         </ion-card>
       </ion-col>

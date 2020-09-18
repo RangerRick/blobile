@@ -14,6 +14,7 @@ export interface Settings {
   favoriteTeam: string;
   lastUrl: string;
   reduceMotion: boolean;
+  darkMode: boolean;
 }
 
 @Injectable({
@@ -27,6 +28,7 @@ export class SettingsService {
     favoriteTeam: undefined,
     lastUrl: undefined,
     reduceMotion: false,
+    darkMode: false,
   } as Settings;
 
   public ready: Promise<boolean>;
@@ -64,6 +66,9 @@ export class SettingsService {
 
       const reduceMotion = await Storage.get({key: 'reduceMotion'});
       this.settings.reduceMotion = reduceMotion?.value === 'true';
+
+      const darkMode = await Storage.get({key: 'darkMode'});
+      this.settings.darkMode = darkMode?.value === 'true';
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
       this.settings = {
@@ -73,6 +78,7 @@ export class SettingsService {
         favoriteTeam: undefined,
         lastUrl: undefined,
         reduceMotion: false,
+        darkMode: false,
       };
     }
 
@@ -95,6 +101,9 @@ export class SettingsService {
     }
     if (this.settings.reduceMotion === undefined) {
       this.settings.reduceMotion = false;
+    }
+    if (!this.settings.darkMode) {
+      this.settings.darkMode = true;
     }
     return this.settings;
   }
@@ -185,6 +194,19 @@ export class SettingsService {
     await Storage.set({key: 'reduceMotion', value: JSON.stringify(reduce)});
     console.debug(`set reduceMotion: ${reduce}`);
     return reduce;
+  }
+
+  getDarkMode(): boolean {
+    this.assertSettings();
+    return this.settings.darkMode;
+  }
+
+  async setDarkMode(dark: boolean) {
+    this.assertSettings();
+    this.settings.darkMode = dark;
+    await Storage.set({key: 'darkMode', value: JSON.stringify(dark)});
+    console.debug(`set darkMode: ${dark}`);
+    return dark;
   }
 
 }

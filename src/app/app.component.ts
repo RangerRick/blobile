@@ -30,6 +30,12 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(async () => {
+      // make sure dark mode is set before hiding the splash screen
+      await this.settings.ready;
+      if (this.settings.getDarkMode()) {
+        document.body.classList.add('dark');
+      }
+
       console.debug('AppComponent.initializeApp(): starting stream');
       const subscription = await this.stream.subscribe((evt: any) => {
         console.debug('AppComponent.initializeApp(): got message, hiding splash screen');
