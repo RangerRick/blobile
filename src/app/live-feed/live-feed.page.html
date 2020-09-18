@@ -8,13 +8,13 @@
         <ion-spinner></ion-spinner>
       </ion-button>
       <!--
-      <ion-button *ngIf="errors &gt; 0 && !isFinished()">
+      <ion-button *ngIf="errors &gt; 0 && !isPostseasonComplete()">
         <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
       </ion-button>
       -->
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar *ngIf="ready && !isFinished()">
+  <ion-toolbar *ngIf="ready && !showCountdown()">
     <ion-buttons slot="primary">
       <!-- this is just to fix spacing for now, I'll figure out something better eventually -->
       <ion-button>
@@ -49,21 +49,27 @@
   </ion-refresher>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <span *ngIf="ready">
-    <span *ngIf="isFinished()">
-      <ion-item lines="none">
-        <h4>Season {{streamData.seasonNumber}} is over.</h4>
-      </ion-item>
-      <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
-        <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
-      </ion-item>
-      <ion-item lines="none">
-        <h4 *ngIf="countdown">Next Season Starts In:<br>{{getNextSeasonStart()}}.</h4>
-      </ion-item>
-      <!--
-      <ion-item lines="none" class="ticker-wrap">
-      </ion-item>
-      -->
-      <div id="marquee" data-speed="0.8">
+    <span *ngIf="showCountdown()">
+      <span *ngIf="isPostseasonComplete()">
+        <ion-item lines="none">
+          <h4>Season {{streamData.seasonNumber}} is over.</h4>
+        </ion-item>
+        <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
+          <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
+        </ion-item>
+        <ion-item lines="none">
+          <h4 *ngIf="countdown">Next Season Starts In:<br>{{getCountdown()}}.</h4>
+        </ion-item>
+      </span>
+      <span *ngIf="isPostseason()">
+        <ion-item lines="none">
+          <h4>Regular season is over.</h4>
+        </ion-item>
+        <ion-item lines="none">
+          <h4 *ngIf="countdown">Postseason Starts In:<br>{{getCountdown()}}.</h4>
+        </ion-item>
+      </span>
+      <div id="marquee" data-speed="1">
         <div class="marquee">
           <div class="marquee-item" *ngFor="let event of globalEvents">
             {{event.msg}}...
@@ -74,7 +80,7 @@
         </div>
       </div>
     </span>
-    <span *ngIf="!isFinished()">
+    <span *ngIf="!showCountdown()">
       <ion-item lines="none" *ngIf="streamData.games.isPostseason()">
         <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Postseason Round {{streamData.games.postseason.round.roundNumber}}, Day {{getPlayoffDay()}}</h4>
       </ion-item>

@@ -179,24 +179,46 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     });
   }
 
-  isPostseason(): boolean {
+  doCountdown(type: string) {
+    if (!this.clockUpdater) {
+      this.clockUpdater = setInterval(() => {
+        this.countdown = this.streamData.sim[type]();
+      }, 1000) as unknown as number;
+    }
+  }
+
+  isRegularSeason() {
+    return this.streamData?.games?.isRegularSeason() || false;
+  }
+
+  isPostseason() {
     return this.streamData?.games?.isPostseason() || false;
   }
 
-  isFinished() {
-    const isFinished = this.streamData?.games?.isPostseasonComplete() || false;
+  isPostseasonComplete() {
+    return this.streamData?.games?.isPostseasonComplete() || false;
+  }
 
-    if (this.clockUpdater && !isFinished) {
+  showCountdown(): boolean {
+    const isRegularSeason = this.isRegularSeason();
+    const isPostseason = this.isPostseason();
+    const isFinished = this.isPostseasonComplete();
+
+    if (isRegularSeason && isPostseason) {
+      this.doCountdown('countdownToNextPhase');
+      return true;
+    } else if (isFinished) {
+      this.doCountdown('countdownToNextSeason');
+      return true;
+    }
+
+    if (this.clockUpdater) {
       clearInterval(this.clockUpdater);
       this.clockUpdater = undefined;
       this.countdown = undefined;
-    } else if (!this.clockUpdater && isFinished) {
-      this.clockUpdater = setInterval(() => {
-        this.countdown = this.streamData.sim.countdownToNextSeason();
-      }, 1000) as unknown as number;
     }
 
-    return isFinished;
+    return false;
   }
 
   getWinner() {
@@ -211,7 +233,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     return (this.streamData?.games?.postseason?.playoffs?.playoffDay || 0);
   }
 
-  getNextSeasonStart() {
+  getCountdown() {
     return `${this.countdown.hours} ${this.countdown.hours === 1 ? 'hour' : 'hours'}, ${this.countdown.minutes} ${this.countdown.minutes === 1 ? 'minute' : 'minutes'}, ${this.countdown.seconds} ${this.countdown.seconds === 1 ? 'second' : 'seconds'}`;
   }
 
