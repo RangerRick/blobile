@@ -9,7 +9,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APIStream } from '../lib/api/stream';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { environment } from '../environments/environment';
+
+import { DiamondComponentModule } from './diamond/diamond.module';
+import { GameDetailPageModule } from './game-detail/game-detail.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +22,9 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserModule,
     IonicModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    DiamondComponentModule,
+    GameDetailPageModule,
   ],
   providers: [
     Deploy,
