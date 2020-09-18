@@ -10,6 +10,7 @@ import { Team } from '../../lib/model/team';
 import { TeamPage } from '../team-page/team-page.page';
 import { MessageOptions } from '../../lib/util';
 import Util from 'src/lib/util';
+import { GameDetailPage } from '../game-detail/game-detail.page';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
@@ -21,6 +22,7 @@ import Util from 'src/lib/util';
 })
 export class DiamondComponent implements DoCheck, OnInit {
   @Input() public game: Game;
+  @Input() public allowOpenGame = true;
   @Output() public refresh: EventEmitter<any> = new EventEmitter();
 
   public font = {
@@ -69,7 +71,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck(): void {
-    if (this.oldGame.hash !== this.game.hash) {
+    if (this.oldGame && this.game && this.oldGame.hash !== this.game.hash) {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
       this.checkInterestingEvents();
@@ -209,7 +211,11 @@ export class DiamondComponent implements DoCheck, OnInit {
     }
   }
 
-  async openTeam(id: string) {
+  async openTeam(id: string, ev: Event) {
+    if (ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+    }
     console.debug(`opening team: ${id}`);
     const modal = await this.modalController.create({
       component: TeamPage,
@@ -218,5 +224,23 @@ export class DiamondComponent implements DoCheck, OnInit {
       },
     });
     return await modal.present();
+  }
+
+  async watchGame(id: string, allowOpenGame: boolean, ev: Event) {
+    if (ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+    }
+    if (allowOpenGame) {
+      const modal = await this.modalController.create({
+        component: GameDetailPage,
+        componentProps: {
+          id,
+        },
+      });
+      return await modal.present();
+    } else {
+      console.debug(`DiamondComponent.watchGame(): opening game not allowed: ${id}`);
+    }
   }
 }

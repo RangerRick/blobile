@@ -1,0 +1,38 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary" lines="none">
+    <ion-buttons slot="primary">
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="game">{{game.awayTeamNickname}} at {{game.homeTeamNickname}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<app-diamond *ngIf="game" [allowOpenGame]="false" [game]="game"></app-diamond>
+<ion-content *ngIf="game" style="--background: black" class="ion-no-margin ion-no-border">
+  <span class="log-entry" *ngFor="let update of updateLog.slice(1)">
+    <ion-item class="ion-no-padding ion-no-margin">
+      <ion-text class="time ion-align-self-start" slot="start">
+        {{update.time}}
+      </ion-text>
+      <ion-text class="ion-align-self-start">
+        {{update.entry}}
+      </ion-text>
+    </ion-item>
+    <!--
+    <ion-item class="ion-no-padding ion-no-margin">
+      <ion-text class="time ion-align-self-start" slot="start">
+        {{update.time}}
+      </ion-text>
+      <ion-label class="ion-align-self-start">
+        balls strikes etc.
+      </ion-label>
+    </ion-item>
+    <ion-item class="ion-no-padding item-text-wrap">
+      <ion-text>
+        {{update.entry}}
+      </ion-text>
+    </ion-item>
+    -->
+  </span>
+</ion-content>

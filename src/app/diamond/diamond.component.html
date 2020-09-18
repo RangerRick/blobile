@@ -1,9 +1,9 @@
-<ion-card class="green-card ion-no-padding ion-no-margin" [id]="'diamond-' + game.id">
+<ion-card class="green-card ion-no-padding ion-no-margin" [id]="'diamond-' + game.id" (click)="watchGame(game && game.id, allowOpenGame, $event)">
   <ion-card-content class="ion-no-padding">
     <div class="team-header">
-      <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam)"></app-team>
+      <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam, $event)"></app-team>
       at
-      <app-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam)"></app-team>
+      <app-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam, $event)"></app-team>
     </div>
 
     <div [id]="'diamond-main-' + game.id" style="position: relative">
@@ -169,7 +169,7 @@
       </ion-row>
       <ion-row class="ion-align-items-end ion-text-end">
         <ion-col>
-          <div (click)="openTeam(game.awayTeam)">
+          <div (click)="openTeam(game.awayTeam, $event)">
             <span>
               <span class="atbat" *ngIf="!game.topOfInning">⚾</span>
               <span class="atbat" *ngIf="game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
@@ -185,7 +185,7 @@
           <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning}}</div></div>
         </ion-col>
         <ion-col>
-          <div (click)="openTeam(game.homeTeam)">
+          <div (click)="openTeam(game.homeTeam, $event)">
             <span>
               <span class="atbat" *ngIf="game.topOfInning">⚾</span>
               <span class="atbat" *ngIf="!game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
