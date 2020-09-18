@@ -3,6 +3,24 @@
 
 ### Bug Fixes
 
+* **settings:** load dark mode setting properly ([a339938](https://github.com/RangerRick/blobile/commit/a3399380c6b627944ddf6bcfd2010f4eee30b0fe))
+* **settings:** only show elements once initialized ([8550426](https://github.com/RangerRick/blobile/commit/85504261563a136bdae47659d3aa8bc06ade239d))
+
+
+### Features
+
+* add "game detail" view ([f9d875d](https://github.com/RangerRick/blobile/commit/f9d875d761318d9306aaa7378a589df5384f3366))
+* **team:** close icon instead of text ([51d5a77](https://github.com/RangerRick/blobile/commit/51d5a775671452d522a41d4b9b3d7c214341de48))
+* add support for always using dark mode ([36cb5bd](https://github.com/RangerRick/blobile/commit/36cb5bd3ebffe7056c476d174202e36de5d912e2))
+* **standings:** show playoff cutoff ([4ec7cb1](https://github.com/RangerRick/blobile/commit/4ec7cb1fc77cb8bd5d4df1638adaf14ac65ba1ec))
+
+
+
+## [1.1.5](https://github.com/RangerRick/blobile/compare/v1.1.5-39...v1.1.5) (2020-09-18)
+
+
+### Bug Fixes
+
 * **settings:** only show elements once initialized ([8550426](https://github.com/RangerRick/blobile/commit/85504261563a136bdae47659d3aa8bc06ade239d))
 
 
