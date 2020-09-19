@@ -7,16 +7,16 @@
     </ion-buttons>
     <ion-title *ngIf="game">{{game.awayTeamNickname}} at {{game.homeTeamNickname}}</ion-title>
     <ion-buttons slot="secondary">
-      <ion-button (click)="muted = !muted">
-        <ion-icon *ngIf="!muted" name="volume-high-outline"></ion-icon>
-        <ion-icon *ngIf="muted" name="volume-mute-outline"></ion-icon>
+      <ion-button (click)="settings.toggleSpeech()">
+        <ion-icon *ngIf="settings.speech()" name="volume-high-outline"></ion-icon>
+        <ion-icon *ngIf="!settings.speech()" name="volume-mute-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<app-diamond *ngIf="game" prefix="game-detail" [allowOpenGame]="false" [game]="game"></app-diamond>
+<app-diamond *ngIf="game" prefix="game-detail" [allowOpenGame]="false" [hideLog]="true" [game]="game"></app-diamond>
 <ion-content *ngIf="game" class="ion-no-margin ion-no-border">
-  <span class="log-entry" *ngFor="let update of updateLog.slice(1)">
+  <span class="log-entry" *ngFor="let update of updateLog">
     <ion-item class="ion-no-padding ion-no-margin" lines="none">
       <ion-text class="time ion-align-self-start" slot="start" lines="none">
         {{update.time}}
