@@ -76,6 +76,6 @@
     "dev": "ionic build && ionic cap copy --no-build",
     "prep-web": "rimraf www/* && ionic build --prod && ionic deploy manifest",
     "prep": "npm run prep-web && ionic cap sync --no-build --prod",
-    "prod": "ionic deploy configure --channel-name=Stable && npm run prep"
+    "prod": "ionic deploy configure --app-id=15a91f4a --channel-name=Stable --update-method=background && npm run prep"
   }
 }
