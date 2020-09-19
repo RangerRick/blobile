@@ -12,9 +12,13 @@ export interface Settings {
   favoriteTeam: string;
   lastUrl: string;
   segment: SEGMENT;
+  voice: string;
+  audio: boolean;
   darkMode: boolean;
   disableSleep: boolean;
   reduceMotion: boolean;
+  speech: boolean;
+  volume: number;
 }
 
 @Injectable({
@@ -26,9 +30,12 @@ export class SettingsService {
     favoriteTeam: undefined,
     lastUrl: undefined,
     segment: 'all',
+    audio: true,
     darkMode: false,
     disableSleep: false,
     reduceMotion: false,
+    speech: true,
+    volume: 1.0,
   } as Settings;
 
   public ready: Promise<boolean>;
@@ -52,12 +59,18 @@ export class SettingsService {
           favoriteTeam: undefined,
           lastUrl: undefined,
           segment: 'all',
+          voice: undefined,
         }),
-        this.configureBooleans([
-          'darkMode',
-          'disableSleep',
-          'reduceMotion',
-        ]),
+        this.configureBooleans({
+          audio: true,
+          darkMode: false,
+          disableSleep: false,
+          reduceMotion: false,
+          speech: true,
+        }),
+        this.configureNumbers({
+          volume: 1.0,
+        }),
         Storage.get({key: 'favorites'}).then((favorites) => {
           this.settings.favorites = JSON.parse(favorites?.value || "{}");
         }),
@@ -70,11 +83,28 @@ export class SettingsService {
     return true;
   }
 
-  async configureBooleans(keys: string[]) {
-    const promises = keys.map(async (key: string) => {
+  async configureBooleans(entries: {[key:string]: boolean }) {
+    const promises = Object.keys(entries).map(async (key: string) => {
       return Storage.get({key}).then((value) => {
-        this.settings[key] = value?.value === 'true';
+        if (value?.value !== undefined) {
+          this.settings[key] = value.value === 'true';
+        } else {
+          this.settings[key] = entries[key] || false;
+        }
         return true;
+      });
+    });
+    return Promise.all(promises);
+  }
+
+  async configureNumbers(entries: { [key:string]: number }) {
+    const promises = Object.keys(entries).map(async (key: string) => {
+      return Storage.get({key}).then((value) => {
+        if (value?.value) {
+          this.settings[key] = JSON.parse(value.value);
+        } else {
+          this.settings[key] = entries[key];
+        }
       });
     });
     return Promise.all(promises);
@@ -100,14 +130,23 @@ export class SettingsService {
     if (!this.settings.segment) {
       this.settings.segment = 'all';
     }
+    if (this.settings.audio === undefined) {
+      this.settings.audio = true;
+    }
     if (this.settings.disableSleep === undefined) {
       this.settings.disableSleep = false;
     }
     if (this.settings.reduceMotion === undefined) {
       this.settings.reduceMotion = false;
     }
+    if (this.settings.speech === undefined) {
+      this.settings.speech = true;
+    }
     if (this.settings.darkMode === undefined) {
       this.settings.darkMode = false;
+    }
+    if (this.settings.volume === undefined) {
+      this.settings.volume = 1.0;
     }
     return this.settings;
   }
@@ -117,37 +156,46 @@ export class SettingsService {
     return Object.assign({}, this.assertSettings());
   }
 
-  protected getBoolean(key: string) {
+  getBoolean(key: string) {
     this.assertSettings();
     return this.settings[key] || false;
   }
-
-  protected async setBoolean(key: string, value: boolean) {
+  async setBoolean(key: string, value: boolean) {
     this.assertSettings();
     this.settings[key] = value;
     await Storage.set({key, value: JSON.stringify(value)});
-    console.debug(`set ${key}: ${value}`);
+    console.debug(`setBoolean: ${key} = ${value}`);
     return value;
   }
 
-  protected async setString(key: string, value: string) {
+  getString(key: string) {
+    this.assertSettings();
+    return this.settings[key];
+  }
+  async setString(key: string, value: string) {
     this.assertSettings();
     this.settings[key] = value;
     await Storage.set({key, value});
-    console.debug(`set ${key}: ${value}`);
+    console.debug(`setString: ${key} = ${value}`);
     return value;
   }
 
-  protected getString(key: string) {
+  getNumber(key: string) {
     this.assertSettings();
     return this.settings[key];
+  }
+  async setNumber(key: string, value: number) {
+    this.assertSettings();
+    this.settings[key] = value;
+    await Storage.set({key, value: JSON.stringify(value)});
+    console.debug(`setNumber: ${key} = ${value}`);
+    return value;
   }
 
   isFavorite(teamId: string) {
     this.assertSettings();
     return this.settings.favorites[teamId];
   }
-
   async setFavorite(teamId: string, value: boolean) {
     this.assertSettings();
     this.settings.favorites[teamId] = value;
@@ -155,7 +203,6 @@ export class SettingsService {
     console.debug(`set favorite: ${teamId} = ${value}`);
     return value;
   }
-
   async toggleFavorite(teamId: string) {
     this.assertSettings();
     return this.setFavorite(teamId, !this.isFavorite(teamId));
@@ -164,7 +211,6 @@ export class SettingsService {
   favoriteTeam(): string {
     return this.getString('favoriteTeam');
   }
-
   async setFavoriteTeam(id: string) {
     return this.setString('favoriteTeam', id);
   }
@@ -172,23 +218,34 @@ export class SettingsService {
   lastUrl(): string {
     return this.getString('lastUrl');
   }
-
   async setLastUrl(url: string) {
     return this.setString('lastUrl', url);
   }
 
-  getSegment(): SEGMENT {
+  segment(): SEGMENT {
     return this.getString('segment');
   }
-
   async setSegment(segment: SEGMENT) {
     return this.setString('segment', segment);
+  }
+
+  voice(): string {
+    return this.getString('voice');
+  }
+  async setVoice(voice: string) {
+    return this.setString('voice', voice);
+  }
+
+  audio(): boolean {
+    return this.getBoolean('audio');
+  }
+  async setAudio(audio: boolean) {
+    return this.setBoolean('audio', audio);
   }
 
   darkMode(): boolean {
     return this.getBoolean('darkMode');
   }
-
   async setDarkMode(dark: boolean) {
     return this.setBoolean('darkMode', dark);
   }
@@ -196,7 +253,6 @@ export class SettingsService {
   disableSleep(): boolean {
     return this.getBoolean('disableSleep');
   }
-
   async setDisableSleep(disable: boolean) {
     return this.setBoolean('disableSleep', disable);
   }
@@ -204,9 +260,21 @@ export class SettingsService {
   reduceMotion(): boolean {
     return this.getBoolean('reduceMotion');
   }
-
   async setReduceMotion(reduce: boolean) {
     return this.setBoolean('reduceMotion', reduce);
   }
 
+  speech(): boolean {
+    return this.getBoolean('speech');
+  }
+  async setSpeech(speech: boolean) {
+    return this.setBoolean('speech', speech);
+  }
+
+  volume(): number {
+    return this.getNumber('volume');
+  }
+  async setVolume(volume: number) {
+    return this.setNumber('volume', volume);
+  }
 }

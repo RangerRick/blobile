@@ -12,6 +12,7 @@ import { APIDatabase } from '../../lib/api/database';
 import { Settings, SettingsService } from '../../lib/settings.service';
 import { Platform } from '@ionic/angular';
 import Util from 'src/lib/util';
+import { VoiceService } from 'src/lib/voice.service';
 
 @Component({
   selector: 'app-settings',
@@ -22,12 +23,19 @@ export class SettingsPage implements OnInit {
   public current: Settings;
   public betaEnabled = false;
   public devicePlatform = 'web';
+  public hasSpeech = false;
 
   public teamOptions: any = {
     header: 'Choose Your Team',
   };
+  public voiceOptions: any = {
+    header: 'Choose a Voice',
+  };
 
   public teams: Team[];
+  public volume: number;
+  public voices: SpeechSynthesisVoice[];
+  public voice: SpeechSynthesisVoice;
 
   id = Util.trackById;
 
@@ -37,7 +45,9 @@ export class SettingsPage implements OnInit {
     private platform: Platform,
     public settings: SettingsService,
     public updateService: UpdateService,
+    public voiceService: VoiceService,
   ) {
+    this.hasSpeech = window.speechSynthesis !== undefined;
   }
 
   async ngOnInit() {
@@ -67,6 +77,11 @@ export class SettingsPage implements OnInit {
     });
 
     this.current = await this.settings.getAll();
+    this.volume = Math.round(this.current.volume * 1000);
+
+    this.voices = this.voiceService.voices();
+    this.voice = await this.voiceService.voice(this.current.voice);
+
     console.debug('SettingsPage.onInit(): current settings=', this.current);
   }
 
@@ -87,21 +102,37 @@ export class SettingsPage implements OnInit {
     return team ? team.fullName : '';
   }
 
-  async setDisableSleep() {
-    return await this.settings.setDisableSleep(this.current.disableSleep);
+  async setBoolean(key: string) {
+    return await this.settings.setBoolean(key, this.current[key]);
   }
+  async setString(key: string, ev?: { detail: { value: any }}) {
+    console.debug('setString: key=', key);
+    console.debug('setString: ev=', ev);
+    if (ev && ev.detail && ev.detail.value) {
 
-  async setReduceMotion() {
-    return await this.settings.setReduceMotion(this.current.reduceMotion);
-  }
-
-  async setDarkMode() {
-    const darkMode = await this.settings.setDarkMode(this.current.darkMode);
-    if (darkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
     }
+    return await this.settings.setString(key, this.current[key]);
+  }
+  async setVolume(ev?: CustomEvent<any>) {
+    return await this.settings.setNumber('volume', ev.detail.value / 1000.0);
+  }
+
+  async setVoice(ev?: CustomEvent<any>) {
+    const voice = await this.voiceService.voice(ev?.detail?.value);
+    if (voice) {
+      await this.settings.setVoice(ev.detail.value);
+      this.speak();
+    } else {
+      console.error(`Unable to locate voice: ${ev?.detail?.value}`);
+    }
+  }
+
+  async speak(ev?: CustomEvent<any>) {
+    ev?.preventDefault();
+    ev?.stopPropagation();
+    return this.voiceService.say('The commissioner is doing a great job!', {
+      force: true,
+    });
   }
 
   async setFavoriteTeam(detail: { value: string }) {
