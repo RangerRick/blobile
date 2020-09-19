@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { APIStream } from 'src/lib/api/stream';
 import { Game } from 'src/lib/model/game';
 import { StreamData } from 'src/lib/model/streamData';
+import { VoiceService } from 'src/lib/voice.service';
 
 @Component({
   selector: 'app-game-detail',
@@ -15,12 +16,14 @@ export class GameDetailPage implements OnInit {
   streamData: StreamData;
   game: Game;
   updateLog = [] as { time: string, entry: string }[];
+  muted = false;
 
   private subscription: Subscription;
 
   constructor(
     private modalController: ModalController,
     public stream: APIStream,
+    public voiceService: VoiceService,
   ) { }
 
   ngOnInit() {
@@ -30,8 +33,9 @@ export class GameDetailPage implements OnInit {
       { time: '04:16', entry: 'blah blah blah' },
       { time: '04:15', entry: 'blah blah blah' },
       { time: '04:14', entry: 'blah blah blah' },
-    ]
+    ];
     */
+
     setTimeout(() => {
       this.init();
     }, 200);
@@ -48,23 +52,11 @@ export class GameDetailPage implements OnInit {
           time: ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
           entry: game.lastUpdate,
         });
-        if (game.lastUpdate.toLowerCase().indexOf('game over') < 0) {
-          this.read(game.lastUpdate);
+        if (!this.muted) {
+          this.voiceService.say(game.lastUpdate);
         }
       }
     });
-  }
-
-  public read(text: string) {
-    if (window.speechSynthesis) {
-      try {
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = text;
-        window.speechSynthesis.speak(msg);
-      } catch (err) {
-        // just eat it
-      }
-    }
   }
 
   public close() {

@@ -13,7 +13,7 @@ describe('LiveFeedPage', () => {
   beforeEach(async(() => {
     settingsSpy = {} as SettingsService;
     settingsSpy.ready = Promise.resolve();
-    settingsSpy.getSegment = () => {
+    settingsSpy.segment = () => {
       return 'all' as SEGMENT;
     };
 

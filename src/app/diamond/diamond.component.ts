@@ -15,6 +15,8 @@ import { GameDetailPage } from '../game-detail/game-detail.page';
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-diamond',
   templateUrl: './diamond.component.html',
@@ -49,6 +51,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   public teams = {} as { [key: string]: Team };
 
   private oldGame = {} as Game;
+  public environment = environment;
 
   constructor(
     private changeDetector: ChangeDetectorRef,

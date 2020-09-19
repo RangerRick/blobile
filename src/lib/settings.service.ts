@@ -8,13 +8,17 @@ const { Storage } = Plugins;
 export type SEGMENT = 'all'|'active'|'favorites';
 
 export interface Settings {
-  segment: SEGMENT;
   favorites: { [team: string]: boolean };
-  disableSleep: boolean;
   favoriteTeam: string;
   lastUrl: string;
-  reduceMotion: boolean;
+  segment: SEGMENT;
+  voice: string;
+  audio: boolean;
   darkMode: boolean;
+  disableSleep: boolean;
+  reduceMotion: boolean;
+  speech: boolean;
+  volume: number;
 }
 
 @Injectable({
@@ -22,13 +26,16 @@ export interface Settings {
 })
 export class SettingsService {
   public settings = {
-    segment: 'all',
     favorites: {},
-    disableSleep: false,
     favoriteTeam: undefined,
     lastUrl: undefined,
-    reduceMotion: false,
+    segment: 'all',
+    audio: true,
     darkMode: false,
+    disableSleep: false,
+    reduceMotion: false,
+    speech: true,
+    volume: 1.0,
   } as Settings;
 
   public ready: Promise<boolean>;
@@ -47,46 +54,73 @@ export class SettingsService {
     this.assertSettings();
 
     try {
-      const favorites = await Storage.get({key: 'favorites'});
-      if (favorites && favorites.value !== undefined) {
-        this.settings.favorites = JSON.parse(favorites.value);
-      }
-
-      const segment = await Storage.get({key: 'segment'});
-      this.settings.segment = (segment?.value as SEGMENT) || 'all';
-
-      const disableSleep = await Storage.get({key: 'disableSleep'});
-      this.settings.disableSleep = disableSleep?.value === 'true';
-
-      const favoriteTeam = await Storage.get({key: 'favoriteTeam'});
-      this.settings.favoriteTeam = favoriteTeam?.value;
-
-      const lastUrl = await Storage.get({key: 'lastUrl'});
-      this.settings.lastUrl = lastUrl?.value;
-
-      const reduceMotion = await Storage.get({key: 'reduceMotion'});
-      this.settings.reduceMotion = reduceMotion?.value === 'true';
-
-      const darkMode = await Storage.get({key: 'darkMode'});
-      this.settings.darkMode = darkMode?.value === 'true';
+      await Promise.all([
+        this.configureStrings({
+          favoriteTeam: undefined,
+          lastUrl: undefined,
+          segment: 'all',
+          voice: undefined,
+        }),
+        this.configureBooleans({
+          audio: true,
+          darkMode: false,
+          disableSleep: false,
+          reduceMotion: false,
+          speech: true,
+        }),
+        this.configureNumbers({
+          volume: 1.0,
+        }),
+        Storage.get({key: 'favorites'}).then((favorites) => {
+          this.settings.favorites = JSON.parse(favorites?.value || "{}");
+        }),
+      ]);
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
-      this.settings = {
-        segment: 'all',
-        favorites: {},
-        disableSleep: false,
-        favoriteTeam: undefined,
-        lastUrl: undefined,
-        reduceMotion: false,
-        darkMode: false,
-      };
     }
 
     console.debug('SettingsService.init(): settings=', this.settings);
     return true;
   }
 
-  assertSettings() {
+  async configureBooleans(entries: {[key:string]: boolean }) {
+    const promises = Object.keys(entries).map(async (key: string) => {
+      return Storage.get({key}).then((value) => {
+        if (value?.value !== undefined) {
+          this.settings[key] = value.value === 'true';
+        } else {
+          this.settings[key] = entries[key] || false;
+        }
+        return true;
+      });
+    });
+    return Promise.all(promises);
+  }
+
+  async configureNumbers(entries: { [key:string]: number }) {
+    const promises = Object.keys(entries).map(async (key: string) => {
+      return Storage.get({key}).then((value) => {
+        if (value?.value) {
+          this.settings[key] = JSON.parse(value.value);
+        } else {
+          this.settings[key] = entries[key];
+        }
+      });
+    });
+    return Promise.all(promises);
+  }
+
+  async configureStrings(entries: { [key:string]: string }) {
+    const promises = Object.keys(entries).map(async (key: string) => {
+      return Storage.get({key}).then((value) => {
+        this.settings[key] = value?.value || entries[key];
+        return true;
+      });
+    });
+    return Promise.all(promises);
+  }
+
+   assertSettings() {
     if (!this.settings) {
       this.settings = {} as Settings;
     }
@@ -96,14 +130,23 @@ export class SettingsService {
     if (!this.settings.segment) {
       this.settings.segment = 'all';
     }
+    if (this.settings.audio === undefined) {
+      this.settings.audio = true;
+    }
     if (this.settings.disableSleep === undefined) {
       this.settings.disableSleep = false;
     }
     if (this.settings.reduceMotion === undefined) {
       this.settings.reduceMotion = false;
     }
+    if (this.settings.speech === undefined) {
+      this.settings.speech = true;
+    }
     if (this.settings.darkMode === undefined) {
       this.settings.darkMode = false;
+    }
+    if (this.settings.volume === undefined) {
+      this.settings.volume = 1.0;
     }
     return this.settings;
   }
@@ -113,11 +156,46 @@ export class SettingsService {
     return Object.assign({}, this.assertSettings());
   }
 
+  getBoolean(key: string) {
+    this.assertSettings();
+    return this.settings[key] || false;
+  }
+  async setBoolean(key: string, value: boolean) {
+    this.assertSettings();
+    this.settings[key] = value;
+    await Storage.set({key, value: JSON.stringify(value)});
+    console.debug(`setBoolean: ${key} = ${value}`);
+    return value;
+  }
+
+  getString(key: string) {
+    this.assertSettings();
+    return this.settings[key];
+  }
+  async setString(key: string, value: string) {
+    this.assertSettings();
+    this.settings[key] = value;
+    await Storage.set({key, value});
+    console.debug(`setString: ${key} = ${value}`);
+    return value;
+  }
+
+  getNumber(key: string) {
+    this.assertSettings();
+    return this.settings[key];
+  }
+  async setNumber(key: string, value: number) {
+    this.assertSettings();
+    this.settings[key] = value;
+    await Storage.set({key, value: JSON.stringify(value)});
+    console.debug(`setNumber: ${key} = ${value}`);
+    return value;
+  }
+
   isFavorite(teamId: string) {
     this.assertSettings();
     return this.settings.favorites[teamId];
   }
-
   async setFavorite(teamId: string, value: boolean) {
     this.assertSettings();
     this.settings.favorites[teamId] = value;
@@ -125,88 +203,78 @@ export class SettingsService {
     console.debug(`set favorite: ${teamId} = ${value}`);
     return value;
   }
-
   async toggleFavorite(teamId: string) {
     this.assertSettings();
     return this.setFavorite(teamId, !this.isFavorite(teamId));
   }
 
-  getSegment(): SEGMENT {
-    this.assertSettings();
-    return this.settings.segment;
-  }
-
-  async setSegment(segment: SEGMENT) {
-    this.assertSettings();
-    this.settings.segment = segment;
-    await Storage.set({key: 'segment', value: segment});
-    console.debug(`set segment: ${segment}`);
-    return segment;
-  }
-
-  disableSleep(): boolean {
-    this.assertSettings();
-    return this.settings.disableSleep;
-  }
-
-  async setDisableSleep(disable: boolean) {
-    this.assertSettings();
-    this.settings.disableSleep = disable;
-    await Storage.set({key: 'disableSleep', value: JSON.stringify(disable)});
-    console.debug(`set disableSleep: ${disable}`);
-    return disable;
-  }
-
   favoriteTeam(): string {
-    this.assertSettings();
-    return this.settings.favoriteTeam;
+    return this.getString('favoriteTeam');
   }
-
   async setFavoriteTeam(id: string) {
-    this.assertSettings();
-    this.settings.favoriteTeam = id;
-    await Storage.set({key: 'favoriteTeam', value: id});
-    console.debug(`set favoriteTeam: ${id}`);
-    return id;
+    return this.setString('favoriteTeam', id);
   }
 
   lastUrl(): string {
-    this.assertSettings();
-    return this.settings.lastUrl;
+    return this.getString('lastUrl');
+  }
+  async setLastUrl(url: string) {
+    return this.setString('lastUrl', url);
   }
 
-  async setLastUrl(url: string) {
-    this.assertSettings();
-    this.settings.lastUrl = url;
-    await Storage.set({key: 'lastUrl', value: url});
-    console.debug(`set lastUrl: ${url}`);
-    return url;
+  segment(): SEGMENT {
+    return this.getString('segment');
+  }
+  async setSegment(segment: SEGMENT) {
+    return this.setString('segment', segment);
+  }
+
+  voice(): string {
+    return this.getString('voice');
+  }
+  async setVoice(voice: string) {
+    return this.setString('voice', voice);
+  }
+
+  audio(): boolean {
+    return this.getBoolean('audio');
+  }
+  async setAudio(audio: boolean) {
+    return this.setBoolean('audio', audio);
+  }
+
+  darkMode(): boolean {
+    return this.getBoolean('darkMode');
+  }
+  async setDarkMode(dark: boolean) {
+    return this.setBoolean('darkMode', dark);
+  }
+
+  disableSleep(): boolean {
+    return this.getBoolean('disableSleep');
+  }
+  async setDisableSleep(disable: boolean) {
+    return this.setBoolean('disableSleep', disable);
   }
 
   reduceMotion(): boolean {
-    this.assertSettings();
-    return this.settings.reduceMotion;
+    return this.getBoolean('reduceMotion');
   }
-
   async setReduceMotion(reduce: boolean) {
-    this.assertSettings();
-    this.settings.reduceMotion = reduce;
-    await Storage.set({key: 'reduceMotion', value: JSON.stringify(reduce)});
-    console.debug(`set reduceMotion: ${reduce}`);
-    return reduce;
+    return this.setBoolean('reduceMotion', reduce);
   }
 
-  getDarkMode(): boolean {
-    this.assertSettings();
-    return this.settings.darkMode;
+  speech(): boolean {
+    return this.getBoolean('speech');
+  }
+  async setSpeech(speech: boolean) {
+    return this.setBoolean('speech', speech);
   }
 
-  async setDarkMode(dark: boolean) {
-    this.assertSettings();
-    this.settings.darkMode = dark;
-    await Storage.set({key: 'darkMode', value: JSON.stringify(dark)});
-    console.debug(`set darkMode: ${dark}`);
-    return dark;
+  volume(): number {
+    return this.getNumber('volume');
   }
-
+  async setVolume(volume: number) {
+    return this.setNumber('volume', volume);
+  }
 }

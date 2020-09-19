@@ -32,7 +32,10 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       // make sure dark mode is set before hiding the splash screen
       await this.settings.ready;
-      if (this.settings.getDarkMode()) {
+
+      this.playIntro();
+
+      if (this.settings.darkMode()) {
         document.body.classList.add('dark');
       }
 
@@ -68,4 +71,15 @@ export class AppComponent {
     });
   }
 
+  async playIntro() {
+    if (this.settings.audio()) {
+      try {
+        const audioObj = new Audio('../assets/organ-meat-final.mp3');
+        audioObj.volume = this.settings.volume();
+        await audioObj.play();
+      } catch (err) {
+        console.error('AppComponent.playIntro(): unable to play mp3:', err);
+      }
+    }
+  }
 }

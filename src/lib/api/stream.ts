@@ -232,7 +232,10 @@ export class APIStream {
       await this.closeSource();
 
       console.debug(`APIStream.createSource(): url=${url}`);
-      await es.configure({ url });
+      await es.configure({
+        url,
+        reconnectTime: 4000,
+      });
 
       this.handles.message = es.addListener('message', (res: MessageResult) => {
         this.onMessage(res.message);

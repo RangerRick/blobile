@@ -28,7 +28,7 @@
       </ion-list-header>
       <ion-item>
         <ion-label class="ion-text-wrap">Disable sleep while games are active?</ion-label>
-        <ion-toggle *ngIf="current" (ionChange)="setDisableSleep()" [(ngModel)]="current.disableSleep" slot="end"></ion-toggle>
+        <ion-toggle *ngIf="current" (ionChange)="setBoolean('disableSleep')" [(ngModel)]="current.disableSleep" slot="end"></ion-toggle>
       </ion-item>
     </span>
     <ion-list-header lines="full">
@@ -36,11 +36,33 @@
     </ion-list-header>
     <ion-item>
       <ion-label class="ion-text-wrap">Reduce motion in effects?</ion-label>
-      <ion-toggle *ngIf="current" (ionChange)="setReduceMotion()" [(ngModel)]="current.reduceMotion" slot="end"></ion-toggle>
+      <ion-toggle *ngIf="current" (ionChange)="setBoolean('reduceMotion')" [(ngModel)]="current.reduceMotion" slot="end"></ion-toggle>
     </ion-item>
     <ion-item>
       <ion-label class="ion-text-wrap">Always use dark mode?</ion-label>
-      <ion-toggle *ngIf="current" (ionChange)="setDarkMode()" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
+      <ion-toggle *ngIf="current" (ionChange)="setBoolean('darkMode')" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
+    </ion-item>
+    <ion-list-header lines="full">
+      <h3>Audio</h3>
+    </ion-list-header>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Enable Sound Effects?</ion-label>
+      <ion-toggle *ngIf="current" (ionChange)="setBoolean('audio')" [(ngModel)]="current.audio" slot="end"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Volume:</ion-label>
+      <ion-range *ngIf="current" min="0" max="1000" debounce="200" (ionChange)="setVolume($event)" [(ngModel)]="volume" slot="end"></ion-range>
+    </ion-item>
+    <ion-item *ngIf="hasSpeech">
+      <ion-label class="ion-text-wrap">Enable Speech?</ion-label>
+      <ion-toggle *ngIf="current" (ionChange)="setBoolean('speech')" [(ngModel)]="current.speech" slot="end"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="hasSpeech">
+      <ion-icon name="volume-high-outline" slot="start" (click)="speak($event)" class="ion-no-margin" style="margin-right: 0.5em"></ion-icon>
+      <ion-label class="ion-text-wrap">Voice:</ion-label>
+      <ion-select *ngIf="current && voice" class="ion-text-wrap" (ionChange)="setVoice($event)" interface="action-sheet" [interfaceOptions]="voiceOptions" okText="Choose" cancelText="Cancel" [value]="current.voice">
+        <ion-select-option *ngFor="let voice of voices" [value]="voice.voiceURI">{{voice.name}}</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-list-header lines="full">
       <h3>Teams</h3>
@@ -52,9 +74,7 @@
         </ion-label>
         <ion-note>Your team is first in the live feed.</ion-note>
       </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-select *ngIf="current && teams" class="ion-text-wrap" (ionChange)="setFavoriteTeam($event.detail)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [value]="current.favoriteTeam" [(ngModel)]="current.favoriteTeam">
+      <ion-select *ngIf="current && teams" class="ion-text-wrap" (ionChange)="setString('favoriteTeam', $event)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [(ngModel)]="current.favoriteTeam">
         <ion-select-option *ngFor="let team of teams; trackBy: id" [value]="team.id">{{team.fullName}}</ion-select-option>
       </ion-select>
     </ion-item>
