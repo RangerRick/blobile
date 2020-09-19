@@ -200,7 +200,7 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="!hideLog">
         <ion-col size="12">
           <div  class="scorebox-border">
             <div class="rotate-display lastUpdate">{{game.lastUpdate}}</div>

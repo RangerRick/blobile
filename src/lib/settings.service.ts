@@ -270,6 +270,9 @@ export class SettingsService {
   async setSpeech(speech: boolean) {
     return this.setBoolean('speech', speech);
   }
+  async toggleSpeech() {
+    return await this.setSpeech(!this.speech());
+  }
 
   volume(): number {
     return this.getNumber('volume');

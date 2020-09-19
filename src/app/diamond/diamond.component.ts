@@ -26,6 +26,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   @Input() public game: Game;
   @Input() public allowOpenGame = true;
   @Input() public prefix = 'diamond';
+  @Input() public hideLog = false;
   @Output() public refresh: EventEmitter<any> = new EventEmitter();
 
   public font = {
