@@ -32,7 +32,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       // make sure dark mode is set before hiding the splash screen
       await this.settings.ready;
-      if (this.settings.getDarkMode()) {
+      if (this.settings.darkMode()) {
         document.body.classList.add('dark');
       }
 
