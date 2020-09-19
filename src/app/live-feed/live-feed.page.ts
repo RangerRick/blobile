@@ -5,7 +5,7 @@ import { Plugins } from '@capacitor/core';
 
 import { Subscription } from 'rxjs';
 
-import Marquee from '@egstad/marquee';
+import Marquee from '@egstad/marquee/src';
 
 import { APIStream } from '../../lib/api/stream';
 import { SettingsService, SEGMENT } from '../../lib/settings.service';
