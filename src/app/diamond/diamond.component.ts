@@ -79,7 +79,6 @@ export class DiamondComponent implements DoCheck, OnInit {
     if (this.oldGame && this.game && this.oldGame.hash !== this.game.hash) {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
-      this.checkInterestingEvents();
     }
   }
 

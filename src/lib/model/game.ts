@@ -153,6 +153,13 @@ export class Game extends Entry {
   public get homePitching() {
     return this.topOfInning;
   }
+  public get fifthBaseActive() {
+    if (this.homeBatting) {
+      return this.homeBases === 5;
+    } else {
+      return this.awayBases === 5;
+    }
+  }
 
   public get baseRunnerNames(): string[] {
     return this.data?.baseRunnerNames || [];
