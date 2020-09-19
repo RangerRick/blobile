@@ -202,32 +202,14 @@
     </div>
     <ion-grid class="scorebox">
       <ion-row class="ion-align-items-end ion-text-end">
-        <ion-col>
-          <div>BALL&nbsp;<div class="scorebox-box">{{game.atBatBalls}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div>STRIKE&nbsp;<div class="scorebox-box">{{game.atBatStrikes}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div>OUT&nbsp;<div class="scorebox-box">{{game.halfInningOuts}}</div></div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-align-items-end ion-text-end">
-        <ion-col>
-          <div (click)="openTeam(game.awayTeam, $event)">
-            <span>
-              <span class="atbat" *ngIf="!game.topOfInning">⚾</span>
-              <span class="atbat" *ngIf="game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
-              <span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span>
-              <span *ngIf="!teams[game.awayTeam]">AWAY</span>
-            </span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div>
-          </div>
-        </ion-col>
         <ion-col *ngIf="game.gameComplete" class="ion-text-end">
           <div>FINAL <span *ngIf="game.inning > 8">({{game.inning}})</span></div>
         </ion-col>
         <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
           <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning}}</div></div>
+        </ion-col>
+        <ion-col>
+          <div>OUT&nbsp;<div class="scorebox-box">{{game.halfInningOuts}}</div></div>
         </ion-col>
         <ion-col>
           <div (click)="openTeam(game.homeTeam, $event)">
@@ -237,6 +219,24 @@
               <span *ngIf="teams[game.homeTeam]">{{teams[game.homeTeam].shorthand}}</span>
               <span *ngIf="!teams[game.homeTeam]">HOME</span>
             </span>&nbsp;<div class="scorebox-box">{{game.homeScore}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-end ion-text-end">
+        <ion-col>
+          <div>BALL&nbsp;<div class="scorebox-box">{{game.atBatBalls}}</div></div>
+        </ion-col>
+        <ion-col>
+          <div>STRIKE&nbsp;<div class="scorebox-box">{{game.atBatStrikes}}</div></div>
+        </ion-col>
+        <ion-col>
+          <div (click)="openTeam(game.awayTeam, $event)">
+            <span>
+              <span class="atbat" *ngIf="!game.topOfInning">⚾</span>
+              <span class="atbat" *ngIf="game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
+              <span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span>
+              <span *ngIf="!teams[game.awayTeam]">AWAY</span>
+            </span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div>
           </div>
         </ion-col>
       </ion-row>
