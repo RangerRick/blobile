@@ -7,6 +7,7 @@ export class Game extends Entry {
   id: string;
   atBatBalls: number;
   atBatStrikes: number;
+  awayBases: number;
   awayBatter: string;
   awayBatterName: string;
   awayOdds: number;
@@ -27,6 +28,7 @@ export class Game extends Entry {
   gameStart: boolean;
   halfInningOuts: number;
   halfInningScore: number;
+  homeBases: number;
   homeBatter: string;
   homeBatterName: string;
   homePitcher: string;
@@ -47,6 +49,7 @@ export class Game extends Entry {
   season: number;
   seriesIndex: number;
   seriesLength: number;
+  shame: boolean;
   statsheet: string;
   terminology: string;
   topOfInning: boolean;
@@ -85,6 +88,7 @@ export class Game extends Entry {
     this.defineNumbers([
       'atBatBalls',
       'atBatStrikes',
+      'awayBases',
       'awayOdds',
       'awayScore',
       'awayStrikes',
@@ -92,6 +96,7 @@ export class Game extends Entry {
       'baseRunnerCount',
       'halfInningOuts',
       'halfInningScore',
+      'homeBases',
       'homeScore',
       'homeStrikes',
       'homeTeamBatterCount',
@@ -110,6 +115,7 @@ export class Game extends Entry {
       'gameComplete',
       'gameStart',
       'isPostseason',
+      'shame',
       'topOfInning',
     ]);
 
@@ -133,6 +139,19 @@ export class Game extends Entry {
       hash.update(this.data?.[prop]);
     }
     this.hash = hash.digest('hex');
+  }
+
+  public get awayBatting() {
+    return this.topOfInning;
+  }
+  public get homeBatting() {
+    return !this.topOfInning;
+  }
+  public get awayPitching() {
+    return !this.topOfInning;
+  }
+  public get homePitching() {
+    return this.topOfInning;
   }
 
   public get baseRunnerNames(): string[] {
