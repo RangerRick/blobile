@@ -38,11 +38,11 @@
     <key>IonMinBackgroundDuration</key>
     <string>30</string>
     <key>LSRequiresIPhoneOS</key>
-    <true/>
+    <true />
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
-      <true/>
+      <true />
     </dict>
     <key>NSCameraUsageDescription</key>
     <string>To Take Photos and Video</string>
@@ -78,12 +78,12 @@
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
-    <true/>
+    <true />
     <key>IonAppId</key>
     <string>15a91f4a</string>
     <key>IonChannelName</key>
-    <string>DISABLED</string>
+    <string>Stable</string>
     <key>IonUpdateMethod</key>
-    <string>none</string>
+    <string>background</string>
   </dict>
 </plist>
