@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { APIStream } from 'src/lib/api/stream';
 import { Game } from 'src/lib/model/game';
 import { StreamData } from 'src/lib/model/streamData';
+import { SettingsService } from 'src/lib/settings.service';
 import { VoiceService } from 'src/lib/voice.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class GameDetailPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    public settings: SettingsService,
     public stream: APIStream,
     public voiceService: VoiceService,
   ) { }
