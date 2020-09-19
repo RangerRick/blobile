@@ -1,6 +1,6 @@
 @import '../../global';
 
-bl-team, .bl-team {
+app-team, .bl-team {
   display: inline-block;
   border: 1px solid black;
   border-radius: 2em;
@@ -8,6 +8,14 @@ bl-team, .bl-team {
   padding: 0.25em 0.5em;
   vertical-align: middle;
   margin: 0 0.5em 0.25em 0.5em;
+}
+
+.ion-no-margin app-team, .ion-no-margin .bl-team {
+  margin: 0 !important;
+}
+
+.ion-no-padding app-team, .ion-no-padding .bl-team {
+  padding: 0 !important;
 }
 
 .bl-team-name {

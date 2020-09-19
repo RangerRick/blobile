@@ -1,17 +1,30 @@
 <ion-card class="green-card ion-no-padding ion-no-margin" [id]="prefix + '-' + game.id">
   <ion-card-content class="ion-no-padding">
     <div class="team-header">
-      <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam, $event)"></app-team>
-      at
-      <app-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam, $event)"></app-team>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-justify-content-end ion-no-padding ion-no-margin">
+            <app-team style="float: right" team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [name]="game.awayTeamNickname" (click)="openTeam(game.awayTeam, $event)"></app-team>
+          </ion-col>
+          <ion-col size="1" class="ion-align-items-end ion-no-padding ion-no-margin" style="margin-top: 0.4em">
+            at
+          </ion-col>
+          <ion-col class="ion-justify-content-start ion-no-padding ion-no-margin">
+            <app-team style="float: left" team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [name]="game.homeTeamNickname" (click)="openTeam(game.homeTeam, $event)"></app-team>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
 
     <div [id]="prefix + '-main-' + game.id" style="position: relative">
+      <!-- hide this for now while I stabilize for phone updates -->
+      <!--
       <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!game.gameComplete && allowOpenGame">
         <ion-button (click)="watchGame(game && game.id, allowOpenGame, $event)" color="dark">
           <ion-icon name="caret-up-circle-outline"></ion-icon>
         </ion-button>
       </ion-fab>
+      -->
     <!-- viewbox="0 0 650 500" -->
     <svg *ngIf="inProgress()" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="10 120 635 400">
       <filter id="dropShadow">
@@ -26,8 +39,8 @@
         </feMerge>
       </filter>
       <defs>
-        <pattern id="vortex" x="0" y="0" width="100%" height="100%" patternUnits="userSpaceOnUse">
-          <image x="0" y="0" height="100%" width="100%" xlink:href="assets/vortex.svg" />
+        <pattern [id]="prefix + '-vortex-' + game.id" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 203 203" patternUnits="userSpaceOnUse">
+          <image x="0%" y="0%" width="100%" height="100%" xlink:href="../../assets/vortex.gif"></image>
         </pattern>
       </defs>
       <g class="strokeme">
@@ -51,6 +64,10 @@
         <path style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:white;stroke-width:3.01047993;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 363.00993,405 C 650.37706,117.62236 650.37706,117.62236 650.37706,117.62236"/>
         <!-- foul line (left) -->
         <path style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:white;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 293.77042,404.99993 C -2.1085256,109.12113 -2.1085256,109.12113 -2.1085256,109.12113"/>
+        <!-- batter's box (right) -->
+        <rect style="opacity:1;fill:#85881b;fill-opacity:1;stroke:white;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="15" height="35" x="340" y="410"/>
+        <!-- batter's box (left) -->
+        <rect style="opacity:1;fill:#85881b;fill-opacity:1;stroke:white;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="15" height="35" x="300" y="410"/>
         <!-- first base -->
         <rect style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="10.242652" height="10.242652" x="531.56042" y="-95.300102" transform="matrix(0.707107,0.707107,-0.707107,0.707107,0,0)"/>
         <!-- second base -->
@@ -58,16 +75,39 @@
         <!-- third base -->
         <rect style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="10.242649" height="10.242649" x="369.26904" y="66.99128" transform="matrix(0.707107,0.707107,-0.707107,0.707107,0,0)"/>
         <!-- fourth base?!? -->
-        <!--
-          <circle cx="50" cy="300" r="100" fill="url(#vortex)" />
-          <path style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" d="M 52,453 L 63,453 L 65,461 L 57.72761,468 L 50,461 L 52,453 z " sodipodi:nodetypes="cccccc"/>
-        -->
+        <image *ngIf="game.fifthBaseActive" x="31" y="434" width="50" height="50" xlink:href="../../assets/vortex.gif" />
+        <path *ngIf="game.fifthBaseActive" d="M 52,453 L 63,453 L 65,461 L 57.72761,468 L 50,461 L 52,453 z " style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="cccccc"/>
+        <line *ngIf="game.fifthBaseActive" x1="57.4" y1="459" x2="215"   y2="315" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
+        <line *ngIf="game.fifthBaseActive" x1="57.4" y1="459" x2="327.4" y2="429" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
+        <text *ngIf="game.fifthBaseActive"
+              class="player-4"
+              filter="url(#dropShadow)"
+              [attr.x]="70"
+              [attr.y]="485"
+              text-anchor="end"
+              [attr.font-family]="font.family"
+              [attr.font-weight]="font.weight"
+              [attr.font-size]="font.size">
+          <tspan
+                 fill="white"
+                 stroke="black"
+                 [attr.stroke-width]="font.strokeWidth"
+                 text-anchor="start">
+            {{getName(getBaseRunner(3), 0)}}
+          </tspan>
+          <tspan
+                 fill="white"
+                 stroke="black"
+                 [attr.stroke-width]="font.strokeWidth"
+                 text-anchor="start"
+                 [attr.x]="70"
+                 [attr.y]="511">
+            {{getName(getBaseRunner(3), 1)}}
+          </tspan>
+        </text>
+
         <!-- home plate -->
         <path style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" d="M 320,423 L 335,423 L 335,430.7492 L 327.72761,438 L 320,429.78055 L 320,423 z " sodipodi:nodetypes="cccccc"/>
-        <!-- batter's box (right) -->
-        <rect style="opacity:1;fill:#85881b;fill-opacity:1;stroke:white;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="15" height="35" x="340" y="410"/>
-        <!-- batter's box (left) -->
-        <rect style="opacity:1;fill:#85881b;fill-opacity:1;stroke:white;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="15" height="35" x="300" y="410"/>
         <!-- home border -->
         <path style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 295,405 C 295.15103,402.74278 293.1875,403.97917 292.28125,403.46875 C 280.62645,419.16193 280.35712,439.683 291.625,455.65625 C 305.77503,475.71519 333.59731,480.52502 353.65625,466.375 C 373.71519,452.22497 378.52502,424.40269 364.375,404.34375 L 361,405 C 362.65625,407.375 361,405 362.65625,407.375 L 293.875,406.53125 L 295,405 z M 293.875,406.53125 L 362.65625,407.375 C 374.80016,425.99135 370.24983,450.98832 351.9375,463.90625 C 333.20494,477.12061 307.30812,472.67006 294.09375,453.9375 C 283.82751,439.38417 283.83997,421.05606 293.875,406.53125 z " sodipodi:nodetypes="ccsscccccccssc"/>
         <text class="pitcher"
