@@ -16,7 +16,7 @@
     "@capacitor/android": "^2.4.1",
     "@capacitor/core": "2.4.1",
     "@capacitor/ios": "^2.4.1",
-    "@egstad/marquee": "^2.5.0",
+    "@egstad/marquee": "^3.0.2",
     "@ionic/angular": "^5.3.3",
     "canvas-confetti": "^1.2.0",
     "capacitor-eventsource": "^0.1.4",
