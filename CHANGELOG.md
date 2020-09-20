@@ -1,6 +1,16 @@
 ## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-42...v1.1.6) (2020-09-20)
 
 
+### Bug Fixes
+
+* **android:** crash on launch from settings ([cc1ffa5](https://github.com/RangerRick/blobile/commit/cc1ffa52f3db21bf69c42c332902b186f0473355))
+* **database:** need some extra steps on Android ([04c0670](https://github.com/RangerRick/blobile/commit/04c0670f34a42ef5793cf01bcc1f1d4cfbdfa3d2))
+
+
+
+## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-42...v1.1.6) (2020-09-20)
+
+
 
 ## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.5-39...v1.1.6) (2020-09-19)
 
