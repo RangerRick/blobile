@@ -31,7 +31,6 @@ export class UpdateService {
 
   constructor(
     private deploy: Deploy,
-    private device: Device,
     private platform: Platform,
   ) {
     this.platform.ready().then(async () => {
