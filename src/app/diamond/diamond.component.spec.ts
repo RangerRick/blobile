@@ -3,15 +3,29 @@ import { IonicModule } from '@ionic/angular';
 
 import { DiamondComponent } from './diamond.component';
 import { Game } from 'src/lib/model/game';
+import { SEGMENT, SettingsService } from 'src/lib/settings.service';
+import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
 describe('DiamondComponent', () => {
   let component: DiamondComponent;
   let fixture: ComponentFixture<DiamondComponent>;
+  let settingsSpy: SettingsService, deploySpy: Deploy;
 
   beforeEach(async(() => {
+    settingsSpy = {} as SettingsService;
+    settingsSpy.ready = Promise.resolve(true);
+    settingsSpy.segment = () => {
+      return 'all' as SEGMENT;
+    };
+    deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
+
     TestBed.configureTestingModule({
       declarations: [ DiamondComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
+      providers: [
+        { provide: SettingsService, useValue: settingsSpy },
+        { provide: Deploy, useValue: deploySpy },
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DiamondComponent);

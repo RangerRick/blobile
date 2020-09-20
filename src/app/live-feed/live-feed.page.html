@@ -61,7 +61,7 @@
           <h4 *ngIf="countdown">Next Season Starts In:<br>{{getCountdown()}}.</h4>
         </ion-item>
       </span>
-      <span *ngIf="isPostseason()">
+      <span *ngIf="!isPostseasonComplete() && isPostseason()">
         <ion-item lines="none">
           <h4>Regular season is over.</h4>
         </ion-item>

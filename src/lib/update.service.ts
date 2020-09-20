@@ -7,7 +7,6 @@ import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
 
 import { VERSION } from '../environments/version';
 import { environment } from '../environments/environment';
-import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -28,18 +27,7 @@ export class UpdateService {
 
   constructor(
     private deploy: Deploy,
-    private platform: Platform,
   ) {
-    if (!environment.production) {
-      console.debug('Not production!  Disabling updates.');
-      platform.ready().then(() => {
-        if (deploy && deploy.configure) {
-          deploy.configure({
-            channel: 'DISABLED'
-          });
-        }
-      });
-    }
   }
 
   async reload() {

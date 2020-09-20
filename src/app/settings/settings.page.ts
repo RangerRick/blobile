@@ -85,16 +85,8 @@ export class SettingsPage implements OnInit {
     console.debug('SettingsPage.onInit(): current settings=', this.current);
   }
 
-  async isBeta() {
-    const config = await this.deploy.getConfiguration();
-    return config.channel.toLowerCase() === 'beta';
-  }
-
-  async setBeta() {
-    await this.deploy.configure({
-      channel: this.betaEnabled ? 'Beta' : 'Stable'
-    });
-    return await this.isBeta();
+  async setBetaEnabled() {
+    return await this.settings.setBetaEnabled(this.current.betaEnabled);
   }
 
   getTeamName(id: string) {
