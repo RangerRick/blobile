@@ -7,4 +7,7 @@
   <string name="ionic_app_id">15a91f4a</string>
   <string name="ionic_channel_name">Stable</string>
   <string name="ionic_update_method">background</string>
+  <string name="ionic_max_versions">2</string>
+  <string name="ionic_update_api">https://api.ionicjs.com</string>
+  <string name="ionic_min_background_duration">30</string>
 </resources>
