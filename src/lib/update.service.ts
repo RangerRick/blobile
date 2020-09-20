@@ -1,6 +1,7 @@
 import '@capacitor-community/http';
 
 import { Injectable } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
@@ -27,6 +28,7 @@ export class UpdateService {
 
   constructor(
     private deploy: Deploy,
+    private platform: Platform,
   ) {
   }
 
