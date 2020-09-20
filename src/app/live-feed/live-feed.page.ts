@@ -65,13 +65,14 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.platform.ready();
+    await this.settings.ready;
+
     console.debug('LiveFeed.ngOnInit()');
     this.showLoading();
-    return this.settings.ready.finally(async () => {
-      this.segment = this.settings.segment();
-      await this.startListening();
-      return true;
-    });
+ 
+    this.segment = this.settings.segment();
+    await this.startListening();
+    return true;
   }
 
   async ngOnDestroy() {
