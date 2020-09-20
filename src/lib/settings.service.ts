@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Plugins } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
-const { Storage } = Plugins;
+const { Device, Storage } = Plugins;
 
 export type SEGMENT = 'all'|'active'|'favorites';
 
@@ -14,6 +15,7 @@ export interface Settings {
   segment: SEGMENT;
   voice: string;
   audio: boolean;
+  betaEnabled: boolean;
   darkMode: boolean;
   disableSleep: boolean;
   reduceMotion: boolean;
@@ -31,6 +33,7 @@ export class SettingsService {
     lastUrl: undefined,
     segment: 'all',
     audio: true,
+    betaEnabled: false,
     darkMode: false,
     disableSleep: false,
     reduceMotion: false,
@@ -41,6 +44,7 @@ export class SettingsService {
   public ready: Promise<boolean>;
 
   constructor(
+    private deploy: Deploy,
     private platform: Platform,
   ) {
     console.debug('SettingsService instantiated.');
@@ -77,6 +81,16 @@ export class SettingsService {
       ]);
     } catch (err) {
       console.error('SettingsService.init(): failed to initialize settings.', err);
+    }
+
+    try {
+      const deviceInfo = await Device.getInfo();
+      if (deviceInfo.platform !== 'web') {
+        const config = await this.deploy.getConfiguration();
+        this.settings.betaEnabled = config?.channel?.toLowerCase() === 'beta';
+      }
+    } catch (err) {
+      console.error('SettingsService.init(): failed to get configuration', err);
     }
 
     console.debug('SettingsService.init(): settings=', this.settings);
@@ -132,6 +146,9 @@ export class SettingsService {
     }
     if (this.settings.audio === undefined) {
       this.settings.audio = true;
+    }
+    if (this.settings.betaEnabled === undefined) {
+      this.settings.betaEnabled = false;
     }
     if (this.settings.disableSleep === undefined) {
       this.settings.disableSleep = false;
@@ -241,6 +258,27 @@ export class SettingsService {
   }
   async setAudio(audio: boolean) {
     return this.setBoolean('audio', audio);
+  }
+
+  betaEnabled(): boolean {
+    return this.getBoolean('betaEnabled');
+  }
+  async setBetaEnabled(enabled: boolean) {
+    this.assertSettings();
+
+    const deviceInfo = await Device.getInfo();
+    if (deviceInfo.platform !== 'web') {
+      this.settings.betaEnabled = enabled;
+      try {
+        await this.deploy.configure({
+          channel: enabled ? 'Beta' : 'Stable'
+        });
+      } catch (err) {
+        console.error(`Failed to ${enabled ? 'enable':'disable'} the beta channel:`, err);
+        console.debug(`setBetaEnabled: ${enabled}`);
+      }
+    }
+    return this.settings.betaEnabled;
   }
 
   darkMode(): boolean {

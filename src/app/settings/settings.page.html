@@ -13,7 +13,7 @@
       </ion-list-header>
       <ion-item>
         <ion-label class="ion-text-wrap">Receive beta updates?</ion-label>
-        <ion-toggle (ionChange)="setBeta()" [(ngModel)]="betaEnabled" slot="end"></ion-toggle>
+        <ion-toggle *ngIf="current" (ionChange)="setBetaEnabled()" [(ngModel)]="current.betaEnabled" slot="end"></ion-toggle>
       </ion-item>
       <ion-item *ngIf="updateService.updateAvailable && !updateService.updateReady && updateService.percentDone">
         <ion-label slot="start">{{updateService.phase}}:</ion-label>
