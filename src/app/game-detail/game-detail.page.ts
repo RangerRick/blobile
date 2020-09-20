@@ -44,6 +44,8 @@ export class GameDetailPage implements OnInit {
   }
 
   async init() {
+    await this.settings.ready;
+
     this.subscription = await this.stream.subscribe((streamData: StreamData) => {
       this.streamData = streamData;
       const game = streamData?.games?.schedule?.find((game: Game) => game.id === this.id);

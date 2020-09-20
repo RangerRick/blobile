@@ -64,6 +64,9 @@ export class APIDatabase {
     this.inFlight[url] = Http.request({
       method: 'GET',
       url,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
     }).catch((err: any) => {
       console.error('APIDatabase.get(): request failed, trying again in 1s:', err);
       return new Promise((resolve, reject) => {
@@ -73,6 +76,13 @@ export class APIDatabase {
               method: 'GET',
               url,
             }) as HttpResponse;
+            if (typeof response.data === 'string') {
+              try {
+                response.data = JSON.parse(response.data);
+              } catch (err) {
+                console.warn('Unable to parse response.data as JSON', err);
+              }
+            }
             resolve(response);
           }  catch (err) {
             reject(err);
@@ -138,7 +148,8 @@ export class APIDatabase {
     try {
       const ret = await this.get(url, force);
       if (ret) {
-        return ret.data.map((event: any) => new GlobalEvent(event));
+        console.debug('ret=', JSON.stringify(ret));
+        return ret?.data?.map((event: any) => new GlobalEvent(event));
       }
     } catch (err) {
       console.error('APIDatabase.globalEvents(): failed to get events', err);

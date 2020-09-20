@@ -29,6 +29,8 @@ export class TeamPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.settings.ready;
+
     this.team = (await this.database.teams()).find((team: Team) => {
       return team.id === this.id;
     }) || {} as Team;
