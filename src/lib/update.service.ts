@@ -1,6 +1,10 @@
 import '@capacitor-community/http';
 
 import { Injectable } from '@angular/core';
+import { Platform } from '@ionic/angular';
+
+import { Plugins } from '@capacitor/core';
+const { Device } = Plugins;
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
@@ -27,7 +31,22 @@ export class UpdateService {
 
   constructor(
     private deploy: Deploy,
+    private platform: Platform,
   ) {
+    this.platform.ready().then(async () => {
+      try {
+        const deviceInfo = await Device.getInfo();
+        if (deviceInfo.platform !== 'web') {
+          const config = await this.deploy.getConfiguration();
+          const betaEnabled = config?.channel?.toLowerCase() === 'beta';
+          await this.deploy.configure({
+            channel: betaEnabled ? 'Beta' : 'Stable'
+          });
+        }
+      } catch (err) {
+        console.error('SettingsService.init(): failed to get configuration', err);
+      }
+    });
   }
 
   async reload() {
