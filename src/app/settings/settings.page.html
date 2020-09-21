@@ -40,7 +40,7 @@
     </ion-item>
     <ion-item>
       <ion-label class="ion-text-wrap">Always use dark mode?</ion-label>
-      <ion-toggle *ngIf="current" (ionChange)="setBoolean('darkMode')" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
+      <ion-toggle *ngIf="current" (ionChange)="settings.setDarkMode(current.darkMode)" [(ngModel)]="current.darkMode" slot="end"></ion-toggle>
     </ion-item>
     <ion-list-header lines="full">
       <h3>Audio</h3>
