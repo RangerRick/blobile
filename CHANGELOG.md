@@ -1,3 +1,17 @@
+## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-42...v1.1.6) (2020-09-21)
+
+
+### Bug Fixes
+
+* **android:** crash on launch from settings ([cc1ffa5](https://github.com/RangerRick/blobile/commit/cc1ffa52f3db21bf69c42c332902b186f0473355))
+* **database:** need some extra steps on Android ([04c0670](https://github.com/RangerRick/blobile/commit/04c0670f34a42ef5793cf01bcc1f1d4cfbdfa3d2))
+* **settings:** set dark mode immediately ([2ea0830](https://github.com/RangerRick/blobile/commit/2ea08300a6fadd4febb7f6df269463ee1630a2d9))
+* **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
+* **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
+* **updates:** repair broken beta channel stuff ([30fb7db](https://github.com/RangerRick/blobile/commit/30fb7db1b4a6785905a62533c7dbcc082be2277a))
+
+
+
 ## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-42...v1.1.6) (2020-09-20)
 
 
