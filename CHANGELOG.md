@@ -8,6 +8,16 @@
 
 
 
+## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-46...v1.1.6) (2020-09-25)
+
+
+### Bug Fixes
+
+* **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
+* **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
+
+
+
 ## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-45...v1.1.6) (2020-09-24)
 
 
