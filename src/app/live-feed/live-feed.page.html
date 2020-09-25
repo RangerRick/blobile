@@ -65,8 +65,8 @@
         <ion-item lines="none">
           <h4>Regular season is over.</h4>
         </ion-item>
-        <ion-item lines="none">
-          <h4 *ngIf="countdown">Postseason Starts In:<br>{{getCountdown()}}.</h4>
+        <ion-item lines="none" *ngIf="countdown && countdown.hours >= 0">
+          <h4>Postseason Starts In:<br>{{getCountdown()}}.</h4>
         </ion-item>
       </span>
       <div id="marquee" data-speed="1">
