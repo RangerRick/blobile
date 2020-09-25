@@ -15,6 +15,8 @@ const seasonVeryFinished   = require('./data/season-5-very-end.json');
 const season6Finished      = require('./data/season-6-finished.json');
 const season7Pre           = require('./data/season-7-pre.json');
 const season7RegularEnd    = require('./data/season-7-regular-end.json');
+const season8RegularEnd    = require('./data/season-8-regular-end.json');
+const season8RegularEnd2    = require('./data/season-8-regular-end-post-start.json');
 
 describe('Games', () => {
   let games: Games;
@@ -69,6 +71,20 @@ describe('Games', () => {
       expect(games.isRegularSeason(1600463030386)).toBeTruthy();
       expect(games.isPostseason(1600463030386)).toBeTruthy();
       expect(games.isPostseasonComplete(1600463030386)).toBeFalsy();
+    });
+
+    it('should be the end of regular season 8', () => {
+      games = new Games(season8RegularEnd);
+      expect(games.isRegularSeason(1601060070698)).toBeTruthy();
+      expect(games.isPostseason(1601060070698)).toBeTruthy();
+      expect(games.isPostseasonComplete(1601060070698)).toBeFalsy();
+    });
+
+    it('should still be the end of regular season 8', () => {
+      games = new Games(season8RegularEnd2);
+      expect(games.isRegularSeason(1601060979349)).toBeTruthy();
+      expect(games.isPostseason(1601060979349)).toBeTruthy();
+      expect(games.isPostseasonComplete(1601060979349)).toBeFalsy();
     });
   });
 

@@ -2,7 +2,7 @@
   "name": "blobile",
   "description": "An app for Blaseball",
   "version": "1.1.6",
-  "build": 48,
+  "build": 50,
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
@@ -71,7 +71,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "inst": "npm --prefer-offline --no-progress install",
     "watch": "./disable-deploy.sh true && ionic cap run ios --watch --livereload --external",
-    "increment": "node increment.js && npm run version",
+    "increment": "./disable-deploy.sh true && node increment.js && npm run version && npx cap sync",
     "version": "node src/version.js",
     "dev": "ionic build && ionic cap copy --no-build",
     "prep-web": "rimraf www/* && ionic build --prod && ionic deploy manifest",

@@ -36,11 +36,18 @@ export default abstract class Util {
   }
 
   static message(id: string, message: string, options: MessageOptions = {}) {
+    const containerId = id + '-message-container';
+    if (document.getElementById(containerId) !== null) {
+      // there's still an effect showing
+      return;
+    }
     console.debug(`Util.message(): id=${id}, message=${message}`)
+
     const diamondContents = document.getElementById(id);
     if (diamondContents) {
       console.debug('Util.message(): contents=', diamondContents);
       const textContainer = document.createElement('div');
+      textContainer.setAttribute('id', containerId);
       textContainer.setAttribute('class', 'bl-message-container');
       textContainer.setAttribute('style',
         `z-index: ${options.zIndex || (BASE_Z_INDEX + 1)}; ` +
@@ -76,9 +83,16 @@ export default abstract class Util {
   }
 
   static confetti(id: string, message: string, options: ConfettiOptions = {}) {
+    const containerId = id + '-confetti-container';
+    if (document.getElementById(containerId) !== null) {
+      // there's still an effect showing
+      return;
+    }
+
     const diamondContents = document.getElementById(id);
     if (diamondContents) {
       const el = document.createElement('canvas');
+      el.setAttribute('id', containerId);
       el.setAttribute('style', `z-index: ${options.zIndex || BASE_Z_INDEX}; width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: block;`);
       diamondContents.appendChild(el);
       const c = confetti.create(el, {

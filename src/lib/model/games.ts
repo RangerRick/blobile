@@ -57,7 +57,9 @@ export class Games extends Entry {
     const incompleteRegularSeason = this.incompleteGames(this.schedule)
       .filter((game: Game) => !game.isPostseason);
 
-    if (incompleteRegularSeason.length === 0) {
+      // console.debug('incomplete games', incompleteRegularSeason);
+      // console.debug('sim', this.sim);
+      if (incompleteRegularSeason.length === 0) {
       if (this.sim.day === 99) {
         // no games are left for day 99
         return true;

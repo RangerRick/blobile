@@ -17,6 +17,9 @@ describe('DiamondComponent', () => {
     settingsSpy.segment = () => {
       return 'all' as SEGMENT;
     };
+    settingsSpy.reduceMotion = () => {
+      return false;
+    };
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
 
     TestBed.configureTestingModule({
