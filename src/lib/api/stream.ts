@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { createPatch } from 'rfc6902/dist/rfc6902'
 
-import { Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
-const { Device, EventSource } = Plugins;
+import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
+const { App, Device, EventSource } = Plugins;
 
 import 'capacitor-eventsource';
 import { MessageResult, ErrorResult, EventSourcePlugin } from 'capacitor-eventsource';
@@ -88,6 +88,19 @@ export class APIStream {
 
     this.observable = new Observable((observer: Observer<StreamData|ErrorEvent>) => {
       this.observer = observer;
+    });
+
+    App.addListener('appStateChange', (state: AppState) => {
+      if (this.deviceInfo?.platform !== 'web') {
+        console.debug(`APIStream.appStateChange: active=${state.isActive}`);
+        if (state.isActive) {
+          this.createSource();
+        } else {
+          this.closeSource();
+        }
+      } else {
+        console.debug(`APIStream.appStateChange: skipping, platform is (probably) web`);
+      }
     });
 
     this.ready = new Promise(async (resolve) => {
@@ -262,18 +275,19 @@ export class APIStream {
   }
 
   protected async closeSource() {
+    console.debug('APIStream.closeSource()');
     try {
-      if (this.source) {
-        await this.source.close();
-        this.source = null;
-
-        for (const key of Object.keys(this.handles)) {
-          this.handles[key].remove();
-        }
-        this.handles = {};
-      }
+      await this.source?.close();
+      this.source = null;
     } catch (err) {
       console.warn('APIStream.closeSource(): failed to close event source:', err);
+    }
+    for (const key of Object.keys(this.handles)) {
+      try {
+        this.handles[key].remove();
+      } catch (err) {
+        console.warn('APIStream.closeSource(): failed to close event handle:', err);
+      }
     }
   }
 
