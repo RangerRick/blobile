@@ -25,14 +25,16 @@
           <ion-card-content class="ion-no-padding">
             <ion-item
               lines="none"
-              [style]="'font-weight: bold; --background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
+              class="team-row"
+              [style]="'--background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
               *ngFor="let team of division.teams; trackBy: id"
               (click)="openTeam(team.id)"
             >
-              <ion-label>{{team.name}}</ion-label>
-              <ion-note slot="end" [style]="'font-weight: bold; --color: ' + team.mainTextColor">
-                <span *ngIf="team.playoffs">🏆</span>
+              <ion-label class="team-name">{{team.name}}</ion-label>
+              <ion-note class="team-wins" slot="end" [style]="'--color: ' + team.mainTextColor">
                 {{team.wins}}-{{team.losses}}
+                <div class="playoffs" *ngIf="team.playoffs">🏆</div>
+                <div class="playoffs" *ngIf="!team.playoffs">&nbsp;</div>
               </ion-note>
             </ion-item>
           </ion-card-content>

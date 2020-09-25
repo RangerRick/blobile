@@ -98,7 +98,7 @@ export class StandingsPage implements OnInit {
         const aTiebreaker = this.tiebreakers.order.indexOf(a.id);
         const bTiebreaker = this.tiebreakers.order.indexOf(b.id);
 
-        ret = aTiebreaker - bTiebreaker;
+        ret = bTiebreaker - aTiebreaker;
       }
 
       return ret;
