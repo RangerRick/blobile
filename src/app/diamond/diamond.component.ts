@@ -76,28 +76,33 @@ export class DiamondComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck(): void {
+    // this.checkInterestingEvents();
     if (this.oldGame && this.game && this.oldGame.hash !== this.game.hash) {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
+      this.checkInterestingEvents();
     }
   }
 
   checkInterestingEvents() {
-    // just for testing
-    // this.game.data.lastUpdate = 'rogue umpire incinerated';
-    // this.game.data.lastUpdate = 'switched teams and feedback';
-    // this.game.data.lastUpdate = 'hits a grand slam';
-    // this.game.data.lastUpdate = 'hits a home run';
-    // this.game.data.lastUpdate = 'reverb';
-    // this.game.data.lastUpdate = 'blooddrain';
-
     const options = {
-      reduceMotion: this.settings.reduceMotion()
+      reduceMotion: this.settings.reduceMotion(),
     } as MessageOptions;
 
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
-    const update = this.game?.lastUpdate?.toLowerCase() || '';
+    let update = this.game?.lastUpdate?.toLowerCase() || '';
+
+    // just for testing
+    // update = 'rogue umpire incinerated';
+    // update = 'switched teams and feedback';
+    // update = 'hits a grand slam';
+    // update = 'hits a home run';
+    // update = 'reverb';
+    // update = 'blooddrain';
+    // update = 'is now flickering';
+    // update = 'the electricity zaps';
+
     if (
       update.indexOf('home run') >= 0
     ) {
@@ -128,6 +133,22 @@ export class DiamondComponent implements DoCheck, OnInit {
       Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
         fontSize: '3em',
         messageColor: '#f40576',
+      });
+    } else if (
+      update.indexOf('the electricity zaps') >= 0
+    ) {
+      Util.message(svgWrapperId, '⚡️ ZAP ⚡️', {
+        fontSize: '3em',
+        messageColor: '#f3c549',
+      });
+    } else if (
+      update.indexOf('is now flickering') >= 0
+    ) {
+      Util.message(svgWrapperId, '', {
+        fontSize: '3em',
+        messageColor: '#62b2ff',
+        blink: true,
+        classes: { [diamondId]: 'flicker' },
       });
     } else if (
       update.indexOf('reverb') >= 0

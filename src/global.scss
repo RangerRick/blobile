@@ -148,14 +148,103 @@
   }
 }
 
+@keyframes shine {
+  0% {
+    /* color: rgba(104,107,24,100); */ /* #686b18 */
+    text-shadow: none;
+  }
+  100% {
+    /* color: rgba(254,255,229,100); */ /* #feffe5 */
+    text-shadow: 0 0 0.6rem rgba(254,255,229,0.2), 0 0 1.5rem rgba(250,255,102,0.2), /* #faff66 */
+      -0.2rem 0.1rem 1rem rgba(250,255,102,0.2), 0.2rem 0.1rem 1rem rgba(250,255,102,0.2),
+      0 -0.5rem 2rem rgba(248,255,36,0.2), 0 0.5rem 3rem rgba(248,255,36,0.2); /* #f8ff24 */
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 0.5;
+  }
+
+  6% {
+    opacity: 0.85;
+  }
+
+  4%, 10%, 12%, 17%, 56%, 58%, 70% {
+    opacity: 0.9;
+  }
+
+  37% {
+    opacity: 0.93;
+  }
+
+  26% {
+    opacity: 0.94;
+  }
+
+  8%, 14% {
+    opacity: 0.95;
+  }
+
+  11% {
+    opacity: 0.922;
+  }
+
+  19%, 93%, 97% {
+    opacity: 0.93;
+  }
+
+  46% {
+    opacity: 0.94;
+  }
+
+  72%, 95% {
+    opacity: 0.95;
+  }
+
+  39% {
+    opacity: 0.96;
+  }
+
+  44% {
+    opacity: 0.97;
+  }
+
+  16%, 28% {
+    opacity: 0.98;
+  }
+
+  20%, 60% {
+    opacity: 0.99;
+  }
+
+  24%, 42%, 68% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.flicker {
+  animation: shine 2s forwards, flicker 3s infinite;
+}
+
 .reduce-motion {
+  animation: none !important;
+
   .bl-blink {
-    animation: none;
+    animation: none !important;
   }
 
   .shake {
-    animation: none;
-    transform: none;
+    animation: none !important;
+    transform: none !important;
   }
 
   .bl-message-container {
@@ -169,5 +258,9 @@
       bottom: 10vw;
       right: 2.5vw;
     }
+  }
+
+  .flicker {
+    animation: none !important;
   }
 }
