@@ -100,6 +100,15 @@ export class APIStream {
       }
     });
 
+    window.addEventListener('beforeunload', (ev: BeforeUnloadEvent) => {
+      console.debug('APIStream.beforeunload: completing subject');
+      this.subject.complete();
+      console.debug('APIStream.beforeunload: closing source');
+      this.closeSource();
+      console.debug('APIStream.beforeunload: removing app listeners');
+      App.removeAllListeners();
+    });
+
     this.ready = new Promise(async (resolve) => {
       await this.platform.ready();
       await this.start();
