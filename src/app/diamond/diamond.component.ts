@@ -102,6 +102,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     // update = 'blooddrain';
     // update = 'is now flickering';
     // update = 'the electricity zaps';
+    // update = 'is partying!';
 
     if (
       update.indexOf('home run') >= 0
@@ -133,6 +134,13 @@ export class DiamondComponent implements DoCheck, OnInit {
       Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
         fontSize: '3em',
         messageColor: '#f40576',
+      });
+    } else if (
+      update.indexOf('is partying') >= 0
+    ) {
+      Util.message(svgWrapperId, '🎉 PARTY 🎉', {
+        fontSize: '3em',
+        messageColor: '#44ff44',
       });
     } else if (
       update.indexOf('the electricity zaps') >= 0
