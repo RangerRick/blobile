@@ -98,7 +98,7 @@ export class StandingsPage implements OnInit {
         const aTiebreaker = this.tiebreakers.order.indexOf(a.id);
         const bTiebreaker = this.tiebreakers.order.indexOf(b.id);
 
-        ret = bTiebreaker - aTiebreaker;
+        ret = aTiebreaker - bTiebreaker;
       }
 
       return ret;
@@ -160,7 +160,7 @@ export class StandingsPage implements OnInit {
       sl_teams.sort((a: TeamData, b: TeamData) => {
         let ret = b.wins - a.wins;
         if (ret === 0) {
-          ret = this.tiebreakers.order.indexOf(b.id) - this.tiebreakers.order.indexOf(a.id);
+          ret = this.tiebreakers.order.indexOf(a.id) - this.tiebreakers.order.indexOf(b.id);
         }
 
         return ret;
