@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { createPatch } from 'rfc6902/dist/rfc6902'
 
 import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
@@ -62,8 +62,7 @@ export class APIStream {
   // max out at 10 minutes for a retry interval
   private maxRetryMillis = 10 * ONE_MINUTE;
 
-  private observable: Observable<StreamData|ErrorEvent> | null;
-  private observer: Observer<StreamData|ErrorEvent> | null;
+  private subject: Subject<StreamData|ErrorEvent> | null;
   private deviceInfo: DeviceInfo | null;
 
   private handles = {} as { [key: string]: PluginListenerHandle };
@@ -86,9 +85,7 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
-    this.observable = new Observable((observer: Observer<StreamData|ErrorEvent>) => {
-      this.observer = observer;
-    });
+    this.subject = new Subject<StreamData|ErrorEvent>();
 
     App.addListener('appStateChange', (state: AppState) => {
       if (this.deviceInfo?.platform !== 'web') {
@@ -142,9 +139,9 @@ export class APIStream {
   public async subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
     await this.ready;
     console.info('APIStream.subscribe()');
-    const subscription = this.observable.subscribe(next, error, complete);
+    const subscription = this.subject.subscribe(next, error, complete);
     if (this.streamData) {
-      this.observer.next(this.streamData);
+      this.subject.next(this.streamData);
     }
     return subscription;
   }
@@ -226,8 +223,8 @@ export class APIStream {
     }
  
     // always publish the latest, so things refresh
-    if (this.observer) {
-      this.observer.next(this.streamData);
+    if (this.subject) {
+      this.subject.next(this.streamData);
     }
   }
 
@@ -259,11 +256,11 @@ export class APIStream {
       this.handles.error = es.addListener('error', (res: ErrorResult) => {
         console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
         reject(true);
-        if (this.observer) {
+        if (this.subject) {
           const ev = new ErrorEvent('error', {
             message: res.error
           });
-          this.observer.next(ev);
+          this.subject.next(ev);
         } else {
           console.debug('APIStream.createSource(): No observer?');
         }
