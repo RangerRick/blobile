@@ -100,7 +100,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   forceRefresh(evt: any) {
     setTimeout(() => {
       this.stream.retry().finally(() => {
-        evt.target.complete();
+        evt?.target?.complete();
       });
     }, 500);
   }
@@ -354,6 +354,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     console.debug('LiveFeed.startListening(): opening event stream to blaseball.com');
     this.showLoading();
 
+    this.subscription?.unsubscribe();
     this.subscription = await this.stream.subscribe((evt) => {
       this.onEvent(evt);
     }, (err) => {
