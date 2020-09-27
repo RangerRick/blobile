@@ -103,6 +103,10 @@ export class DiamondComponent implements DoCheck, OnInit {
     // update = 'is now flickering';
     // update = 'the electricity zaps';
     // update = 'is partying!';
+    // update = 'the instability chains to';
+    // update = 'the birds pecked';
+    // update = 'had an allergic reaction';
+    // update = 'is now unstable';
 
     if (
       update.indexOf('home run') >= 0
@@ -115,25 +119,11 @@ export class DiamondComponent implements DoCheck, OnInit {
         particleCount: 100,
       }, options));
     } else if (
-      update.indexOf('rogue umpire incinerated') >= 0
-    ) {
-      Util.message(svgWrapperId, '🔥 INCINERATED 🔥', {
-        fontSize: '3em',
-        messageColor: '#ffdf19',
-      });
-    } else if (
       update.indexOf('blooddrain') >= 0
     ) {
       Util.message(svgWrapperId, '🩸 BLOODDRAIN 🩸', {
         fontSize: '3em',
         messageColor: '#e44',
-      });
-    } else if (
-      update.indexOf('switched teams') >= 0 && update.indexOf('feedback') >= 0
-    ) {
-      Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
-        fontSize: '3em',
-        messageColor: '#f40576',
       });
     } else if (
       update.indexOf('is partying') >= 0
@@ -143,11 +133,65 @@ export class DiamondComponent implements DoCheck, OnInit {
         messageColor: '#44ff44',
       });
     } else if (
+      update.indexOf('reverb') >= 0
+    ) {
+      Util.message(svgWrapperId, '🌊 REVERB 🌊', {
+        fontSize: '3em',
+        messageColor: '#62b2ff',
+        blink: true,
+        classes: { [diamondId]: 'shake' },
+      });
+    } else if (
+      update.indexOf('the birds pecked') >= 0
+    ) {
+      Util.message(svgWrapperId, '🦅 BIRDS 🦅', {
+        fontSize: '3em',
+        messageColor: '#ff8933',
+      });
+    } else if (
+      update.indexOf('had an allergic reaction') >= 0
+    ) {
+      Util.message(svgWrapperId, '🥜 PEANUT 🥜', {
+        fontSize: '3em',
+        messageColor: '#ff8933',
+      });
+    } else if (
+      update.indexOf('rogue umpire incinerated') >= 0
+    ) {
+      Util.message(svgWrapperId, '🔥 INCINERATED 🔥', {
+        fontSize: '3em',
+        messageColor: '#ffdf19',
+      });
+    } else if (
+      update.indexOf('feedback') >= 0 && (
+        update.indexOf('reality flickers') >= 0 ||
+        update.indexOf('switched teams') >= 0
+      )
+    ) {
+      Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
+        fontSize: '3em',
+        messageColor: '#f40576',
+      });
+    } else if (
       update.indexOf('the electricity zaps') >= 0
     ) {
       Util.message(svgWrapperId, '⚡️ ZAP ⚡️', {
         fontSize: '3em',
         messageColor: '#f3c549',
+      });
+    } else if (
+      update.indexOf('is now unstable') >= 0
+    ) {
+      Util.message(svgWrapperId, '🥴 UNSTABLE 🥴', {
+        fontSize: '3em',
+        messageColor: '#ffd734',
+      });
+    } else if (
+      update.indexOf('the instability chains to') >= 0
+    ) {
+      Util.message(svgWrapperId, '🔗 INSTABILITY 🔗', {
+        fontSize: '2.5em',
+        messageColor: '#ced7e3',
       });
     } else if (
       update.indexOf('is now flickering') >= 0
@@ -157,15 +201,6 @@ export class DiamondComponent implements DoCheck, OnInit {
         messageColor: '#62b2ff',
         blink: true,
         classes: { [diamondId]: 'flicker' },
-      });
-    } else if (
-      update.indexOf('reverb') >= 0
-    ) {
-      Util.message(svgWrapperId, '🌊 REVERB 🌊', {
-        fontSize: '3em',
-        messageColor: '#62b2ff',
-        blink: true,
-        classes: { [diamondId]: 'shake' },
       });
     } else if (
       this.game.halfInningOuts === 2 &&
