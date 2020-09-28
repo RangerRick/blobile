@@ -78,7 +78,7 @@ export class APIStream {
   ) {
     this.defaultRetryMillis = 5 * SECOND;
     this.defaultCheckIntervalMillis = 2 * SECOND;
-    this.defaultRetryFallback = 1.2;
+    this.defaultRetryFallback = 1.5;
     this.retryMillis = this.defaultRetryMillis;
 
     console.debug(`APIStream(): default retry:          ${this.defaultRetryMillis}ms`);
@@ -91,7 +91,9 @@ export class APIStream {
       if (this.deviceInfo?.platform !== 'web') {
         console.debug(`APIStream.appStateChange: active=${state.isActive}`);
         if (state.isActive) {
-          this.createSource();
+          this.createSource().catch((err) => {
+
+          });
         } else {
           this.closeSource();
         }
@@ -179,9 +181,8 @@ export class APIStream {
         console.debug(`APIStream.retry(): ${this.retryMillis} -> ${newMillis}`);
         this.retryMillis = newMillis;
 
-        const ret = await this.createSource();
         this.handleSystemChange();
-        resolve(ret);
+        resolve(true);
       } catch (err) {
         reject(err);
       }
@@ -189,7 +190,7 @@ export class APIStream {
   }
 
   private async handleSystemChange(retrigger?: boolean) {
-    console.debug(`APIStream.handleSystemChange(): retrigger=${retrigger}`);
+    console.debug(`APIStream.handleSystemChange(): retrigger=${retrigger}`, this);
 
     if (retrigger || !this.source) {
       await this.ready;
@@ -242,9 +243,9 @@ export class APIStream {
 
     // const es = new EventSourceWeb();
     const es = EventSource;
-    this.source = es as EventSourcePlugin;
+    this.source = es;
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve /*, reject */) => {
       const url = await this.url;
 
       // clean up existing and create new event source
@@ -263,8 +264,8 @@ export class APIStream {
 
       // errors should do a retry
       this.handles.error = es.addListener('error', (res: ErrorResult) => {
-        console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res.error);
-        reject(true);
+        console.error('APIStream.createSource(): An error occurred reading from the event source.  Resetting.', res?.error);
+        resolve(true);
         if (this.subject) {
           const ev = new ErrorEvent('error', {
             message: res.error
@@ -277,23 +278,27 @@ export class APIStream {
       });
 
       await es.open();
+      console.debug('eventSource=', es);
     });
   }
 
   protected async closeSource() {
-    console.debug('APIStream.closeSource()');
-    try {
-      await this.source?.close();
-      this.source = null;
-    } catch (err) {
-      console.warn('APIStream.closeSource(): failed to close event source:', err);
+    if (!this.source) {
+      return;
     }
+    console.debug('APIStream.closeSource()');
     for (const key of Object.keys(this.handles)) {
       try {
         this.handles[key].remove();
       } catch (err) {
         console.warn('APIStream.closeSource(): failed to close event handle:', err);
       }
+    }
+    try {
+      await this.source?.close();
+      this.source = null;
+    } catch (err) {
+      console.warn('APIStream.closeSource(): failed to close event source:', err);
     }
   }
 
