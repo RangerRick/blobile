@@ -1,6 +1,7 @@
 # Blases Loaded
 
-Blases Loaded is a mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.
+Blases Loaded is an extremely unofficial mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.
+Blases Loaded is not developed, nor endorsed, by The Game Band.
 
 ## Web App
 
