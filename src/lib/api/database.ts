@@ -134,8 +134,8 @@ export class APIDatabase {
     // console.debug(`APIDatabase.players(): GET ${url}`);
     try {
       const ret = await this.get(url, force);
-      if (ret) {
-        return ret?.data?.map ? ret.data.map((player: any) => new Player(player)) : [] || [];
+      if (ret?.data && Array.isArray(ret.data)) {
+        return ret.data.map((player: any) => new Player(player));
       }
     } catch (err) {
       console.error('APIDatabase.players(): failed to get players', err);
