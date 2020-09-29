@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { BrowserService } from '../../lib/browser.service';
 import { UpdateService } from '../../lib/update.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { UpdateService } from '../../lib/update.service';
 export class TabsPage {
 
   constructor(
-    public updateService: UpdateService
+    public browserService: BrowserService,
+    public updateService: UpdateService,
   ) {}
 
 }

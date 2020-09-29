@@ -10,6 +10,7 @@ export type SEGMENT = 'all'|'active'|'favorites';
 
 export interface Settings {
   favorites: { [team: string]: boolean };
+  blaseballUrl: string;
   favoriteTeam: string;
   lastUrl: string;
   segment: SEGMENT;
@@ -29,6 +30,7 @@ export interface Settings {
 export class SettingsService {
   public settings = {
     favorites: {},
+    blaseballUrl: 'https://www.blaseball.com/',
     favoriteTeam: undefined,
     lastUrl: undefined,
     segment: 'all',
@@ -61,6 +63,7 @@ export class SettingsService {
       await Promise.all([
         this.configureStrings({
           favoriteTeam: undefined,
+          blaseballUrl: 'https://www.blaseball.com/',
           lastUrl: undefined,
           segment: 'all',
           voice: undefined,
@@ -137,6 +140,9 @@ export class SettingsService {
    assertSettings() {
     if (!this.settings) {
       this.settings = {} as Settings;
+    }
+    if (!this.settings.blaseballUrl) {
+      this.settings.blaseballUrl = 'https://www.blaseball.com/';
     }
     if (!this.settings.favorites) {
       this.settings.favorites = {};
@@ -223,6 +229,13 @@ export class SettingsService {
   async toggleFavorite(teamId: string) {
     this.assertSettings();
     return this.setFavorite(teamId, !this.isFavorite(teamId));
+  }
+
+  blaseballUrl(): string {
+    return this.getString('blaseballUrl');
+  }
+  async setBlaseballUrl(url: string) {
+    return this.setString('blaseballUrl', url);
   }
 
   favoriteTeam(): string {
