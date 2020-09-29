@@ -16,6 +16,7 @@ import { Team } from '../../lib/model/team';
 
 import { GlobalEvent } from 'src/lib/model/globalEvent';
 import { APIDatabase } from 'src/lib/api/database';
+import { Countdown } from 'src/lib/model/sim';
 
 @Component({
   selector: 'app-live-feed',
@@ -43,11 +44,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   private clockUpdater: number;
-  public countdown: {
-    hours: number,
-    minutes: number,
-    seconds: number,
-  };
+  public countdown: Countdown;
   public globalEvents: GlobalEvent[];
   private keepAwake = false;
 
