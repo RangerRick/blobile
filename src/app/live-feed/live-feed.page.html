@@ -57,15 +57,18 @@
         <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
           <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
         </ion-item>
-        <ion-item lines="none">
-          <h4 *ngIf="countdown">Next Season Starts In:<br>{{getCountdown()}}.</h4>
+        <ion-item lines="none" *ngIf="countdown && countdown.diff >= 0">
+          <h4>Next Season Starts In:<br>{{getCountdown()}}.</h4>
+        </ion-item>
+        <ion-item lines="none" *ngIf="countdown && countdown.diff &lt; 0">
+          <h4>Next season starts in... uhh.  <i>*tugs collar*</i> I mean. What <i>is</i> time, really?</h4>
         </ion-item>
       </span>
       <span *ngIf="!isPostseasonComplete() && isPostseason()">
         <ion-item lines="none">
           <h4>Regular season is over.</h4>
         </ion-item>
-        <ion-item lines="none" *ngIf="countdown && countdown.hours >= 0">
+        <ion-item lines="none" *ngIf="countdown && countdown.diff >= 0">
           <h4>Postseason Starts In:<br>{{getCountdown()}}.</h4>
         </ion-item>
       </span>

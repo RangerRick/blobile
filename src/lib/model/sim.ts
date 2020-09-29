@@ -1,6 +1,7 @@
 import { Entry } from './_entry';
 
 export interface Countdown {
+  diff: number;
   hours: number;
   minutes: number;
   seconds: number;
@@ -53,8 +54,17 @@ export class Sim extends Entry {
     const end = new Date(this.data.nextPhaseTime).getTime();
 
     const diff = Math.floor((end - start) / 1000.0); // drop millis
+    if (diff < 0) {
+      return {
+        diff,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
 
     const ret = {
+      diff,
       hours: Math.floor(diff / 60 / 60),
     } as Countdown;
 
@@ -69,8 +79,17 @@ export class Sim extends Entry {
     const end = new Date(this.data.nextSeasonStart).getTime();
 
     const diff = Math.floor((end - start) / 1000.0); // drop millis
+    if (diff < 0) {
+      return {
+        diff,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
 
     const ret = {
+      diff,
       hours: Math.floor(diff / 60 / 60),
     } as Countdown;
 
