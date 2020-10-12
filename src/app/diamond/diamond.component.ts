@@ -205,7 +205,8 @@ export class DiamondComponent implements DoCheck, OnInit {
     } else if (
       this.game.halfInningOuts === 2 &&
       this.game.atBatBalls === 3 &&
-      (this.game.atBatStrikes === (this.game.topOfInning === false ? this.game.homeStrikes : this.game.awayStrikes) - 1)
+      (this.game.baserunnerCount === this.game.bases - 1) &&
+      (this.game.atBatStrikes === this.game.strikes - 1)
     ) {
       Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
     }
@@ -224,7 +225,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   }
 
   inProgress() {
-    return this.game && !this.game.gameComplete;
+    return this.game?.gameStart && !this.game?.gameComplete;
   }
 
   getName(person?: { name: string }, index?: number) {
@@ -249,22 +250,14 @@ export class DiamondComponent implements DoCheck, OnInit {
 
   getPitcher() {
     if (this.inProgress()) {
-      if (this.game.topOfInning) {
-        return { id: this.game.homePitcher, name: this.game.homePitcherName };
-      } else {
-        return { id: this.game.awayPitcher, name: this.game.awayPitcherName };
-      }
+      return { id: this.game.pitcherId, name: this.game.pitcherName };
     }
     return null;
   }
 
   getBatter() {
     if (this.inProgress()) {
-      if (this.game.topOfInning) {
-        return { id: this.game.awayBatter, name: this.game.awayBatterName };
-      } else {
-        return { id: this.game.homeBatter, name: this.game.homeBatterName };
-      }
+      return { id: this.game.batterId, name: this.game.batterName };
     }
   }
 
