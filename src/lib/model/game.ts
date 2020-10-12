@@ -21,7 +21,7 @@ export class Game extends Entry {
   awayTeamEmoji: string;
   awayTeamName: string;
   awayTeamNickname: string;
-  baseRunnerCount: number;
+  baserunnerCount: number;
   day: number;
   finalized: boolean;
   gameComplete: boolean;
@@ -93,7 +93,7 @@ export class Game extends Entry {
       'awayScore',
       'awayStrikes',
       'awayTeamBatterCount',
-      'baseRunnerCount',
+      'baserunnerCount',
       'halfInningOuts',
       'halfInningScore',
       'homeBases',
@@ -127,7 +127,7 @@ export class Game extends Entry {
       'atBatBalls',
       'atBatStrikes',
       'awayScore',
-      'baseRunnerCount',
+      'baserunnerCount',
       'halfInningOuts',
       'halfInningScore',
       'homeScore',
@@ -159,6 +159,30 @@ export class Game extends Entry {
     } else {
       return this.awayBases === 5;
     }
+  }
+
+  public get bases() {
+    return this.homeBatting ? this.homeBases : this.awayBases;
+  }
+
+  public get strikes() {
+    return this.homeBatting ? this.homeStrikes : this.awayStrikes;
+  }
+
+  public get pitcherId() {
+    return this.homeBatting ? this.awayPitcher : this.homePitcher;
+  }
+
+  public get pitcherName() {
+    return this.homeBatting ? this.awayPitcherName : this.homePitcherName;
+  }
+
+  public get batterId() {
+    return this.homeBatting ? this.homeBatter : this.awayBatter;
+  }
+
+  public get batterName() {
+    return this.homeBatting ? this.homeBatterName : this.awayBatterName;
   }
 
   public get baseRunnerNames(): string[] {
