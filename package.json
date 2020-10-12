@@ -26,7 +26,7 @@
     "hash.js": "^1.1.7",
     "rfc6902": "^4.0.1",
     "rxjs": "^6.6.3",
-    "tslib": "^2.0.2",
+    "tslib": "^2.0.3",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
