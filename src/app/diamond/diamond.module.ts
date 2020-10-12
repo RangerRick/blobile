@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { DiamondComponent } from './diamond.component';
 import { TeamComponentModule } from '../team/team.module';
 import { TeamPageModule } from '../team-page/team-page.module';
+import { ScoreBoxComponentModule } from '../score-box/score-box.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { TeamPageModule } from '../team-page/team-page.module';
     IonicModule,
     TeamComponentModule,
     TeamPageModule,
+    ScoreBoxComponentModule,
   ],
   declarations: [DiamondComponent],
   exports: [DiamondComponent]

@@ -74,36 +74,39 @@
         <!-- third base -->
         <rect style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="10.242649" height="10.242649" x="369.26904" y="66.99128" transform="matrix(0.707107,0.707107,-0.707107,0.707107,0,0)"/>
         <!-- fourth base?!? -->
-        <image *ngIf="game.fifthBaseActive" x="31" y="434" width="50" height="50" xlink:href="../../assets/vortex.gif" />
-        <path *ngIf="game.fifthBaseActive" d="M 52,453 L 63,453 L 65,461 L 57.72761,468 L 50,461 L 52,453 z " style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="cccccc"/>
-        <line *ngIf="game.fifthBaseActive" x1="57.4" y1="459" x2="215"   y2="315" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
-        <line *ngIf="game.fifthBaseActive" x1="57.4" y1="459" x2="327.4" y2="429" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
-        <text *ngIf="game.fifthBaseActive"
-              class="player-4"
-              filter="url(#dropShadow)"
-              [attr.x]="70"
-              [attr.y]="485"
-              text-anchor="end"
-              [attr.font-family]="font.family"
-              [attr.font-weight]="font.weight"
-              [attr.font-size]="font.size">
-          <tspan
-                 fill="white"
-                 stroke="black"
-                 [attr.stroke-width]="font.strokeWidth"
-                 text-anchor="start">
-            {{getName(getBaseRunner(3), 0)}}
-          </tspan>
-          <tspan
-                 fill="white"
-                 stroke="black"
-                 [attr.stroke-width]="font.strokeWidth"
-                 text-anchor="start"
-                 [attr.x]="70"
-                 [attr.y]="511">
-            {{getName(getBaseRunner(3), 1)}}
-          </tspan>
-        </text>
+        <g *ngIf="game.fifthBaseActive">
+          <image x="70" y="178" width="50" height="50" xlink:href="../../assets/vortex.gif" />
+          <path d="M 91,197 L 102,197 L 104,205 L 96.72761,212 L 89,205 L 91,197 z" style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="cccccc"/>
+          <!--
+          <line x1="57.4" y1="459" x2="215"   y2="315" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
+          <line x1="57.4" y1="459" x2="327.4" y2="429" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
+          -->
+          <text class="player-4"
+                filter="url(#dropShadow)"
+                [attr.x]="40"
+                [attr.y]="145"
+                text-anchor="end"
+                [attr.font-family]="font.family"
+                [attr.font-weight]="font.weight"
+                [attr.font-size]="font.size">
+            <tspan
+                   fill="white"
+                   stroke="black"
+                   [attr.stroke-width]="font.strokeWidth"
+                   text-anchor="start">
+              {{getName(getBaseRunner(3), 0)}}
+            </tspan>
+            <tspan
+                   fill="white"
+                   stroke="black"
+                   [attr.stroke-width]="font.strokeWidth"
+                   text-anchor="start"
+                   [attr.x]="40"
+                   [attr.y]="171">
+              {{getName(getBaseRunner(3), 1)}}
+            </tspan>
+          </text>
+        </g>
 
         <!-- home plate -->
         <path style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" d="M 320,423 L 335,423 L 335,430.7492 L 327.72761,438 L 320,429.78055 L 320,423 z " sodipodi:nodetypes="cccccc"/>
@@ -199,53 +202,6 @@
       </g>
     </svg>
     </div>
-    <ion-grid class="scorebox">
-      <ion-row class="ion-align-items-end ion-text-end">
-        <ion-col *ngIf="game.gameComplete" class="ion-text-end">
-          <div>FINAL <span *ngIf="game.inning > 8">({{game.inning}})</span></div>
-        </ion-col>
-        <ion-col *ngIf="!game.gameComplete" class="ion-text-end">
-          <div>INNING&nbsp;<div class="scorebox-inning"><div class="inning-marker" [innerHTML]="game.topOfInning ? '&#9650;' : '&#9660;'"></div> {{game.inning}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div>OUT&nbsp;<div class="scorebox-box">{{game.halfInningOuts}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div (click)="openTeam(game.awayTeam, $event)">
-            <span>
-              <span class="atbat" *ngIf="!game.topOfInning">⚾</span>
-              <span class="atbat" *ngIf="game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
-              <span *ngIf="teams[game.awayTeam]">{{teams[game.awayTeam].shorthand}}</span>
-              <span *ngIf="!teams[game.awayTeam]">AWAY</span>
-            </span>&nbsp;<div class="scorebox-box">{{game.awayScore}}</div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-align-items-end ion-text-end">
-        <ion-col>
-          <div>BALL&nbsp;<div class="scorebox-box">{{game.atBatBalls}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div>STRIKE&nbsp;<div class="scorebox-box">{{game.atBatStrikes}}</div></div>
-        </ion-col>
-        <ion-col>
-          <div (click)="openTeam(game.homeTeam, $event)">
-            <span>
-              <span class="atbat" *ngIf="game.topOfInning">⚾</span>
-              <span class="atbat" *ngIf="!game.topOfInning"><ion-icon src="assets/Baseball_bat.svg"></ion-icon></span>
-              <span *ngIf="teams[game.homeTeam]">{{teams[game.homeTeam].shorthand}}</span>
-              <span *ngIf="!teams[game.homeTeam]">HOME</span>
-            </span>&nbsp;<div class="scorebox-box">{{game.homeScore}}</div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="!hideLog">
-        <ion-col size="12">
-          <div  class="scorebox-border">
-            <div class="rotate-display lastUpdate">{{game.lastUpdate}}</div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <app-score-box [game]="game" [teams]="teams"></app-score-box>
   </ion-card-content>
 </ion-card>
