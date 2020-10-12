@@ -53,7 +53,6 @@
       <ion-label class="ion-text-wrap">Volume:</ion-label>
       <ion-range *ngIf="current" min="0" max="1000" debounce="200" (ionChange)="setVolume($event)" [(ngModel)]="volume" slot="end"></ion-range>
     </ion-item>
-    <!--
     <ion-item *ngIf="hasSpeech">
       <ion-label class="ion-text-wrap">Enable Speech?</ion-label>
       <ion-toggle *ngIf="current" (ionChange)="setBoolean('speech')" [(ngModel)]="current.speech" slot="end"></ion-toggle>
@@ -65,7 +64,6 @@
         <ion-select-option *ngFor="let voice of voices" [value]="voice.voiceURI">{{voice.name}}</ion-select-option>
       </ion-select>
     </ion-item>
-    -->
     <ion-list-header lines="full">
       <h3>Teams</h3>
     </ion-list-header>

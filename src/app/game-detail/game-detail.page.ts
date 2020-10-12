@@ -53,7 +53,7 @@ export class GameDetailPage implements OnInit {
         this.game = game;
         const now = new Date();
         this.updateLog.unshift({
-          time: ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
+          time: ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
           entry: game.lastUpdate,
         });
         if (!this.muted) {
