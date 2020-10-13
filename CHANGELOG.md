@@ -16,6 +16,24 @@
 
 
 
+## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-51...v1.1.6) (2020-10-13)
+
+
+### Bug Fixes
+
+* **diamond:** fix maximum blaseball calc, use new game metadata ([5913e6f](https://github.com/RangerRick/blobile/commit/5913e6fdeb342a98d62b843ad5bb7b89cfe9a08b))
+* **score-box:** pass hideLog and openTeam ([adbcae3](https://github.com/RangerRick/blobile/commit/adbcae3576cade6691792cc3edd4f561cacaefad))
+* **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
+* **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
+
+
+### Features
+
+* enable game detail view with text-to-speech ([a1ba0f7](https://github.com/RangerRick/blobile/commit/a1ba0f7654ab864644b5d3f621139695a7c98da9))
+* **model:** add additional convenience properties for game metadata ([4a64d39](https://github.com/RangerRick/blobile/commit/4a64d39f60c85210939395c6e4de6dd8e9a53b40))
+
+
+
 ## [1.1.6](https://github.com/RangerRick/blobile/compare/v1.1.6-51...v1.1.6) (2020-10-12)
 
 
