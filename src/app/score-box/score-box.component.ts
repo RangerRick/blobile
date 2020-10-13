@@ -9,6 +9,8 @@ import { Team } from '../../lib/model/team';
   styleUrls: ['./score-box.component.scss'],
 })
 export class ScoreBoxComponent implements OnInit {
+  @Input() public hideLog: boolean;
+  @Input() public openTeam: (id: string, ev?: Event) => Promise<void>;
   @Input() public game: Game;
   @Input() public teams = {} as { [key: string]: Team };
 
