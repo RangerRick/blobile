@@ -103,6 +103,11 @@
   }
 }
 
+.app-game-detail {
+  --min-height: 100%;
+  --min-width: 100%;
+}
+
 .bl-blink {
   animation: blinking-message 1s infinite;
 }

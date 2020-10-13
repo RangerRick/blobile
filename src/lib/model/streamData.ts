@@ -1,6 +1,8 @@
+import { Entry } from './_entry';
+
+import { Fights } from './fights';
 import { Games } from './games';
 import { Leagues } from './leagues';
-import { Entry } from './_entry';
 import { Postseason } from './postseason';
 import { Round } from './round';
 import { Playoffs } from './playoffs';
@@ -13,6 +15,10 @@ export class StreamData extends Entry {
       return this.season.seasonNumber - 1;
     }
     return this.season.seasonNumber;
+  }
+
+  public get fights() {
+    return new Fights(this.data?.fights);
   }
 
   public get games() {

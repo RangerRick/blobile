@@ -83,7 +83,7 @@ export class Games extends Entry {
     }
 
     const incompleteRegularSeasonGames = this.schedule.find((game: Game) => {
-      return !game.isPostseason && !game.gameComplete;
+      return !game?.isPostseason && !game?.gameComplete;
     });
 
     if (this.sim?.data?.nextElectionEnd && this.sim?.data?.nextPhaseTime) {

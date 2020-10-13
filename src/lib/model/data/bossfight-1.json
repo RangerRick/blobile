@@ -1,0 +1,79 @@
+{
+  "fights": {
+    "bossFights": [
+      {
+        "id": "3e2882a7-1553-49bd-b271-49cab930d9fc",
+        "day": 1,
+        "phase": 5,
+        "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+        "shame": false,
+        "awayHp": "5952517",
+        "homeHp": "23813323",
+        "inning": 3,
+        "season": 8,
+        "weather": 10,
+        "awayOdds": 0.000000023,
+        "awayTeam": "40b9ec2a-cb43-4dbb-b836-5accb62e7c20",
+        "homeOdds": 99.999999987,
+        "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+        "outcomes": [
+          "Jaylen Hotdogfingers hits Wyatt Quitter with a pitch! Wyatt Quitter is now Repeating!"
+        ],
+        "awayBases": 4,
+        "awayMaxHp": "29918122",
+        "awayScore": 1,
+        "finalized": false,
+        "gameStart": true,
+        "homeBases": 4,
+        "homeMaxHp": "23813323",
+        "homeScore": 1,
+        "statsheet": "52dc302c-0ca4-47f2-b792-1c1cf6d5e9df",
+        "atBatBalls": 0,
+        "awayBatter": "8903a74f-f322-41d2-bd75-dbf7563c4abb",
+        "homeBatter": null,
+        "lastUpdate": "Foul Ball. 0-2",
+        "awayPitcher": "3af96a6b-866c-4b03-bc14-090acf6ecee5",
+        "awayStrikes": 4,
+        "baseRunners": [
+          "5ca7e854-dc00-4955-9235-d7fcd732ddcf"
+        ],
+        "homePitcher": "04e14d7b-5021-4250-a3cd-932ba8e0a889",
+        "homeStrikes": 3,
+        "repeatCount": 0,
+        "seriesIndex": 1,
+        "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+        "topOfInning": true,
+        "atBatStrikes": 2,
+        "awayTeamName": "THE SHELLED ONE'S PODS",
+        "gameComplete": false,
+        "homeTeamName": "Charleston Shoe Thieves",
+        "isPostseason": false,
+        "seriesLength": 1,
+        "awayTeamColor": "#ff0000",
+        "awayTeamEmoji": "0x1F95C",
+        "basesOccupied": [
+          0
+        ],
+        "damageResults": "[{\"dmgType\":5,\"teamTarget\":\"40b9ec2a-cb43-4dbb-b836-5accb62e7c20\",\"playerSource\":\"04e14d7b-5021-4250-a3cd-932ba8e0a889\",\"dmg\":382}]",
+        "homeTeamColor": "#ffce0a",
+        "homeTeamEmoji": "0x1F45F",
+        "awayBatterName": "Francisca Sasquatch",
+        "halfInningOuts": 2,
+        "homeBatterName": "",
+        "awayPitcherName": "Axel Trololol",
+        "baseRunnerNames": [
+          "Wyatt Quitter"
+        ],
+        "baserunnerCount": 1,
+        "halfInningScore": 0,
+        "homePitcherName": "Jaylen Hotdogfingers",
+        "awayTeamNickname": "PODS",
+        "homeTeamNickname": "Shoe Thieves",
+        "awayTeamBatterCount": 13,
+        "homeTeamBatterCount": 10,
+        "awayTeamSecondaryColor": "#ff0000",
+        "homeTeamSecondaryColor": "#ffce0a"
+      }
+    ]
+  }
+}

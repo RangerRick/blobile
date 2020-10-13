@@ -272,7 +272,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     }
   }
 
-  async openTeam(id: string, ev: Event) {
+  async openTeam(id: string, ev?: Event) {
     if (ev) {
       ev.stopPropagation();
       ev.preventDefault();
@@ -295,6 +295,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     if (allowOpenGame) {
       const modal = await this.modalController.create({
         component: GameDetailPage,
+        cssClass: 'app-game-detail',
         componentProps: {
           id,
         },
