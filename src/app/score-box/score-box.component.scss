@@ -1,0 +1,62 @@
+$scoreboard: scoreboard, sans-serif;
+
+.scorebox {
+  font-family: $scoreboard;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.75em;
+  text-align: center;
+  background-color: black;
+  border: 5px solid white;
+  font-size: 3.1vw;
+  font-weight: bold;
+
+  td {
+    padding: 0.5em;
+  }
+
+  .atbat {
+    margin-right: 0.5em;
+  }
+}
+
+.scorebox-border {
+  font-family: $scoreboard;
+  border: 2px solid yellow;
+  display: inline-block;
+  text-align: left;
+  padding: 0.1em 0.5em;
+  width: 100%;
+  height: 7em;
+}
+
+.scorebox-box {
+  font-family: $scoreboard;
+  border: 2px solid yellow;
+  display: inline-block;
+  text-align: right;
+  padding: 0.1em 0.25em;
+  width: 2.8em;
+}
+
+.scorebox-inning {
+  position: relative;
+  font-family: $scoreboard;
+  border: 2px solid yellow;
+  display: inline-block;
+  text-align: right;
+  padding: 0.1em 0.25em 0.1em 0.1em;
+  width: 2.8em;
+}
+
+.inning-marker {
+  position: absolute;
+  top: 0.6em;
+  left: 0.4em;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  font-size: 60%;
+  vertical-align: middle;
+}
