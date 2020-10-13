@@ -11,7 +11,7 @@ import { Team } from '../../lib/model/team';
 export class ScoreBoxComponent implements OnInit {
   @Input() public hideLog: boolean;
   @Input() public openTeam: (id: string, ev?: Event) => Promise<void>;
-  @Input() public game: Game;
+  @Input() public game = new Game({});
   @Input() public teams = {} as { [key: string]: Team };
 
   constructor() { }
