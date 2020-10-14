@@ -74,7 +74,7 @@ export class AppComponent {
   async playIntro() {
     if (this.settings.audio()) {
       try {
-        const audioObj = new Audio('../assets/organ-meat-final.mp3');
+        const audioObj = new Audio('assets/organ-meat-final.mp3');
         audioObj.volume = this.settings.volume();
         await audioObj.play();
       } catch (err) {

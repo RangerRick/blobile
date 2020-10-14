@@ -40,11 +40,6 @@
                     <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <defs>
-                <pattern [id]="prefix + '-vortex-' + game.id" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 203 203" patternUnits="userSpaceOnUse">
-                  <image x="0%" y="0%" width="100%" height="100%" xlink:href="../../assets/vortex.gif"></image>
-                </pattern>
-              </defs>
               <g class="strokeme">
                 <!-- background -->
                 <path style="fill:#00a831;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 150,520 L 0,520 L 0,0 L 650,0 L 650,520 L 508,520 L 150,520 z " sodipodi:nodetypes="ccccccc"/>
@@ -78,7 +73,7 @@
                 <rect style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="10.242649" height="10.242649" x="369.26904" y="66.99128" transform="matrix(0.707107,0.707107,-0.707107,0.707107,0,0)"/>
                 <!-- fourth base?!? -->
                 <g *ngIf="game.fifthBaseActive">
-                  <image x="70" y="178" width="50" height="50" xlink:href="../../assets/vortex.gif" />
+                  <image x="70" y="178" width="50" height="50" xlink:href="assets/vortex.gif" />
                   <path d="M 91,197 L 102,197 L 104,205 L 96.72761,212 L 89,205 L 91,197 z" style="fill:white;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" sodipodi:nodetypes="cccccc"/>
                   <!--
                   <line x1="57.4" y1="459" x2="215"   y2="315" stroke="white" stroke-dasharray="5 10" stroke-width="2" />
