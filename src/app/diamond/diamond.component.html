@@ -2,7 +2,7 @@
   <ion-card-content class="ion-no-padding">
     <ion-grid>
       <ion-row>
-        <ion-col size="12" size-md="6" size-lg="6" size-xl="6">
+        <ion-col size="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
           <div [id]="prefix + '-main-' + game.id" style="position: relative">
             <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!game.gameComplete && allowOpenGame">
               <ion-button (click)="watchGame(game && game.id, allowOpenGame, $event)" color="dark">
@@ -210,7 +210,7 @@
             </div>
           </div>
         </ion-col>
-        <ion-col size="12" size-md="6" size-lg="6" size-xl="6">
+        <ion-col size="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
           <ion-grid class="series-record">
             <ion-row>
               <ion-col size="4">
