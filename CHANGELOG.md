@@ -4,6 +4,28 @@
 ### Bug Fixes
 
 * **assets:** use relative paths to fix base href= issue ([102ada6](https://github.com/RangerRick/blobile/commit/102ada60f2c7cc26952fb7ea4485065c0e02e22a))
+* **score-box:** fix a bunch of score-box layout issues ([3f42ff1](https://github.com/RangerRick/blobile/commit/3f42ff101dabdebae437995619db8bffa35d2371))
+* **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
+* **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
+
+
+### Features
+
+* **database:** customizable caching, add gamesByDay query ([a8a4a84](https://github.com/RangerRick/blobile/commit/a8a4a84797d99ffa2e8a9777585c02f572cf4d1a))
+* **diamond:** add (unused) record, it is expensive ([60d7267](https://github.com/RangerRick/blobile/commit/60d7267a4edcd9e8cbf4dc32102d6b8c0f8c3bfe))
+* **diamond:** lots of layout improvements, add weather, series, game over text ([1451f8e](https://github.com/RangerRick/blobile/commit/1451f8ee0727b5694d775b8c50e69d04145f5604))
+* **model:** additional convenience methods for game ([50dea3b](https://github.com/RangerRick/blobile/commit/50dea3b525aaa59706668575fe3e3883cda7db4e))
+* **model:** more useful game accessors, including weather ([fecdca6](https://github.com/RangerRick/blobile/commit/fecdca67d24867d65adc71f1e573efcd5dd6e126))
+* **score-box:** convert score-box to SVG ([832a03d](https://github.com/RangerRick/blobile/commit/832a03d7dbb71862afe61364cb10057ce76e9825))
+
+
+
+# [1.2.0](https://github.com/RangerRick/blobile/compare/v1.2.0-52...v1.2.0) (2020-10-15)
+
+
+### Bug Fixes
+
+* **assets:** use relative paths to fix base href= issue ([102ada6](https://github.com/RangerRick/blobile/commit/102ada60f2c7cc26952fb7ea4485065c0e02e22a))
 * **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
 * **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
 
