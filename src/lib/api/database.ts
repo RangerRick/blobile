@@ -8,13 +8,20 @@ import { HttpResponse } from '@capacitor-community/http';
 import { Team } from '../model/team';
 import { Player } from '../model/player';
 import { GlobalEvent } from '../model/globalEvent';
+import { Game } from '../model/game';
 
 const DEFAULT_CACHE_KEEP = 10 * 60 * 1000; // 10 minutes
+const ONE_DAY = 24 * 60 * 60 * 1000;
+
+interface QueryOptions {
+  force?: boolean;
+  expiration?: number;
+}
 
 interface CacheEntry {
   url: string;
   response: Promise<HttpResponse>;
-  time: number;
+  expiration: number;
 }
 
 @Injectable({
@@ -33,10 +40,13 @@ export class APIDatabase {
     });
   }
 
-  private async get(url: string, force?: boolean): Promise<HttpResponse> {
+  private async get(url: string, options = {} as QueryOptions): Promise<HttpResponse> {
     const now = Date.now();
     const cacheEntry = this.cache[url];
     const inFlight = this.inFlight[url];
+
+    const expiration = options?.expiration || now + DEFAULT_CACHE_KEEP;
+    const force = options?.force || false;
 
     if (!force) {
       // if we're not forcing a new get, then check if there is an existing cached or in-flight request
@@ -46,12 +56,12 @@ export class APIDatabase {
         return inFlight;
       } else if (cacheEntry) {
         // if there's a cache entry...
-        if ((cacheEntry.time + DEFAULT_CACHE_KEEP) < now) {
+        if (cacheEntry.expiration < now) {
           // check if it's old; if it is, fall through to a new request
           console.debug(`APIDatabase.get(): stale: ${url}`);
         } else {
           // otherwise, return the cached response
-          console.debug(`APIDatabase.get(): cached: ${url} (${new Date(cacheEntry.time).toISOString()})`);
+          console.debug(`APIDatabase.get(): cached: ${url} (expires ${new Date(cacheEntry.expiration).toISOString()})`);
           return this.cache[url].response;
         }
       }
@@ -102,17 +112,57 @@ export class APIDatabase {
       this.cache[url] = {
         url,
         response: Promise.resolve(ret),
-        time: now,
+        expiration: expiration,
       };
       return ret;
     });
   }
 
-  public async teams(force?: boolean): Promise<Team[]> {
+  public async seriesRecord(teamA: string, teamB: string, season: number, day: number, count = 3): Promise<[number, number]> {
+    const ret = [0, 0] as [number, number];
+    for (let index = 0; index < count; index++) {
+      const d = day - index;
+      if (d >= 0) {
+        const games = await this.gamesByDay(season, d);
+        // console.debug('Database.seriesRecord(): games=', games);
+        const game = games.filter((game:Game) => {
+          return (game.awayTeam === teamA && game.homeTeam === teamB)
+            || (game.homeTeam === teamA && game.awayTeam === teamB);
+        })[0];
+        if (game && game.gameComplete) {
+          if (game.winnerId === teamA) {
+            ret[0]++;
+          } else {
+            ret[1]++;
+          }
+        }
+      }
+    }
+    return ret;
+  }
+
+  public async gamesByDay(season: number, day: number, force = false): Promise<Game[]> {
+    const url = `${this.root}/games?season=${season}&day=${day}`;
+
+    try {
+      const ret = await this.get(url, {
+        expiration: Date.now() + ONE_DAY,
+        force,
+      });
+      if (ret) {
+        return ret.data.map((game: any) => new Game(game));
+      }
+    } catch (err) {
+      console.error(`APIDatabase.gamesByDay(): failed to get list of games for (0-indexed) season: ${season}, day: ${day}`, err);
+    }
+    return [];
+  }
+
+  public async teams(force = false): Promise<Team[]> {
     const url = `${this.root}/allTeams`;
     // console.debug(`APIDatabase.teams(): GET ${url}`);
     try {
-      const ret = await this.get(url, force);
+      const ret = await this.get(url, { force });
       if (ret) {
         return ret.data.map((team: any) => new Team(team));
       }
@@ -133,7 +183,7 @@ export class APIDatabase {
     const url = `${this.root}/players?ids=${args.join(',')}`;
     // console.debug(`APIDatabase.players(): GET ${url}`);
     try {
-      const ret = await this.get(url, force);
+      const ret = await this.get(url, { force });
       if (ret?.data && Array.isArray(ret.data)) {
         return ret.data.map((player: any) => new Player(player));
       }
@@ -146,7 +196,7 @@ export class APIDatabase {
   public async globalEvents(force = false) {
     const url = `${this.root}/globalEvents`;
     try {
-      const ret = await this.get(url, force);
+      const ret = await this.get(url, { force });
       if (ret) {
         console.debug('ret=', JSON.stringify(ret));
         return ret?.data?.map((event: any) => new GlobalEvent(event));
