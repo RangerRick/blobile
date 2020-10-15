@@ -39,11 +39,8 @@
     <!-- away label -->
     <text *ngIf="!game.topOfInning" x="530" y="52" text-anchor="end" style="font-size: 25px">⚾</text>
     <image *ngIf="game.topOfInning" x="505" y="30" width="25" height="25" xlink:href="assets/Baseball_bat.svg" />
-    <text *ngIf="teams[game.awayTeam]" x="495" y="52" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
-      {{teams[game.awayTeam].shorthand}}
-    </text>
-    <text *ngIf="!teams[game.awayTeam]" x="495" y="52" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
-      AWAY
+    <text x="495" y="52" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
+      {{teams && game && teams[game.awayTeam] ? teams[game.awayTeam].shorthand : ''}}
     </text>
     <!-- away box -->
     <rect style="opacity:1;stroke:yellow;stroke-width:4" x="540" y="20" width="80" height="50"></rect>
@@ -71,11 +68,8 @@
     <!-- home label -->
     <text *ngIf="game.topOfInning" x="530" y="122" text-anchor="end" style="font-size: 25px">⚾</text>
     <image *ngIf="!game.topOfInning" x="505" y="100" width="25" height="25" xlink:href="assets/Baseball_bat.svg" />
-    <text *ngIf="teams[game.homeTeam]" x="495" y="122" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
-      {{teams[game.homeTeam].shorthand}}
-    </text>
-    <text *ngIf="!teams[game.homeTeam]" x="495" y="122" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
-      HOME
+    <text x="495" y="122" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
+      {{teams && game && teams[game.homeTeam] ? teams[game.homeTeam].shorthand : ''}}
     </text>
     <!-- home box -->
     <rect style="opacity:1;stroke:yellow;stroke-width:4" x="540" y="90" width="80" height="50"></rect>
