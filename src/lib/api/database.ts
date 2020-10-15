@@ -118,6 +118,29 @@ export class APIDatabase {
     });
   }
 
+  public async seriesRecord(teamA: string, teamB: string, season: number, day: number, count = 3): Promise<[number, number]> {
+    const ret = [0, 0] as [number, number];
+    for (let index = 0; index < count; index++) {
+      const d = day - index;
+      if (d >= 0) {
+        const games = await this.gamesByDay(season, d);
+        // console.debug('Database.seriesRecord(): games=', games);
+        const game = games.filter((game:Game) => {
+          return (game.awayTeam === teamA && game.homeTeam === teamB)
+            || (game.homeTeam === teamA && game.awayTeam === teamB);
+        })[0];
+        if (game && game.gameComplete) {
+          if (game.winnerId === teamA) {
+            ret[0]++;
+          } else {
+            ret[1]++;
+          }
+        }
+      }
+    }
+    return ret;
+  }
+
   public async gamesByDay(season: number, day: number, force = false): Promise<Game[]> {
     const url = `${this.root}/games?season=${season}&day=${day}`;
 

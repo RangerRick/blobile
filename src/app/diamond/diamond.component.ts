@@ -53,6 +53,7 @@ export class DiamondComponent implements DoCheck, OnInit {
 
   private oldGame = {} as Game;
   public environment = environment;
+  public record: [number, number];
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -81,6 +82,19 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
       this.checkInterestingEvents();
+      // this.retrieveRecord();
+    }
+  }
+
+  /* turns out TGB stopped making this expensive calculation too ;) */
+  async retrieveRecord() {
+    if (this.game && !this.record) {
+      try {
+        this.record = await this.database.seriesRecord(this.game.homeTeam, this.game.awayTeam, this.game.season - 1, this.game.day - 1, this.game.seriesIndex);
+        // console.debug(`DiamondComponent.retrieveRecord():`, this.record);
+      } catch (err) {
+        console.error('DiamondComponent.retrieveRecord(): failed to get series record', err);
+      }
     }
   }
 
