@@ -20,6 +20,11 @@
   padding-bottom: 0.25em;
 }
 
+ion-fab {
+  bottom: 4px;
+  right: 0;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
