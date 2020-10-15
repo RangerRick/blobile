@@ -13,16 +13,40 @@
 
 .team-header {
   color: white;
-  font-size: 3.5vw;
+  font-size: 1em;
   font-weight: bold;
   text-align: center;
   padding-top: 0.75em;
-  padding-bottom: 0.25em;
+  padding-bottom: 0;
+}
+
+ion-grid {
+  padding-top: 0;
 }
 
 ion-fab {
   bottom: 4px;
   right: 0;
+}
+
+.game-over {
+  text-align: center;
+  font-size: 200%;
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+.game-summary {
+  text-align: center;
+  padding: 0.5em;
+  p {
+    font-size: 140%;
+    font-weight: bold;
+  }
+}
+
+.series-record {
+  font-weight: bold;
 }
 
 @keyframes fadeIn {
