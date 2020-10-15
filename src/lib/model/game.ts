@@ -3,6 +3,23 @@ import { Entry } from './_entry';
 import { sha256 } from 'hash.js';
 import { Player } from './player';
 
+const WEATHER = [
+  "Void",
+  "Sunny",
+  "Overcast",
+  "Rainy",
+  "Sandstorm",
+  "Snowy",
+  "Acidic",
+  "Solar Eclipse",
+  "Glitter",
+  "Blooddrain",
+  "Peanuts",
+  "Lots of Birds",
+  "Feedback",
+  "Reverb",
+];
+
 export class Game extends Entry {
   id: string;
   atBatBalls: number;
@@ -214,11 +231,29 @@ export class Game extends Entry {
     return undefined;
   }
 
+  public get winnerId(): string {
+    if (this.homeScore < this.awayScore) {
+      return this.awayTeam;
+    } else if (this.homeScore > this.awayScore) {
+      return this.homeTeam;
+    }
+    return undefined;
+  }
+
   public get winner(): string {
     if (this.homeScore < this.awayScore) {
       return this.awayTeamName;
     } else if (this.homeScore > this.awayScore) {
       return this.homeTeamName;
+    }
+    return undefined;
+  }
+
+  public get loserId(): string {
+    if (this.homeScore < this.awayScore) {
+      return this.homeTeam;
+    } else if (this.homeScore > this.awayScore) {
+      return this.awayTeam;
     }
     return undefined;
   }
@@ -230,6 +265,10 @@ export class Game extends Entry {
       return this.awayTeamName;
     }
     return undefined;
+  }
+
+  public get weatherString() {
+    return WEATHER[this.weather] || 'Unknown';
   }
 
   public get winningScore(): number {
