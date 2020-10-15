@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/RangerRick/blobile/compare/v1.2.0-52...v1.2.0) (2020-10-15)
+
+
+### Bug Fixes
+
+* **assets:** use relative paths to fix base href= issue ([102ada6](https://github.com/RangerRick/blobile/commit/102ada60f2c7cc26952fb7ea4485065c0e02e22a))
+* **update:** not injected ([12f571c](https://github.com/RangerRick/blobile/commit/12f571c1393a4e799f38c547125828b1db0d017f))
+* **update:** undo broken beta channel config ([5f5b641](https://github.com/RangerRick/blobile/commit/5f5b641d773b8c37a5df9cef8ab02d8b1fc0c14e))
+
+
+
 # [1.2.0](https://github.com/RangerRick/blobile/compare/v1.2.0-52...v1.2.0) (2020-10-14)
 
 
