@@ -201,10 +201,6 @@ export class Game extends Entry {
     return this.data?.outcomes || [];
   }
 
-  public get series(): number {
-    return this.incremented('seriesIndex');
-  }
-
   /** 0-indexed */
   public getBaseRunner(baseIndex: number): Player {
     for (let i = 0; i < this.data?.basesOccupied?.length || 0; i++) {
@@ -216,5 +212,31 @@ export class Game extends Entry {
       }
     }
     return undefined;
+  }
+
+  public get winner(): string {
+    if (this.homeScore < this.awayScore) {
+      return this.awayTeamName;
+    } else if (this.homeScore > this.awayScore) {
+      return this.homeTeamName;
+    }
+    return undefined;
+  }
+
+  public get loser(): string {
+    if (this.homeScore < this.awayScore) {
+      return this.homeTeamName;
+    } else if (this.homeScore > this.awayScore) {
+      return this.awayTeamName;
+    }
+    return undefined;
+  }
+
+  public get winningScore(): number {
+    return Math.max(this.homeScore, this.awayScore);
+  }
+
+  public get losingScore(): number {
+    return Math.min(this.homeScore, this.awayScore);
   }
 }
