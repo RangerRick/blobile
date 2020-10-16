@@ -84,7 +84,7 @@
     </span>
     <span *ngIf="!showCountdown()">
       <ion-item lines="none" *ngIf="streamData.games.isPostseason()">
-        <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Postseason Round {{streamData.games.postseason.round.roundNumber}}, Day {{getPlayoffDay()}}</h4>
+        <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Postseason Round {{streamData.games.postseason.round.roundNumber}}, Day {{streamData.games.sim.day}}</h4>
       </ion-item>
       <ion-item lines="none" *ngIf="!streamData.games.isPostseason()">
         <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Season {{streamData.games.season.seasonNumber}}, Day {{streamData.games.sim.day}}</h4>
@@ -97,7 +97,7 @@
           No active games for day {{streamData.games.sim.day}}.
         </span>
       </ion-item>
-      <ion-grid>
+      <ion-grid style="margin-top: 0; padding-top: 0">
         <ion-row>
           <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
           <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
