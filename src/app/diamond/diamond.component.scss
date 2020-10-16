@@ -29,14 +29,18 @@ ion-fab {
   right: 0;
 }
 
+$drop-shadow: 0 0 0.25em black, 0 0 0.1em black, 0 0 0.1em black;
+
 .game-over {
   text-align: center;
   font-size: 200%;
   font-weight: bold;
   padding: 0.5em;
+  text-shadow: 0 0 0.1em black, 0 0 0.1em black;
 }
 
 .game-summary {
+  text-shadow: $drop-shadow;
   text-align: center;
   padding: 0.5em;
   p {
@@ -47,6 +51,7 @@ ion-fab {
 
 .series-record {
   font-weight: bold;
+  text-shadow: $drop-shadow;
 }
 
 @keyframes fadeIn {
