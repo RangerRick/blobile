@@ -3,6 +3,8 @@
 Blases Loaded is an extremely unofficial mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.
 Blases Loaded is not developed, nor endorsed, by The Game Band.
 
+<a target="_blank" href="./resources/screenshots/ios-live-feed.png"><img width="207" height="448" src="./resources/screenshots/ios-live-feed.png"></a> <a target="_blank" href="./resources/screenshots/ios-standings.png"><img width="207" height="448" src="resources/screenshots/ios-standings.png"></a> <a target="_blank" href="resources/screenshots/ios-game-over.png"><img width="207" height="448" src="resources/screenshots/ios-game-over.png"></a>
+
 ## Web App
 
 You can just run it as a "progressive" web app in your browser, with most features equivalent to the mobile version.  Just point your browser to:
