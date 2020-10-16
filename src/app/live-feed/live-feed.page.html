@@ -1,8 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header translucent="true">
   <ion-toolbar color="primary" (click)="scrollToTop()">
-    <ion-title>
-      Blases Loaded
-    </ion-title>
+    <ion-title>Blases Loaded</ion-title>
     <ion-buttons slot="secondary">
       <ion-button *ngIf="loading || stale">
         <ion-spinner></ion-spinner>
@@ -14,6 +12,9 @@
       -->
     </ion-buttons>
   </ion-toolbar>
+</ion-header>
+
+<ion-content>
   <ion-toolbar *ngIf="ready && !showCountdown()">
     <ion-buttons slot="primary">
       <!-- this is just to fix spacing for now, I'll figure out something better eventually -->
@@ -38,9 +39,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
+  
   <ion-refresher slot="fixed" (ionRefresh)="forceRefresh($event)">
     <ion-refresher-content
       pullingIcon="baseball-outline"
