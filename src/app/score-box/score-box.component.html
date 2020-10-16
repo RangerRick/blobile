@@ -4,9 +4,9 @@
     xmlns="http://www.w3.org/2000/svg"
     version="1.0"
     preserveAspectRatio="xMinYMin meet"
-    viewBox="0 0 640 400">
+    viewBox="0 0 640 350">
     <!-- white border -->
-    <rect style="opacity:1;fill:black;fill-opacity:1;stroke:white;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="0" y="0" width="640" height="400" />
+    <rect style="opacity:1;fill:black;fill-opacity:1;stroke:white;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="0" y="0" width="640" height="350" />
 
     <g *ngIf="game.gameComplete">
       <text x="200" y="52" text-anchor="end" fill="white" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
@@ -21,8 +21,8 @@
       <!-- inning box -->
       <rect style="opacity:1;stroke:yellow;stroke-width:4" x="120" y="20" width="80" height="50"></rect>
       <!-- inning caret -->
-      <text x="130" y="52" fill="white" style="font-size: 20px" *ngIf="game.topOfInning">&#9650;</text>
-      <text x="130" y="52" fill="white" style="font-size: 20px" *ngIf="!game.topOfInning">&#9660;</text>
+      <text x="132" y="52" fill="white" style="font-size: 20px" *ngIf="game.topOfInning">&#9650;</text>
+      <text x="132" y="52" fill="white" style="font-size: 20px" *ngIf="!game.topOfInning">&#9660;</text>
       <!-- inning text -->
       <text x="185" y="52" fill="white" text-anchor="end" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">{{game.inning}}</text>
     </g>
@@ -77,9 +77,9 @@
     <text x="605" y="122" fill="white" text-anchor="end" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">{{game.homeScore}}</text>
 
     <!-- log box -->
-    <rect style="opacity:1;stroke:yellow;stroke-width:4" x="20" y="160" width="600" height="218"></rect>
+    <rect style="opacity:1;stroke:yellow;stroke-width:4" x="20" y="160" width="600" height="168"></rect>
     <!-- log text -->
-    <foreignObject x="30" y="165" width="580" height="203">
+    <foreignObject x="30" y="165" width="580" height="153">
       <div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 25px; font-family: scoreboard, sans-serif; font-weight: bold">
         {{game.lastUpdate}}
       </div>
