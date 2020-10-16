@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Slettings</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button *ngIf="loading">
+        <ion-spinner></ion-spinner>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -20,6 +20,8 @@ import { VoiceService } from 'src/lib/voice.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
+  public loading = true;
+
   public current: Settings;
   public betaEnabled = false;
   public devicePlatform = 'web';
@@ -72,16 +74,17 @@ export class SettingsPage implements OnInit {
       }
     }
 
+    this.current = await this.settings.getAll();
+    this.volume = Math.round(this.current.volume * 1000);
+
     this.teams = (await this.database.teams()).sort((a: Team, b: Team) => {
       return (a.fullName < b.fullName) ? -1 : (a.fullName > b.fullName) ? 1 : 0;
     });
 
-    this.current = await this.settings.getAll();
-    this.volume = Math.round(this.current.volume * 1000);
-
     this.voices = this.voiceService.voices();
     this.voice = await this.voiceService.voice(this.current.voice);
 
+    this.loading = false;
     console.debug('SettingsPage.onInit(): current settings=', this.current);
   }
 
