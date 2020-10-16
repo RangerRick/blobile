@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class UpdateService {
+  private initialized: Promise<void>;
+
   public currentVersion = {
     binary_version: VERSION.version,
     binaryVersion: VERSION.version,
@@ -33,10 +35,19 @@ export class UpdateService {
     private deploy: Deploy,
     private platform: Platform,
   ) {
-    this.platform.ready().then(async () => {
+    this.init();
+  }
+
+  async init() {
+    console.debug('UpdateService.init()');
+    this.initialized = new Promise(async (resolve) => {
       try {
+        await this.platform.ready();
+
         const deviceInfo = await Device.getInfo();
-        if (deviceInfo.platform !== 'web') {
+        if (deviceInfo.platform === 'web') {
+          console.debug('UpdateService.init(): skipping update, web platform detected');
+        } else {
           const config = await this.deploy.getConfiguration();
           const betaEnabled = config?.channel?.toLowerCase() === 'beta';
           await this.deploy.configure({
@@ -44,20 +55,21 @@ export class UpdateService {
           });
         }
       } catch (err) {
-        console.error('SettingsService.init(): failed to get configuration', err);
+        console.error('UpdateService.init(): failed to initialize configuration', err);
       }
+      resolve();
     });
   }
 
   async reload() {
     console.debug('UpdateService.triggerUpdate()');
+    await this.initialized;
     await this.deploy.reloadApp();
   }
 
   async checkUpdate() {
-    if (!environment.production) {
-      return false;
-    }
+    console.debug('UpdateService.checkUpdate()');
+    await this.initialized;
 
     try {
       this.currentVersion = (await this.deploy.getCurrentVersion()) || this.currentVersion;
@@ -93,6 +105,8 @@ export class UpdateService {
             this.updateReady = true;
           }
         }
+      } else {
+        console.debug('UpdateService.checkUpdate(): no update is available');
       }
 
       return true;
