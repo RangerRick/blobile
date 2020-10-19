@@ -2,7 +2,7 @@
   "name": "blobile",
   "description": "An app for Blaseball",
   "version": "1.2.0",
-  "build": 55,
+  "build": 57,
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
@@ -76,6 +76,6 @@
     "dev": "ionic build && ionic cap copy --no-build",
     "prep-web": "rimraf www/* && ionic build --prod && ionic deploy manifest",
     "prep": "npm run prep-web && ionic cap sync --no-build --prod",
-    "prod": "./disable-deploy.sh false && ionic deploy configure --app-id=15a91f4a --channel-name=Stable --update-method=background && npm run prep"
+    "prod": "./disable-deploy.sh false && npm run version && ionic deploy configure --app-id=15a91f4a --channel-name=Stable --update-method=background && npm run prep"
   }
 }
