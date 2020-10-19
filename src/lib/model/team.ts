@@ -5,7 +5,6 @@ import { Entry } from './_entry';
 export class Team extends Entry {
   public id: string;
   public championships: number;
-  public emoji: string;
   public fullName: string;
   public location: string;
   public mainColor: string;
@@ -58,6 +57,11 @@ export class Team extends Entry {
 
   public get rotation(): string[] {
     return this.data.rotation || [];
+  }
+
+  public get emoji(): string {
+    const s = Number(this.data?.emoji);
+    return isNaN(s) ? this.data?.emoji : String.fromCodePoint(this.data?.emoji);
   }
 
   public get emojiColor(): string {
