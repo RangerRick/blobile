@@ -25,10 +25,12 @@ export class Game extends Entry {
   id: string;
   atBatBalls: number;
   atBatStrikes: number;
+  awayBalls: number;
   awayBases: number;
   awayBatter: string;
   awayBatterName: string;
   awayOdds: number;
+  awayOuts: number;
   awayPitcher: string;
   awayPitcherName: string;
   awayScore: number;
@@ -45,9 +47,12 @@ export class Game extends Entry {
   gameStart: boolean;
   halfInningOuts: number;
   halfInningScore: number;
+  homeBalls: number;
   homeBases: number;
   homeBatter: string;
   homeBatterName: string;
+  homeOuts: number;
+  homeOdds: number;
   homePitcher: string;
   homePitcherName: string;
   homeScore: number;
@@ -102,15 +107,20 @@ export class Game extends Entry {
     this.defineNumbers([
       'atBatBalls',
       'atBatStrikes',
+      'awayBalls',
       'awayBases',
       'awayOdds',
+      'awayOuts',
       'awayScore',
       'awayStrikes',
       'awayTeamBatterCount',
       'baserunnerCount',
       'halfInningOuts',
       'halfInningScore',
+      'homeBalls',
       'homeBases',
+      'homeOdds',
+      'homeOuts',
       'homeScore',
       'homeStrikes',
       'homeTeamBatterCount',
@@ -288,5 +298,26 @@ export class Game extends Entry {
 
   public get losingScore(): number {
     return Math.min(this.homeScore, this.awayScore);
+  }
+
+  public get maximumBlaseball(): boolean {
+    let balls: number, bases: number, outs: number, strikes: number;
+
+    if (this.awayBatting) {
+      balls = this.awayBalls;
+      bases = this.awayBases;
+      outs = this.awayOuts;
+      strikes = this.awayStrikes;
+    } else {
+      balls = this.homeBalls;
+      bases = this.homeBases;
+      outs = this.homeOuts;
+      strikes = this.homeStrikes;
+    }
+
+    return this.halfInningOuts === outs - 1
+      && this.atBatBalls === balls - 1
+      && this.atBatStrikes === strikes - 1
+      && this.baserunnerCount === bases - 1;
   }
 }

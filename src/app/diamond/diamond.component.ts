@@ -217,10 +217,7 @@ export class DiamondComponent implements DoCheck, OnInit {
         classes: { [diamondId]: 'flicker' },
       });
     } else if (
-      this.game.halfInningOuts === 2 &&
-      this.game.atBatBalls === 3 &&
-      (this.game.baserunnerCount === this.game.bases - 1) &&
-      (this.game.atBatStrikes === this.game.strikes - 1)
+      this.game.maximumBlaseball
     ) {
       Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
     }
