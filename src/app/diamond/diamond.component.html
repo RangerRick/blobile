@@ -4,7 +4,7 @@
       <ion-row>
         <ion-col size="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
           <div [id]="prefix + '-main-' + game.id" style="position: relative">
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!game.gameComplete && allowOpenGame">
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!game.inProgress && allowOpenGame">
               <ion-button (click)="watchGame(game && game.id, allowOpenGame, $event)" color="dark">
                 <ion-icon name="baseball-outline"></ion-icon>
                 <ion-icon name="list-outline"></ion-icon>
@@ -28,7 +28,7 @@
             </div>
 
             <!-- viewbox="0 0 650 500" -->
-            <svg *ngIf="inProgress()" xmlns="http://www.w3.org/2000/svg" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="10 120 635 400">
+            <svg *ngIf="game.inProgress" xmlns="http://www.w3.org/2000/svg" version="1.0" preserveAspectRatio="xMinYMin meet" viewBox="10 120 635 400">
               <filter id="dropShadow">
                 <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
                 <feOffset dx="0" dy="0" />
@@ -199,7 +199,7 @@
                 </text>
               </g>
             </svg>
-            <div *ngIf="!inProgress()">
+            <div *ngIf="!game.inProgress">
               <div class="game-over">
                 Game Over.
               </div>

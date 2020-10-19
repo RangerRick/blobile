@@ -238,10 +238,6 @@ export class DiamondComponent implements DoCheck, OnInit {
     }
   }
 
-  inProgress() {
-    return this.game?.gameStart && !this.game?.gameComplete;
-  }
-
   getName(person?: { name: string }, index?: number) {
     if (person && person.name) {
       if (index === undefined) {
@@ -256,33 +252,22 @@ export class DiamondComponent implements DoCheck, OnInit {
   }
 
   getBaseRunner(baseIndex: number) {
-    if (this.inProgress()) {
+    if (this.game.inProgress) {
       return this.game?.getBaseRunner(baseIndex);
     }
     return null;
   }
 
   getPitcher() {
-    if (this.inProgress()) {
+    if (this.game.inProgress) {
       return { id: this.game.pitcherId, name: this.game.pitcherName };
     }
     return null;
   }
 
   getBatter() {
-    if (this.inProgress()) {
+    if (this.game.inProgress) {
       return { id: this.game.batterId, name: this.game.batterName };
-    }
-  }
-
-  getEmoji(type: string) {
-    switch (type) {
-      case 'home':
-        return String.fromCodePoint(parseInt(this.game.homeTeamEmoji, 16));
-      case 'away':
-        return String.fromCodePoint(parseInt(this.game.awayTeamEmoji, 16));
-      default:
-        return '';
     }
   }
 
