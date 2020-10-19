@@ -22,10 +22,6 @@ export class TeamComponent implements OnInit {
     // console.debug('TeamComponent initialized.');
   }
 
-  getEmoji() {
-    return this.emoji ? String.fromCodePoint(this.emoji) : undefined;
-  }
-
   getEmojiStyle() {
     return '';
     /*
