@@ -18,6 +18,7 @@ const WEATHER = [
   "Lots of Birds",
   "Feedback",
   "Reverb",
+  "Black Hole",
 ];
 
 export class Game extends Entry {
