@@ -203,7 +203,7 @@
               <div class="game-over">
                 Game Over.
               </div>
-              <div class="game-summary">
+              <div class="game-summary" *ngIf="game.winner && game.loser && (game.winningScore > 0 || game.losingScore > 0)">
                 <p>The {{game.winner}} beat the {{game.loser}} {{game.winningScore}} to {{game.losingScore}}.</p>
                 <p *ngIf="game.shame">The {{game.loser}} have been SHAMED.</p>
               </div>

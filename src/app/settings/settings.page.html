@@ -17,7 +17,7 @@
         <h3>Automatic Updates</h3>
       </ion-list-header>
       <ion-item>
-        <ion-label class="ion-text-wrap">Receive beta updates?</ion-label>
+        <ion-label class="ion-text-wrap">Receive content updates first?</ion-label>
         <ion-toggle *ngIf="current" (ionChange)="setBetaEnabled()" [(ngModel)]="current.betaEnabled" slot="end"></ion-toggle>
       </ion-item>
       <ion-item *ngIf="updateService.updateAvailable && !updateService.updateReady && updateService.percentDone">
@@ -25,8 +25,8 @@
         <ion-progress-bar value="{{updateService.percentDone}}"></ion-progress-bar>
       </ion-item>
       <ion-item *ngIf="updateService.updateReady" color="danger">
-        <ion-label class="ion-text-wrap">You have an update ready.</ion-label>
-        <ion-button slot="end" color="light" (click)="updateService.reload()">Reload</ion-button>
+        <ion-label class="ion-text-wrap">A content update is available.</ion-label>
+        <ion-button slot="end" color="light" (click)="updateService.reload()">Apply</ion-button>
       </ion-item>
       <ion-list-header lines="full">
         <h3>Disable Sleep</h3>

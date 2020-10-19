@@ -9,7 +9,7 @@ import * as Color from 'color';
 })
 export class TeamComponent implements OnInit {
   @Input() public team: 'home'|'away'|undefined;
-  @Input() public emoji: number;
+  @Input() public emoji: string;
   @Input() public textColor: string;
   @Input() public teamColor = 'transparent';
   @Input() public name: string;
@@ -20,10 +20,6 @@ export class TeamComponent implements OnInit {
 
   async ngOnInit() {
     // console.debug('TeamComponent initialized.');
-  }
-
-  getEmoji() {
-    return this.emoji ? String.fromCodePoint(this.emoji) : undefined;
   }
 
   getEmojiStyle() {
