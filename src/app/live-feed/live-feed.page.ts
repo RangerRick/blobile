@@ -115,7 +115,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   getActiveGames(): Game[] {
     if (this.streamData?.games?.schedule) {
       return this.streamData.games.schedule.filter((game: Game) => {
-        return !game.gameComplete;
+        return game.inProgress;
       });
     }
     return [];
@@ -264,7 +264,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   checkStale() {
     const current = this.stale;
     if (this.games && this.games.length > 0) {
-      const active = this.games.find(game => !game.gameComplete);
+      const active = this.games.find(game => game.inProgress);
       if (active) {
         // there are still active games, check staleness based on the last update received
         if (this.lastUpdate + this.staleThreshold < Date.now()) {

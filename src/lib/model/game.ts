@@ -184,6 +184,10 @@ export class Game extends Entry {
     return isNaN(s) ? this.data?.homeTeamEmoji : String.fromCodePoint(s);
   }
 
+  public get inProgress() {
+    return this.data?.gameStart && !this.data?.gameComplete;
+  }
+
   public get bases() {
     return this.homeBatting ? this.homeBases : this.awayBases;
   }
