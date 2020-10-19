@@ -2,24 +2,7 @@ import { Entry } from './_entry';
 
 import { sha256 } from 'hash.js';
 import { Player } from './player';
-
-const WEATHER = [
-  "Void",
-  "Sunny",
-  "Overcast",
-  "Rainy",
-  "Sandstorm",
-  "Snowy",
-  "Acidic",
-  "Solar Eclipse",
-  "Glitter",
-  "Blooddrain",
-  "Peanuts",
-  "Lots of Birds",
-  "Feedback",
-  "Reverb",
-  "Black Hole",
-];
+import { WEATHER } from './weather';
 
 export class Game extends Entry {
   id: string;
