@@ -16,6 +16,7 @@ export class GameDetailPage implements OnInit {
   @Input() public id: string;
   streamData: StreamData;
   game: Game;
+  lastPlayCount = -1;
   updateLog = [] as { time: string, entry: string }[];
   muted = false;
 
@@ -47,10 +48,12 @@ export class GameDetailPage implements OnInit {
     await this.settings.ready;
 
     this.subscription = await this.stream.subscribe((streamData: StreamData) => {
-      this.streamData = streamData;
       const game = streamData?.games?.schedule?.find((game: Game) => game.id === this.id);
-      if (game && game.lastUpdate !== this.updateLog[0]?.entry) {
+      if (game && game.playCount > this.lastPlayCount) {
+        this.streamData = streamData;
         this.game = game;
+        this.lastPlayCount = game.playCount;
+
         const now = new Date();
         this.updateLog.unshift({
           time: ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
