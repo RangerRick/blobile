@@ -40,6 +40,7 @@ export class Game extends Entry {
   awayTeamColor: string;
   awayTeamName: string;
   awayTeamNickname: string;
+  awayTeamSecondaryColor: string;
   baserunnerCount: number;
   day: number;
   finalized: boolean;
@@ -51,8 +52,8 @@ export class Game extends Entry {
   homeBases: number;
   homeBatter: string;
   homeBatterName: string;
-  homeOuts: number;
   homeOdds: number;
+  homeOuts: number;
   homePitcher: string;
   homePitcherName: string;
   homeScore: number;
@@ -62,10 +63,13 @@ export class Game extends Entry {
   homeTeamColor: string;
   homeTeamName: string;
   homeTeamNickname: string;
+  homeTeamSecondaryColor: string;
   inning: number;
   isPostseason: boolean;
   lastUpdate: string;
   phase: number;
+  playCount: number;
+  repeatCount: number;
   rules: string;
   season: number;
   seriesIndex: number;
@@ -91,6 +95,7 @@ export class Game extends Entry {
       'awayTeamColor',
       'awayTeamName',
       'awayTeamNickname',
+      'awayTeamSecondaryColor',
       'homeBatter',
       'homeBatterName',
       'homePitcher',
@@ -99,6 +104,7 @@ export class Game extends Entry {
       'homeTeamColor',
       'homeTeamName',
       'homeTeamNickname',
+      'homeTeamSecondaryColor',
       'lastUpdate',
       'rules',
       'statsheet',
@@ -125,6 +131,8 @@ export class Game extends Entry {
       'homeStrikes',
       'homeTeamBatterCount',
       'phase',
+      'playCount',
+      'repeatCount',
       'seriesIndex',
       'seriesLength',
       'weather',
