@@ -35,7 +35,6 @@ export class Game extends Entry {
   awayTeam: string;
   awayTeamBatterCount: number;
   awayTeamColor: string;
-  awayTeamEmoji: string;
   awayTeamName: string;
   awayTeamNickname: string;
   baserunnerCount: number;
@@ -55,7 +54,6 @@ export class Game extends Entry {
   homeTeam: string;
   homeTeamBatterCount: number;
   homeTeamColor: string;
-  homeTeamEmoji: string;
   homeTeamName: string;
   homeTeamNickname: string;
   inning: number;
@@ -85,7 +83,6 @@ export class Game extends Entry {
       'awayPitcherName',
       'awayTeam',
       'awayTeamColor',
-      'awayTeamEmoji',
       'awayTeamName',
       'awayTeamNickname',
       'homeBatter',
@@ -94,7 +91,6 @@ export class Game extends Entry {
       'homePitcherName',
       'homeTeam',
       'homeTeamColor',
-      'homeTeamEmoji',
       'homeTeamName',
       'homeTeamNickname',
       'lastUpdate',
@@ -176,6 +172,16 @@ export class Game extends Entry {
     } else {
       return this.awayBases === 5;
     }
+  }
+
+  public get awayTeamEmoji(): string {
+    const s = Number(this.data?.awayTeamEmoji);
+    return isNaN(s) ? this.data?.awayTeamEmoji : String.fromCodePoint(s);
+  }
+
+  public get homeTeamEmoji(): string {
+    const s = Number(this.data?.homeTeamEmoji);
+    return isNaN(s) ? this.data?.homeTeamEmoji : String.fromCodePoint(s);
   }
 
   public get bases() {

@@ -138,7 +138,7 @@ export class StandingsPage implements OnInit {
           const t_d = {
             id: team.id,
             name: team.fullName,
-            emoji: String.fromCodePoint(parseInt(team.emoji)),
+            emoji: team.emoji,
             emojiColor: team.emojiColor,
             mainColor: team.mainColor,
             secondaryColor: team.secondaryColor,
