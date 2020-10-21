@@ -13,11 +13,12 @@
 
 .team-header {
   color: white;
-  font-size: 0.9em;
+  font-size: 0.85em;
   font-weight: bold;
   text-align: center;
   padding-top: 0.75em;
   padding-bottom: 0;
+  white-space: nowrap;
 }
 
 ion-grid {
