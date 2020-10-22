@@ -18,6 +18,9 @@ const season7RegularEnd    = require('./data/season-7-regular-end.json');
 const season8RegularEnd    = require('./data/season-8-regular-end.json');
 const season8RegularEnd2    = require('./data/season-8-regular-end-post-start.json');
 
+const season10PostWildcard = require('./data/season-10-wildcard-finished.json');
+// 1602892491626
+
 describe('Games', () => {
   let games: Games;
 

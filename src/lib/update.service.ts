@@ -100,7 +100,9 @@ export class UpdateService {
           });
 
           console.info('UpdateService.checkUpdate(): newVersion:', this.newVersion);
-          this.updateAvailable = ! this.currentVersion || this.currentVersion?.versionId !== this.newVersion?.versionId || this.percentDone === 1;
+          this.updateAvailable = ! this.currentVersion
+            || this.currentVersion?.versionId !== this.newVersion?.versionId
+            || this.percentDone === 1;
           if (this.updateAvailable) {
             this.updateReady = true;
           }

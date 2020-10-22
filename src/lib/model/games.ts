@@ -47,7 +47,16 @@ export class Games extends Entry {
   private incompleteGames(games: Game[]) {
     return games.filter((game: Game) => !game.gameComplete);
   }
-  
+
+  public isWildcard(now = Date.now()) {
+    if (this.schedule.find((game: Game) => game.isPostseason) !== undefined) {
+      // if there are postseason games in the schedule, it could be wildcard
+      return this.postseason.round.roundNumber === 1;
+    }
+
+    return false;
+  }
+
   public isPostseason(now = Date.now()) {
     if (this.schedule.find((game: Game) => game.isPostseason) !== undefined) {
       // the schedule has postseason games
@@ -57,9 +66,9 @@ export class Games extends Entry {
     const incompleteRegularSeason = this.incompleteGames(this.schedule)
       .filter((game: Game) => !game.isPostseason);
 
-      // console.debug('incomplete games', incompleteRegularSeason);
-      // console.debug('sim', this.sim);
-      if (incompleteRegularSeason.length === 0) {
+    // console.debug('incomplete games', incompleteRegularSeason);
+    // console.debug('sim', this.sim);
+    if (incompleteRegularSeason.length === 0) {
       if (this.sim.day === 99) {
         // no games are left for day 99
         return true;

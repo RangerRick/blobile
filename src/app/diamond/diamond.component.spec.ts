@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DiamondComponent } from './diamond.component';
@@ -11,7 +11,7 @@ describe('DiamondComponent', () => {
   let fixture: ComponentFixture<DiamondComponent>;
   let settingsSpy: SettingsService, deploySpy: Deploy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     settingsSpy = {} as SettingsService;
     settingsSpy.ready = Promise.resolve(true);
     settingsSpy.segment = () => {

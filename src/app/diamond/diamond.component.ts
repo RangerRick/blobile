@@ -90,7 +90,13 @@ export class DiamondComponent implements DoCheck, OnInit {
   async retrieveRecord() {
     if (this.game && !this.record) {
       try {
-        this.record = await this.database.seriesRecord(this.game.homeTeam, this.game.awayTeam, this.game.season - 1, this.game.day - 1, this.game.seriesIndex);
+        this.record = await this.database.seriesRecord(
+          this.game.homeTeam,
+          this.game.awayTeam,
+          this.game.season - 1,
+          this.game.day - 1,
+          this.game.seriesIndex,
+        );
         // console.debug(`DiamondComponent.retrieveRecord():`, this.record);
       } catch (err) {
         console.error('DiamondComponent.retrieveRecord(): failed to get series record', err);
@@ -105,6 +111,7 @@ export class DiamondComponent implements DoCheck, OnInit {
 
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
+    // tslint:disable-next-line:prefer-const
     let update = this.game?.lastUpdate?.toLowerCase() || '';
 
     // just for testing

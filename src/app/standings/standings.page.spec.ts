@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { StandingsPage } from './standings.page';
@@ -9,7 +9,7 @@ describe('StandingsPage', () => {
   let fixture: ComponentFixture<StandingsPage>;
   let deploySpy: Deploy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
 
     TestBed.configureTestingModule({

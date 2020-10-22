@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { SEGMENT, SettingsService } from 'src/lib/settings.service';
@@ -11,10 +11,10 @@ describe('TeamPage', () => {
   let settingsSpy: SettingsService;
   let deploySpy: Deploy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     settingsSpy = {} as SettingsService;
     settingsSpy.ready = Promise.resolve(true);
-    settingsSpy.isFavorite = () => { return false; };
+    settingsSpy.isFavorite = () => false;
     settingsSpy.segment = () => {
       return 'all' as SEGMENT;
     };
