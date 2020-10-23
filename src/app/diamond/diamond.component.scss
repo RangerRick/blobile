@@ -32,6 +32,38 @@ ion-fab {
 
 $drop-shadow: 0 0 0.25em black, 0 0 0.1em black, 0 0 0.1em black;
 
+.boss-fight {
+  ion-label {
+    font-weight: bold;
+    text-shadow: $drop-shadow;
+  }
+
+  ion-progress-bar {
+    --progress-background: white;
+    --background: black;
+    height: 2em;
+    border: 3px solid yellow;
+    /* border-radius: 0.5em; */
+  }
+
+  .score-container {
+    position: relative;
+    text-align: center;
+
+    .score {
+      color: black;
+      width: 100%;
+      position: absolute;
+      padding: 0.2em;
+      font-weight: bold;
+      top: 0;
+      left: 0;
+      text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+    }
+  }
+
+}
+
 .game-over {
   text-align: center;
   font-size: 200%;

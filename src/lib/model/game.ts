@@ -135,7 +135,14 @@ export class Game extends Entry {
     ]);
 
     const hash = sha256();
-    for (const prop of [
+    for (const prop of this.hashKeys()) {
+      hash.update(this.data?.[prop]);
+    }
+    this.hash = hash.digest('hex');
+  }
+
+  protected hashKeys() {
+    return [
       'awayBatter',
       'homeBatter',
       'lastUpdate',
@@ -150,10 +157,7 @@ export class Game extends Entry {
       'gameComplete',
       'gameStart',
       'topOfInning',
-    ]) {
-      hash.update(this.data?.[prop]);
-    }
-    this.hash = hash.digest('hex');
+    ];
   }
 
   public get awayBatting() {

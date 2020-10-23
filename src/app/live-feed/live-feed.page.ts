@@ -48,6 +48,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public countdown: Countdown;
   public globalEvents: GlobalEvent[];
   private keepAwake = false;
+  public phase: PHASES;
+  public PHASES = PHASES;
   public uiState = {} as { [key: string]: any };
 
   constructor(
@@ -373,6 +375,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.countdown = undefined;
     }
 
+    this.phase = phase;
     Object.assign(this.uiState, uiState);
 
     this.hideLoading();

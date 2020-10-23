@@ -11,7 +11,33 @@
               </ion-button>
             </ion-fab>
 
-            <div class="team-header">
+            <ion-grid *ngIf="isBossFight" class="boss-fight">
+              <ion-row>
+                <ion-col size="2">
+                  <app-team team="home" [teamColor]="game.homeTeamColor" [emoji]="game.homeTeamEmoji" [hideName]="true"></app-team>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{game.homeTeamName}}</ion-label><br>
+                  <div class="score-container">
+                    <ion-progress-bar [value]="game.homeHitPercent"></ion-progress-bar>
+                    <div class="score">{{game.homeHp || 0}} / {{game.homeMaxHp || 1}}</div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="2">
+                  <app-team team="away" [teamColor]="game.awayTeamColor" [emoji]="game.awayTeamEmoji" [hideName]="true"></app-team>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{game.awayTeamName}}</ion-label><br>
+                  <div class="score-container">
+                    <ion-progress-bar [value]="game.awayHitPercent"></ion-progress-bar>
+                    <div class="score">{{game.awayHp || 0}} / {{game.awayMaxHp || 1}}</div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <div class="team-header" *ngIf="!isBossFight">
               <ion-grid>
                 <ion-row>
                   <ion-col class="ion-justify-content-end ion-no-padding ion-no-margin">

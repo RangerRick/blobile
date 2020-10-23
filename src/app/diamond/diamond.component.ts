@@ -16,6 +16,7 @@ import { GameDetailPage } from '../game-detail/game-detail.page';
 // import Player from '../../lib/model/player';
 
 import { environment } from '../../environments/environment';
+import { BossFight } from 'src/lib/model/bossfight';
 
 @Component({
   selector: 'app-diamond',
@@ -54,6 +55,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   private oldGame = {} as Game;
   public environment = environment;
   public record: [number, number];
+  public isBossFight: boolean;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -63,6 +65,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   ) {
     // console.debug('Diamond component created.');
   }
+
   async ngOnInit() {
     // console.debug('Diamond component initialized.');
     // console.debug(this.game);
@@ -73,6 +76,8 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.teams[team.id] = team;
     }
 
+    this.checkBossFight();
+
     return true;
   }
 
@@ -82,8 +87,14 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
       this.checkInterestingEvents();
+      this.checkBossFight();
       // this.retrieveRecord();
     }
+  }
+
+  checkBossFight() {
+    // this.isBossFight = true;
+    this.isBossFight = this.game instanceof BossFight;
   }
 
   /* turns out TGB stopped making this expensive calculation too ;) */
