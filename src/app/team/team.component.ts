@@ -13,6 +13,7 @@ export class TeamComponent implements OnInit {
   @Input() public textColor: string;
   @Input() public teamColor = 'transparent';
   @Input() public name: string;
+  @Input() public hideName = false;
 
   constructor() {
     // console.debug('TeamComponent instantiated.');
