@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { APIStream } from 'src/lib/api/stream';
+import { BossFight } from 'src/lib/model/bossfight';
 import { Game } from 'src/lib/model/game';
 import { StreamData } from 'src/lib/model/streamData';
 import { SettingsService } from 'src/lib/settings.service';
@@ -15,7 +16,7 @@ import { VoiceService } from 'src/lib/voice.service';
 export class GameDetailPage implements OnInit {
   @Input() public id: string;
   streamData: StreamData;
-  game: Game;
+  game: Game | BossFight;
   lastPlayCount = -1;
   updateLog = [] as { time: string, entry: string }[];
   muted = false;

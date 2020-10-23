@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 
 import { SettingsService } from '../../lib/settings.service';
 import { APIDatabase } from '../../lib/api/database';
+import { BossFight } from '../../lib/model/bossfight';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
@@ -16,7 +17,6 @@ import { GameDetailPage } from '../game-detail/game-detail.page';
 // import Player from '../../lib/model/player';
 
 import { environment } from '../../environments/environment';
-import { BossFight } from 'src/lib/model/bossfight';
 
 @Component({
   selector: 'app-diamond',
@@ -24,7 +24,7 @@ import { BossFight } from 'src/lib/model/bossfight';
   styleUrls: ['./diamond.component.scss'],
 })
 export class DiamondComponent implements DoCheck, OnInit {
-  @Input() public game: Game;
+  @Input() public game: Game | BossFight;
   @Input() public allowOpenGame = true;
   @Input() public prefix = 'diamond';
   @Input() public hideLog = false;
@@ -52,7 +52,7 @@ export class DiamondComponent implements DoCheck, OnInit {
 
   public teams = {} as { [key: string]: Team };
 
-  private oldGame = {} as Game;
+  private oldGame = {} as Game | BossFight;
   public environment = environment;
   public record: [number, number];
   public isBossFight: boolean;

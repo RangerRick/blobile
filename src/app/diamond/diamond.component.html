@@ -19,8 +19,8 @@
                 <ion-col>
                   <ion-label>{{game.homeTeamName}}</ion-label><br>
                   <div class="score-container">
-                    <ion-progress-bar [value]="game.homeHitPercent"></ion-progress-bar>
-                    <div class="score">{{game.homeHp || 0}} / {{game.homeMaxHp || 1}}</div>
+                    <ion-progress-bar [value]="game['homeHitPercent']"></ion-progress-bar>
+                    <div class="score">{{game['homeHp'] || 0}} / {{game['homeMaxHp'] || 1}}</div>
                   </div>
                 </ion-col>
               </ion-row>
@@ -31,8 +31,8 @@
                 <ion-col>
                   <ion-label>{{game.awayTeamName}}</ion-label><br>
                   <div class="score-container">
-                    <ion-progress-bar [value]="game.awayHitPercent"></ion-progress-bar>
-                    <div class="score">{{game.awayHp || 0}} / {{game.awayMaxHp || 1}}</div>
+                    <ion-progress-bar [value]="game['awayHitPercent']"></ion-progress-bar>
+                    <div class="score">{{game['awayHp'] || 0}} / {{game['awayMaxHp'] || 1}}</div>
                   </div>
                 </ion-col>
               </ion-row>
