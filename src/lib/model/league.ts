@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class League extends Entry {
-  public get id(): string {
+  public get id(): ID {
     return this.data?.id;
   }
 
@@ -9,11 +9,11 @@ export class League extends Entry {
     return this.data?.name;
   }
 
-  public get subleagues(): string[] {
+  public get subleagues(): ID[] {
     return this.data?.subleagues || [];
   }
 
-  public get tiebreakers(): string {
+  public get tiebreakers(): ID {
     return this.data?.tiebreakers;
   }
 }

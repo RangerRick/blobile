@@ -4,7 +4,6 @@ import { Playoffs } from './playoffs';
 import { Round } from './round';
 
 export class Postseason extends Entry {
-
   public get playoffs() {
     return new Playoffs(this.data?.playoffs);
   }

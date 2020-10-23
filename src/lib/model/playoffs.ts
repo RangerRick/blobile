@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Playoffs extends Entry {
-  public get id(): string {
+  public get id(): ID {
     return this.data?.id;
   }
 
@@ -17,7 +17,7 @@ export class Playoffs extends Entry {
     return this.incremented('playoffDay');
   }
 
-  public get rounds(): string[] {
+  public get rounds(): ID[] {
     return this.data?.rounds || [];
   }
 
@@ -29,7 +29,7 @@ export class Playoffs extends Entry {
     return this.incremented('tomorrowRound');
   }
 
-  public get winner(): string {
+  public get winner(): ID {
     return this.data?.winner;
   }
 }

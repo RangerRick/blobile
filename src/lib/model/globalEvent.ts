@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class GlobalEvent extends Entry {
-  get id(): string {
+  get id(): ID {
     return this.data?.id;
   }
 
