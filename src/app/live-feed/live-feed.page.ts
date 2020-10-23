@@ -17,6 +17,7 @@ import { Team } from '../../lib/model/team';
 import { GlobalEvent } from 'src/lib/model/globalEvent';
 import { APIDatabase } from 'src/lib/api/database';
 import { Countdown } from 'src/lib/model/sim';
+import { PHASES } from 'src/lib/model/phases';
 
 @Component({
   selector: 'app-live-feed',
@@ -47,6 +48,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public countdown: Countdown;
   public globalEvents: GlobalEvent[];
   private keepAwake = false;
+  public uiState = {} as { [key: string]: any };
 
   constructor(
     private stream: APIStream,
@@ -185,46 +187,12 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  isRegularSeason() {
-    return this.streamData?.games?.isRegularSeason() || false;
-  }
-
-  isPostseason() {
-    return this.streamData?.games?.isPostseason() || false;
-  }
-
-  isPostseasonComplete() {
-    return this.streamData?.games?.isPostseasonComplete() || false;
-  }
-
-  showCountdown(): boolean {
-    const isRegularSeason = this.isRegularSeason();
-    const isPostseason = this.isPostseason();
-    const isFinished = this.isPostseasonComplete();
-
-    if (isRegularSeason && isPostseason) {
-      this.doCountdown('countdownToNextPhase');
-      return true;
-    } else if (isFinished) {
-      this.doCountdown('countdownToNextSeason');
-      return true;
-    }
-
-    if (this.clockUpdater) {
-      clearInterval(this.clockUpdater);
-      this.clockUpdater = undefined;
-      this.countdown = undefined;
-    }
-
-    return false;
-  }
-
   getWinner() {
     const winner = this.streamData?.games?.postseason?.playoffs?.winner;
     if (winner) {
       return this.streamData.leagues.teams.find((team: Team) => team.id === winner);
     }
-    return new Team();
+    return undefined;
   }
 
   getPlayoffDay() {
@@ -332,19 +300,82 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
     console.debug('LiveFeed.onEvent(): current data:', this.streamData);
 
-    this.checkDisableSleep();
-    this.refreshUI();
-    this.hideLoading();
+    this.onUpdate();
   }
 
   onError(evt: Event) {
     console.debug('LiveFeed.onError():', evt);
-    this.hideLoading();
+    this.onUpdate();
     // wait a couple of seconds before actually marking it as an error
     setTimeout(() => {
       this.errors++;
       this.checkStale();
     }, 1000);
+  }
+
+  async onUpdate() {
+    this.checkDisableSleep();
+    this.refreshUI();
+
+    const uiState = {
+      seasonHeader: undefined,
+      notice: undefined,
+      countdownNotice: undefined,
+      winner: undefined,
+    };
+
+    const day = this.streamData.games.sim.day;
+    const phase = this.streamData.sim.phase;
+    switch (phase) {
+      case PHASES.PRESEASON:
+      case PHASES.PRE_ELECTION:
+      case PHASES.POST_PRE_ELECTION:
+      case PHASES.POST_ELECTION:
+      {
+        this.doCountdown('countdownToNextSeason');
+        uiState.notice = `Season ${this.streamData.seasonNumber} is over.`;
+        uiState.countdownNotice = 'Next season starts in:';
+        uiState.winner = this.getWinner();
+        break;
+      }
+      case PHASES.PRE_OFFSEASON:
+      case PHASES.OFFSEASON:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `Regular Season ${this.streamData.seasonNumber} is over.`;
+        uiState.countdownNotice = `The wildcard round starts in:`;
+        break;
+      }
+      case PHASES.POST_WILDCARD:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `The wildcard round is complete.`;
+        uiState.countdownNotice = `The playoffs start in:`;
+        break;
+      }
+      case PHASES.WILDCARD:
+      {
+        uiState.seasonHeader = `Wildcard Round, Day ${day}`;
+        break;
+      }
+      case PHASES.POSTSEASON:
+      {
+        uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseason.round.roundNumber}, Day ${day}`;
+      }
+      default:
+        uiState.seasonHeader = `Season ${this.streamData.games.season.seasonNumber}, Day ${day}`;
+        break;
+    }
+
+    if (!this.uiState.notice && this.clockUpdater) {
+      clearInterval(this.clockUpdater);
+      this.clockUpdater = undefined;
+      this.countdown = undefined;
+    }
+
+    Object.assign(this.uiState, uiState);
+
+    this.hideLoading();
   }
 
   async startListening() {
