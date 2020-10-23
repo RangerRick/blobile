@@ -1,0 +1,784 @@
+{
+  "sim": {
+    "id": "thisidisstaticyo",
+    "day": 106,
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "nextElectionEnd": "2020-10-18T19:00:00.162Z",
+    "nextPhaseTime": "2020-10-17T13:00:00.158Z",
+    "nextSeasonStart": "2020-10-19T16:00:00.162Z",
+    "phase": 4,
+    "playOffRound": 1,
+    "playoffs": "a24d3588-e5f5-41c1-b89c-98e9d546aaee",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "season": 9,
+    "seasonId": "b837b5b6-7542-40fb-9873-dc9557bcb695",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+    "eraColor": "#ff0000",
+    "eraTitle": "The Discipline Era",
+    "twgo": "JHFMTOJMNPSMLMDGFOSEZDTMJWHPADAACGRTBBPBBCJRTPMJCSNKKAOMVMSTAJTVTCJIMPSSSTBFHRSSMSDKIRLWLVWSSMEIMCCDMDRTEIFBCLRMMW",
+    "subEraColor": "#ab383a",
+    "subEraTitle": "BACKDRAFT",
+    "attr": [
+      "OPENED_BOOK",
+      "UNLOCKED_PEANUTS",
+      "EAT_THE_RICH",
+      "UNLOCKED_INTERVIEWS",
+      "UNLOCKED_IDOLS",
+      "PARTY_TIME",
+      "UNLOCKED_HALL",
+      "WILD_CARDS"
+    ]
+  },
+  "season": {
+    "id": "b837b5b6-7542-40fb-9873-dc9557bcb695",
+    "league": "d8545021-e9fc-48a3-af74-48685950a183",
+    "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+    "schedule": "ec14d3eb-b869-44b5-89cf-3bd03c122a00",
+    "seasonNumber": 9,
+    "standings": "d54cba5a-76ad-480b-82e9-bd1cb85d993e",
+    "stats": "6941ee36-4622-43a0-bbd7-3d71f0ada00a",
+    "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b"
+  },
+  "standings": {
+    "id": "d54cba5a-76ad-480b-82e9-bd1cb85d993e",
+    "losses": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 34,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 30,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 59,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 54,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 58,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 39,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 49,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 55,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 66,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 48,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 46,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 32,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 52,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 58,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 52,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 43,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 69,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 45,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 34,
+      "7966eb04-efcc-499b-8f03-d13916330531": 67
+    },
+    "wins": {
+      "b72f3061-f573-40d7-832a-5ad475bd7909": 65,
+      "8d87c468-699a-47a8-b40d-cfb73a5660ad": 69,
+      "57ec08cc-0411-4643-b304-0e80dbc15ac7": 40,
+      "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16": 45,
+      "a37f9158-7f82-46bc-908c-c9e2dda7c33b": 41,
+      "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5": 60,
+      "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e": 50,
+      "b63be8c2-576a-4d6e-8daf-814f8bcea96f": 44,
+      "f02aeae2-5e6a-4098-9842-02d2273f25c7": 33,
+      "878c1bf6-0d21-4659-bfee-916c8314d69c": 51,
+      "747b8e4a-7e50-4638-a973-ea7950a3e739": 53,
+      "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff": 67,
+      "105bc3ff-1320-4e37-8ef0-8d595cb95dd0": 47,
+      "b024e975-1c4a-4575-8936-a3754a08806a": 41,
+      "36569151-a2fb-43c1-9df7-2df512424c82": 47,
+      "adc5b394-8f76-416d-9ce9-813706877b84": 56,
+      "979aee4a-6d80-4863-bf1c-ee1a78e06024": 30,
+      "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7": 54,
+      "bfd38797-8404-4b38-8b82-341da28b1f83": 65,
+      "7966eb04-efcc-499b-8f03-d13916330531": 32
+    }
+  },
+  "schedule": [
+    {
+      "id": "adfa807d-6c9a-4ca0-a2e0-1859ce67cfd7",
+      "basesOccupied": [
+        0
+      ],
+      "baseRunners": [
+        "0eea4a48-c84b-4538-97e7-3303671934d2"
+      ],
+      "baseRunnerNames": [
+        "Helga Moreno"
+      ],
+      "outcomes": [],
+      "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+      "lastUpdate": "Foul Ball. 0-1",
+      "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+      "statsheet": "b06c9a64-d776-404e-a699-646bf5ab3b6c",
+      "awayPitcher": "e111a46d-5ada-4311-ac4f-175cca3357da",
+      "awayPitcherName": "Alexandria Rosales",
+      "awayBatter": null,
+      "awayBatterName": "",
+      "awayTeam": "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+      "awayTeamName": "Houston Spies",
+      "awayTeamNickname": "Spies",
+      "awayTeamColor": "#67556b",
+      "awayTeamEmoji": "0x1F575",
+      "awayOdds": 0.5070445271947428,
+      "awayStrikes": 3,
+      "awayScore": 0,
+      "awayTeamBatterCount": 8,
+      "homePitcher": "3c331c87-1634-46c4-87ce-e4b9c59e2969",
+      "homePitcherName": "Yosh Carpenter",
+      "homeBatter": "ee55248b-318a-4bfb-8894-1cc70e4e0720",
+      "homeBatterName": "Theo King",
+      "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+      "homeTeamName": "San Francisco Lovers",
+      "homeTeamNickname": "Lovers",
+      "homeTeamColor": "#780018",
+      "homeTeamEmoji": "0x1F48B",
+      "homeOdds": 0.49295547280525714,
+      "homeStrikes": 3,
+      "homeScore": 0,
+      "homeTeamBatterCount": 7,
+      "season": 9,
+      "isPostseason": true,
+      "day": 106,
+      "phase": 5,
+      "gameComplete": false,
+      "finalized": false,
+      "gameStart": true,
+      "halfInningOuts": 0,
+      "halfInningScore": 0,
+      "inning": 2,
+      "topOfInning": false,
+      "atBatBalls": 0,
+      "atBatStrikes": 1,
+      "seriesIndex": 5,
+      "seriesLength": 5,
+      "shame": false,
+      "weather": 7,
+      "baserunnerCount": 1,
+      "homeBases": 4,
+      "awayBases": 5,
+      "repeatCount": 0,
+      "awayTeamSecondaryColor": "#9e82a4",
+      "homeTeamSecondaryColor": "#da0000"
+    },
+    {
+      "id": "bdcfed85-c5af-4a43-a655-792ff8cfda9f",
+      "basesOccupied": [],
+      "baseRunners": [],
+      "baseRunnerNames": [],
+      "outcomes": [],
+      "terminology": "b67e9bbb-1495-4e1b-b517-f1444b0a6c8b",
+      "lastUpdate": "Bottom of 2, Charleston Shoe Thieves batting.",
+      "rules": "4ae9d46a-5408-460a-84fb-cbd8d03fff6c",
+      "statsheet": "778de49b-9dd5-4690-8d2d-5b518a4a9f4c",
+      "awayPitcher": "a199a681-decf-4433-b6ab-5454450bbe5e",
+      "awayPitcherName": "Leach Ingram",
+      "awayBatter": null,
+      "awayBatterName": "",
+      "awayTeam": "adc5b394-8f76-416d-9ce9-813706877b84",
+      "awayTeamName": "Kansas City Breath Mints",
+      "awayTeamNickname": "Breath Mints",
+      "awayTeamColor": "#178f55",
+      "awayTeamEmoji": "0x1F36C",
+      "awayOdds": 0.4276185264695771,
+      "awayStrikes": 3,
+      "awayScore": 0,
+      "awayTeamBatterCount": 6,
+      "homePitcher": "f0594932-8ef7-4d70-9894-df4be64875d8",
+      "homePitcherName": "Fitzgerald Wanderlust",
+      "homeBatter": null,
+      "homeBatterName": "",
+      "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+      "homeTeamName": "Charleston Shoe Thieves",
+      "homeTeamNickname": "Shoe Thieves",
+      "homeTeamColor": "#ffce0a",
+      "homeTeamEmoji": "0x1F45F",
+      "homeOdds": 0.5723814735304228,
+      "homeStrikes": 3,
+      "homeScore": 0,
+      "homeTeamBatterCount": 4,
+      "season": 9,
+      "isPostseason": true,
+      "day": 106,
+      "phase": 3,
+      "gameComplete": false,
+      "finalized": false,
+      "gameStart": true,
+      "halfInningOuts": 0,
+      "halfInningScore": 0,
+      "inning": 1,
+      "topOfInning": false,
+      "atBatBalls": 0,
+      "atBatStrikes": 0,
+      "seriesIndex": 5,
+      "seriesLength": 5,
+      "shame": false,
+      "weather": 9,
+      "baserunnerCount": 0,
+      "homeBases": 5,
+      "awayBases": 5,
+      "repeatCount": 0,
+      "awayTeamSecondaryColor": "#178f55",
+      "homeTeamSecondaryColor": "#ffce0a"
+    }
+  ],
+  "tomorrowSchedule": [],
+  "postseason": {
+    "playoffs": {
+      "id": "a24d3588-e5f5-41c1-b89c-98e9d546aaee",
+      "name": "Season 10 Postseason",
+      "numberOfRounds": 4,
+      "playoffDay": 7,
+      "rounds": [
+        "b85c7672-f932-45b9-8ae3-44bb7a5dab8d",
+        "89aef943-52cb-495f-8858-4075d585d7fb",
+        "5b21477d-0429-47f5-9f71-fb9d940b4b21",
+        "e4443a6d-03a8-4ac9-8625-351543bfdaec"
+      ],
+      "season": 9,
+      "tomorrowRound": 1,
+      "winner": null
+    },
+    "allRounds": [
+      {
+        "id": "b85c7672-f932-45b9-8ae3-44bb7a5dab8d",
+        "gameIndex": 1,
+        "games": [
+          [
+            "none",
+            "3b355907-df3d-42f2-8833-df5a81e465ac",
+            "none",
+            "none",
+            "none",
+            "e945ee23-5b79-4448-9f9c-f1f6c70a541b",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none"
+          ],
+          [
+            "none",
+            "ebb00bdb-0f49-41fb-b577-31475fe99350",
+            "none",
+            "none",
+            "none",
+            "97612dc1-264f-492c-a7eb-4f391d923651",
+            "none",
+            "none"
+          ],
+          [
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none",
+            "none"
+          ]
+        ],
+        "matchups": [
+          "13fcc855-03f1-4d05-936a-f534987954cb",
+          "0a7a11b5-66f1-4e38-a262-aea25a7ebcc9",
+          "a76225cb-b236-4d6e-a25c-dd1866a9ce97",
+          "ba961f20-d584-4da9-9051-7ba9e1f2d570",
+          "4d53e287-c900-46d1-8c69-2735f9d6388a",
+          "f50b2202-f74b-4d12-8a7a-d6a7f37fd3f0",
+          "98d6a268-1f9e-4dcc-9b39-44a682cc2bc8",
+          "6fcde907-1d58-435d-acb0-e1a20163b48d"
+        ],
+        "name": "Round 1",
+        "roundNumber": 0,
+        "special": false,
+        "winnerSeeds": [
+          0,
+          4,
+          1,
+          2,
+          0,
+          4,
+          1,
+          2
+        ],
+        "winners": [
+          "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+          "f02aeae2-5e6a-4098-9842-02d2273f25c7",
+          "b72f3061-f573-40d7-832a-5ad475bd7909",
+          "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+          "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+          "36569151-a2fb-43c1-9df7-2df512424c82",
+          "bfd38797-8404-4b38-8b82-341da28b1f83",
+          "adc5b394-8f76-416d-9ce9-813706877b84"
+        ]
+      },
+      {
+        "id": "5b21477d-0429-47f5-9f71-fb9d940b4b21",
+        "gameIndex": -1,
+        "games": [],
+        "matchups": [],
+        "name": "Round 3",
+        "roundNumber": 2,
+        "special": false,
+        "winnerSeeds": [],
+        "winners": []
+      },
+      {
+        "id": "e4443a6d-03a8-4ac9-8625-351543bfdaec",
+        "gameIndex": -1,
+        "games": [],
+        "matchups": [],
+        "name": "The Internet Series",
+        "roundNumber": 3,
+        "special": true,
+        "winnerSeeds": [],
+        "winners": []
+      },
+      {
+        "id": "89aef943-52cb-495f-8858-4075d585d7fb",
+        "gameIndex": 5,
+        "games": [
+          [
+            "e1f9b19d-1c9b-4b59-a3df-bda78f42b28d",
+            "ef69dfc1-34b3-4c9f-8706-33f0e12f542d",
+            "741074cf-f27c-4575-8ced-e2c41356d851",
+            "b4a2b2db-6c6d-4887-97d2-700458e431d8",
+            "none",
+            "none",
+            "none",
+            "none"
+          ],
+          [
+            "b6cde18b-63f7-4bcf-9f21-9381259fe3cc",
+            "4f057601-a576-4843-acc5-59885ac76e23",
+            "c2771fc3-5554-4a26-be1a-9c3576787120",
+            "76e14caa-d0b4-4978-a9f1-b5cd4456e05e",
+            "none",
+            "none",
+            "none",
+            "none"
+          ],
+          [
+            "106febd8-03f0-4cef-9bfc-5ba726acdd6f",
+            "8de88938-9086-4b4c-9cb6-5e232f65746e",
+            "cb789bdd-2567-4ca8-81b0-ed501f532228",
+            "6ecc30a9-81bc-4770-9eea-279d89079a8f"
+          ],
+          [
+            "5ceda611-79ab-4dac-9f94-c0e82c729944",
+            "32403ed1-32c4-4993-9f46-9982160684e5",
+            "d0812d28-2e90-4f1c-a1cd-41fb1f4582e2",
+            "0a5ad466-78c6-4139-a1f5-b479b9e29c29"
+          ],
+          [
+            "none",
+            "0b0e4b27-4b38-4085-ba76-e7097a6d220f",
+            "58723763-2e34-4b5c-bd7f-beffaa5f2669",
+            "195f5864-0cf7-4d41-9ce6-9103e133672e"
+          ],
+          [
+            "none",
+            "adfa807d-6c9a-4ca0-a2e0-1859ce67cfd7",
+            "none",
+            "bdcfed85-c5af-4a43-a655-792ff8cfda9f"
+          ]
+        ],
+        "matchups": [
+          "ad492859-1830-4d30-8f68-87894ec9a8ae",
+          "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+          "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+          "e071d81a-f58e-4489-b455-5cce612aa648"
+        ],
+        "name": "Round 2",
+        "roundNumber": 1,
+        "special": false,
+        "winnerSeeds": [
+          0,
+          -1,
+          4,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "winners": [
+          "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+          "none",
+          "36569151-a2fb-43c1-9df7-2df512424c82",
+          "none",
+          "none",
+          "none",
+          "none",
+          "none"
+        ]
+      }
+    ],
+    "allMatchups": [
+      {
+        "id": "13fcc855-03f1-4d05-936a-f534987954cb",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "homeWins": 0
+      },
+      {
+        "id": "ba961f20-d584-4da9-9051-7ba9e1f2d570",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 2,
+        "homeTeam": "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+        "homeWins": 0
+      },
+      {
+        "id": "f50b2202-f74b-4d12-8a7a-d6a7f37fd3f0",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "36569151-a2fb-43c1-9df7-2df512424c82",
+        "awayWins": 2,
+        "homeSeed": 3,
+        "homeTeam": "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7",
+        "homeWins": 0
+      },
+      {
+        "id": "0a7a11b5-66f1-4e38-a262-aea25a7ebcc9",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "f02aeae2-5e6a-4098-9842-02d2273f25c7",
+        "awayWins": 2,
+        "homeSeed": 3,
+        "homeTeam": "878c1bf6-0d21-4659-bfee-916c8314d69c",
+        "homeWins": 0
+      },
+      {
+        "id": "a76225cb-b236-4d6e-a25c-dd1866a9ce97",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 1,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 0
+      },
+      {
+        "id": "4d53e287-c900-46d1-8c69-2735f9d6388a",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "homeWins": 0
+      },
+      {
+        "id": "98d6a268-1f9e-4dcc-9b39-44a682cc2bc8",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 1,
+        "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+        "homeWins": 0
+      },
+      {
+        "id": "6fcde907-1d58-435d-acb0-e1a20163b48d",
+        "name": null,
+        "awaySeed": null,
+        "awayTeam": null,
+        "awayWins": 0,
+        "homeSeed": 2,
+        "homeTeam": "adc5b394-8f76-416d-9ce9-813706877b84",
+        "homeWins": 0
+      },
+      {
+        "id": "ad492859-1830-4d30-8f68-87894ec9a8ae",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "f02aeae2-5e6a-4098-9842-02d2273f25c7",
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "homeWins": 3
+      },
+      {
+        "id": "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "36569151-a2fb-43c1-9df7-2df512424c82",
+        "awayWins": 3,
+        "homeSeed": 0,
+        "homeTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "homeWins": 1
+      },
+      {
+        "id": "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 2
+      },
+      {
+        "id": "e071d81a-f58e-4489-b455-5cce612aa648",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "adc5b394-8f76-416d-9ce9-813706877b84",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+        "homeWins": 2
+      }
+    ],
+    "round": {
+      "id": "89aef943-52cb-495f-8858-4075d585d7fb",
+      "gameIndex": 5,
+      "games": [
+        [
+          "e1f9b19d-1c9b-4b59-a3df-bda78f42b28d",
+          "ef69dfc1-34b3-4c9f-8706-33f0e12f542d",
+          "741074cf-f27c-4575-8ced-e2c41356d851",
+          "b4a2b2db-6c6d-4887-97d2-700458e431d8",
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        [
+          "b6cde18b-63f7-4bcf-9f21-9381259fe3cc",
+          "4f057601-a576-4843-acc5-59885ac76e23",
+          "c2771fc3-5554-4a26-be1a-9c3576787120",
+          "76e14caa-d0b4-4978-a9f1-b5cd4456e05e",
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        [
+          "106febd8-03f0-4cef-9bfc-5ba726acdd6f",
+          "8de88938-9086-4b4c-9cb6-5e232f65746e",
+          "cb789bdd-2567-4ca8-81b0-ed501f532228",
+          "6ecc30a9-81bc-4770-9eea-279d89079a8f"
+        ],
+        [
+          "5ceda611-79ab-4dac-9f94-c0e82c729944",
+          "32403ed1-32c4-4993-9f46-9982160684e5",
+          "d0812d28-2e90-4f1c-a1cd-41fb1f4582e2",
+          "0a5ad466-78c6-4139-a1f5-b479b9e29c29"
+        ],
+        [
+          "none",
+          "0b0e4b27-4b38-4085-ba76-e7097a6d220f",
+          "58723763-2e34-4b5c-bd7f-beffaa5f2669",
+          "195f5864-0cf7-4d41-9ce6-9103e133672e"
+        ],
+        [
+          "none",
+          "adfa807d-6c9a-4ca0-a2e0-1859ce67cfd7",
+          "none",
+          "bdcfed85-c5af-4a43-a655-792ff8cfda9f"
+        ]
+      ],
+      "matchups": [
+        "ad492859-1830-4d30-8f68-87894ec9a8ae",
+        "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+        "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+        "e071d81a-f58e-4489-b455-5cce612aa648"
+      ],
+      "name": "Round 2",
+      "roundNumber": 1,
+      "special": false,
+      "winnerSeeds": [
+        0,
+        -1,
+        4,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "winners": [
+        "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "none",
+        "36569151-a2fb-43c1-9df7-2df512424c82",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    "matchups": [
+      {
+        "id": "ad492859-1830-4d30-8f68-87894ec9a8ae",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "f02aeae2-5e6a-4098-9842-02d2273f25c7",
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "homeWins": 3
+      },
+      {
+        "id": "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 2
+      },
+      {
+        "id": "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "36569151-a2fb-43c1-9df7-2df512424c82",
+        "awayWins": 3,
+        "homeSeed": 0,
+        "homeTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "homeWins": 1
+      },
+      {
+        "id": "e071d81a-f58e-4489-b455-5cce612aa648",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "adc5b394-8f76-416d-9ce9-813706877b84",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+        "homeWins": 2
+      }
+    ],
+    "tomorrowRound": {
+      "id": "89aef943-52cb-495f-8858-4075d585d7fb",
+      "gameIndex": 5,
+      "games": [
+        [
+          "e1f9b19d-1c9b-4b59-a3df-bda78f42b28d",
+          "ef69dfc1-34b3-4c9f-8706-33f0e12f542d",
+          "741074cf-f27c-4575-8ced-e2c41356d851",
+          "b4a2b2db-6c6d-4887-97d2-700458e431d8",
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        [
+          "b6cde18b-63f7-4bcf-9f21-9381259fe3cc",
+          "4f057601-a576-4843-acc5-59885ac76e23",
+          "c2771fc3-5554-4a26-be1a-9c3576787120",
+          "76e14caa-d0b4-4978-a9f1-b5cd4456e05e",
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        [
+          "106febd8-03f0-4cef-9bfc-5ba726acdd6f",
+          "8de88938-9086-4b4c-9cb6-5e232f65746e",
+          "cb789bdd-2567-4ca8-81b0-ed501f532228",
+          "6ecc30a9-81bc-4770-9eea-279d89079a8f"
+        ],
+        [
+          "5ceda611-79ab-4dac-9f94-c0e82c729944",
+          "32403ed1-32c4-4993-9f46-9982160684e5",
+          "d0812d28-2e90-4f1c-a1cd-41fb1f4582e2",
+          "0a5ad466-78c6-4139-a1f5-b479b9e29c29"
+        ],
+        [
+          "none",
+          "0b0e4b27-4b38-4085-ba76-e7097a6d220f",
+          "58723763-2e34-4b5c-bd7f-beffaa5f2669",
+          "195f5864-0cf7-4d41-9ce6-9103e133672e"
+        ],
+        [
+          "none",
+          "adfa807d-6c9a-4ca0-a2e0-1859ce67cfd7",
+          "none",
+          "bdcfed85-c5af-4a43-a655-792ff8cfda9f"
+        ]
+      ],
+      "matchups": [
+        "ad492859-1830-4d30-8f68-87894ec9a8ae",
+        "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+        "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+        "e071d81a-f58e-4489-b455-5cce612aa648"
+      ],
+      "name": "Round 2",
+      "roundNumber": 1,
+      "special": false,
+      "winnerSeeds": [
+        0,
+        -1,
+        4,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "winners": [
+        "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "none",
+        "36569151-a2fb-43c1-9df7-2df512424c82",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    "tomorrowMatchups": [
+      {
+        "id": "ad492859-1830-4d30-8f68-87894ec9a8ae",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "f02aeae2-5e6a-4098-9842-02d2273f25c7",
+        "awayWins": 0,
+        "homeSeed": 0,
+        "homeTeam": "8d87c468-699a-47a8-b40d-cfb73a5660ad",
+        "homeWins": 3
+      },
+      {
+        "id": "fc82f75a-0656-4c5c-934f-803ad5fa8f79",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "b72f3061-f573-40d7-832a-5ad475bd7909",
+        "homeWins": 2
+      },
+      {
+        "id": "3ed76a01-d7ff-4109-80bd-f4155cf69294",
+        "name": null,
+        "awaySeed": 4,
+        "awayTeam": "36569151-a2fb-43c1-9df7-2df512424c82",
+        "awayWins": 3,
+        "homeSeed": 0,
+        "homeTeam": "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff",
+        "homeWins": 1
+      },
+      {
+        "id": "e071d81a-f58e-4489-b455-5cce612aa648",
+        "name": null,
+        "awaySeed": 2,
+        "awayTeam": "adc5b394-8f76-416d-9ce9-813706877b84",
+        "awayWins": 2,
+        "homeSeed": 1,
+        "homeTeam": "bfd38797-8404-4b38-8b82-341da28b1f83",
+        "homeWins": 2
+      }
+    ]
+  },
+  "clientMeta": {
+    "timestamp": 1602957934722,
+    "processId": "5778fe05-48eb-4635-a442-c3662b4e6538",
+    "lastEventId": ""
+  }
+}

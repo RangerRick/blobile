@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { createPatch } from 'rfc6902/dist/rfc6902'
+import { Subject } from 'rxjs';
+import { createPatch } from 'rfc6902/dist/rfc6902';
 
 import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
 const { App, Device, EventSource } = Plugins;
@@ -226,12 +226,12 @@ export class APIStream {
       if (!this.streamData) {
         this.streamData = new StreamData({});
       }
-  
+
       for (const key of Object.keys(parsed)) {
         this.streamData.data[key] = parsed[key];
       }
     }
- 
+
     // always publish the latest, so things refresh
     if (this.subject) {
       this.subject.next(this.streamData);

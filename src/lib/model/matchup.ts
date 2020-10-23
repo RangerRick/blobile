@@ -1,14 +1,14 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 import { AngularDelegate } from '@ionic/angular';
 
 export class Matchup extends Entry {
-  public id: string;
+  public id: ID;
   // public name: any;
   public awaySeed: number;
-  public awayTeam: string;
+  public awayTeam: ID;
   public awayWins: number;
   public homeSeed: number;
-  public homeTeam: string;
+  public homeTeam: ID;
   public homeWins: number;
 
   constructor(data?: any) {

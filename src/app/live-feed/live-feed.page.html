@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-toolbar *ngIf="ready && !showCountdown()">
+  <ion-toolbar *ngIf="ready && !uiState.notice">
     <ion-buttons slot="primary">
       <!-- this is just to fix spacing for now, I'll figure out something better eventually -->
       <ion-button>
@@ -48,29 +48,23 @@
   </ion-refresher>
   <ion-searchbar *ngIf="filterVisible" debounce="200" value="{{searchTerm}}" showCancelButton="focus" (ionInput)="filterList($event)"></ion-searchbar>
   <span *ngIf="ready">
-    <span *ngIf="showCountdown()">
-      <span *ngIf="isPostseasonComplete()">
-        <ion-item lines="none">
-          <h4>Season {{streamData.seasonNumber}} is over.</h4>
-        </ion-item>
-        <ion-item lines="none" *ngIf="getWinner() && getWinner().fullName">
-          <h4>The <span [style]="'color: ' + getWinner().mainColor">{{getWinner().fullName}}</span> are the Champions!</h4>
-        </ion-item>
-        <ion-item lines="none" *ngIf="countdown && countdown.diff >= 0">
-          <h4>Next Season Starts In:<br>{{getCountdown()}}.</h4>
-        </ion-item>
-        <ion-item lines="none" *ngIf="countdown && countdown.diff &lt; 0">
-          <h4>Next season starts in... uhh.  <i>*tugs collar*</i> I mean. What <i>is</i> time, really?</h4>
-        </ion-item>
-      </span>
-      <span *ngIf="!isPostseasonComplete() && isPostseason()">
-        <ion-item lines="none">
-          <h4>Regular season is over.</h4>
-        </ion-item>
-        <ion-item lines="none" *ngIf="countdown && countdown.diff >= 0">
-          <h4>Postseason Starts In:<br>{{getCountdown()}}.</h4>
-        </ion-item>
-      </span>
+    <span *ngIf="uiState.notice">
+      <ion-item lines="none">
+        <h4>{{uiState.notice}}</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="uiState.winner">
+        <h4>The <span [style]="'color: ' + uiState.winner.mainColor">{{uiState.winner.fullName}}</span> are the Champions!</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="uiState.countdownNotice && countdown && countdown.diff >= 0">
+        <h4>
+          {{uiState.countdownNotice}}
+          <br>
+          {{getCountdown()}}
+        </h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="uiState.countdownNotice && countdown && countdown.diff &lt; 0">
+        <h4>Next season starts in... uhh.  <i>*tugs collar*</i> I mean. What <i>is</i> time, really?</h4>
+      </ion-item>
       <div id="marquee" data-speed="1">
         <div class="marquee">
           <div class="marquee-item" *ngFor="let event of globalEvents">
@@ -82,29 +76,33 @@
         </div>
       </div>
     </span>
-    <span *ngIf="!showCountdown()">
-      <ion-item lines="none" *ngIf="streamData.games.isPostseason()">
-        <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Postseason Round {{streamData.games.postseason.round.roundNumber}}, Day {{streamData.games.sim.day}}</h4>
-      </ion-item>
-      <ion-item lines="none" *ngIf="!streamData.games.isPostseason()">
-        <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">Season {{streamData.games.season.seasonNumber}}, Day {{streamData.games.sim.day}}</h4>
-      </ion-item>
-      <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
-        <span *ngIf="streamData.games.isPostseason()">
-          No active games for postseason day {{getPlayoffDay()}}.
-        </span>
-        <span *ngIf="!streamData.games.isPostseason()">
+    <span *ngIf="!uiState.notice">
+      <span *ngIf="phase === PHASES.BOSS_FIGHT">
+        <ion-grid style="margin-top: 0; padding-top: 0">
+          <ion-row>
+            <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
+            <ion-col size="12" *ngFor="let game of streamData.fights.bossFights; trackBy: gameId">
+              <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </span>
+      <span *ngIf="phase !== PHASES.BOSS_FIGHT">
+        <ion-item lines="none" *ngIf="uiState.seasonHeader">
+          <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">{{uiState.seasonHeader}}</h4>
+        </ion-item>
+        <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
           No active games for day {{streamData.games.sim.day}}.
-        </span>
-      </ion-item>
-      <ion-grid style="margin-top: 0; padding-top: 0">
-        <ion-row>
-          <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
-          <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-            <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+        </ion-item>
+        <ion-grid style="margin-top: 0; padding-top: 0">
+          <ion-row>
+            <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
+            <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
+              <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </span>
     </span>
   </span>
 </ion-content>

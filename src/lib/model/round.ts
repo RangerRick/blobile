@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Round extends Entry {
-  public id: string;
+  public id: ID;
   public gameIndex: number;
   public name: string;
   public roundNumber: number;
@@ -28,4 +28,7 @@ export class Round extends Entry {
     ]);
   }
 
+  public get winners(): ID[] {
+    return this.data?.winners || [];
+  }
 }

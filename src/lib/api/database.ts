@@ -110,9 +110,9 @@ export class APIDatabase {
       // if it succeeds, cache it
       console.debug(`APIDatabase.get(): caching: ${url}`);
       this.cache[url] = {
-        url,
+        expiration,
         response: Promise.resolve(ret),
-        expiration: expiration,
+        url,
       };
       return ret;
     });
@@ -125,9 +125,9 @@ export class APIDatabase {
       if (d >= 0) {
         const games = await this.gamesByDay(season, d);
         // console.debug('Database.seriesRecord(): games=', games);
-        const game = games.filter((game:Game) => {
-          return (game.awayTeam === teamA && game.homeTeam === teamB)
-            || (game.homeTeam === teamA && game.awayTeam === teamB);
+        const game = games.filter((g: Game) => {
+          return (g.awayTeam === teamA && g.homeTeam === teamB)
+            || (g.homeTeam === teamA && g.awayTeam === teamB);
         })[0];
         if (game && game.gameComplete) {
           if (game.winnerId === teamA) {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { SettingsPage } from './settings.page';
@@ -10,7 +10,7 @@ describe('SettingsPage', () => {
   let fixture: ComponentFixture<SettingsPage>;
   let deploySpy: Deploy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
     deploySpy.getConfiguration = async () => {
       return Promise.resolve({

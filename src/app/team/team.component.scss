@@ -48,3 +48,11 @@ app-team, .bl-team {
 
   */
 }
+
+.bl-hide-name {
+  .bl-team-emoji {
+    &.home, &.away {
+      margin: 0 !important;
+    }
+  }
+}

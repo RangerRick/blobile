@@ -41,7 +41,7 @@ export default abstract class Util {
       // there's still an effect showing
       return;
     }
-    console.debug(`Util.message(): id=${id}, message=${message}`)
+    console.debug(`Util.message(): id=${id}, message=${message}`);
 
     const diamondContents = document.getElementById(id);
     if (diamondContents) {

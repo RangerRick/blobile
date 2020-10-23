@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Subleague extends Entry {
-  public get id(): string {
+  public get id(): ID {
     return this.data.id;
   }
 
@@ -9,7 +9,7 @@ export class Subleague extends Entry {
     return this.data.name;
   }
 
-  public get divisions(): string[] {
+  public get divisions(): ID[] {
     return this.data.divisions || [];
   }
 }

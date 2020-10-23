@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, LoadingController } from '@ionic/angular';
 
 import { LiveFeedPage } from './live-feed.page';
@@ -10,7 +10,7 @@ describe('LiveFeedPage', () => {
 
   let loadingSpy, settingsSpy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     settingsSpy = {} as SettingsService;
     settingsSpy.ready = Promise.resolve();
     settingsSpy.segment = () => {

@@ -76,7 +76,7 @@ export class SettingsService {
           volume: 1.0,
         }),
         Storage.get({key: 'favorites'}).then((favorites) => {
-          this.settings.favorites = JSON.parse(favorites?.value || "{}");
+          this.settings.favorites = JSON.parse(favorites?.value || '{}');
         }),
       ]);
     } catch (err) {
@@ -97,7 +97,7 @@ export class SettingsService {
     return true;
   }
 
-  async configureBooleans(entries: {[key:string]: boolean }) {
+  async configureBooleans(entries: {[key: string]: boolean }) {
     const promises = Object.keys(entries).map(async (key: string) => {
       return Storage.get({key}).then((value) => {
         if (value?.value !== undefined) {
@@ -111,7 +111,7 @@ export class SettingsService {
     return Promise.all(promises);
   }
 
-  async configureNumbers(entries: { [key:string]: number }) {
+  async configureNumbers(entries: { [key: string]: number }) {
     const promises = Object.keys(entries).map(async (key: string) => {
       return Storage.get({key}).then((value) => {
         if (value?.value) {
@@ -124,7 +124,7 @@ export class SettingsService {
     return Promise.all(promises);
   }
 
-  async configureStrings(entries: { [key:string]: string }) {
+  async configureStrings(entries: { [key: string]: string }) {
     const promises = Object.keys(entries).map(async (key: string) => {
       return Storage.get({key}).then((value) => {
         this.settings[key] = value?.value || entries[key];
@@ -274,7 +274,7 @@ export class SettingsService {
           channel: enabled ? 'Beta' : 'Stable'
         });
       } catch (err) {
-        console.error(`Failed to ${enabled ? 'enable':'disable'} the beta channel:`, err);
+        console.error(`Failed to ${enabled ? 'enable' : 'disable'} the beta channel:`, err);
         console.debug(`setBetaEnabled: ${enabled}`);
       }
     }

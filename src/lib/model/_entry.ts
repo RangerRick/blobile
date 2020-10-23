@@ -1,3 +1,5 @@
+export type ID = string;
+
 export class Entry {
   constructor(public data?: any) {
     if (this.data === undefined) {

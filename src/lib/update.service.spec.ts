@@ -11,7 +11,7 @@ describe('UpdateService', () => {
 
   beforeEach(() => {
     deploySpy = jasmine.createSpyObj('Deploy', ['configure', 'sync']);
-    platformSpy = jasmine.createSpyObj('Platform', { 'ready': Promise.resolve("test") });
+    platformSpy = jasmine.createSpyObj('Platform', { ready: Promise.resolve('test') });
     TestBed.configureTestingModule({
       providers: [
         { provide: Deploy, useValue: deploySpy },

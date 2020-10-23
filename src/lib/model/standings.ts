@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export interface Record {
-  id: string;
+  id: ID;
   wins: number;
   losses: number;
 }

@@ -93,7 +93,7 @@ export class SettingsPage implements OnInit {
   }
 
   getTeamName(id: string) {
-    const team = this.teams.find((team: Team) => team.id === id);
+    const team = this.teams.find((t: Team) => t.id === id);
     return team ? team.fullName : '';
   }
 

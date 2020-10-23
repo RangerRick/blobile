@@ -1,7 +1,7 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Player extends Entry {
-  public id: string;
+  public id: ID;
   public name: string;
   public deceased: boolean;
   public fate: number;

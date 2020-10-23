@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 
 import { SettingsService } from '../../lib/settings.service';
 import { APIDatabase } from '../../lib/api/database';
+import { BossFight } from '../../lib/model/bossfight';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
@@ -23,7 +24,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./diamond.component.scss'],
 })
 export class DiamondComponent implements DoCheck, OnInit {
-  @Input() public game: Game;
+  @Input() public game: Game | BossFight;
   @Input() public allowOpenGame = true;
   @Input() public prefix = 'diamond';
   @Input() public hideLog = false;
@@ -51,9 +52,10 @@ export class DiamondComponent implements DoCheck, OnInit {
 
   public teams = {} as { [key: string]: Team };
 
-  private oldGame = {} as Game;
+  private oldGame = {} as Game | BossFight;
   public environment = environment;
   public record: [number, number];
+  public isBossFight: boolean;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -63,6 +65,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   ) {
     // console.debug('Diamond component created.');
   }
+
   async ngOnInit() {
     // console.debug('Diamond component initialized.');
     // console.debug(this.game);
@@ -73,6 +76,8 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.teams[team.id] = team;
     }
 
+    this.checkBossFight();
+
     return true;
   }
 
@@ -82,15 +87,27 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.changeDetector.markForCheck();
       this.oldGame = this.game;
       this.checkInterestingEvents();
+      this.checkBossFight();
       // this.retrieveRecord();
     }
+  }
+
+  checkBossFight() {
+    // this.isBossFight = true;
+    this.isBossFight = this.game instanceof BossFight;
   }
 
   /* turns out TGB stopped making this expensive calculation too ;) */
   async retrieveRecord() {
     if (this.game && !this.record) {
       try {
-        this.record = await this.database.seriesRecord(this.game.homeTeam, this.game.awayTeam, this.game.season - 1, this.game.day - 1, this.game.seriesIndex);
+        this.record = await this.database.seriesRecord(
+          this.game.homeTeam,
+          this.game.awayTeam,
+          this.game.season - 1,
+          this.game.day - 1,
+          this.game.seriesIndex,
+        );
         // console.debug(`DiamondComponent.retrieveRecord():`, this.record);
       } catch (err) {
         console.error('DiamondComponent.retrieveRecord(): failed to get series record', err);
@@ -105,6 +122,7 @@ export class DiamondComponent implements DoCheck, OnInit {
 
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
+    // tslint:disable-next-line:prefer-const
     let update = this.game?.lastUpdate?.toLowerCase() || '';
 
     // just for testing

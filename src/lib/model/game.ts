@@ -1,11 +1,11 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 import { sha256 } from 'hash.js';
 import { Player } from './player';
 import { WEATHER } from './weather';
 
 export class Game extends Entry {
-  id: string;
+  id: ID;
   atBatBalls: number;
   atBatStrikes: number;
   awayBalls: number;
@@ -14,11 +14,11 @@ export class Game extends Entry {
   awayBatterName: string;
   awayOdds: number;
   awayOuts: number;
-  awayPitcher: string;
+  awayPitcher: ID;
   awayPitcherName: string;
   awayScore: number;
   awayStrikes: number;
-  awayTeam: string;
+  awayTeam: ID;
   awayTeamBatterCount: number;
   awayTeamColor: string;
   awayTeamName: string;
@@ -33,15 +33,15 @@ export class Game extends Entry {
   halfInningScore: number;
   homeBalls: number;
   homeBases: number;
-  homeBatter: string;
+  homeBatter: ID;
   homeBatterName: string;
   homeOdds: number;
   homeOuts: number;
-  homePitcher: string;
+  homePitcher: ID;
   homePitcherName: string;
   homeScore: number;
   homeStrikes: number;
-  homeTeam: string;
+  homeTeam: ID;
   homeTeamBatterCount: number;
   homeTeamColor: string;
   homeTeamName: string;
@@ -53,13 +53,13 @@ export class Game extends Entry {
   phase: number;
   playCount: number;
   repeatCount: number;
-  rules: string;
+  rules: ID;
   season: number;
   seriesIndex: number;
   seriesLength: number;
   shame: boolean;
-  statsheet: string;
-  terminology: string;
+  statsheet: ID;
+  terminology: ID;
   topOfInning: boolean;
   weather: number;
 
@@ -135,7 +135,14 @@ export class Game extends Entry {
     ]);
 
     const hash = sha256();
-    for (const prop of [
+    for (const prop of this.hashKeys()) {
+      hash.update(this.data?.[prop]);
+    }
+    this.hash = hash.digest('hex');
+  }
+
+  protected hashKeys() {
+    return [
       'awayBatter',
       'homeBatter',
       'lastUpdate',
@@ -150,10 +157,7 @@ export class Game extends Entry {
       'gameComplete',
       'gameStart',
       'topOfInning',
-    ]) {
-      hash.update(this.data?.[prop]);
-    }
-    this.hash = hash.digest('hex');
+    ];
   }
 
   public get awayBatting() {

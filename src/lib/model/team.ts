@@ -1,9 +1,9 @@
 import * as Color from 'color';
 
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Team extends Entry {
-  public id: string;
+  public id: ID;
   public championships: number;
   public fullName: string;
   public location: string;
@@ -43,19 +43,19 @@ export class Team extends Entry {
     ]);
   }
 
-  public get bench(): string[] {
+  public get bench(): ID[] {
     return this.data.bench || [];
   }
 
-  public get bullpen(): string[] {
+  public get bullpen(): ID[] {
     return this.data.bullpen || [];
   }
 
-  public get lineup(): string[] {
+  public get lineup(): ID[] {
     return this.data.lineup || [];
   }
 
-  public get rotation(): string[] {
+  public get rotation(): ID[] {
     return this.data.rotation || [];
   }
 

@@ -1,14 +1,14 @@
-import { Entry } from './_entry';
+import { Entry, ID } from './_entry';
 
 export class Season extends Entry {
-  public id: string;
-  public league: string;
-  public rules: string;
-  public schedule: string;
+  public id: ID;
+  public league: ID;
+  public rules: ID;
+  public schedule: ID;
   public seasonNumber: number;
-  public standings: string;
-  public stats: string;
-  public terminology: string;
+  public standings: ID;
+  public stats: ID;
+  public terminology: ID;
 
   constructor(data?: any) {
     super(data);
