@@ -11,11 +11,7 @@
   },
   "cordova": {
     "preferences": {
-      "DisableDeploy": "true"
+      "DisableDeploy": "false"
     }
-  },
-  "server": {
-    "url": "http://192.168.211.228:8100",
-    "cleartext": true
   }
 }
