@@ -1,3 +1,4 @@
+import { PHASES } from './phases';
 import { Entry } from './_entry';
 
 export interface Countdown {
@@ -13,8 +14,8 @@ export class Sim extends Entry {
   public eraColor: string;
   public eraTitle: string;
   public league: string;
-  public phase: number;
   public playoffs: string;
+  public playOffRound: number;
   public rules: string;
   public season: number;
   public seasonId: string;
@@ -40,13 +41,13 @@ export class Sim extends Entry {
 
     this.defineIncrementedNumbers([
       'day',
-      'playoffRound',
+      'playOffRound',
       'season',
     ]);
+  }
 
-    this.defineNumbers([
-      'phase',
-    ]);
+  public get phase(): PHASES {
+    return this.data?.phase || 0;
   }
 
   countdownToNextPhase(from?: number) {

@@ -8,6 +8,8 @@ import { Round } from './round';
 import { Playoffs } from './playoffs';
 import { Season } from './season';
 import { Sim } from './sim';
+import { PHASES } from './phases';
+import { BossFight } from './bossfight';
 
 export class StreamData extends Entry {
   public get seasonNumber() {
@@ -63,4 +65,17 @@ export class StreamData extends Entry {
       return new Playoffs(this.data.games.postseason.playoffs);
     }
   }
+
+  public phase(now = Date.now()): PHASES {
+    const bossFights = this.fights?.bossFights || [];
+    const bossFightStarted = bossFights.reduce((started: boolean, fight: BossFight) => {
+      return started || fight.gameStart;
+    }, false);
+    if (bossFightStarted) {
+      return PHASES.BOSS_FIGHT;
+    }
+
+    return this.games.gamePhase();
+  }
+
 }

@@ -1,0 +1,31 @@
+// from https://docs.sibr.dev/docs/apis/docs/phases.md
+
+export enum PHASES {
+  POST_ELECTION,
+  PRESEASON,
+  REGULAR_SEASON,
+  OFFSEASON,
+  POSTSEASON,
+  PRE_ELECTION,
+  POST_PRE_ELECTION,
+  PRE_OFFSEASON,
+  UNKNOWN_THE_OCHO,
+  BOSS_FIGHT,
+  WILDCARD,
+  POST_WILDCARD,
+}
+
+/* Actual order:
+
+POST_ELECTION (0)
+PRESEASON (1)
+REGULAR_SEASON (2)
+PRE_OFFSEASON (7, pre-pre-wildcard)
+OFFSEASON (3, pre-wildcard)
+WILDCARD (10)
+POST_WILDCARD (11)
+POSTSEASON (4)
+BOSS_FIGHT (9)
+PRE_ELECTION (5)
+POST_PRE_ELECTION (6)
+*/
