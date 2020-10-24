@@ -327,6 +327,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     };
 
     const day = this.streamData.games.sim.day;
+    const round = this.streamData.sim.playOffRound;
     const phase = this.streamData.sim.phase;
     switch (phase) {
       case PHASES.PRESEASON:
@@ -357,12 +358,16 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       }
       case PHASES.WILDCARD:
       {
-        uiState.seasonHeader = `Wildcard Round, Day ${day}`;
-        break;
+        if (round === 1) {
+          uiState.seasonHeader = `Wildcard Round, Day ${day}`;
+          break;
+        }
+        // if round is > 1, fall through to postseason
       }
       case PHASES.POSTSEASON:
       {
         uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseason.round.roundNumber}, Day ${day}`;
+        break;
       }
       default:
         uiState.seasonHeader = `Season ${this.streamData.games.season.seasonNumber}, Day ${day}`;
