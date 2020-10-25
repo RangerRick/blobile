@@ -239,7 +239,7 @@
         <ion-col size="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
           <ion-grid class="series-record">
             <ion-row class="ion-align-items-end">
-              <ion-col size="4">
+              <ion-col size="6">
                 <span *ngIf="!game.isPostseason">
                   Game {{game.seriesIndex}} / {{game.seriesLength}}
                 </span>
@@ -247,8 +247,8 @@
                   Game {{game.seriesIndex}}<br>{{game.seriesLength}} Wins Needed
                 </span>
               </ion-col>
-              <ion-col size="8" class="ion-text-end">
-                Weather: {{game.weatherString}}
+              <ion-col size="6" class="ion-text-end">
+                {{game.weatherString}}
               </ion-col>
               <!-- TGB is not doing this anymore -->
               <!--

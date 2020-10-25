@@ -326,9 +326,14 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       winner: undefined,
     };
 
-    const day = this.streamData.games.sim.day;
-    const round = this.streamData.sim.playOffRound;
-    const phase = this.streamData.sim.phase;
+    if (!this.streamData && !this.streamData.sim) {
+      return;
+    }
+
+    const day = this.streamData?.games?.sim?.day;
+    const round = this.streamData?.sim?.playOffRound;
+    const phase = this.streamData?.sim?.phase;
+
     switch (phase) {
       case PHASES.PRESEASON:
       case PHASES.PRE_ELECTION:
@@ -370,7 +375,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         break;
       }
       default:
-        uiState.seasonHeader = `Season ${this.streamData.games.season.seasonNumber}, Day ${day}`;
+        uiState.seasonHeader = `Season ${this.streamData?.games?.season?.seasonNumber}, Day ${day}`;
         break;
     }
 

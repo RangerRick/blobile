@@ -33,9 +33,11 @@
               <ion-label class="team-name">{{team.name}}</ion-label>
               <ion-note class="team-wins" slot="end" [style]="'--color: ' + team.mainTextColor">
                 {{team.wins}}-{{team.losses}}
+              <!--
                 <div class="playoffs" *ngIf="team.playoffs">🏆</div>
                 <div class="playoffs" *ngIf="!team.playoffs">&nbsp;</div>
-              </ion-note>
+              -->
+            </ion-note>
             </ion-item>
           </ion-card-content>
         </ion-card>
