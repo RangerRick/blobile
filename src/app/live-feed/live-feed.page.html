@@ -53,7 +53,12 @@
         <h4>{{uiState.notice}}</h4>
       </ion-item>
       <ion-item lines="none" *ngIf="uiState.winner">
-        <h4>The <span [style]="'color: ' + uiState.winner.mainColor">{{uiState.winner.fullName}}</span> are the Champions!</h4>
+        <h4>
+          The
+          <!-- <span [style]="'color: ' + uiState.winner.mainColor">{{uiState.winner.fullName}}</span> -->
+          <app-team team="home" [teamColor]="uiState.winner.mainColor" [emoji]="uiState.winner.emoji" [name]="uiState.winner.fullName"></app-team>
+          are the Champions!
+        </h4>
       </ion-item>
       <ion-item lines="none" *ngIf="uiState.countdownNotice && countdown && countdown.diff >= 0">
         <h4>

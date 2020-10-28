@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { LiveFeedPage } from './live-feed.page';
 import { DiamondComponentModule } from '../diamond/diamond.module';
 import { LiveFeedPageRoutingModule } from './live-feed-routing.module';
+import { TeamComponentModule } from '../team/team.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { LiveFeedPageRoutingModule } from './live-feed-routing.module';
     FormsModule,
     LiveFeedPageRoutingModule,
     DiamondComponentModule,
+    TeamComponentModule,
   ],
   declarations: [LiveFeedPage]
 })
