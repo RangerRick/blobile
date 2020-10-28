@@ -192,7 +192,9 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   getWinner() {
     const winner = this.streamData?.games?.postseason?.playoffs?.winner;
     if (winner) {
-      return this.streamData.leagues.teams.find((team: Team) => team.id === winner);
+      const team = this.streamData.leagues.teams.find((team: Team) => team.id === winner);
+      console.debug('getWinner():', team);
+      return team;
     }
     return undefined;
   }
