@@ -23,7 +23,6 @@ export class Team extends Entry {
 
     this.defineStrings([
       'id',
-      'emoji',
       'fullName',
       'location',
       'mainColor',
