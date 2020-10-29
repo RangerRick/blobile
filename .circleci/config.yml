@@ -69,9 +69,9 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Mergev2.x to Main
+            name: Merge v2.x to Main
             command: |
-              git checkout main
+              git checkout v2.x
               git pull
               git merge -m 'automated merge from v2.x -> main' --log v2.x
         - cached-npm-install
@@ -128,13 +128,6 @@ jobs:
               git push
 
 workflows:
-  run-tests:
-    jobs:
-      - run-tests:
-          filters:
-            branches:
-              ignore:
-                - v1.x
   run-tests-and-deploy:
     jobs:
       - run-tests
@@ -144,7 +137,6 @@ workflows:
           filters:
             branches:
               only:
-                - v1.x
                 - v2.x
       - merge-pages:
           requires:
