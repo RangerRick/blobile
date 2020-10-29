@@ -9,7 +9,7 @@ Blases Loaded is not developed, nor endorsed, by The Game Band.
 
 You can just run it as a "progressive" web app in your browser, with most features equivalent to the mobile version.  Just point your browser to:
 
-* https://rangerrick.github.io/blobile/
+* https://blases-loaded.sibr.dev/
 
 ## Install from App Store
 
