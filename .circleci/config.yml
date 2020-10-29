@@ -61,7 +61,7 @@ jobs:
         - run:
             name: Run Tests
             command: npm --prefer-offline --no-progress run test-headless
-  merge-main:
+  merge-branch:
       docker:
         - image: circleci/node:12-browsers
           environment:
@@ -69,11 +69,11 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Merge v1.x to Main
+            name: Mergev2.x to Main
             command: |
               git checkout main
               git pull
-              git merge -m 'automated merge from v1.x -> main' --log v1.x
+              git merge -m 'automated merge from v2.x -> main' --log v2.x
         - cached-npm-install
         - run:
             name: Build Artifacts
@@ -88,7 +88,7 @@ jobs:
               git add -A
               if [ `git diff HEAD | wc -l` -gt 0 ]; then
                 echo "changes detected; committing updated dist/"
-                git commit -m 'build: automated merge from v1.x'
+                git commit -m 'build: automated merge from v2.x'
               fi
               git push
   merge-pages:
@@ -99,11 +99,11 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Merge v1.x to GitHub pages
+            name: Merge v2.x to GitHub pages
             command: |
               git checkout pages
               git pull
-              git merge -m 'automated merge from v1.x -> main' --log v1.x
+              git merge -m 'automated merge from v2.x -> main' --log v2.x
         - cached-npm-install
         - run:
             name: Install rsync
@@ -123,7 +123,7 @@ jobs:
               git add -A
               if [ `git diff HEAD | wc -l` -gt 0 ]; then
                 echo "changes detected; committing updated docs/"
-                git commit -m 'build: automated merge from v1.x'
+                git commit -m 'build: automated merge from v2.x'
               fi
               git push
 
@@ -137,23 +137,20 @@ workflows:
                 - v1.x
   run-tests-and-deploy:
     jobs:
-      - run-tests:
-          filters:
-            branches:
-              only:
-                - v1.x
-      - merge-main:
+      - run-tests
+      - merge-branch:
           requires:
             - run-tests
           filters:
             branches:
               only:
                 - v1.x
+                - v2.x
       - merge-pages:
           requires:
             - run-tests
           filters:
             branches:
               only:
-                - v1.x
+                - v2.x
 
