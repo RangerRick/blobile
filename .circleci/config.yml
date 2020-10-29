@@ -91,7 +91,7 @@ jobs:
                 echo "changes detected; committing updated dist/"
                 git commit -m 'build: automated merge from v2.x'
               fi
-              git push origin pages:pages
+              git push origin main:main
   merge-pages:
       docker:
         - image: circleci/node:12-browsers
