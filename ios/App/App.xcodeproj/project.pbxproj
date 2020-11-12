@@ -10,6 +10,15 @@
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		44348DFC251575C300192E05 /* KeepAwake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44348DFB251575C300192E05 /* KeepAwake.swift */; };
 		44348E002515763100192E05 /* KeepAwake.m in Sources */ = {isa = PBXBuildFile; fileRef = 44348DFF2515763100192E05 /* KeepAwake.m */; };
+		44DD325C254B23070064A456 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DD325B254B23070064A456 /* WidgetKit.framework */; };
+		44DD325E254B23070064A456 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DD325D254B23070064A456 /* SwiftUI.framework */; };
+		44DD3261254B23080064A456 /* Blases_Loaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD3260254B23080064A456 /* Blases_Loaded.swift */; };
+		44DD3264254B230A0064A456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44DD3263254B230A0064A456 /* Assets.xcassets */; };
+		44DD3266254B230A0064A456 /* Blases_Loaded.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 44DD3262254B23080064A456 /* Blases_Loaded.intentdefinition */; };
+		44DD3267254B230A0064A456 /* Blases_Loaded.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 44DD3262254B23080064A456 /* Blases_Loaded.intentdefinition */; };
+		44DD326A254B230A0064A456 /* Blases LoadedExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 44DD325A254B23070064A456 /* Blases LoadedExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44DD3274254C60220064A456 /* scoreboard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44DD3273254C60220064A456 /* scoreboard.ttf */; };
+		44DD327A254C61EA0064A456 /* scoreboard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44DD3273254C60220064A456 /* scoreboard.ttf */; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
@@ -19,12 +28,44 @@
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		44DD3268254B230A0064A456 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44DD3259254B23070064A456;
+			remoteInfo = "Blases LoadedExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44DD326B254B230A0064A456 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				44DD326A254B230A0064A456 /* Blases LoadedExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		44229A7624FC387800E0BDBC /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		44348DFB251575C300192E05 /* KeepAwake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwake.swift; sourceTree = "<group>"; };
 		44348DFE2515763000192E05 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
 		44348DFF2515763100192E05 /* KeepAwake.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeepAwake.m; sourceTree = "<group>"; };
+		44DD325A254B23070064A456 /* Blases LoadedExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Blases LoadedExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44DD325B254B23070064A456 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		44DD325D254B23070064A456 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		44DD3260254B23080064A456 /* Blases_Loaded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blases_Loaded.swift; sourceTree = "<group>"; };
+		44DD3262254B23080064A456 /* Blases_Loaded.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Blases_Loaded.intentdefinition; sourceTree = "<group>"; };
+		44DD3263254B230A0064A456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44DD3265254B230A0064A456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44DD3273254C60220064A456 /* scoreboard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = scoreboard.ttf; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +80,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		44DD3257254B23070064A456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44DD325E254B23070064A456 /* SwiftUI.framework in Frameworks */,
+				44DD325C254B23070064A456 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3011FED79650016851F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,14 +104,36 @@
 			isa = PBXGroup;
 			children = (
 				AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */,
+				44DD325B254B23070064A456 /* WidgetKit.framework */,
+				44DD325D254B23070064A456 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44DD325F254B23070064A456 /* Blases Loaded */ = {
+			isa = PBXGroup;
+			children = (
+				44DD3260254B23080064A456 /* Blases_Loaded.swift */,
+				44DD3262254B23080064A456 /* Blases_Loaded.intentdefinition */,
+				44DD3263254B230A0064A456 /* Assets.xcassets */,
+				44DD3265254B230A0064A456 /* Info.plist */,
+			);
+			path = "Blases Loaded";
+			sourceTree = "<group>";
+		};
+		44DD3277254C60560064A456 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				44DD3273254C60220064A456 /* scoreboard.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		504EC2FB1FED79650016851F = {
 			isa = PBXGroup;
 			children = (
 				504EC3061FED79650016851F /* App */,
+				44DD325F254B23070064A456 /* Blases Loaded */,
 				504EC3051FED79650016851F /* Products */,
 				7F8756D8B27F46E3366F6CEA /* Pods */,
 				27E2DDA53C4D2A4D1A88CE4A /* Frameworks */,
@@ -72,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				504EC3041FED79650016851F /* App.app */,
+				44DD325A254B23070064A456 /* Blases LoadedExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,6 +152,7 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				44DD3277254C60560064A456 /* fonts */,
 				44229A7624FC387800E0BDBC /* App.entitlements */,
 				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3071FED79650016851F /* AppDelegate.swift */,
@@ -107,6 +181,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		44DD3259254B23070064A456 /* Blases LoadedExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44DD326E254B230A0064A456 /* Build configuration list for PBXNativeTarget "Blases LoadedExtension" */;
+			buildPhases = (
+				44DD3256254B23070064A456 /* Sources */,
+				44DD3257254B23070064A456 /* Frameworks */,
+				44DD3258254B23070064A456 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Blases LoadedExtension";
+			productName = "Blases LoadedExtension";
+			productReference = 44DD325A254B23070064A456 /* Blases LoadedExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		504EC3031FED79650016851F /* App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 504EC3161FED79650016851F /* Build configuration list for PBXNativeTarget "App" */;
@@ -116,10 +207,12 @@
 				504EC3011FED79650016851F /* Frameworks */,
 				504EC3021FED79650016851F /* Resources */,
 				9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */,
+				44DD326B254B230A0064A456 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				44DD3269254B230A0064A456 /* PBXTargetDependency */,
 			);
 			name = App;
 			productName = App;
@@ -132,9 +225,13 @@
 		504EC2FC1FED79650016851F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 0920;
 				TargetAttributes = {
+					44DD3259254B23070064A456 = {
+						CreatedOnToolsVersion = 12.1;
+						ProvisioningStyle = Automatic;
+					};
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1200;
@@ -156,11 +253,21 @@
 			projectRoot = "";
 			targets = (
 				504EC3031FED79650016851F /* App */,
+				44DD3259254B23070064A456 /* Blases LoadedExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		44DD3258254B23070064A456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44DD327A254C61EA0064A456 /* scoreboard.ttf in Resources */,
+				44DD3264254B230A0064A456 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3021FED79650016851F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,6 +275,7 @@
 				504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */,
 				50B271D11FEDC1A000F3C39B /* public in Resources */,
 				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
+				44DD3274254C60220064A456 /* scoreboard.ttf in Resources */,
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
@@ -213,17 +321,35 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		44DD3256254B23070064A456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44DD3261254B23080064A456 /* Blases_Loaded.swift in Sources */,
+				44DD3266254B230A0064A456 /* Blases_Loaded.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3001FED79650016851F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				44DD3267254B230A0064A456 /* Blases_Loaded.intentdefinition in Sources */,
 				44348DFC251575C300192E05 /* KeepAwake.swift in Sources */,
 				44348E002515763100192E05 /* KeepAwake.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		44DD3269254B230A0064A456 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44DD3259254B23070064A456 /* Blases LoadedExtension */;
+			targetProxy = 44DD3268254B230A0064A456 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		504EC30B1FED79650016851F /* Main.storyboard */ = {
@@ -245,6 +371,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		44DD326C254B230A0064A456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LLGKFX3ZJT;
+				INFOPLIST_FILE = "Blases Loaded/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoonfink.blobile.Blases-Loaded";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		44DD326D254B230A0064A456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LLGKFX3ZJT;
+				INFOPLIST_FILE = "Blases Loaded/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoonfink.blobile.Blases-Loaded";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		504EC3141FED79650016851F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -356,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
@@ -380,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
@@ -401,6 +580,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		44DD326E254B230A0064A456 /* Build configuration list for PBXNativeTarget "Blases LoadedExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44DD326C254B230A0064A456 /* Debug */,
+				44DD326D254B230A0064A456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		504EC2FF1FED79650016851F /* Build configuration list for PBXProject "App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -23,14 +23,20 @@ export const VERSION = ${JSON.stringify(gitInfo, null, 4)};
 
 console.info(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
 
-const infoFile = resolve(__dirname, '..', 'ios', 'App', 'App', 'Info.plist');
-const infoPlist = plist.parse(readFileSync(infoFile, 'utf-8'));
-infoPlist.CFBundleVersion = String(build);
-infoPlist.CFBundleShortVersionString = String(version);
-// console.info(infoPlist);
-writeFileSync(infoFile, plist.build(infoPlist));
+const files = [
+  resolve(__dirname, '..', 'ios', 'App', 'App', 'Info.plist'),
+  resolve(__dirname, '..', 'ios', 'App', 'Blases Loaded', 'Info.plist'),
+];
 
-console.info(`Updated ${relative(resolve(__dirname, '..'), infoFile)}`);
+for (const infoFile of files) {
+  const infoPlist = plist.parse(readFileSync(infoFile, 'utf-8'));
+  infoPlist.CFBundleVersion = String(build);
+  infoPlist.CFBundleShortVersionString = String(version);
+  // console.info(infoPlist);
+  writeFileSync(infoFile, plist.build(infoPlist));
+
+  console.info(`Updated ${relative(resolve(__dirname, '..'), infoFile)}`);
+}
 
 const gradleFile = resolve(__dirname, '..', 'android', 'app', 'build.gradle');
 const gradleText = readFileSync(gradleFile, 'utf-8')
