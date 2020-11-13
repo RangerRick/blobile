@@ -1,4 +1,3 @@
-import { sha256 } from 'hash.js';
 import { Game } from './game';
 import { ID } from './_entry';
 
