@@ -6,6 +6,7 @@ import { Game } from './game';
 import { Entry, ID } from './_entry';
 import { Matchup } from './matchup';
 import { PHASES } from './phases';
+import { Tournament } from './tournament';
 
 export class Games extends Entry {
   public get sim(): Sim {
@@ -30,6 +31,10 @@ export class Games extends Entry {
 
   public get postseason(): Postseason {
     return new Postseason(this.data?.postseason);
+  }
+
+  public get tournament(): Tournament {
+    return new Tournament(this.data?.tournament);
   }
 
   private isPreseason(now = Date.now()) {
