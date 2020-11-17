@@ -1,8 +1,7 @@
 {
   "name": "blobile",
-  "description": "An app for Blaseball",
   "version": "1.3.1",
-  "build": 64,
+  "description": "An app for Blaseball",
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
@@ -60,6 +59,7 @@
     "tslint": "~6.1.0",
     "typescript": "^4.0.5"
   },
+  "build": 65,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
