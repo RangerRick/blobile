@@ -60,14 +60,14 @@
           are the Champions!
         </h4>
       </ion-item>
-      <ion-item lines="none" *ngIf="uiState.countdownNotice && countdown && countdown.diff >= 0">
+      <ion-item lines="none" *ngIf="uiState.countdownNotice !== undefined && countdown && countdown.diff >= 0">
         <h4>
           {{uiState.countdownNotice}}
           <br>
           {{getCountdown()}}
         </h4>
       </ion-item>
-      <ion-item lines="none" *ngIf="uiState.countdownNotice && countdown && countdown.diff &lt; 0">
+      <ion-item lines="none" *ngIf="uiState.countdownNotice !== undefined && countdown && countdown.diff &lt; 0">
         <h4>Next season starts in... uhh.  <i>*tugs collar*</i> I mean. What <i>is</i> time, really?</h4>
       </ion-item>
       <div id="marquee" data-speed="1">
