@@ -2,7 +2,7 @@
   "name": "blobile",
   "description": "An app for Blaseball",
   "version": "2.0.0",
-  "build": 63,
+  "build": 64,
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
