@@ -243,7 +243,7 @@ export class APIStream {
 
     // const es = new EventSourceWeb();
     const es = EventSource;
-    this.source = es;
+    this.source = es as EventSourcePlugin;
 
     return new Promise(async (resolve /*, reject */) => {
       const url = await this.url;
