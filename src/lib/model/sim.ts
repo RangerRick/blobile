@@ -50,6 +50,17 @@ export class Sim extends Entry {
     return this.data?.phase || 0;
   }
 
+  public get showStandings(): boolean {
+    switch (this.phase) {
+      case PHASES.REGULAR_SEASON:
+      case PHASES.PRE_OFFSEASON:
+      case PHASES.OFFSEASON:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   countdownToNextPhase(from?: number) {
     const start = from || Date.now();
     const end = new Date(this.data.nextPhaseTime).getTime();

@@ -3,15 +3,15 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="live-feed">
       <ion-icon name="baseball-outline"></ion-icon>
-      <ion-label>Live Feed</ion-label>
+      <ion-label>Live</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="standings">
+    <ion-tab-button tab="standings" *ngIf="showStandings()">
       <ion-icon name="podium-outline"></ion-icon>
       <ion-label>Standings</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="matchups">
+    <ion-tab-button tab="matchups" *ngIf="!showStandings()">
       <ion-icon name="trophy-outline"></ion-icon>
       <ion-label>Matchups</ion-label>
     </ion-tab-button>
