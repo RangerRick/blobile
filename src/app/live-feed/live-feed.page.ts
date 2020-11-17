@@ -341,6 +341,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       case PHASES.PRE_ELECTION:
       case PHASES.POST_PRE_ELECTION:
       case PHASES.POST_ELECTION:
+      case PHASES.POST_TOURNAMENT:
       {
         this.doCountdown('countdownToNextSeason');
         uiState.notice = `Season ${this.streamData.seasonNumber} is over.`;
@@ -374,6 +375,20 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       case PHASES.POSTSEASON:
       {
         uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseason.round.roundNumber}, Day ${day}`;
+        break;
+      }
+      case PHASES.PRE_TOURNAMENT:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will begin soon.`;
+        uiState.countdownNotice = '';
+        break;
+      }
+      case PHASES.TOURNAMENT_ROUND_COMPLETE:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will continue soon.`;
+        uiState.countdownNotice = '';
         break;
       }
       default:
