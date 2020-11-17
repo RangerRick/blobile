@@ -391,6 +391,11 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         uiState.countdownNotice = '';
         break;
       }
+      case PHASES.TOURNAMENT_PLAY:
+      {
+        uiState.seasonHeader = this.streamData?.games?.tournament?.name;
+        break;
+      }
       default:
         uiState.seasonHeader = `Season ${this.streamData?.games?.season?.seasonNumber}, Day ${day}`;
         break;
