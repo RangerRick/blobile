@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../standings/standings.module').then(m => m.StandingsPageModule)
       },
       {
+        path: 'matchups',
+        loadChildren: () => import('../matchups/matchups.module').then(m => m.MatchupsPageModule)
+      },
+      {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
