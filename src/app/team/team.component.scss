@@ -4,10 +4,12 @@ app-team, .bl-team {
   display: inline-block;
   border: 0.15em solid black;
   border-radius: 2em;
-  height: 2.25em;
+  height: 2em;
   padding: 0.25em 0.5em;
   vertical-align: middle;
   margin: 0 0.5em 0.25em 0.5em;
+  font-size: 9pt;
+  line-height: 9pt;
 }
 
 .ion-no-margin app-team, .ion-no-margin .bl-team {
@@ -27,8 +29,10 @@ app-team, .bl-team {
 }
 
 .bl-team-emoji {
-  font-size: 125%;
-  line-height: 125%;
+  /*
+  font-size: 110%;
+  line-height: 110%;
+  */
   vertical-align: middle;
 
   &.home {
