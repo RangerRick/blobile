@@ -1,5 +1,4 @@
 import { Entry, ID } from './_entry';
-import { AngularDelegate } from '@ionic/angular';
 
 export class Matchup extends Entry {
   public id: ID;
@@ -15,6 +14,11 @@ export class Matchup extends Entry {
     super(data);
 
     this.defineStrings(['id', 'awayTeam', 'homeTeam']);
-    this.defineNumbers(['awaySeed', 'awayWins', 'homeSeed', 'homeWins']);
+    this.defineNumbers(['awayWins', 'homeWins']);
+    this.defineIncrementedNumbers(['awaySeed', 'homeSeed'])
+  }
+
+  public get gamesNeeded() {
+    return this.data?.gamesNeeded === undefined? -1 : parseInt(this.data.gamesNeeded, 10);
   }
 }

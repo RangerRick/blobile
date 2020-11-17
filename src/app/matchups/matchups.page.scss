@@ -1,0 +1,23 @@
+ion-col {
+  font-size: 125%;
+  font-weight: bold;
+
+  div {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+  }
+
+  .emoji {
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+  }
+
+  .seed {
+    padding-right: 0.5em;
+  }
+
+  .wins {
+    padding-left: 0.5em;
+  }
+}
