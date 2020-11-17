@@ -30,7 +30,7 @@
       </dict>
     </array>
     <key>CFBundleVersion</key>
-    <string>65</string>
+    <string>67</string>
     <key>IonApi</key>
     <string>https://api.ionicjs.com</string>
     <key>IonMaxVersions</key>
