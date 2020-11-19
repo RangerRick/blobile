@@ -12,7 +12,7 @@
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@angular/router": "^11.0.0",
     "@capacitor-community/http": "^0.2.1",
-    "@capacitor/android": "^2.4.2",
+    "@capacitor/android": "^2.4.3",
     "@capacitor/core": "2.4.3",
     "@capacitor/ios": "^2.4.2",
     "@egstad/marquee": "^3.0.2",
