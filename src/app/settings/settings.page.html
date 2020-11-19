@@ -56,7 +56,7 @@
     </ion-item>
     <ion-item>
       <ion-label class="ion-text-wrap">Volume:</ion-label>
-      <ion-range *ngIf="current" min="0" max="1000" debounce="200" (ionChange)="setVolume($event)" [(ngModel)]="volume" slot="end"></ion-range>
+      <ion-range aria-label="Volume" *ngIf="current" min="0" max="1000" debounce="200" (ionChange)="setVolume($event)" [(ngModel)]="volume" slot="end"></ion-range>
     </ion-item>
     <ion-item *ngIf="hasSpeech">
       <ion-label class="ion-text-wrap">Enable Speech?</ion-label>
@@ -64,8 +64,8 @@
     </ion-item>
     <ion-item *ngIf="hasSpeech">
       <ion-icon name="volume-high-outline" slot="start" (click)="speak($event)" class="ion-no-margin" style="margin-right: 0.5em"></ion-icon>
-      <ion-label class="ion-text-wrap">Voice:</ion-label>
-      <ion-select *ngIf="current && voice" class="ion-text-wrap" (ionChange)="setVoice($event)" interface="action-sheet" [interfaceOptions]="voiceOptions" okText="Choose" cancelText="Cancel" [value]="current.voice">
+      <ion-label for="select-voice" class="ion-text-wrap">Voice:</ion-label>
+      <ion-select *ngIf="current && voice" id="select-voice" aria-label="Select a Voice" class="ion-text-wrap" (ionChange)="setVoice($event)" interface="action-sheet" [interfaceOptions]="voiceOptions" okText="Choose" cancelText="Cancel" [value]="current.voice">
         <ion-select-option *ngFor="let voice of voices" [value]="voice.voiceURI">{{voice.name}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -74,12 +74,12 @@
     </ion-list-header>
     <ion-item id="bl-team-selector">
       <ion-label class="ion-text-wrap">
-        <ion-label>
+        <ion-label for="choose-your-team">
           <h4>Choose Your Team:</h4>
         </ion-label>
-        <ion-note>Your team is first in the live feed.</ion-note>
+        <ion-note>Your team is always first in the live feed.</ion-note>
       </ion-label>
-      <ion-select *ngIf="current && teams" class="ion-text-wrap" (ionChange)="setString('favoriteTeam', $event)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [(ngModel)]="current.favoriteTeam">
+      <ion-select *ngIf="current && teams" id="choose-your-team" aria-label="Choose Your Team" class="ion-text-wrap" (ionChange)="setString('favoriteTeam', $event)" interface="action-sheet" [interfaceOptions]="teamOptions" okText="Choose" cancelText="Cancel" [(ngModel)]="current.favoriteTeam">
         <ion-select-option *ngFor="let team of teams; trackBy: id" [value]="team.id">{{team.fullName}}</ion-select-option>
       </ion-select>
     </ion-item>

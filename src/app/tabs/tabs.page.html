@@ -1,28 +1,28 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="live-feed">
+    <ion-tab-button tab="live-feed" aria-label="Live">
       <ion-icon name="baseball-outline"></ion-icon>
       <ion-label>Live</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="standings" *ngIf="showStandings()">
+    <ion-tab-button tab="standings" *ngIf="showStandings()" aria-label="Standings">
       <ion-icon name="podium-outline"></ion-icon>
       <ion-label>Standings</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="matchups" *ngIf="!showStandings()">
+    <ion-tab-button tab="matchups" *ngIf="!showStandings()" aria-label="Matchups">
       <ion-icon name="trophy-outline"></ion-icon>
       <ion-label>Matchups</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="settings">
+    <ion-tab-button tab="settings" aria-label="Slettings">
       <ion-icon name="settings-outline"></ion-icon>
       <ion-label>Slettings</ion-label>
       <ion-badge *ngIf="updateService.updateAvailable" color="danger">1</ion-badge>
     </ion-tab-button>
 
-    <ion-tab-button tab="about">
+    <ion-tab-button tab="about" aria-label="About">
       <ion-icon name="information-circle-outline"></ion-icon>
       <ion-label>About</ion-label>
     </ion-tab-button>
