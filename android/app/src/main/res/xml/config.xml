@@ -12,5 +12,5 @@
   </feature>
 
   
-  <preference name="DisableDeploy" value="false" />
+  <preference name="DisableDeploy" value="true" />
 </widget>
