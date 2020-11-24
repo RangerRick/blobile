@@ -15,4 +15,5 @@ export const WEATHER = [
   'Reverb',
   'Black Hole',
   'Coffee',
+  'Coffee 2',
 ];
