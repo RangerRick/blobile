@@ -16,4 +16,5 @@ export const WEATHER = [
   'Black Hole',
   'Coffee',
   'Coffee 2',
+  'Coffee 3s',
 ];
