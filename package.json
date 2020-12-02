@@ -13,7 +13,7 @@
     "@angular/router": "^11.0.1",
     "@capacitor-community/http": "^0.2.1",
     "@capacitor/android": "^2.4.4",
-    "@capacitor/core": "2.4.3",
+    "@capacitor/core": "2.4.4",
     "@capacitor/ios": "^2.4.4",
     "@egstad/marquee": "^3.0.2",
     "@ionic/angular": "^5.5.1",
