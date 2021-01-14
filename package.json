@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1100.6",
-    "@angular/cli": "^11.0.6",
+    "@angular/cli": "^11.0.7",
     "@angular/compiler": "^11.0.5",
     "@angular/compiler-cli": "^11.0.5",
-    "@angular/language-service": "^11.0.8",
+    "@angular/language-service": "^11.0.9",
     "@capacitor/cli": "^2.4.6",
     "@ionic/angular-toolkit": "^3.0.0",
     "@ionic/cli": "^6.12.3",
