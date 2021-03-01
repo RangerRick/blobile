@@ -36,8 +36,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public loading: boolean;
   public ready = false;
   public errors = 0;
-  // public lastUpdate = "look, it's been a while, OK?";
-  public lastUpdate = Date.now();
+  public lastUpdateTime = Date.now();
   public filterVisible = false;
   public stale = false;
   public staleThreshold = 30 * 1000; // 30s
@@ -239,7 +238,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       const active = this.games.find(game => game.inProgress);
       if (active) {
         // there are still active games, check staleness based on the last update received
-        if (this.lastUpdate + this.staleThreshold < Date.now()) {
+        if (this.lastUpdateTime + this.staleThreshold < Date.now()) {
           this.stale = true;
         } else {
           this.stale = false;
@@ -291,8 +290,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
     const streamData = value as StreamData;
 
-    this.lastUpdate = Date.now();
-    console.debug('LiveFeed.lastUpdate()', this.lastUpdate);
+    this.lastUpdateTime = Date.now();
+    console.debug('LiveFeed.onEvent(): lastUpdateTime=', this.lastUpdateTime);
     setTimeout(() => {
       this.errors = 0;
       this.checkStale();
@@ -376,15 +375,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         break;
       }
       case PHASES.EARLSEASON:
-      {
-        uiState.seasonHeader = `Earlseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
-        break;
-      }
       case PHASES.MIDSEASON:
-      {
-        uiState.seasonHeader = `Midseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
-        break;
-      }
       default:
         uiState.seasonHeader = `Season ${this.streamData?.games?.season?.seasonNumber}, Day ${day}`;
         break;

@@ -58,10 +58,10 @@ export class GameDetailPage implements OnInit {
         const now = new Date();
         this.updateLog.unshift({
           time: ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2),
-          entry: game.lastUpdate,
+          entry: game.updateText,
         });
         if (!this.muted) {
-          this.voiceService.say(game.lastUpdate);
+          this.voiceService.say(game.updateText);
         }
       }
     });
