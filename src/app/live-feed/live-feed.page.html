@@ -82,32 +82,20 @@
       </div>
     </span>
     <span *ngIf="!uiState.notice">
-      <span *ngIf="phase === PHASES.BOSS_FIGHT">
-        <ion-grid style="margin-top: 0; padding-top: 0">
-          <ion-row>
-            <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
-            <ion-col size="12" *ngFor="let game of streamData.fights.bossFights; trackBy: gameId">
-              <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </span>
-      <span *ngIf="phase !== PHASES.BOSS_FIGHT">
-        <ion-item lines="none" *ngIf="uiState.seasonHeader">
-          <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">{{uiState.seasonHeader}}</h4>
-        </ion-item>
-        <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
-          No active games for day {{streamData.games.sim.day}}.
-        </ion-item>
-        <ion-grid style="margin-top: 0; padding-top: 0">
-          <ion-row>
-            <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
-            <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
-              <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </span>
+      <ion-item lines="none" *ngIf="uiState.seasonHeader">
+        <h4 *ngIf="streamData && streamData.games" class="ion-no-margin">{{uiState.seasonHeader}}</h4>
+      </ion-item>
+      <ion-item lines="none" *ngIf="segment === 'active' && (!games || games.length === 0)">
+        No active games for day {{streamData.games.sim.day}}.
+      </ion-item>
+      <ion-grid style="margin-top: 0; padding-top: 0">
+        <ion-row>
+          <!-- size-xs="12" size-sm="12" size-md="12" size-lg="6" size-xl="6" -->
+          <ion-col size="12" *ngFor="let game of games; trackBy: gameId">
+            <app-diamond [game]="game" prefix="live-diamond" (refresh)="refreshUI()"></app-diamond>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </span>
   </span>
 </ion-content>
