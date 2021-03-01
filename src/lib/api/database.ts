@@ -30,14 +30,24 @@ interface CacheEntry {
 export class APIDatabase {
   private cache = {} as { [url: string]: CacheEntry };
   private inFlight = {} as { [url: string]: Promise<HttpResponse> };
-  private root = 'https://cors-proxy.blaseball-reference.com/database';
+  private root: string;
 
-  constructor() {
-    Plugins.Device.getInfo().then((info: DeviceInfo) => {
-      if (info.platform !== 'web') {
-        this.root = 'https://www.blaseball.com/database';
+  private async getRoot() {
+    if (!this.root) {
+      try {
+        const info = await Plugins.Device.getInfo();
+        if (info.platform !== 'web') {
+          this.root = 'https://www.blaseball.com/database';
+        }
+      } catch (err) {
+        console.warn('APIDatabase.getRoot(): failed to get device info, assuming web platform.', err);
       }
-    });
+      if (!this.root) {
+        this.root = 'https://cors-proxy.blaseball-reference.com/database';
+      }
+    }
+
+    return this.root;
   }
 
   private async get(url: string, options = {} as QueryOptions): Promise<HttpResponse> {
@@ -142,7 +152,8 @@ export class APIDatabase {
   }
 
   public async gamesByDay(season: number, day: number, force = false): Promise<Game[]> {
-    const url = `${this.root}/games?season=${season}&day=${day}`;
+    const root = await this.getRoot();
+    const url = `${root}/games?season=${season}&day=${day}`;
 
     try {
       const ret = await this.get(url, {
@@ -159,7 +170,8 @@ export class APIDatabase {
   }
 
   public async teams(force = false): Promise<Team[]> {
-    const url = `${this.root}/allTeams`;
+    const root = await this.getRoot();
+    const url = `${root}/allTeams`;
     // console.debug(`APIDatabase.teams(): GET ${url}`);
     try {
       const ret = await this.get(url, { force });
@@ -180,7 +192,8 @@ export class APIDatabase {
     if (args.length === 0) {
       return [] as Player[];
     }
-    const url = `${this.root}/players?ids=${args.join(',')}`;
+    const root = await this.getRoot();
+    const url = `${root}/players?ids=${args.join(',')}`;
     // console.debug(`APIDatabase.players(): GET ${url}`);
     try {
       const ret = await this.get(url, { force });
@@ -194,7 +207,8 @@ export class APIDatabase {
   }
 
   public async globalEvents(force = false) {
-    const url = `${this.root}/globalEvents`;
+    const root = await this.getRoot();
+    const url = `${root}/globalEvents`;
     try {
       const ret = await this.get(url, { force });
       if (ret) {

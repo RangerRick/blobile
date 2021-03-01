@@ -24,13 +24,13 @@
     </ion-buttons>
     <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
       <ion-segment-button value="all">
-        <ion-label>All</ion-label>
+        <ion-label>All ({{getGameCount()}})</ion-label>
       </ion-segment-button>
       <ion-segment-button value="active">
         <ion-label>Active ({{getActiveGameCount()}})</ion-label>
       </ion-segment-button>
       <ion-segment-button value="favorites">
-        <ion-label>Favorites</ion-label>
+        <ion-label>Favorites ({{getFavoriteGameCount()}})</ion-label>
       </ion-segment-button>
     </ion-segment>
     <ion-buttons slot="secondary">
