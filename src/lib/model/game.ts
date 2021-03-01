@@ -11,56 +11,76 @@ export class Game extends Entry {
   awayBalls: number;
   awayBases: number;
   awayBatter: string;
+  awayBatterMod: string;
   awayBatterName: string;
   awayOdds: number;
   awayOuts: number;
   awayPitcher: ID;
+  awayPitcherMod: string;
   awayPitcherName: string;
   awayScore: number;
   awayStrikes: number;
   awayTeam: ID;
   awayTeamBatterCount: number;
   awayTeamColor: string;
+  /* awayTeamEmoji: string; */
   awayTeamName: string;
   awayTeamNickname: string;
   awayTeamSecondaryColor: string;
+  /* baseRunnerMods: string[]; */
+  /* baseRunnerNames: string[]; */
+  /* baseRunners: ID[]; */
   baserunnerCount: number;
+  /* basesOccupied: number[]; */
+  bottomInningScore: number;
   day: number;
   finalized: boolean;
   gameComplete: boolean;
   gameStart: boolean;
+  gameStartPhase: number;
   halfInningOuts: number;
   halfInningScore: number;
   homeBalls: number;
   homeBases: number;
   homeBatter: ID;
+  homeBatterMod: string;
   homeBatterName: string;
   homeOdds: number;
   homeOuts: number;
   homePitcher: ID;
+  homePitcherMod: string;
   homePitcherName: string;
   homeScore: number;
   homeStrikes: number;
   homeTeam: ID;
   homeTeamBatterCount: number;
   homeTeamColor: string;
+  /* homeTeamEmoji: string; */
   homeTeamName: string;
   homeTeamNickname: string;
   homeTeamSecondaryColor: string;
   inning: number;
   isPostseason: boolean;
+  isTitleMatch: boolean;
   lastUpdate: string;
+  newInningPhase: number;
+  /* outcomes: string[]; */
   phase: number;
   playCount: number;
   repeatCount: number;
   rules: ID;
+  scoreLedger: string;
+  scoreUpdate: string;
   season: number;
   seriesIndex: number;
   seriesLength: number;
   shame: boolean;
+  stadiumId: ID;
   statsheet: ID;
   terminology: ID;
+  topInningScore: number;
   topOfInning: boolean;
+  tournament: number;
   weather: number;
 
   hash: string;
@@ -71,8 +91,10 @@ export class Game extends Entry {
     this.defineStrings([
       'id',
       'awayBatter',
+      'awayBatterMod',
       'awayBatterName',
       'awayPitcher',
+      'awayPitcherMod',
       'awayPitcherName',
       'awayTeam',
       'awayTeamColor',
@@ -80,8 +102,10 @@ export class Game extends Entry {
       'awayTeamNickname',
       'awayTeamSecondaryColor',
       'homeBatter',
+      'homeBatterMod',
       'homeBatterName',
       'homePitcher',
+      'homePitcherMod',
       'homePitcherName',
       'homeTeam',
       'homeTeamColor',
@@ -90,6 +114,9 @@ export class Game extends Entry {
       'homeTeamSecondaryColor',
       'lastUpdate',
       'rules',
+      'scoreLedger',
+      'scoreUpdate',
+      'stadiumId',
       'statsheet',
       'terminology',
     ]);
@@ -104,6 +131,8 @@ export class Game extends Entry {
       'awayStrikes',
       'awayTeamBatterCount',
       'baserunnerCount',
+      'bottomInningScore',
+      'gameStartPhase',
       'halfInningOuts',
       'halfInningScore',
       'homeBalls',
@@ -113,11 +142,14 @@ export class Game extends Entry {
       'homeScore',
       'homeStrikes',
       'homeTeamBatterCount',
+      'newInningPhase',
       'phase',
       'playCount',
       'repeatCount',
       'seriesIndex',
       'seriesLength',
+      'topInningScore',
+      'tournament',
       'weather',
     ]);
     this.defineIncrementedNumbers([
@@ -130,6 +162,7 @@ export class Game extends Entry {
       'gameComplete',
       'gameStart',
       'isPostseason',
+      'isTitleMatch',
       'shame',
       'topOfInning',
     ]);
@@ -156,6 +189,7 @@ export class Game extends Entry {
       'inning',
       'gameComplete',
       'gameStart',
+      'scoreUpdate',
       'topOfInning',
     ];
   }
@@ -218,6 +252,9 @@ export class Game extends Entry {
     return this.homeBatting ? this.homeBatterName : this.awayBatterName;
   }
 
+  public get baseRunnerMods(): string[] {
+    return this.data?.baseRunnerMods || [];
+  }
   public get baseRunnerNames(): string[] {
     return this.data?.baseRunnerNames || [];
   }
@@ -314,5 +351,18 @@ export class Game extends Entry {
       && this.atBatBalls === balls - 1
       && this.atBatStrikes === strikes - 1
       && this.baserunnerCount === bases - 1;
+  }
+
+  public get updateText(): string {
+    let ret = '';
+
+    if (this.lastUpdate) {
+      ret += this.lastUpdate.trim();
+    }
+    if (this.scoreUpdate) {
+      ret += this.scoreUpdate.trim();
+    }
+
+    return ret;
   }
 }
