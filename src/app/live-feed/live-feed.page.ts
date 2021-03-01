@@ -115,6 +115,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     return this.refreshUI();
   }
 
+  getGameCount(): number {
+    return this.streamData?.games?.schedule?.length || 0;
+  }
+
   getActiveGames(): Game[] {
     if (this.streamData?.games?.schedule) {
       return this.streamData.games.schedule.filter((game: Game) => {
@@ -135,6 +139,10 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       });
     }
     return [];
+  }
+
+  getFavoriteGameCount(): number {
+    return this.getFavoriteGames().length;
   }
 
   getSegmentGames(): Game[] {
