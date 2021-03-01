@@ -60,7 +60,7 @@
     "tslint": "~6.1.0",
     "typescript": "~4.1.0"
   },
-  "build": 71,
+  "build": 72,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
