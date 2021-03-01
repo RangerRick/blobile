@@ -123,7 +123,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
     // tslint:disable-next-line:prefer-const
-    let update = this.game?.lastUpdate?.toLowerCase() || '';
+    let update = this.game?.updateText?.toLowerCase() || '';
 
     // just for testing
     // update = 'rogue umpire incinerated';

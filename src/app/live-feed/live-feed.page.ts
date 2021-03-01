@@ -36,8 +36,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
   public loading: boolean;
   public ready = false;
   public errors = 0;
-  // public lastUpdate = "look, it's been a while, OK?";
-  public lastUpdate = Date.now();
+  public lastUpdateTime = Date.now();
   public filterVisible = false;
   public stale = false;
   public staleThreshold = 30 * 1000; // 30s
@@ -239,7 +238,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       const active = this.games.find(game => game.inProgress);
       if (active) {
         // there are still active games, check staleness based on the last update received
-        if (this.lastUpdate + this.staleThreshold < Date.now()) {
+        if (this.lastUpdateTime + this.staleThreshold < Date.now()) {
           this.stale = true;
         } else {
           this.stale = false;
@@ -291,8 +290,8 @@ export class LiveFeedPage implements OnInit, OnDestroy {
 
     const streamData = value as StreamData;
 
-    this.lastUpdate = Date.now();
-    console.debug('LiveFeed.lastUpdate()', this.lastUpdate);
+    this.lastUpdateTime = Date.now();
+    console.debug('LiveFeed.onEvent(): lastUpdateTime=', this.lastUpdateTime);
     setTimeout(() => {
       this.errors = 0;
       this.checkStale();
@@ -337,65 +336,46 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     const phase = this.streamData?.sim?.phase;
 
     switch (phase) {
+      case PHASES.REST:
       case PHASES.PRESEASON:
-      case PHASES.PRE_ELECTION:
-      case PHASES.POST_PRE_ELECTION:
-      case PHASES.POST_ELECTION:
-      case PHASES.POST_TOURNAMENT:
+      case PHASES.POSTSEASON_END:
+      case PHASES.ELECTION:
       {
-        this.doCountdown('countdownToNextSeason');
-        uiState.notice = `Season ${this.streamData.seasonNumber} is over.`;
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = 'Games have finished for the season.';
         uiState.countdownNotice = 'Next season starts in:';
         uiState.winner = this.getWinner();
         break;
       }
-      case PHASES.PRE_OFFSEASON:
-      case PHASES.OFFSEASON:
+
+      case PHASES.SEASON_END:
+      case PHASES.PRE_POSTSEASON:
       {
         this.doCountdown('countdownToNextPhase');
         uiState.notice = `Regular Season ${this.streamData.seasonNumber} is over.`;
-        uiState.countdownNotice = `The wildcard round starts in:`;
+        uiState.countdownNotice = `Earlpostseason starts in:`;
         break;
       }
-      case PHASES.POST_WILDCARD:
+
+      case PHASES.EARLY_POSTSEASON_END:
       {
         this.doCountdown('countdownToNextPhase');
-        uiState.notice = `The wildcard round is complete.`;
-        uiState.countdownNotice = `The playoffs start in:`;
+        uiState.notice = 'Earlpostseason is over.';
+        uiState.countdownNotice = 'Latepostseason starts in:';
         break;
       }
-      case PHASES.WILDCARD:
+      case PHASES.EARLY_POSTSEASON:
       {
-        if (round === 1) {
-          uiState.seasonHeader = `Wildcard Round, Day ${day}`;
-          break;
-        }
-        // if round is > 1, fall through to postseason
+        uiState.seasonHeader = `Earlpostseason, Day ${day}`;
+        break;
       }
       case PHASES.POSTSEASON:
       {
-        uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseason.round.roundNumber}, Day ${day}`;
+        uiState.seasonHeader = `Postseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
         break;
       }
-      case PHASES.PRE_TOURNAMENT:
-      {
-        this.doCountdown('countdownToNextPhase');
-        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will begin soon.`;
-        uiState.countdownNotice = '';
-        break;
-      }
-      case PHASES.TOURNAMENT_ROUND_COMPLETE:
-      {
-        this.doCountdown('countdownToNextPhase');
-        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will continue soon.`;
-        uiState.countdownNotice = '';
-        break;
-      }
-      case PHASES.TOURNAMENT_PLAY:
-      {
-        uiState.seasonHeader = this.streamData?.games?.tournament?.name;
-        break;
-      }
+      case PHASES.EARLSEASON:
+      case PHASES.MIDSEASON:
       default:
         uiState.seasonHeader = `Season ${this.streamData?.games?.season?.seasonNumber}, Day ${day}`;
         break;

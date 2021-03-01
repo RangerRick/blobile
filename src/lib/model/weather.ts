@@ -17,4 +17,5 @@ export const WEATHER = [
   'Coffee',
   'Coffee 2',
   'Coffee 3s',
+  'Flood',
 ];

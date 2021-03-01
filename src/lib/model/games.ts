@@ -71,6 +71,9 @@ export class Games extends Entry {
     const sim = this.sim;
     const day = sim?.day || -1;
 
+    return sim.phase;
+
+    /*
     const schedule = this.schedule;
 
     const nextSeason = sim?.nextSeasonStart;
@@ -86,7 +89,7 @@ export class Games extends Entry {
       }
 
       // otherwise we're still regular season
-      return PHASES.REGULAR_SEASON;
+      return PHASES.EARLSEASON;
     }
 
     const activeGames = schedule.filter((game: Game) => !game.gameComplete);
@@ -140,6 +143,7 @@ export class Games extends Entry {
     }
 
     return PHASES.POSTSEASON;
+    */
   }
 
   public isPostseason(now = Date.now()) {
