@@ -52,9 +52,11 @@ export class Sim extends Entry {
 
   public get showStandings(): boolean {
     switch (this.phase) {
-      case PHASES.REGULAR_SEASON:
-      case PHASES.PRE_OFFSEASON:
-      case PHASES.OFFSEASON:
+      case PHASES.EARLSEASON:
+      case PHASES.EARLY_SIESTA:
+      case PHASES.MIDSEASON:
+      case PHASES.LATE_SIESTA:
+      case PHASES.SEASON_END:
         return true;
       default:
         return false;

@@ -67,6 +67,7 @@ export class StreamData extends Entry {
   }
 
   public phase(now = Date.now()): PHASES {
+    /*  ¯\_(ツ)_/¯
     const bossFights = this.fights?.bossFights || [];
     const bossFightStarted = bossFights.reduce((started: boolean, fight: BossFight) => {
       return started || fight.gameStart;
@@ -74,6 +75,7 @@ export class StreamData extends Entry {
     if (bossFightStarted) {
       return PHASES.BOSS_FIGHT;
     }
+    */
 
     return this.games.gamePhase();
   }

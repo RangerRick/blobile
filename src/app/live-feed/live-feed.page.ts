@@ -337,63 +337,52 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     const phase = this.streamData?.sim?.phase;
 
     switch (phase) {
+      case PHASES.REST:
       case PHASES.PRESEASON:
-      case PHASES.PRE_ELECTION:
-      case PHASES.POST_PRE_ELECTION:
-      case PHASES.POST_ELECTION:
-      case PHASES.POST_TOURNAMENT:
+      case PHASES.POSTSEASON_END:
+      case PHASES.ELECTION:
       {
-        this.doCountdown('countdownToNextSeason');
-        uiState.notice = `Season ${this.streamData.seasonNumber} is over.`;
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = 'Games have finished for the season.';
         uiState.countdownNotice = 'Next season starts in:';
         uiState.winner = this.getWinner();
         break;
       }
-      case PHASES.PRE_OFFSEASON:
-      case PHASES.OFFSEASON:
+
+      case PHASES.SEASON_END:
+      case PHASES.PRE_POSTSEASON:
       {
         this.doCountdown('countdownToNextPhase');
         uiState.notice = `Regular Season ${this.streamData.seasonNumber} is over.`;
-        uiState.countdownNotice = `The wildcard round starts in:`;
+        uiState.countdownNotice = `Earlpostseason starts in:`;
         break;
       }
-      case PHASES.POST_WILDCARD:
+
+      case PHASES.EARLY_POSTSEASON_END:
       {
         this.doCountdown('countdownToNextPhase');
-        uiState.notice = `The wildcard round is complete.`;
-        uiState.countdownNotice = `The playoffs start in:`;
+        uiState.notice = 'Earlpostseason is over.';
+        uiState.countdownNotice = 'Latepostseason starts in:';
         break;
       }
-      case PHASES.WILDCARD:
+      case PHASES.EARLY_POSTSEASON:
       {
-        if (round === 1) {
-          uiState.seasonHeader = `Wildcard Round, Day ${day}`;
-          break;
-        }
-        // if round is > 1, fall through to postseason
+        uiState.seasonHeader = `Earlpostseason, Day ${day}`;
+        break;
       }
       case PHASES.POSTSEASON:
       {
-        uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseason.round.roundNumber}, Day ${day}`;
+        uiState.seasonHeader = `Postseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
         break;
       }
-      case PHASES.PRE_TOURNAMENT:
+      case PHASES.EARLSEASON:
       {
-        this.doCountdown('countdownToNextPhase');
-        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will begin soon.`;
-        uiState.countdownNotice = '';
+        uiState.seasonHeader = `Earlseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
         break;
       }
-      case PHASES.TOURNAMENT_ROUND_COMPLETE:
+      case PHASES.MIDSEASON:
       {
-        this.doCountdown('countdownToNextPhase');
-        uiState.notice = `${this.streamData.games.postseason.playoffs.name} will continue soon.`;
-        uiState.countdownNotice = '';
-        break;
-      }
-      case PHASES.TOURNAMENT_PLAY:
-      {
-        uiState.seasonHeader = this.streamData?.games?.tournament?.name;
+        uiState.seasonHeader = `Midseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
         break;
       }
       default:
