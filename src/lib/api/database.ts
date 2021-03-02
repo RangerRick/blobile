@@ -96,19 +96,21 @@ export class APIDatabase {
               method: 'GET',
               url,
             }) as HttpResponse;
-            if (typeof response.data === 'string') {
-              try {
-                response.data = JSON.parse(response.data);
-              } catch (err) {
-                console.warn('Unable to parse response.data as JSON', err);
-              }
-            }
             resolve(response);
           }  catch (err) {
             reject(err);
           }
         }, 1000);
       });
+    }).then((response: HttpResponse) => {
+      if (typeof response.data === 'string') {
+        try {
+          response.data = JSON.parse(response.data);
+        } catch (err) {
+          console.warn('Unable to parse response.data as JSON', err);
+        }
+      }
+      return response;
     });
 
     // delete from the in-flight list as soon as it finishes
@@ -172,6 +174,7 @@ export class APIDatabase {
   public async teams(force = false): Promise<Team[]> {
     const root = await this.getRoot();
     const url = `${root}/allTeams`;
+
     // console.debug(`APIDatabase.teams(): GET ${url}`);
     try {
       const ret = await this.get(url, { force });
@@ -192,8 +195,10 @@ export class APIDatabase {
     if (args.length === 0) {
       return [] as Player[];
     }
+
     const root = await this.getRoot();
     const url = `${root}/players?ids=${args.join(',')}`;
+
     // console.debug(`APIDatabase.players(): GET ${url}`);
     try {
       const ret = await this.get(url, { force });
@@ -209,6 +214,7 @@ export class APIDatabase {
   public async globalEvents(force = false) {
     const root = await this.getRoot();
     const url = `${root}/globalEvents`;
+
     try {
       const ret = await this.get(url, { force });
       if (ret) {
