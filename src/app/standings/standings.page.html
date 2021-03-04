@@ -14,31 +14,48 @@
 <ion-content class="ion-no-margin">
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let subleague of data.subleagues; trackBy: id">
+      <ion-col size="6" size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" *ngFor="let subleague of data.subleagues; trackBy: id">
         <ion-header class="ion-no-border ion-text-center">
           <h4>{{subleague.name}}</h4>
         </ion-header>
         <ion-card class="ion-no-padding ion-no-margin ion-margin-vertical" *ngFor="let division of subleague.divisions; trackBy: id">
-          <ion-card-header>
+          <ion-card-header class="division-header">
             <ion-card-subtitle>{{division.name}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content class="ion-no-padding">
-            <ion-item
-              lines="none"
-              class="team-row"
-              [style]="'--background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
-              *ngFor="let team of division.teams; trackBy: id"
-              (click)="openTeam(team.id)"
-            >
-              <ion-label class="team-name">{{team.name}}</ion-label>
-              <ion-note class="team-wins" slot="end" [style]="'--color: ' + team.mainTextColor">
-                {{team.wins}}-{{team.losses}}
-              <!--
-                <div class="playoffs" *ngIf="team.playoffs">🏆</div>
-                <div class="playoffs" *ngIf="!team.playoffs">&nbsp;</div>
-              -->
-            </ion-note>
-            </ion-item>
+            <ion-grid style="width: 100%">
+              <ion-row
+                lines="none"
+                class="header-row"
+              >
+                <ion-col class="team-name header" size="7">
+                  Teams
+                </ion-col>
+                <ion-col class="team-wins header" size="2">
+                  Wins
+                </ion-col>
+                <ion-col class="team-record header" size="3">
+                  Record
+                </ion-col>
+              </ion-row>
+              <ion-row
+                lines="none"
+                class="team-row"
+                [style]="'background-color: ' + team.mainColor + '; color: ' + team.mainTextColor"
+                *ngFor="let team of division.teams; trackBy: id"
+                (click)="openTeam(team.id)"
+              >
+                <ion-col class="team-name" size="7">
+                  {{team.name}}
+                </ion-col>
+                <ion-col class="team-wins" size="2">
+                  {{team.wins}}
+                </ion-col>
+                <ion-col class="team-record" size="3">
+                  {{team.nonLosses}}-{{team.losses}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
       </ion-col>
