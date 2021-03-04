@@ -356,6 +356,22 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         break;
       }
 
+      case PHASES.EARLY_SIESTA:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `Earlseason is complete.`;
+        uiState.countdownNotice = `Midseason starts in:`;
+        break;
+      }
+
+      case PHASES.LATE_SIESTA:
+      {
+        this.doCountdown('countdownToNextPhase');
+        uiState.notice = `Midseason is complete.`;
+        uiState.countdownNotice = `Lateseason starts in:`;
+        break;
+      }
+
       case PHASES.SEASON_END:
       case PHASES.PRE_POSTSEASON:
       {
