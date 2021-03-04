@@ -3,12 +3,27 @@
 }
 
 .team-wins {
+  text-align: end;
   font-family: monospace;
   font-size: 1.0rem;
 }
 
-.playoffs {
-  width: 2em;
-  display: inline-block;
+.team-record {
   text-align: end;
+  font-family: monospace;
+  font-size: 1.0rem;
+}
+
+.division-header {
+  padding-bottom: 0.5rem;
+  ion-card-subtitle {
+    color: black;
+    font-size: larger;
+  }
+}
+
+.header {
+  font-size: smaller;
+  font-family: inherit !important;
+  color: black;
 }

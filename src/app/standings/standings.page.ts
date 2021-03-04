@@ -104,6 +104,8 @@ export class StandingsPage implements OnInit {
       return ret;
     };
 
+    const records = this.standings.records;
+
     this.tiebreakers = this.leagues.tiebreakers.find((tiebreaker: Tiebreaker) => tiebreaker.id === l.tiebreakers);
     const teams = await this.database.teams();
 
@@ -135,6 +137,8 @@ export class StandingsPage implements OnInit {
           .map((id: string) => teams.find((team: Team) => id === team.id))
           .sort(sortByWins)
           .map((team: Team) => {
+
+          const record = records[team.id];
           const teamData = {
             id: team.id,
             name: team.fullName,
@@ -144,8 +148,9 @@ export class StandingsPage implements OnInit {
             secondaryColor: team.secondaryColor,
             mainTextColor: team.contrastingMainColor,
             secondaryTextColor: team.contrastingSecondaryColor,
-            wins: this.standings.wins[team.id],
-            losses: this.standings.losses[team.id],
+            wins: record.wins,
+            losses: record.losses,
+            nonLosses: record.nonLosses,
             playoffs: false,
           };
 
