@@ -354,15 +354,15 @@ export class Game extends Entry {
   }
 
   public get updateText(): string {
-    let ret = '';
+    let ret = [];
 
-    if (this.lastUpdate) {
-      ret += this.lastUpdate.trim();
+    if (this.lastUpdate && this.lastUpdate.length > 0) {
+      ret.push(this.lastUpdate.trim());
     }
-    if (this.scoreUpdate) {
-      ret += this.scoreUpdate.trim();
+    if (this.scoreUpdate && this.scoreUpdate.length > 0) {
+      ret.push(this.scoreUpdate.trim());
     }
 
-    return ret;
+    return ret.join('\n');
   }
 }
