@@ -2,9 +2,9 @@
 /* tslint:disable */
 export const VERSION = {
     "dirty": true,
-    "raw": "v2.0.0-74-0-gc3e7bc5-dirty",
-    "hash": "gc3e7bc5",
-    "distance": 0,
+    "raw": "v2.0.0-74-47-g47ad618-dirty",
+    "hash": "g47ad618",
+    "distance": 47,
     "tag": "v2.0.0-74",
     "semver": {
         "options": {
@@ -22,8 +22,8 @@ export const VERSION = {
         "build": [],
         "version": "2.0.0-74"
     },
-    "suffix": "0-gc3e7bc5-dirty",
-    "semverString": "2.0.0-74",
+    "suffix": "47-g47ad618-dirty",
+    "semverString": "2.0.0-74+47.g47ad618",
     "version": "2.0.0",
     "build": 75
 };
