@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  useReplay: false,
+  replayUrl: '',
+  replayFrom: '',
+  replayInterval: '',
+  replayCount: ''
 };
