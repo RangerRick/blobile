@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { createPatch } from 'rfc6902/dist/rfc6902';
 
 import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
+import { environment } from '../../environments/environment';
 const { App, Device, EventSource } = Plugins;
 
 import 'capacitor-eventsource';
@@ -124,22 +125,32 @@ export class APIStream {
    * @returns an {@link Observable} that can be subscribed to.
    */
   private async start(): Promise<void> {
-    console.info('APIStream.start()');
+    if (environment.useReplay) {
+      console.info('APIStream.start(): using replay API');
 
-    this.url = Device.getInfo().then(info => {
-      this.deviceInfo = info;
-      if (this.deviceInfo.platform !== 'web') {
-        return 'https://www.blaseball.com/events/streamData';
-      }
-      return 'https://cors-proxy.blaseball-reference.com/events/streamData';
-    }).catch((err) => {
-      console.error('APIStream(): failed to get device info, assuming web', err);
-      this.deviceInfo = {
-        platform: 'web'
-      } as DeviceInfo;
-      return 'https://cors-proxy.blaseball-reference.com/events/streamData';
-    });
+      this.url = new Promise(async (resolve /*, reject */) => {
+        resolve(`${environment.replayUrl}?interval=${environment.replayInterval}&from=${environment.replayFrom}&count=${environment.replayCount}`);
+      });
 
+    } else {
+      console.info('APIStream.start(): using live API');
+
+      this.url = Device.getInfo().then(info => {
+        this.deviceInfo = info;
+        if (this.deviceInfo.platform !== 'web') {
+          return 'https://www.blaseball.com/events/streamData';
+        }
+        return 'https://cors-proxy.blaseball-reference.com/events/streamData';
+
+      }).catch((err) => {
+        console.error('APIStream(): failed to get device info, assuming web', err);
+        this.deviceInfo = {
+          platform: 'web'
+        } as DeviceInfo;
+        return 'https://cors-proxy.blaseball-reference.com/events/streamData';
+      });
+
+    }
     await this.url;
     this.handleSystemChange();
   }
@@ -205,6 +216,12 @@ export class APIStream {
 
     if (!data) {
       console.error('APIStream.onMessage(): missing data?!?');
+      return;
+    }
+
+    // the replay API only sends 100 messages, restart stream when it ends
+    if (environment.useReplay && data === 'end') {
+      this.retry();
       return;
     }
 
