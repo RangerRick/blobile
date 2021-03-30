@@ -164,7 +164,6 @@ export class APIStream {
   public async subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
     await this.ready;
     console.info('APIStream.subscribe()');
-
     const subscription = this.subject.subscribe(next, error, complete);
     if (this.streamData) {
       this.subject.next(this.streamData);
