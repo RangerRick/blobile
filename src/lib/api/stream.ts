@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import {map} from 'rxjs/operators';
 import { createPatch } from 'rfc6902/dist/rfc6902';
 
 import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
@@ -90,7 +89,6 @@ export class APIStream {
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
     const unenrichedSubject = new Subject<StreamData|ErrorEvent>();
-    //this.subject = new Subject<StreamData|ErrorEvent>();
     this.subject = this.extraInnings.add(unenrichedSubject);
 
     App.addListener('appStateChange', (state: AppState) => {
