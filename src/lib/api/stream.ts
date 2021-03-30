@@ -89,7 +89,7 @@ export class APIStream {
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
     const unenrichedSubject = new Subject<StreamData|ErrorEvent>();
-    this.subject = this.extraInnings.add(unenrichedSubject);
+    .subject = this.extraInnings.add(unenrichedSubject);
 
     App.addListener('appStateChange', (state: AppState) => {
       if (this.deviceInfo?.platform !== 'web') {
@@ -118,7 +118,6 @@ export class APIStream {
     this.ready = new Promise(async (resolve) => {
       await this.platform.ready();
       await this.start();
-
       resolve();
     });
   }
@@ -165,12 +164,6 @@ export class APIStream {
   public async subscribe(next?: (value: StreamData|ErrorEvent) => void, error?: (error: any) => void, complete?: () => void) {
     await this.ready;
     console.info('APIStream.subscribe()');
-
-    //const what = this.subject.pipe(map((data: StreamData) => {
-      //data.data.games.schedule[0].lastUpdate += ' maybe?';
-      //return data
-    //}));
-    //const subscription = what.subscribe(next, error, complete);
 
     const subscription = this.subject.subscribe(next, error, complete);
     if (this.streamData) {
