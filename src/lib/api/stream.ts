@@ -89,8 +89,9 @@ export class APIStream {
     console.debug(`APIStream(): default check interval: ${this.defaultCheckIntervalMillis}ms`);
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
-    this.subject = new Subject<StreamData|ErrorEvent>();
-    this.subject = this.extraInnings.add(this.subject);
+    const unenrichedSubject = new Subject<StreamData|ErrorEvent>();
+    //this.subject = new Subject<StreamData|ErrorEvent>();
+    this.subject = this.extraInnings.add(unenrichedSubject);
 
     App.addListener('appStateChange', (state: AppState) => {
       if (this.deviceInfo?.platform !== 'web') {

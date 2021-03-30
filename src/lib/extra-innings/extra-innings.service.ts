@@ -13,26 +13,26 @@ import Commentary from './commentary';
 export class ExtraInnings {
 
   /**
-   * a list of extra inning processor functions
+   * a list of functions that enrich the data stream
    */
-  private extras: Array<(data: StreamData) => StreamData>;
+  private processingFuncs: Array<(data: StreamData) => StreamData>;
 
   constructor() {
     console.debug('ExtraInnings loading.');
 
-    this.extras = [
-      Commentary.process,
-      Commentary.anotherOne,
+    this.processingFuncs = [
+      Commentary.processOne,
+      Commentary.processTwo
     ];
   }
 
-  // todo: what type does this return? i don't get it
+  // todo: why does this return an AnonymousSubject? is that ok?
   public add(subject: Subject<StreamData|ErrorEvent>): any {
     console.debug('ExtraInnings.add()');
 
     let ret;
 
-    this.extras.forEach((func, i) => {
+    this.processingFuncs.forEach((func, i) => {
       if (i === 0) {
         ret = subject.pipe(map(func));
       } else {

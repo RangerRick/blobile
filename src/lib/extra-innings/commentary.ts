@@ -1,17 +1,27 @@
 import { StreamData } from '../model/streamData';
 
 export default class Commentary {
-  static process(data: StreamData): StreamData {
-    console.debug('Commentary.process() with data:', data);
+  /**
+   * Adds the text ' an extra inning!' to every game's lastUpdate field
+   */
+  static processOne(data: StreamData): StreamData {
+    console.debug('Commentary.processOne() with data:', data);
 
-    data.data.games.schedule[0].lastUpdate += ' an extra inning!';
+    data.data.games.schedule.forEach((game) => {
+      game.lastUpdate += ' an extra inning!';
+    });
     return data;
   }
 
-  static anotherOne(data: StreamData): StreamData {
-    console.debug('Commentary.process() with data:', data);
+  /**
+   * Adds the text ' too many extra innings!' to every game's lastUpdate field
+   */
+  static processTwo(data: StreamData): StreamData {
+    console.debug('Commentary.processTwo() with data:', data);
 
-    data.data.games.schedule[0].lastUpdate += ' too many extra innings!';
+    data.data.games.schedule.forEach((game) => {
+      game.lastUpdate += ' an extra inning!';
+    });
     return data;
   }
 }
