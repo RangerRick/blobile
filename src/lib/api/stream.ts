@@ -89,7 +89,7 @@ export class APIStream {
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
     const unenrichedSubject = new Subject<StreamData|ErrorEvent>();
-    .subject = this.extraInnings.add(unenrichedSubject);
+    this.subject = this.extraInnings.add(unenrichedSubject);
 
     App.addListener('appStateChange', (state: AppState) => {
       if (this.deviceInfo?.platform !== 'web') {
