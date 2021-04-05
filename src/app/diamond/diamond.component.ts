@@ -139,6 +139,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     // update = 'the birds pecked';
     // update = 'had an allergic reaction';
     // update = 'is now unstable';
+    // update = 'salmon swim upstream';
 
     if (
       update.indexOf('home run') >= 0
@@ -238,6 +239,13 @@ export class DiamondComponent implements DoCheck, OnInit {
       this.game.maximumBlaseball
     ) {
       Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
+    } else if (
+      update.indexOf('salmon swim upstream') >= 0
+    ) {
+      Util.message(svgWrapperId, '🐟 SALMON 🐟', {
+        fontSize: '3em',
+        messageColor: '#f2c8f7',
+      });
     }
   }
 
