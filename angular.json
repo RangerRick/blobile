@@ -67,6 +67,14 @@
                 }
               ]
             },
+            "development-replay": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.replay.ts"
+                }
+              ],
+            },
             "ci": {
               "progress": false
             }
@@ -80,6 +88,9 @@
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
+            },
+            "development-replay": {
+              "browserTarget": "app:build:development-replay"
             },
             "ci": {
               "progress": false
