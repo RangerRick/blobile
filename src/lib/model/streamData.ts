@@ -12,6 +12,8 @@ import { PHASES } from './phases';
 import { BossFight } from './bossfight';
 
 export class StreamData extends Entry {
+  _blMetadata: { [key: string]: any };
+
   public get seasonNumber() {
     if (this.sim.day === 1 && this.games.isPostseasonComplete() && !this.games.isRegularSeason()) {
       return this.season.seasonNumber - 1;
@@ -65,6 +67,14 @@ export class StreamData extends Entry {
       return new Playoffs(this.data.games.postseason.playoffs);
     }
   }
+
+  //public get blMetadata() {
+    //return this._blMetadata || {};
+  //}
+
+  //public set blMetadata(metadata: any) {
+    //this._blMetadata = metadata;
+  //}
 
   public phase(now = Date.now()): PHASES {
     /*  ¯\_(ツ)_/¯

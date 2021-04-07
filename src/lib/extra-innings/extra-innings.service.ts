@@ -21,8 +21,7 @@ export class ExtraInnings {
     console.debug('ExtraInnings loading.');
 
     this.processingFuncs = [
-      Commentary.processOne,
-      Commentary.processTwo
+      Commentary.processGameEvents,
     ];
   }
 

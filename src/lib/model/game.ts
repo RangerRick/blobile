@@ -34,7 +34,7 @@ export class Game extends Entry {
   /* basesOccupied: number[]; */
   bottomInningScore: number;
   day: number;
-  finalized: boolean;
+  finalized: Boolean;
   gameComplete: boolean;
   gameStart: boolean;
   gameStartPhase: number;
@@ -82,6 +82,8 @@ export class Game extends Entry {
   topOfInning: boolean;
   tournament: number;
   weather: number;
+
+  metadata: { [key: string]: any };
 
   hash: string;
 
@@ -172,6 +174,10 @@ export class Game extends Entry {
       hash.update(this.data?.[prop]);
     }
     this.hash = hash.digest('hex');
+
+    this.metadata = {};
+    //console.debug('mlustard 6', this.data);
+    //this.mlustard = this.metadata.mlustard;
   }
 
   protected hashKeys() {
@@ -363,6 +369,24 @@ export class Game extends Entry {
       ret.push(this.scoreUpdate.trim());
     }
 
+    //console.debug('mlustard here 2', this.mlustard)
+    //console.debug('mlustard here 3', this.metadata)
+    return this.data.mlustard?.id || 'always too late';
     return ret.join('\n');
+  }
+
+  public get mlustard() {
+    //console.debug('mlustard here 4', this.metadata.mlustard)
+    return this.metadata?.mlustard || null;
+    //if (this.metadata.mlustard) {
+      //return this.metadata.mlustard;
+    //}
+
+    //return null;
+  }
+
+  public set mlustard(mlustardAnalysis) {
+    this.metadata.mlustard = mlustardAnalysis;
+    console.debug('mlustard here 5', this)
   }
 }

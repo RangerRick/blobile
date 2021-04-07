@@ -2,10 +2,10 @@ export const environment = {
   production: false,
   useReplay: true,
   replayUrl: 'https://api.sibr.dev/replay/v1/replay',
-  replayFrom: '2020-08-30T01:00:08.17Z',
+  replayFrom: '2020-08-30T01:00:08.00Z',
   // the replay API uses a default interval of 3000ms between events
   // which currently makes the stream restart too frequently
-  replayInterval: 1500,
+  replayInterval: 2500,
   // how many events should the replay stream?
   replayCount: 100
 };
