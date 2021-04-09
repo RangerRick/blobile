@@ -56,6 +56,7 @@ export class Sim extends Entry {
       case PHASES.EARLY_SIESTA:
       case PHASES.MIDSEASON:
       case PHASES.LATE_SIESTA:
+      case PHASES.LATESEASON:
       case PHASES.SEASON_END:
         return true;
       default:
