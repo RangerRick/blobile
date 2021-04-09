@@ -83,7 +83,7 @@ export class Game extends Entry {
   tournament: number;
   weather: number;
 
-  metadata: { [key: string]: any };
+  //metadata: { [key: string]: any };
 
   hash: string;
 
@@ -175,9 +175,7 @@ export class Game extends Entry {
     }
     this.hash = hash.digest('hex');
 
-    this.metadata = {};
-    //console.debug('mlustard 6', this.data);
-    //this.mlustard = this.metadata.mlustard;
+    //this.metadata = {};
   }
 
   protected hashKeys() {
@@ -369,24 +367,7 @@ export class Game extends Entry {
       ret.push(this.scoreUpdate.trim());
     }
 
-    //console.debug('mlustard here 2', this.mlustard)
-    //console.debug('mlustard here 3', this.metadata)
-    return this.data.mlustard?.id || 'always too late';
+    return this.getMeta('mlustard').id || 'always too late';
     return ret.join('\n');
-  }
-
-  public get mlustard() {
-    //console.debug('mlustard here 4', this.metadata.mlustard)
-    return this.metadata?.mlustard || null;
-    //if (this.metadata.mlustard) {
-      //return this.metadata.mlustard;
-    //}
-
-    //return null;
-  }
-
-  public set mlustard(mlustardAnalysis) {
-    this.metadata.mlustard = mlustardAnalysis;
-    console.debug('mlustard here 5', this)
   }
 }

@@ -9,7 +9,7 @@ const { App, Device, EventSource } = Plugins;
 import 'capacitor-eventsource';
 import { MessageResult, ErrorResult, EventSourcePlugin } from 'capacitor-eventsource';
 import { StreamData } from '../model/streamData';
-import { ExtraInnings } from '../extra-innings/extra-innings.service';
+import ExtraInnings from '../extra-innings/extra-innings';
 import { Platform } from '@ionic/angular';
 
 const SECOND = 1000;
@@ -77,7 +77,6 @@ export class APIStream {
    */
   constructor(
     private platform: Platform,
-    private extraInnings: ExtraInnings,
   ) {
     this.defaultRetryMillis = 5 * SECOND;
     this.defaultCheckIntervalMillis = 2 * SECOND;
@@ -89,7 +88,7 @@ export class APIStream {
     console.debug(`APIStream(): default retry fallback: ${this.defaultRetryFallback}x`);
 
     const unenrichedSubject = new Subject<StreamData|ErrorEvent>();
-    this.subject = this.extraInnings.add(unenrichedSubject);
+    this.subject = ExtraInnings.add(unenrichedSubject);
 
     App.addListener('appStateChange', (state: AppState) => {
       if (this.deviceInfo?.platform !== 'web') {

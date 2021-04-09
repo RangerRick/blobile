@@ -54,4 +54,12 @@ export class Entry {
       });
     }
   }
+
+  protected getMeta(field: string) {
+    if (this.data._blMetadata === undefined) {
+      this.data._blMetadata = {};
+    }
+
+    return this.data._blMetadata[field];
+  }
 }

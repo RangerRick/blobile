@@ -7,26 +7,17 @@ import { StreamData } from '../model/streamData';
 
 import Commentary from './commentary';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ExtraInnings {
+export default class ExtraInnings {
 
   /**
    * a list of functions that enrich the data stream
    */
-  private processingFuncs: Array<(data: StreamData) => StreamData>;
-
-  constructor() {
-    console.debug('ExtraInnings loading.');
-
-    this.processingFuncs = [
+  private static processingFuncs = [
       Commentary.processGameEvents,
-    ];
-  }
+  ];
 
   // todo: why does this return an AnonymousSubject? is that ok?
-  public add(subject: Subject<StreamData|ErrorEvent>): any {
+  public static add(subject: Subject<StreamData|ErrorEvent>): any {
     console.debug('ExtraInnings.add()');
 
     let ret;
@@ -40,5 +31,13 @@ export class ExtraInnings {
     });
 
     return ret;
+  }
+
+  public static setMetadata(target: any, field: any, value: any) {
+    if (target.data._blMetadata === undefined) {
+      target.data._blMetadata = {};
+    }
+
+    target.data._blMetadata[field] = value;
   }
 }
