@@ -21,4 +21,12 @@ export class Matchup extends Entry {
   public get gamesNeeded() {
     return this.data?.gamesNeeded === undefined? -1 : parseInt(this.data.gamesNeeded, 10);
   }
+
+  public get idling() {
+    if (this.awayTeam === null) {
+      return true;
+    }
+
+    return false;
+  }
 }
