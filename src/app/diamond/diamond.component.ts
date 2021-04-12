@@ -209,19 +209,33 @@ export class DiamondComponent implements DoCheck, OnInit {
         });
         break
 
-    //} else if (
-      //update.indexOf('the instability chains to') >= 0
-    //) {
-      //Util.message(svgWrapperId, '🔗 INSTABILITY 🔗', {
-        //fontSize: '2.5em',
-        //messageColor: '#ced7e3',
-      //});
       case 'flickering':
         Util.message(svgWrapperId, '', {
           fontSize: '3em',
           messageColor: '#62b2ff',
           blink: true,
           classes: { [diamondId]: 'flicker' },
+        });
+        break;
+
+      case 'salmon':
+        Util.message(svgWrapperId, '🐟 SALMON 🐟', {
+          fontSize: '3em',
+          messageColor: '#f2c8f7',
+        });
+        break;
+
+      case 'consumersAttack':
+        Util.message(svgWrapperId, '🦈 ATTACK 🦈' , {
+          fontSize: '3em',
+          messageColor: '#81a8ce',
+        });
+        break;
+
+      case 'consumersAttackDefended':
+        Util.message(svgWrapperId, '🛡 ATTACK DEFENDED 🛡' , {
+          fontSize: '3em',
+          messageColor: '#81a8ce',
         });
         break;
 
@@ -232,10 +246,6 @@ export class DiamondComponent implements DoCheck, OnInit {
     //} else if (
       //update.indexOf('salmon swim upstream') >= 0
     //) {
-      //Util.message(svgWrapperId, '🐟 SALMON 🐟', {
-        //fontSize: '3em',
-        //messageColor: '#f2c8f7',
-      //});
     //}
   }
 

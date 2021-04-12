@@ -2,12 +2,12 @@ export const environment = {
   production: false,
   useReplay: true,
   replayUrl: 'https://api.sibr.dev/replay/v1/replay',
-  replayFrom: '2021-04-12T16:05:37.602003Z',
+  replayFrom: '2021-04-12T16:05:08.60742Z',
   // the replay API uses a default interval of 3000ms between events
   // which currently makes the stream restart too frequently
   replayInterval: 2500,
   // how many events should the replay stream?
-  replayCount: 10
+  replayCount: 20
 };
 
 /*
@@ -28,4 +28,8 @@ export const environment = {
  * s16 d2 (home run test)
  * 2021-04-12T16:05:37.602003Z
  * https://reblase.sibr.dev/game/c0bb7fa0-b68c-4e6a-be27-38e06c7a216e
+ *
+ * s16 d2 (consumers test)
+ * 2021-04-12T16:05:08.60742Z
+ * https://reblase.sibr.dev/game/3837aa84-1bea-4eb8-8d2f-4a8855ed9eeb
  */
