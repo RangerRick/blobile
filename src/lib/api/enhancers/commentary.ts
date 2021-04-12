@@ -1,6 +1,7 @@
 import * as mlustard from 'mlustard';
 
 import { StreamData } from '../../model/streamData';
+
 import EnhancerUtil from './enhancer-util';
 
 export default class Commentary {
@@ -17,7 +18,6 @@ export default class Commentary {
       console.debug('Commentary.processGameEvents analyzed meta:', analysis);
 
       EnhancerUtil.setMetadata(game, 'mlustard', analysis);
-      //game.data.mlustard = analysis;
     });
 
     return data;

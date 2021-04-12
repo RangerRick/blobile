@@ -9,6 +9,9 @@ import Commentary from './commentary';
 
 export default class StreamEnhancer {
 
+  /*
+   * addEnhancement will look through this array for enhancement functions
+   */
   private static enhancerFuncs = [
       Commentary.processGameEvents,
   ];
