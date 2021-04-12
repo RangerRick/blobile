@@ -34,7 +34,7 @@ export class Game extends Entry {
   /* basesOccupied: number[]; */
   bottomInningScore: number;
   day: number;
-  finalized: Boolean;
+  finalized: boolean;
   gameComplete: boolean;
   gameStart: boolean;
   gameStartPhase: number;
@@ -82,8 +82,6 @@ export class Game extends Entry {
   topOfInning: boolean;
   tournament: number;
   weather: number;
-
-  //metadata: { [key: string]: any };
 
   hash: string;
 
@@ -174,8 +172,6 @@ export class Game extends Entry {
       hash.update(this.data?.[prop]);
     }
     this.hash = hash.digest('hex');
-
-    //this.metadata = {};
   }
 
   protected hashKeys() {

@@ -242,11 +242,6 @@ export class DiamondComponent implements DoCheck, OnInit {
       default:
         break;
     }
-
-    //} else if (
-      //update.indexOf('salmon swim upstream') >= 0
-    //) {
-    //}
   }
 
   isFavorite(teamId: string) {
