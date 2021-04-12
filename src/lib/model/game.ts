@@ -367,7 +367,27 @@ export class Game extends Entry {
       ret.push(this.scoreUpdate.trim());
     }
 
-    return this.getMeta('mlustard').id || 'always too late';
     return ret.join('\n');
+  }
+
+  public get interestingEvent(): string {
+    if (this.getMeta('mlustard').hit && (
+      this.getMeta('mlustard').hitMeta.kind === 'homeRun' ||
+      this.getMeta('mlustard').hitMeta.kind === 'grandSlam'
+    )) {
+
+      return this.getMeta('mlustard').hitMeta.kind;
+
+    } else if (this.getMeta('mlustard').special) {
+
+      return this.getMeta('mlustard').specialMeta.kind;
+
+    } else if (this.getMeta('mlustard').maximumBlaseball) {
+
+      return 'maximumBlaseball';
+
+    }
+
+    return '';
   }
 }

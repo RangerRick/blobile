@@ -116,137 +116,127 @@ export class DiamondComponent implements DoCheck, OnInit {
   }
 
   checkInterestingEvents() {
+    const interestingEvent = this.game?.interestingEvent;
+
+    if (!interestingEvent) {
+      return;
+    }
+
     const options = {
       reduceMotion: this.settings.reduceMotion(),
     } as MessageOptions;
 
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
-    // tslint:disable-next-line:prefer-const
-    let update = this.game?.updateText?.toLowerCase() || '';
 
-    // just for testing
-    // update = 'rogue umpire incinerated';
-    // update = 'switched teams and feedback';
-    // update = 'hits a grand slam';
-    // update = 'hits a home run';
-    // update = 'reverb';
-    // update = 'blooddrain';
-    // update = 'is now flickering';
-    // update = 'the electricity zaps';
-    // update = 'is partying!';
-    // update = 'the instability chains to';
-    // update = 'the birds pecked';
-    // update = 'had an allergic reaction';
-    // update = 'is now unstable';
-    // update = 'salmon swim upstream';
+    switch (interestingEvent) {
+      case 'homeRun':
+        Util.confetti(svgWrapperId, 'HOME RUN!', options);
+        break;
 
-    if (
-      update.indexOf('home run') >= 0
-    ) {
-      Util.confetti(svgWrapperId, 'HOME RUN!', options);
-    } else if (
-      update.indexOf('hits a grand slam') >= 0
-    ) {
-      Util.confetti(svgWrapperId, 'GRAND SLAM!', Object.assign({
-        particleCount: 100,
-      }, options));
-    } else if (
-      update.indexOf('blooddrain') >= 0
-    ) {
-      Util.message(svgWrapperId, '🩸 BLOODDRAIN 🩸', {
-        fontSize: '3em',
-        messageColor: '#e44',
-      });
-    } else if (
-      update.indexOf('is partying') >= 0
-    ) {
-      Util.message(svgWrapperId, '🎉 PARTY 🎉', {
-        fontSize: '3em',
-        messageColor: '#44ff44',
-      });
-    } else if (
-      update.indexOf('reverb') >= 0
-    ) {
-      Util.message(svgWrapperId, '🌊 REVERB 🌊', {
-        fontSize: '3em',
-        messageColor: '#62b2ff',
-        blink: true,
-        classes: { [diamondId]: 'shake' },
-      });
-    } else if (
-      update.indexOf('the birds pecked') >= 0
-    ) {
-      Util.message(svgWrapperId, '🦅 BIRDS 🦅', {
-        fontSize: '3em',
-        messageColor: '#ff8933',
-      });
-    } else if (
-      update.indexOf('had an allergic reaction') >= 0
-    ) {
-      Util.message(svgWrapperId, '🥜 PEANUT 🥜', {
-        fontSize: '3em',
-        messageColor: '#ff8933',
-      });
-    } else if (
-      update.indexOf('rogue umpire incinerated') >= 0
-    ) {
-      Util.message(svgWrapperId, '🔥 INCINERATED 🔥', {
-        fontSize: '3em',
-        messageColor: '#ffdf19',
-      });
-    } else if (
-      update.indexOf('feedback') >= 0 && (
-        update.indexOf('reality flickers') >= 0 ||
-        update.indexOf('switched teams') >= 0
-      )
-    ) {
-      Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
-        fontSize: '3em',
-        messageColor: '#f40576',
-      });
-    } else if (
-      update.indexOf('the electricity zaps') >= 0
-    ) {
-      Util.message(svgWrapperId, '⚡️ ZAP ⚡️', {
-        fontSize: '3em',
-        messageColor: '#f3c549',
-      });
-    } else if (
-      update.indexOf('is now unstable') >= 0
-    ) {
-      Util.message(svgWrapperId, '🥴 UNSTABLE 🥴', {
-        fontSize: '3em',
-        messageColor: '#ffd734',
-      });
-    } else if (
-      update.indexOf('the instability chains to') >= 0
-    ) {
-      Util.message(svgWrapperId, '🔗 INSTABILITY 🔗', {
-        fontSize: '2.5em',
-        messageColor: '#ced7e3',
-      });
-    } else if (
-      update.indexOf('is now flickering') >= 0
-    ) {
-      Util.message(svgWrapperId, '', {
-        fontSize: '3em',
-        messageColor: '#62b2ff',
-        blink: true,
-        classes: { [diamondId]: 'flicker' },
-      });
-    } else if (
-      this.game.maximumBlaseball
-    ) {
-      Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
-    } else if (
-      update.indexOf('salmon swim upstream') >= 0
-    ) {
-      Util.message(svgWrapperId, '🐟 SALMON 🐟', {
-        fontSize: '3em',
-        messageColor: '#f2c8f7',
-      });
+      case 'grandSlam':
+        Util.confetti(svgWrapperId, 'GRAND SLAM!', Object.assign({
+          particleCount: 100,
+        }, options));
+        break;
+
+      case 'maximumBlaseball':
+        Util.message(svgWrapperId, 'MAXIMUM\nBLASEBALL!');
+        break;
+
+      case 'blooddrain':
+        Util.message(svgWrapperId, '🩸 BLOODDRAIN 🩸', {
+          fontSize: '3em',
+          messageColor: '#e44',
+        });
+        break;
+
+      case 'isPartying':
+        Util.message(svgWrapperId, '🎉 PARTY 🎉', {
+          fontSize: '3em',
+          messageColor: '#44ff44',
+        });
+        break;
+
+      case 'reverb':
+        Util.message(svgWrapperId, '🌊 REVERB 🌊', {
+          fontSize: '3em',
+          messageColor: '#62b2ff',
+          blink: true,
+          classes: { [diamondId]: 'shake' },
+        });
+        break;
+
+      case 'birdsPecked':
+        Util.message(svgWrapperId, '🦅 BIRDS 🦅', {
+          fontSize: '3em',
+          messageColor: '#ff8933',
+        });
+        break;
+
+      case 'allergicReaction':
+        Util.message(svgWrapperId, '🥜 PEANUT 🥜', {
+          fontSize: '3em',
+          messageColor: '#ff8933',
+        });
+        break;
+
+      case 'incinerated':
+        Util.message(svgWrapperId, '🔥 INCINERATED 🔥', {
+          fontSize: '3em',
+          messageColor: '#ffdf19',
+        });
+        break;
+
+      case 'feedback':
+        Util.message(svgWrapperId, '🎤 FEEDBACK 🎤', {
+          fontSize: '3em',
+          messageColor: '#f40576',
+        });
+        break;
+
+      case 'electricity':
+        Util.message(svgWrapperId, '⚡️ ZAP ⚡️', {
+          fontSize: '3em',
+          messageColor: '#f3c549',
+        });
+        break;
+
+      case 'unstable':
+        Util.message(svgWrapperId, '🥴 UNSTABLE 🥴', {
+          fontSize: '3em',
+          messageColor: '#ffd734',
+        });
+        break
+
+    //} else if (
+      //update.indexOf('the instability chains to') >= 0
+    //) {
+      //Util.message(svgWrapperId, '🔗 INSTABILITY 🔗', {
+        //fontSize: '2.5em',
+        //messageColor: '#ced7e3',
+      //});
+      case 'flickering':
+        Util.message(svgWrapperId, '', {
+          fontSize: '3em',
+          messageColor: '#62b2ff',
+          blink: true,
+          classes: { [diamondId]: 'flicker' },
+        });
+        break;
+
+      default:
+        break;
     }
+
+    //} else if (
+      //update.indexOf('salmon swim upstream') >= 0
+    //) {
+      //Util.message(svgWrapperId, '🐟 SALMON 🐟', {
+        //fontSize: '3em',
+        //messageColor: '#f2c8f7',
+      //});
+    //}
   }
 
   isFavorite(teamId: string) {

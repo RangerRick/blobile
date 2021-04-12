@@ -305,7 +305,6 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       this.checkStale();
     }, 1000);
 
-    //debugger
     for (const key of Object.keys(streamData.data)) {
       this.streamData.data[key] = streamData.data[key];
     }
