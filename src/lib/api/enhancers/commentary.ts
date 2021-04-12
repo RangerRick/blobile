@@ -1,7 +1,7 @@
 import * as mlustard from 'mlustard';
 
-import { StreamData } from '../model/streamData';
-import ExtraInnings from './extra-innings';
+import { StreamData } from '../../model/streamData';
+import EnhancerUtil from './enhancer-util';
 
 export default class Commentary {
 
@@ -16,7 +16,7 @@ export default class Commentary {
       const analysis = mlustard.analyzeGameEvent(game);
       console.debug('Commentary.processGameEvents analyzed meta:', analysis);
 
-      ExtraInnings.setMetadata(game, 'mlustard', analysis);
+      EnhancerUtil.setMetadata(game, 'mlustard', analysis);
       //game.data.mlustard = analysis;
     });
 
