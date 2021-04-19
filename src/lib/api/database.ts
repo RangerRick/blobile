@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Plugins, DeviceInfo } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 
 import '@capacitor-community/http';
 import { HttpResponse } from '@capacitor-community/http';

@@ -2,7 +2,6 @@ import { Entry, ID } from './_entry';
 
 import { sha256 } from 'hash.js';
 import { Player } from './player';
-import { WEATHER } from './weather';
 
 export class Game extends Entry {
   id: ID;
@@ -318,10 +317,6 @@ export class Game extends Entry {
       return this.awayTeamName;
     }
     return undefined;
-  }
-
-  public get weatherString() {
-    return WEATHER[this.weather] || 'Unknown';
   }
 
   public get winningScore(): number {
