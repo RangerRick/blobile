@@ -3,7 +3,10 @@ import { Component, Input, OnInit, Output, EventEmitter, DoCheck, ChangeDetector
 import { ModalController } from '@ionic/angular';
 
 import { SettingsService } from '../../lib/settings.service';
+
 import { APIDatabase } from '../../lib/api/database';
+import { Static } from '../../lib/api/static';
+
 import { BossFight } from '../../lib/model/bossfight';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
@@ -51,6 +54,7 @@ export class DiamondComponent implements DoCheck, OnInit {
   };
 
   public teams = {} as { [key: string]: Team };
+  public weatherTypes = [] as string[];
 
   private oldGame = {} as Game | BossFight;
   public environment = environment;
@@ -70,7 +74,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     // console.debug('Diamond component initialized.');
     // console.debug(this.game);
 
-    await this.settings.ready;
+    await Promise.all([this.settings.ready, this.initWeather()]);
 
     for (const team of (await this.database.teams())) {
       this.teams[team.id] = team;
@@ -79,6 +83,10 @@ export class DiamondComponent implements DoCheck, OnInit {
     this.checkBossFight();
 
     return true;
+  }
+
+  async initWeather() {
+    return this.weatherTypes = await Static.get('weather');
   }
 
   ngDoCheck(): void {
