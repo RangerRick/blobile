@@ -22,10 +22,12 @@ export class Static {
         },
       }).then((ret: HttpResponse) => {
         if (ret.status >= 200 && ret.status < 300) {
+          let data = ret.data;
           if (isString(ret.data)) {
-            return JSON.parse(ret.data);
+            data = JSON.parse(ret.data);
           }
-          return ret.data;
+          console.debug(`Static.get(${asset}): got result: ` + JSON.stringify(data));
+          return data;
         }
         throw new Error(`HTTP response ${ret.status}`);
       }).catch((err: any) => {
