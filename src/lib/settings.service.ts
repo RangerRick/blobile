@@ -8,8 +8,8 @@ const { Device, Storage } = Plugins;
 
 export type SEGMENT = 'all'|'active'|'favorites';
 export const COMM_LEVEL = {
-  1: "The God's Original",
-  2: "The God's Original+",
+  1: "The Gods's Original",
+  2: "The Gods's Original+",
 } as const;
 
 export interface Settings {
