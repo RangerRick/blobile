@@ -33,7 +33,7 @@ export class SettingsPage implements OnInit {
   public voiceOptions: any = {
     header: 'Choose a Voice',
   };
-  public commentaryOptions: any = {
+  public commentaryLevelOptions: any = {
     header: 'Choose a Commentary Level',
   };
 
