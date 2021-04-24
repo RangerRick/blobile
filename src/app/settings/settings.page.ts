@@ -131,7 +131,7 @@ export class SettingsPage implements OnInit {
   }
 
   async setCommentaryLevel(ev?: CustomEvent<any>) {
-    return await this.settings.setCommentaryLevel(ev.detail.value);
+    return await this.settings.setCommentaryLevel(parseInt(ev.detail.value));
   }
 
   async speak(ev?: CustomEvent<any>) {

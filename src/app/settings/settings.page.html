@@ -69,24 +69,13 @@
         <ion-select-option *ngFor="let voice of voices" [value]="voice.voiceURI">{{voice.name}}</ion-select-option>
       </ion-select>
     </ion-item>
-
-
-
     <ion-item *ngIf="hasSpeech">
       <ion-label for="choose-commetary-level" class="ion-text-wrap">Commentary
         Level:</ion-label>
-      <ion-select *ngIf="current && commentaryLevel"
-        id="choose-commentary-level" aria-label="Choose a Commentary Level"
-        class="ion-text-wrap" (ionChange)="setCommentaryLevel($event)"
-        interface="action-sheet" [interfaceOptions]="commentaryLevelOptions"
-        okText="Choose" cancelText="Cancel" [value]="current.commentaryLevel">
-        <ion-select-option *ngFor="let level of commentaryLevels | keyvalue"
-          [value]="level.key">{{level.value}}</ion-select-option>
+      <ion-select *ngIf="current && commentaryLevel" id="choose-commentary-level" aria-label="Choose a Commentary Level" class="ion-text-wrap" (ionChange)="setCommentaryLevel($event)" interface="action-sheet" [interfaceOptions]="commentaryLevelOptions" okText="Choose" cancelText="Cancel" [value]="current.commentaryLevel">
+        <ion-select-option *ngFor="let level of commentaryLevels | keyvalue" [value]="level.key">{{level.value}}</ion-select-option>
       </ion-select>
     </ion-item>
-
-
-
     <ion-list-header lines="full">
       <h3>Teams</h3>
     </ion-list-header>
