@@ -3,7 +3,6 @@ import { Entry, ID } from './_entry';
 import * as grandSlalami from 'grand-slalami';
 import { sha256 } from 'hash.js';
 import { Player } from './player';
-import { SettingsService } from 'src/lib/settings.service';
 
 export class Game extends Entry {
   id: ID;
