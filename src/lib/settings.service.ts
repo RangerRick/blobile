@@ -7,6 +7,10 @@ import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 const { Device, Storage } = Plugins;
 
 export type SEGMENT = 'all'|'active'|'favorites';
+export const COMM_LEVEL = {
+  1: "The God's Original",
+  2: "The God's Original+",
+} as const;
 
 export interface Settings {
   favorites: { [team: string]: boolean };
@@ -21,6 +25,7 @@ export interface Settings {
   reduceMotion: boolean;
   speech: boolean;
   volume: number;
+  commentaryLevel: number;
 }
 
 @Injectable({
@@ -39,6 +44,7 @@ export class SettingsService {
     reduceMotion: false,
     speech: true,
     volume: 1.0,
+    commentaryLevel: 1,
   } as Settings;
 
   public ready: Promise<boolean>;
@@ -74,6 +80,7 @@ export class SettingsService {
         }),
         this.configureNumbers({
           volume: 1.0,
+          commentaryLevel: 1,
         }),
         Storage.get({key: 'favorites'}).then((favorites) => {
           this.settings.favorites = JSON.parse(favorites?.value || '{}');
@@ -164,6 +171,9 @@ export class SettingsService {
     }
     if (this.settings.volume === undefined) {
       this.settings.volume = 1.0;
+    }
+    if (this.settings.commentaryLevel === undefined) {
+      this.settings.commentaryLevel = 1;
     }
     return this.settings;
   }
@@ -323,5 +333,11 @@ export class SettingsService {
   }
   async setVolume(volume: number) {
     return this.setNumber('volume', volume);
+  }
+  commentaryLevel(): number {
+    return this.getNumber('commentaryLevel');
+  }
+  async setCommentaryLevel(level: number) {
+    return this.setNumber('commentaryLevel', level);
   }
 }

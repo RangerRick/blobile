@@ -1,7 +1,9 @@
 import { Entry, ID } from './_entry';
 
+import * as grandSlalami from 'grand-slalami';
 import { sha256 } from 'hash.js';
 import { Player } from './player';
+import { SettingsService } from 'src/lib/settings.service';
 
 export class Game extends Entry {
   id: ID;
@@ -359,5 +361,18 @@ export class Game extends Entry {
     }
 
     return ret.join('\n');
+  }
+
+  public updateAudio(commentaryLevel: number): string {
+    if (commentaryLevel === 2) {
+      return grandSlalami.getComment({
+        gameEvent: this.data,
+        overrides: {
+          basesLoaded: 'Blases are loaded!',
+        },
+      });
+    } else {
+      return this.updateText;
+    }
   }
 }

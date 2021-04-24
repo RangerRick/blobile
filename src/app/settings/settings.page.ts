@@ -9,7 +9,7 @@ import { Team } from '../../lib/model/team';
 
 import { UpdateService } from '../../lib/update.service';
 import { APIDatabase } from '../../lib/api/database';
-import { Settings, SettingsService } from '../../lib/settings.service';
+import { Settings, SettingsService, COMM_LEVEL } from '../../lib/settings.service';
 import { Platform } from '@ionic/angular';
 import Util from 'src/lib/util';
 import { VoiceService } from 'src/lib/voice.service';
@@ -33,11 +33,16 @@ export class SettingsPage implements OnInit {
   public voiceOptions: any = {
     header: 'Choose a Voice',
   };
+  public commentaryOptions: any = {
+    header: 'Choose a Commentary Level',
+  };
 
   public teams: Team[];
   public volume: number;
   public voices: SpeechSynthesisVoice[];
   public voice: SpeechSynthesisVoice;
+  public commentaryLevels: Object;
+  public commentaryLevel: number;
 
   id = Util.trackById;
 
@@ -84,6 +89,9 @@ export class SettingsPage implements OnInit {
     this.voices = this.voiceService.voices();
     this.voice = await this.voiceService.voice(this.current.voice);
 
+    this.commentaryLevels = COMM_LEVEL;
+    this.commentaryLevel = this.current.commentaryLevel;
+
     this.loading = false;
     console.debug('SettingsPage.onInit(): current settings=', this.current);
   }
@@ -120,6 +128,10 @@ export class SettingsPage implements OnInit {
     } else {
       console.error(`Unable to locate voice: ${ev?.detail?.value}`);
     }
+  }
+
+  async setCommentaryLevel(ev?: CustomEvent<any>) {
+    return await this.settings.setCommentaryLevel(ev.detail.value);
   }
 
   async speak(ev?: CustomEvent<any>) {
