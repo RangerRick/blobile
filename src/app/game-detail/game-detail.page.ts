@@ -61,7 +61,7 @@ export class GameDetailPage implements OnInit {
           entry: game.updateText,
         });
         if (!this.muted) {
-          this.voiceService.say(game.updateText);
+          this.voiceService.say(game.updateAudio(this.settings.commentaryLevel()));
         }
       }
     });
