@@ -1,0 +1,19 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: v2.x
+  reviewers:
+  - rangerrick
+  labels:
+  - dependabot
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 15.0.0
+  commit-message:
+    prefix: build
+    include: scope
