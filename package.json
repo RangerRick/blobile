@@ -37,7 +37,7 @@
     "@angular/language-service": "^11.2.12",
     "@capacitor/cli": "^2.4.7",
     "@ionic/angular-toolkit": "^3.1.1",
-    "@ionic/cli": "^6.13.1",
+    "@ionic/cli": "^6.14.0",
     "@types/canvas-confetti": "^1.4.0",
     "@types/color": "^3.0.1",
     "@types/jasmine": "^3.6.10",
