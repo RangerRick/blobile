@@ -41,7 +41,7 @@
     "@types/canvas-confetti": "^1.4.0",
     "@types/color": "^3.0.1",
     "@types/jasmine": "^3.6.11",
-    "@types/jasminewd2": "~2.0.3",
+    "@types/jasminewd2": "~2.0.9",
     "@types/node": "^15.0.2",
     "codelyzer": "^6.0.2",
     "conventional-changelog-cli": "^2.1.1",
