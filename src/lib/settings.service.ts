@@ -9,7 +9,7 @@ const { Device, Storage } = Plugins;
 export type SEGMENT = 'all'|'active'|'favorites';
 export const COMM_LEVEL = {
   1: "The Gods's Original",
-  2: "The Gods's Original+",
+  2: "A Dash of Hubris (Gods's+)",
 } as const;
 
 export interface Settings {
