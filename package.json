@@ -41,7 +41,7 @@
     "@ionic/cli": "^6.14.1",
     "@types/canvas-confetti": "^1.4.0",
     "@types/color": "^3.0.1",
-    "@types/jasmine": "^3.7.0",
+    "@types/jasmine": "^3.7.1",
     "@types/jasminewd2": "~2.0.9",
     "@types/node": "^15.0.2",
     "codelyzer": "^6.0.2",
