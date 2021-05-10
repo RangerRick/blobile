@@ -4,11 +4,11 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.raccoonfink.blobile"
-        versionName "2.0.0"
+        versionName "3.0.0"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 77
+        versionCode 78
     }
     buildTypes {
         release {
