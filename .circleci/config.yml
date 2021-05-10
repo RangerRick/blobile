@@ -56,9 +56,6 @@ jobs:
         - cached-checkout
         - cached-npm-install
         - run:
-            name: Run Production Build
-            command: npm --prefer-offline --no-progress run prep-web
-        - run:
             name: Run Tests
             command: npm --prefer-offline --no-progress run test-headless
   merge-branch:
