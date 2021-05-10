@@ -69,12 +69,12 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Merge v2.x to v3.x
+            name: Merge v3.x to main
             command: |
               git fetch
-              git checkout v3.x
-              git reset --hard origin/v3.x
-              git merge -m 'automated merge from v2.x -> v3.x' --log v2.x
+              git checkout main
+              git reset --hard origin/main
+              git merge -m 'automated merge from v3.x -> main' --log v3.x
         - cached-npm-install
         - run:
             name: Build Artifacts
@@ -89,9 +89,9 @@ jobs:
               git add -A
               if [ `git diff HEAD | wc -l` -gt 0 ]; then
                 echo "changes detected; committing updated dist/"
-                git commit -m 'build: automated merge from v2.x'
+                git commit -m 'build: automated merge from v3.x'
               fi
-              git push origin v3.x:v3.x
+              git push origin main:main
   merge-pages:
       docker:
         - image: circleci/node:12-browsers
@@ -100,12 +100,12 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Merge v2.x to GitHub pages
+            name: Merge main to GitHub pages
             command: |
               git fetch --all
               git checkout pages
               git reset --hard origin/pages
-              git merge -m 'automated merge from v2.x -> main' --log v2.x
+              git merge -m 'automated merge from main -> pages' --log main
         - cached-npm-install
         - run:
             name: Install rsync
@@ -125,7 +125,7 @@ jobs:
               git add -A
               if [ `git diff HEAD | wc -l` -gt 0 ]; then
                 echo "changes detected; committing updated docs/"
-                git commit -m 'build: automated merge from v2.x'
+                git commit -m 'build: automated merge from main'
               fi
               git push origin pages:pages
 
@@ -139,5 +139,11 @@ workflows:
           filters:
             branches:
               only:
-                - v2.x
-
+                - v3.x
+      - merge-pages:
+          requires:
+            - run-tests
+          filters:
+            branches:
+              only:
+                - main
