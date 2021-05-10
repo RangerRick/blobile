@@ -69,12 +69,12 @@ jobs:
       steps:
         - cached-checkout
         - run:
-            name: Merge v2.x to Main
+            name: Merge v2.x to v3.x
             command: |
               git fetch
-              git checkout main
-              git reset --hard origin/main
-              git merge -m 'automated merge from v2.x -> main' --log v2.x
+              git checkout v3.x
+              git reset --hard origin/v3.x
+              git merge -m 'automated merge from v2.x -> v3.x' --log v2.x
         - cached-npm-install
         - run:
             name: Build Artifacts
@@ -91,7 +91,7 @@ jobs:
                 echo "changes detected; committing updated dist/"
                 git commit -m 'build: automated merge from v2.x'
               fi
-              git push origin main:main
+              git push origin v3.x:v3.x
   merge-pages:
       docker:
         - image: circleci/node:12-browsers
@@ -134,13 +134,6 @@ workflows:
     jobs:
       - run-tests
       - merge-branch:
-          requires:
-            - run-tests
-          filters:
-            branches:
-              only:
-                - v2.x
-      - merge-pages:
           requires:
             - run-tests
           filters:
