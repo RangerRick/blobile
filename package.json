@@ -42,7 +42,7 @@
     "@types/color": "^3.0.1",
     "@types/jasmine": "^3.7.4",
     "@types/jasminewd2": "~2.0.9",
-    "@types/node": "^15.0.3",
+    "@types/node": "^15.3.0",
     "codelyzer": "^6.0.2",
     "conventional-changelog-cli": "^2.1.1",
     "git-describe": "^4.0.4",
