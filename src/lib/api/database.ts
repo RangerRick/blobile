@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-
-import { Plugins } from '@capacitor/core';
+import { Device } from '@capacitor/device';
 
 import '@capacitor-community/http';
-import { HttpResponse } from '@capacitor-community/http';
+import { Http, HttpResponse } from '@capacitor-community/http';
 
 import { Team } from '../model/team';
 import { Player } from '../model/player';
@@ -35,7 +34,7 @@ export class APIDatabase {
   private async getRoot() {
     if (!this.root) {
       try {
-        const info = await Plugins.Device.getInfo();
+        const info = await Device.getInfo();
         if (info.platform !== 'web') {
           this.root = 'https://www.blaseball.com/database';
         }
@@ -77,8 +76,6 @@ export class APIDatabase {
       }
     }
 
-
-    const { Http } = Plugins;
 
     console.debug(`APIDatabase.get(): uncached: ${url}`);
     this.inFlight[url] = Http.request({

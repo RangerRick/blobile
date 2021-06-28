@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Plugins } from '@capacitor/core';
-const { Device } = Plugins;
+import { Device } from '@capacitor/device';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 

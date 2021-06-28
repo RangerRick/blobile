@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { LoadingController, IonContent, Platform } from '@ionic/angular';
 
-import { Plugins } from '@capacitor/core';
+import { KeepAwake } from '@capacitor-community/keep-awake';
 
 import { Subscription } from 'rxjs';
 
@@ -265,22 +265,18 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     console.debug('LiveFeed.checkDisableSleep()');
     const disableSleep = this.settings.disableSleep();
 
-    if (!Plugins.KeepAwake) {
-      return;
-    }
-
     try {
       if (disableSleep && this.getActiveGameCount() > 0) {
         if (!this.keepAwake) {
           console.debug('LiveFeed.checkDisableSleep(): keeping awake');
           this.keepAwake = true;
-          Plugins.KeepAwake.keepAwake();
+          KeepAwake.keepAwake();
         }
       } else {
         if (this.keepAwake) {
           console.debug('LiveFeed.checkDisableSleep(): allowing sleep');
           this.keepAwake = false;
-          Plugins.KeepAwake.allowSleep();
+          KeepAwake.allowSleep();
         }
       }
     } catch (err) {

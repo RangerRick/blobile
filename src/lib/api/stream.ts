@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { createPatch } from 'rfc6902/dist/rfc6902';
 
-import { AppState, Plugins, DeviceInfo, PluginListenerHandle } from '@capacitor/core';
+import { PluginListenerHandle } from '@capacitor/core';
+import { App, AppState } from '@capacitor/app';
+import { Device, DeviceInfo } from '@capacitor/device';
+
 import { environment } from '../../environments/environment';
-const { App, Device, EventSource } = Plugins;
 
 import 'capacitor-eventsource';
-import { MessageResult, ErrorResult, EventSourcePlugin } from 'capacitor-eventsource';
+import { EventSource, EventSourcePlugin, ErrorResult, MessageResult,  } from 'capacitor-eventsource';
+
 import { StreamData } from '../model/streamData';
 import { Platform } from '@ionic/angular';
 

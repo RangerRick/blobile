@@ -1,17 +1,16 @@
 {
-  "appId": "com.raccoonfink.blobile",
-  "appName": "blobile",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 5000
-    }
-  },
-  "cordova": {
-    "preferences": {
-      "DisableDeploy": "false"
-    }
-  }
+	"appId": "com.raccoonfink.blobile",
+	"appName": "blobile",
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 5000
+		}
+	},
+	"cordova": {
+		"preferences": {
+			"DisableDeploy": "true"
+		}
+	}
 }

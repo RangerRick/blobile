@@ -9,12 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APIStream } from '../lib/api/stream';
 
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 
 import { DiamondComponentModule } from './diamond/diamond.module';
 import { GameDetailPageModule } from './game-detail/game-detail.module';
-
-import '../lib/keep-awake';
 
 @NgModule({
   declarations: [AppComponent],

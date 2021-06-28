@@ -18,5 +18,4 @@ if [ -z "$JQ" ]; then
   exit 1
 fi
 
-jq ".cordova.preferences.DisableDeploy |= \"${DISABLE}\"" < capacitor.config.json > /tmp/$$.json
-mv /tmp/$$.json capacitor.config.json
+sed -i -e "s,DisableDeploy: .*$,DisableDeploy: \\\"${DISABLE}\\\"," capacitor.config.ts

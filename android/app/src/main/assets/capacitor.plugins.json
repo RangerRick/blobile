@@ -1,0 +1,14 @@
+[
+	{
+		"pkg": "@capacitor-community/http",
+		"classpath": "com.getcapacitor.plugin.http.Http"
+	},
+	{
+		"pkg": "@capacitor-community/keep-awake",
+		"classpath": "com.getcapacitor.community.keepawake.KeepAwakePlugin"
+	},
+	{
+		"pkg": "capacitor-eventsource",
+		"classpath": "com.raccoonfink.plugins.eventsource.EventSource"
+	}
+]

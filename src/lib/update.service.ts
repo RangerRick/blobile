@@ -3,14 +3,13 @@ import '@capacitor-community/http';
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 
-import { Plugins } from '@capacitor/core';
-const { Device } = Plugins;
+import { Device } from '@capacitor/device';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
 
 import { VERSION } from '../environments/version';
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -4,8 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Platform } from '@ionic/angular';
 
-import { Plugins, SplashScreenPlugin } from '@capacitor/core';
-const { SplashScreen } = Plugins;
+import { SplashScreen } from '@capacitor/splash-screen';
 
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
@@ -14,7 +13,7 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
 
   let deploySpy: Deploy,
-    splashScreenSpy: SplashScreenPlugin,
+    splashScreenSpy: any,
     platformReadySpy: Promise<any>,
     platformSpy: Platform;
 

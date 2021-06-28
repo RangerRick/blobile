@@ -1,7 +1,5 @@
-import { Plugins } from '@capacitor/core';
-
 import '@capacitor-community/http';
-import { HttpResponse } from '@capacitor-community/http';
+import { Http, HttpResponse } from '@capacitor-community/http';
 
 const isString = (val: any) => {
   return typeof val === 'string' || val instanceof String;
@@ -12,7 +10,6 @@ export class Static {
 
   public static async get(asset: string): Promise<any> {
     if (!Static.cache[asset]) {
-      const { Http } = Plugins;
       const url = `https://raw.githubusercontent.com/RangerRick/blobile/main/src/assets/static/${asset}.json`;
       Static.cache[asset] = Http.request({
         method: 'GET',

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Plugins } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
-const { Device, Storage } = Plugins;
+import { Device } from '@capacitor/device';
+import { Storage } from '@capacitor/storage';
 
 export type SEGMENT = 'all'|'active'|'favorites';
 export const COMM_LEVEL = {

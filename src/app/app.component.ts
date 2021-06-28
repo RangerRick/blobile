@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 
-import { Plugins } from '@capacitor/core';
-const { SplashScreen } = Plugins;
+import { SplashScreen } from '@capacitor/splash-screen';
 
 import { UpdateService } from '../lib/update.service';
 import { RouteWatcherService } from './route-watcher';
