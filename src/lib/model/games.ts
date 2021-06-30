@@ -31,7 +31,6 @@ export class Games extends Entry {
 
   public get postseasons(): Postseason[] {
     return this.data?.postseasons?.map((postseason: any) => new Postseason(postseason)) || [];
-    //return new Postseason(this.data?.postseasons[0]);
   }
 
   public get tournament(): Tournament {
