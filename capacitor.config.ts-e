@@ -17,7 +17,7 @@ const config: CapacitorConfig = {
   },
   cordova: {
     preferences: {
-      DisableDeploy: "false"
+      DisableDeploy: "true"
     }
   }
 };
