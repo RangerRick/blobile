@@ -196,18 +196,33 @@ export class LiveFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  getWinner() {
-    const winner = this.streamData?.games?.postseason?.playoffs?.winner;
-    if (winner) {
-      const team = this.streamData.leagues.teams.find((team: Team) => team.id === winner);
-      console.debug('getWinner():', team);
-      return team;
+  getWinners() {
+    const winners = this.streamData?.games?.postseasons?.map((postseason) =>  {
+      const winner = postseason?.playoffs?.winner || '';
+
+      return {
+        team: this.streamData.leagues.teams.find((team: Team) => team.id === winner),
+        playoffsName: postseason?.playoffs?.name || '',
+      };
+    }) || [];
+
+
+    if (winners.length) {
+      console.debug('getWinners():', winners);
+      return winners;
     }
+
     return undefined;
   }
 
   getPlayoffDay() {
-    return (this.streamData?.games?.postseason?.playoffs?.playoffDay || 0);
+    const postseasons = this.streamData?.games?.postseasons || null;
+
+    if (postseasons.length) {
+      return (postseasons[0].playoffs?.playoffDay || 0);
+    }
+
+    return 0;
   }
 
   getCountdown() {
@@ -328,7 +343,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       seasonHeader: undefined,
       notice: undefined,
       countdownNotice: undefined,
-      winner: undefined,
+      winners: undefined,
     };
 
     if (!this.streamData && !this.streamData.sim) {
@@ -348,7 +363,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
         this.doCountdown('countdownToNextPhase');
         uiState.notice = 'Games have finished for the season.';
         uiState.countdownNotice = 'Next season starts in:';
-        uiState.winner = this.getWinner();
+        uiState.winners = this.getWinners();
         break;
       }
 

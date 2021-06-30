@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   useReplay: true,
   replayUrl: 'https://api.sibr.dev/replay/v1/replay',
-  replayFrom: '2020-08-30T01:00:08.17Z',
+  replayFrom: '2021-06-26T23:10:06.617648Z',
   // the replay API uses a default interval of 3000ms between events
   // which currently makes the stream restart too frequently
   replayInterval: 1500,
@@ -20,4 +20,11 @@ export const environment = {
  * s12 d116
  * 2021-03-06T23:00:00.907735Z
  * https://reblase.sibr.dev/game/0f19d78d-c27d-4146-863d-b55e6dae1679
+ *
+ * s21 d105
+ * 2021-06-26T03:00:02.617648Z
+ * https://reblase.sibr.dev/game/37d0236d-4dbb-410f-aae7-68a8a0379d20
+ *
+ * s21 after playoffs
+ * 2021-06-26T23:10:06.617648Z
  */

@@ -8,6 +8,12 @@ import { APIDatabase } from 'src/lib/api/database';
 import { TeamPage } from '../team-page/team-page.page';
 import { Matchup } from 'src/lib/model/matchup';
 
+interface Splits {
+  name: string;
+  evenMatchups: Matchup[];
+  oddMatchups: Matchup[];
+}
+
 @Component({
   selector: 'app-matchups',
   templateUrl: 'matchups.page.html',
@@ -16,8 +22,7 @@ import { Matchup } from 'src/lib/model/matchup';
 export class MatchupsPage implements OnInit {
   loading = true;
   streamData: StreamData;
-  evenMatchups: Matchup[];
-  oddMatchups: Matchup[];
+  splits: Splits[];
   teams = {} as { [key: string]: Team };
 
   constructor(
@@ -58,19 +63,27 @@ export class MatchupsPage implements OnInit {
   }
 
   async postprocess() {
-    const even = [];
-    const odd = [];
+    this.splits = [];
 
-    const rows = Math.floor(this.streamData.games.postseason.matchups.length / 2);
-    for (let i=0; i < this.streamData.games.postseason.matchups.length; i++) {
-      if (i < rows) {
-        odd.push(this.streamData.games.postseason.matchups[i]);
-      } else {
-        even.push(this.streamData.games.postseason.matchups[i]);
+    for (let postseason of this.streamData.games.postseasons) {
+      const even = [];
+      const odd = [];
+
+      const rows = Math.floor(postseason.matchups.length / 2);
+      for (let i=0; i < postseason.matchups.length; i++) {
+        if (i < rows) {
+          odd.push(postseason.matchups[i]);
+        } else {
+          even.push(postseason.matchups[i]);
+        }
       }
+
+      this.splits.push({
+        name: postseason.playoffs.name,
+        evenMatchups: even,
+        oddMatchups: odd,
+      });
     }
-    this.evenMatchups = even;
-    this.oddMatchups = odd;
 
     for (const team of this.streamData.leagues.teams) {
       this.teams[team.id] = team;
