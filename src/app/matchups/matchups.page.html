@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content class="ion-no-margin ion-no-padding" *ngIf="!loading && streamData">
-  <div *ngFor="let split of splits">
+  <div *ngFor="let split of brackets">
     <ion-header class="ion-no-border ion-text-center"
       *ngIf="split.name">
       <h4>{{split.name}}</h4>

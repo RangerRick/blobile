@@ -8,7 +8,7 @@ import { APIDatabase } from 'src/lib/api/database';
 import { TeamPage } from '../team-page/team-page.page';
 import { Matchup } from 'src/lib/model/matchup';
 
-interface Splits {
+interface Brackets {
   name: string;
   evenMatchups: Matchup[];
   oddMatchups: Matchup[];
@@ -22,7 +22,7 @@ interface Splits {
 export class MatchupsPage implements OnInit {
   loading = true;
   streamData: StreamData;
-  splits: Splits[];
+  brackets: Brackets[];
   teams = {} as { [key: string]: Team };
 
   constructor(
@@ -63,7 +63,7 @@ export class MatchupsPage implements OnInit {
   }
 
   async postprocess() {
-    this.splits = [];
+    this.brackets = [];
 
     for (let postseason of this.streamData.games.postseasons) {
       const even = [];
@@ -78,7 +78,7 @@ export class MatchupsPage implements OnInit {
         }
       }
 
-      this.splits.push({
+      this.brackets.push({
         name: postseason.playoffs.name,
         evenMatchups: even,
         oddMatchups: odd,
