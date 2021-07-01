@@ -406,7 +406,7 @@ export class LiveFeedPage implements OnInit, OnDestroy {
       }
       case PHASES.POSTSEASON:
       {
-        uiState.seasonHeader = `Postseason Round ${this.streamData.games.sim.playOffRound}, Day ${day}`;
+        uiState.seasonHeader = `Postseason Round ${this.streamData.games.postseasons[0].playoffs.round}, Day ${day}`;
         break;
       }
       case PHASES.EARLSEASON:

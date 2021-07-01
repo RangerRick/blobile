@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   useReplay: true,
   replayUrl: 'https://api.sibr.dev/replay/v1/replay',
-  replayFrom: '2021-06-26T23:10:06.617648Z',
+  replayFrom: '2021-06-19T23:01:10.619888Z',
   // the replay API uses a default interval of 3000ms between events
   // which currently makes the stream restart too frequently
   replayInterval: 1500,
@@ -27,4 +27,10 @@ export const environment = {
  *
  * s21 after playoffs
  * 2021-06-26T23:10:06.617648Z
+ *
+ * s21 after regular season, before earlpostseason
+ * 2021-06-25T20:34:15.616149Z
+ *
+ * s20 after underbracket finished, but overbracket was still playing
+ * 2021-06-19T23:01:10.619888Z
  */
