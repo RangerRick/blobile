@@ -32,4 +32,8 @@ export class Playoffs extends Entry {
   public get winner(): ID {
     return this.data?.winner;
   }
+
+  public get round() {
+    return this.incremented('round');
+  }
 }

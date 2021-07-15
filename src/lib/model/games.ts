@@ -29,8 +29,8 @@ export class Games extends Entry {
     return this.data?.tomorrowSchedule?.map((game: any) => new Game(game)) || [];
   }
 
-  public get postseason(): Postseason {
-    return new Postseason(this.data?.postseason);
+  public get postseasons(): Postseason[] {
+    return this.data?.postseasons?.map((postseason: any) => new Postseason(postseason)) || [];
   }
 
   public get tournament(): Tournament {
@@ -195,19 +195,19 @@ export class Games extends Entry {
       return true;
     }
 
-    if (this.postseason?.matchups?.length === 1) {
-      const matchup = this.postseason.matchups[0];
+    for (let postseason of this.postseasons) {
+      const matchup = postseason.matchups[0];
       if (matchup.homeWins >= 3 || matchup.awayWins >= 3) {
-        if (this.postseason?.tomorrowMatchups?.length === 1) {
-          const tomorrowMatchup = this.postseason.tomorrowMatchups[0];
-          if (matchup.id === tomorrowMatchup.id) {
-            return true;
+        if (postseason.tomorrowMatchups?.length === 1) {
+          const tomorrowMatchup = postseason.tomorrowMatchups[0];
+          if (matchup.id !== tomorrowMatchup.id) {
+            return false;
           }
         }
       }
     }
 
-    return false;
+    return true;
   }
 
 }

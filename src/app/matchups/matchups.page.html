@@ -12,144 +12,147 @@
 </ion-header>
 
 <ion-content class="ion-no-margin ion-no-padding" *ngIf="!loading && streamData">
-  <ion-header class="ion-no-border ion-text-center" *ngIf="streamData.games.postseason.playoffs.name">
-    <h4>{{streamData.games.postseason.playoffs.name}}</h4>
-  </ion-header>
+  <span *ngFor="let bracket of brackets">
+    <ion-header class="ion-no-border ion-text-center"
+      *ngIf="bracket.name">
+      <h4>{{bracket.name}}</h4>
+    </ion-header>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" class="ion-no-padding ion-no-margin">
-        <ion-card *ngFor="let matchup of oddMatchups; trackBy: id" class="ion-margin-vertical">
-          <ion-card-content class="ion-no-padding ion-no-margin">
-            <ion-grid class="ion-no-padding ion-no-margin">
-              <ion-row>
-                <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="seed" [style]="getStyle(matchup, 'home')">
-                    {{matchup.homeSeed}}
-                  </div>
-                </ion-col>
-                <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="team" [style]="getStyle(matchup, 'home')">
-                    <span class="emoji">{{teams[matchup.homeTeam].emoji}}</span>
-                    <span class="name">{{teams[matchup.homeTeam].fullName}}</span>
-                  </div>
-                </ion-col>
-                <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding" *ngIf="!matchup.idling">
-                  <div class="wins" [style]="getStyle(matchup, 'home')">
-                    {{matchup.homeWins}}
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="!matchup.idling">
-                <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="seed" [style]="getStyle(matchup, 'away')">
-                    {{matchup.awaySeed}}
-                  </div>
-                </ion-col>
-                <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="team" [style]="getStyle(matchup, 'away')">
-                    <span class="emoji">{{teams[matchup.awayTeam].emoji}}</span>
-                    <span class="name">{{teams[matchup.awayTeam].fullName}}</span>
-                  </div>
-                </ion-col>
-                <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="wins" [style]="getStyle(matchup, 'away')">
-                    {{matchup.awayWins}}
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="matchup.idling">
-                <ion-col class="ion-text-center">
-                  <div class="idling">
-                    <span>idling ...</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" class="ion-no-padding ion-no-margin">
-        <ion-card *ngFor="let matchup of evenMatchups; trackBy: id" class="ion-margin-vertical">
-          <ion-card-content class="ion-no-padding ion-no-margin">
-            <ion-grid class="ion-no-padding ion-no-margin">
-              <ion-row>
-                <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="seed" [style]="getStyle(matchup, 'home')">
-                    {{matchup.homeSeed}}
-                  </div>
-                </ion-col>
-                <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="team" [style]="getStyle(matchup, 'home')">
-                    <span class="emoji">{{teams[matchup.homeTeam].emoji}}</span>
-                    <span class="name">{{teams[matchup.homeTeam].fullName}}</span>
-                  </div>
-                </ion-col>
-                <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding" *ngIf="!matchup.idling">
-                  <div class="wins" [style]="getStyle(matchup, 'home')">
-                    {{matchup.homeWins}}
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="!matchup.idling">
-                <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="seed" [style]="getStyle(matchup, 'away')">
-                    {{matchup.awaySeed}}
-                  </div>
-                </ion-col>
-                <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="team" [style]="getStyle(matchup, 'away')">
-                    <span class="emoji">{{teams[matchup.awayTeam].emoji}}</span>
-                    <span class="name">{{teams[matchup.awayTeam].fullName}}</span>
-                  </div>
-                </ion-col>
-                <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
-                  <div class="wins" [style]="getStyle(matchup, 'away')">
-                    {{matchup.awayWins}}
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="matchup.idling">
-                <ion-col class="ion-text-center">
-                  <div class="idling">
-                    <span>idling ...</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <!--
-  <ion-grid>
-    <ion-row>
-      <ion-col *ngFor="let subleague of data.subleagues; trackBy: id">
-        <ion-header class="ion-no-border ion-text-center">
-          <h4>{{subleague.name}}</h4>
-        </ion-header>
-        <ion-card class="ion-no-padding ion-no-margin ion-margin-vertical" *ngFor="let division of subleague.divisions; trackBy: id">
-          <ion-card-header>
-            <ion-card-subtitle>{{division.name}}</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content class="ion-no-padding">
-            <ion-item
-              lines="none"
-              class="team-row"
-              [style]="'--background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
-              *ngFor="let team of division.teams; trackBy: id"
-              (click)="openTeam(team.id)"
-            >
-              <ion-label class="team-name">{{team.name}}</ion-label>
-              <ion-note class="team-wins" slot="end" [style]="'--color: ' + team.mainTextColor">
-                {{team.wins}}-{{team.losses}}
-            </ion-note>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" class="ion-no-padding ion-no-margin">
+          <ion-card *ngFor="let matchup of bracket.oddMatchups; trackBy: id" class="ion-margin-vertical">
+            <ion-card-content class="ion-no-padding ion-no-margin">
+              <ion-grid class="ion-no-padding ion-no-margin">
+                <ion-row>
+                  <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="seed" [style]="getStyle(matchup, 'home')">
+                      {{matchup.homeSeed}}
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="team" [style]="getStyle(matchup, 'home')">
+                      <span class="emoji">{{teams[matchup.homeTeam].emoji}}</span>
+                      <span class="name">{{teams[matchup.homeTeam].fullName}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding" *ngIf="!matchup.idling">
+                    <div class="wins" [style]="getStyle(matchup, 'home')">
+                      {{matchup.homeWins}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="!matchup.idling">
+                  <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="seed" [style]="getStyle(matchup, 'away')">
+                      {{matchup.awaySeed}}
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="team" [style]="getStyle(matchup, 'away')">
+                      <span class="emoji">{{teams[matchup.awayTeam].emoji}}</span>
+                      <span class="name">{{teams[matchup.awayTeam].fullName}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="wins" [style]="getStyle(matchup, 'away')">
+                      {{matchup.awayWins}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="matchup.idling">
+                  <ion-col class="ion-text-center">
+                    <div class="idling">
+                      <span>idling ...</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" class="ion-no-padding ion-no-margin">
+          <ion-card *ngFor="let matchup of bracket.evenMatchups; trackBy: id" class="ion-margin-vertical">
+            <ion-card-content class="ion-no-padding ion-no-margin">
+              <ion-grid class="ion-no-padding ion-no-margin">
+                <ion-row>
+                  <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="seed" [style]="getStyle(matchup, 'home')">
+                      {{matchup.homeSeed}}
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="team" [style]="getStyle(matchup, 'home')">
+                      <span class="emoji">{{teams[matchup.homeTeam].emoji}}</span>
+                      <span class="name">{{teams[matchup.homeTeam].fullName}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding" *ngIf="!matchup.idling">
+                    <div class="wins" [style]="getStyle(matchup, 'home')">
+                      {{matchup.homeWins}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="!matchup.idling">
+                  <ion-col size="2" class="ion-text-end ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="seed" [style]="getStyle(matchup, 'away')">
+                      {{matchup.awaySeed}}
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="team" [style]="getStyle(matchup, 'away')">
+                      <span class="emoji">{{teams[matchup.awayTeam].emoji}}</span>
+                      <span class="name">{{teams[matchup.awayTeam].fullName}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="1" class="ion-text-start ion-align-items-center ion-no-margin ion-no-padding">
+                    <div class="wins" [style]="getStyle(matchup, 'away')">
+                      {{matchup.awayWins}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="matchup.idling">
+                  <ion-col class="ion-text-center">
+                    <div class="idling">
+                      <span>idling ...</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let subleague of data.subleagues; trackBy: id">
+          <ion-header class="ion-no-border ion-text-center">
+            <h4>{{subleague.name}}</h4>
+          </ion-header>
+          <ion-card class="ion-no-padding ion-no-margin ion-margin-vertical" *ngFor="let division of subleague.divisions; trackBy: id">
+            <ion-card-header>
+              <ion-card-subtitle>{{division.name}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content class="ion-no-padding">
+              <ion-item
+                lines="none"
+                class="team-row"
+                [style]="'--background: ' + team.mainColor + '; --color: ' + team.mainTextColor"
+                *ngFor="let team of division.teams; trackBy: id"
+                (click)="openTeam(team.id)"
+              >
+                <ion-label class="team-name">{{team.name}}</ion-label>
+                <ion-note class="team-wins" slot="end" [style]="'--color: ' + team.mainTextColor">
+                  {{team.wins}}-{{team.losses}}
+              </ion-note>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    -->
+  </span>
 </ion-content>
