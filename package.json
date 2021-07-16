@@ -7,7 +7,7 @@
   "dependencies": {
     "@angular-devkit/schematics": "^12.1.2",
     "@angular/common": "^12.1.0",
-    "@angular/core": "^12.1.0",
+    "@angular/core": "^12.1.2",
     "@angular/forms": "^12.1.0",
     "@angular/platform-browser": "^12.1.0",
     "@angular/platform-browser-dynamic": "^12.1.0",
