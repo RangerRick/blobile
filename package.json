@@ -6,7 +6,7 @@
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
     "@angular-devkit/schematics": "^12.1.2",
-    "@angular/common": "^12.1.0",
+    "@angular/common": "^12.1.2",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
     "@angular/platform-browser": "^12.1.0",
