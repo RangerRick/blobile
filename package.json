@@ -42,7 +42,7 @@
     "@angular-devkit/architect": "^0.1201.1",
     "@angular-devkit/build-angular": "^12.1.1",
     "@angular/cli": "^12.1.1",
-    "@angular/compiler": "^12.1.0",
+    "@angular/compiler": "^12.1.2",
     "@angular/compiler-cli": "^12.1.0",
     "@angular/language-service": "^12.1.2",
     "@capacitor/cli": "^3.1.1",
