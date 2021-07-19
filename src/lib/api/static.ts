@@ -14,9 +14,6 @@ export class Static {
       Static.cache[asset] = Http.request({
         method: 'GET',
         url,
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        },
       }).then((ret: HttpResponse) => {
         if (ret.status >= 200 && ret.status < 300) {
           let data = ret.data;

@@ -81,9 +81,6 @@ export class APIDatabase {
     this.inFlight[url] = Http.request({
       method: 'GET',
       url,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
     }).catch((err: any) => {
       console.error('APIDatabase.get(): request failed, trying again in 1s:', err);
       return new Promise((resolve, reject) => {
