@@ -143,14 +143,14 @@ export class APIStream {
         if (this.deviceInfo.platform !== 'web') {
           return 'https://www.blaseball.com/events/streamData';
         }
-        return 'https://cors-proxy.blaseball-reference.com/events/streamData';
+        return 'https://api.sibr.dev/corsmechanics/www.blaseball.com/events/streamData';
 
       }).catch((err) => {
         console.error('APIStream(): failed to get device info, assuming web', err);
         this.deviceInfo = {
           platform: 'web'
         } as DeviceInfo;
-        return 'https://cors-proxy.blaseball-reference.com/events/streamData';
+        return 'https://api.sibr.dev/corsmechanics/www.blaseball.com/events/streamData';
       });
 
     }

@@ -42,7 +42,7 @@ export class APIDatabase {
         console.warn('APIDatabase.getRoot(): failed to get device info, assuming web platform.', err);
       }
       if (!this.root) {
-        this.root = 'https://cors-proxy.blaseball-reference.com/database';
+        this.root = 'https://api.sibr.dev/corsmechanics/www.blaseball.com/database';
       }
     }
 
