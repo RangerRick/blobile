@@ -14,7 +14,7 @@
     "@angular/router": "^12.1.2",
     "@capacitor-community/http": "^1.1.0",
     "@capacitor-community/keep-awake": "^2.1.0",
-    "@capacitor/android": "^3.1.1",
+    "@capacitor/android": "^3.1.2",
     "@capacitor/app": "^1.0.2",
     "@capacitor/core": "^3.1.1",
     "@capacitor/device": "^1.0.2",
