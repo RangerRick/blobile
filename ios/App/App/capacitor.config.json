@@ -10,7 +10,7 @@
 	},
 	"cordova": {
 		"preferences": {
-			"DisableDeploy": "true"
+			"DisableDeploy": "false"
 		}
 	}
 }

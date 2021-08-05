@@ -7,5 +7,10 @@
 		"SplashScreen": {
 			"launchShowDuration": 5000
 		}
+	},
+	"cordova": {
+		"preferences": {
+			"DisableDeploy": "false"
+		}
 	}
 }
