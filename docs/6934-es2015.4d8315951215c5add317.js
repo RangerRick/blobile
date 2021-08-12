@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblobile=self.webpackChunkblobile||[]).push([[6934],{6934:function(e,n,u){u.r(n),u.d(n,{SplashScreenWeb:function(){return t}});var r=u(19369),s=u(41899);class t extends s.Uw{show(e){return(0,r.Z)(function*(){})()}hide(e){return(0,r.Z)(function*(){})()}}}}]);
+//# sourceMappingURL=6934-es2015.4d8315951215c5add317.js.map

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblobile=self.webpackChunkblobile||[]).push([[1006],{71006:function(o,s,t){t.r(s),t.d(s,{ion_text:function(){return n}});var r=t(76842),c=t(33124),l=t(43784);const n=class{constructor(o){(0,r.r)(this,o)}render(){const o=(0,c.b)(this);return(0,r.h)(r.H,{class:(0,l.c)(this.color,{[o]:!0})},(0,r.h)("slot",null))}};n.style=":host(.ion-color){color:var(--ion-color-base)}"}}]);
+//# sourceMappingURL=1006-es2015.89b30b99b7ce9a722134.js.map

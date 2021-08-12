@@ -1,2 +1,0 @@
-(self.webpackChunkblobile=self.webpackChunkblobile||[]).push([[6069],{76069:function(n,t,e){"use strict";e.r(t),e.d(t,{startStatusTap:function(){return r}});var i=e(23150),o=e(52377),r=function(){var n=window;n.addEventListener("statusTap",function(){(0,i.f)(function(){var t=document.elementFromPoint(n.innerWidth/2,n.innerHeight/2);if(t){var e=t.closest("ion-content");e&&new Promise(function(n){return(0,o.c)(e,n)}).then(function(){(0,i.c)(function(){return e.scrollToTop(300)})})}})})}}}]);
-//# sourceMappingURL=6069-es5.200cac102dc2a62e2e8a.js.map
