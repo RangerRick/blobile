@@ -15,7 +15,7 @@
     "@capacitor-community/http": "^1.2.0",
     "@capacitor-community/keep-awake": "^2.1.0",
     "@capacitor/android": "^3.2.0",
-    "@capacitor/app": "^1.0.2",
+    "@capacitor/app": "^1.0.3",
     "@capacitor/core": "^3.2.0",
     "@capacitor/device": "^1.0.2",
     "@capacitor/haptics": "^1.0.2",
