@@ -64,7 +64,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "plist": "^3.0.3",
+    "plist": "^3.0.4",
     "protractor": "~7.0.0",
     "rimraf": "^3.0.2",
     "ts-node": "~10.2.1",
