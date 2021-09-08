@@ -5,7 +5,7 @@
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
-    "@angular-devkit/schematics": "^12.2.2",
+    "@angular-devkit/schematics": "^12.2.5",
     "@angular/common": "^12.2.1",
     "@angular/core": "^12.2.1",
     "@angular/forms": "^12.2.1",
