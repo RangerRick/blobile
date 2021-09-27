@@ -18,7 +18,7 @@
     "@capacitor/app": "^1.0.3",
     "@capacitor/core": "^3.2.3",
     "@capacitor/device": "^1.0.3",
-    "@capacitor/haptics": "^1.0.3",
+    "@capacitor/haptics": "^1.1.0",
     "@capacitor/ios": "^3.2.3",
     "@capacitor/keyboard": "^1.0.3",
     "@capacitor/splash-screen": "^1.1.2",
