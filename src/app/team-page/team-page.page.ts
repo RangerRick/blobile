@@ -11,7 +11,7 @@ import { Player } from '../../lib/model/player';
   templateUrl: './team-page.page.html',
   styleUrls: ['./team-page.page.scss'],
 })
-export class TeamPage implements OnInit {
+export class TeamPageComponent implements OnInit {
   @Input() public id: string;
 
   public team = {} as Team;

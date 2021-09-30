@@ -10,7 +10,7 @@ import { UpdateService } from '../../lib/update.service';
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage implements OnInit {
+export class TabsPageComponent implements OnInit {
   public streamData = new StreamData({});
   public subscription: Subscription;
 

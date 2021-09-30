@@ -13,7 +13,7 @@ import { VoiceService } from 'src/lib/voice.service';
   templateUrl: './game-detail.page.html',
   styleUrls: ['./game-detail.page.scss'],
 })
-export class GameDetailPage implements OnInit {
+export class GameDetailPageComponent implements OnInit {
   @Input() public id: string;
   streamData: StreamData;
   game: Game | BossFight;

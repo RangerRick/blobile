@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { MatchupsPage } from './matchups.page';
+import { MatchupsPageComponent } from './matchups.page';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
 describe('MatchupsPage', () => {
-  let component: MatchupsPage;
-  let fixture: ComponentFixture<MatchupsPage>;
+  let component: MatchupsPageComponent;
+  let fixture: ComponentFixture<MatchupsPageComponent>;
   let deploySpy: Deploy;
 
   beforeEach(waitForAsync(() => {
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
 
     TestBed.configureTestingModule({
-      declarations: [MatchupsPage],
+      declarations: [MatchupsPageComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MatchupsPage);
+    fixture = TestBed.createComponent(MatchupsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -5,7 +5,7 @@ import { APIStream } from 'src/lib/api/stream';
 import { StreamData } from 'src/lib/model/streamData';
 import { Team } from 'src/lib/model/team';
 import { APIDatabase } from 'src/lib/api/database';
-import { TeamPage } from '../team-page/team-page.page';
+import { TeamPageComponent } from '../team-page/team-page.page';
 import { Matchup } from 'src/lib/model/matchup';
 
 interface Brackets {
@@ -19,7 +19,7 @@ interface Brackets {
   templateUrl: 'matchups.page.html',
   styleUrls: ['matchups.page.scss']
 })
-export class MatchupsPage implements OnInit {
+export class MatchupsPageComponent implements OnInit {
   loading = true;
   streamData: StreamData;
   brackets: Brackets[];
@@ -46,7 +46,7 @@ export class MatchupsPage implements OnInit {
   async openTeam(id: string) {
     console.debug(`opening team: ${id}`);
     const modal = await this.modalController.create({
-      component: TeamPage,
+      component: TeamPageComponent,
       componentProps: {
         id,
       },

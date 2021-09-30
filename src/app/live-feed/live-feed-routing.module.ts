@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LiveFeedPage } from './live-feed.page';
+import { LiveFeedPageComponent } from './live-feed.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LiveFeedPage,
+    component: LiveFeedPageComponent,
   }
 ];
 

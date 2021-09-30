@@ -1,5 +1,5 @@
 // IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
-/* tslint:disable */
+/* eslint-disable */
 export const VERSION = {
     "dirty": true,
     "raw": "v3.0.0-78-163-g25998ae3-dirty",
@@ -27,4 +27,4 @@ export const VERSION = {
     "version": "3.1.0",
     "build": 78
 };
-/* tslint:enable */
+/* eslint-enable */
