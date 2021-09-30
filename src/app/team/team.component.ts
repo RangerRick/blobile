@@ -7,7 +7,7 @@ import * as Color from 'color';
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
-export class TeamComponent implements OnInit {
+export class TeamComponent {
   @Input() public team: 'home'|'away'|undefined;
   @Input() public emoji: string;
   @Input() public textColor: string;
@@ -17,10 +17,6 @@ export class TeamComponent implements OnInit {
 
   constructor() {
     // console.debug('TeamComponent instantiated.');
-  }
-
-  async ngOnInit() {
-    // console.debug('TeamComponent initialized.');
   }
 
   getEmojiStyle() {

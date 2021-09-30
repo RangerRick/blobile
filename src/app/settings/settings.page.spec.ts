@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SettingsPage } from './settings.page';
+import { SettingsPageComponent } from './settings.page';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { ICurrentConfig } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
 
 describe('SettingsPage', () => {
-  let component: SettingsPage;
-  let fixture: ComponentFixture<SettingsPage>;
+  let component: SettingsPageComponent;
+  let fixture: ComponentFixture<SettingsPageComponent>;
   let deploySpy: Deploy;
 
   beforeEach(waitForAsync(() => {
@@ -19,14 +19,14 @@ describe('SettingsPage', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ SettingsPage ],
+      declarations: [ SettingsPageComponent ],
       imports: [IonicModule.forRoot()],
       providers: [
         { provide: Deploy, useValue: deploySpy },
       ]
      }).compileComponents();
 
-    fixture = TestBed.createComponent(SettingsPage);
+    fixture = TestBed.createComponent(SettingsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

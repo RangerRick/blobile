@@ -53,7 +53,7 @@ commands:
               - ~/.npm
 
 jobs:
-  run-tests:
+  run-build-and-tests:
       docker:
         - image: circleci/node:12-browsers
           environment:
@@ -62,8 +62,11 @@ jobs:
         - cached-checkout
         - cached-npm-install
         - run:
+            name: Run Production Build
+            command: npm run lint && npm run build
+        - run:
             name: Run Tests
-            command: npm --prefer-offline --no-progress run test-headless
+            command: npm run test-headless
   merge-branch:
       docker:
         - image: circleci/node:12-browsers
@@ -135,17 +138,17 @@ jobs:
 workflows:
   run-tests-and-deploy:
     jobs:
-      - run-tests
+      - run-build-and-tests
       - merge-branch:
           requires:
-            - run-tests
+            - run-build-and-tests
           filters:
             branches:
               only:
                 - v3.x
       - merge-pages:
           requires:
-            - run-tests
+            - run-build-and-tests
           filters:
             branches:
               only:

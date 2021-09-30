@@ -11,10 +11,10 @@ import { BossFight } from '../../lib/model/bossfight';
 import { Game } from '../../lib/model/game';
 import { Team } from '../../lib/model/team';
 
-import { TeamPage } from '../team-page/team-page.page';
+import { TeamPageComponent } from '../team-page/team-page.page';
 import { MessageOptions } from '../../lib/util';
 import Util from 'src/lib/util';
-import { GameDetailPage } from '../game-detail/game-detail.page';
+import { GameDetailPageComponent } from '../game-detail/game-detail.page';
 
 // import Positions from '../../lib/model/positions';
 // import Player from '../../lib/model/player';
@@ -130,7 +130,7 @@ export class DiamondComponent implements DoCheck, OnInit {
 
     const diamondId = `${this.prefix}-${this.game.id}`;
     const svgWrapperId = `${this.prefix}-main-${this.game.id}`;
-    // tslint:disable-next-line:prefer-const
+    // eslint-disable-next-line prefer-const
     let update = this.game?.updateText?.toLowerCase() || '';
 
     // just for testing
@@ -309,7 +309,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     }
     console.debug(`opening team: ${id}`);
     const modal = await this.modalController.create({
-      component: TeamPage,
+      component: TeamPageComponent,
       componentProps: {
         id,
       },
@@ -324,7 +324,7 @@ export class DiamondComponent implements DoCheck, OnInit {
     }
     if (allowOpenGame) {
       const modal = await this.modalController.create({
-        component: GameDetailPage,
+        component: GameDetailPageComponent,
         cssClass: 'app-game-detail',
         componentProps: {
           id,

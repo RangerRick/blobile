@@ -3,11 +3,11 @@ import { IonicModule } from '@ionic/angular';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 import { SEGMENT, SettingsService } from 'src/lib/settings.service';
 
-import { TeamPage } from './team-page.page';
+import { TeamPageComponent } from './team-page.page';
 
 describe('TeamPage', () => {
-  let component: TeamPage;
-  let fixture: ComponentFixture<TeamPage>;
+  let component: TeamPageComponent;
+  let fixture: ComponentFixture<TeamPageComponent>;
   let settingsSpy: SettingsService;
   let deploySpy: Deploy;
 
@@ -21,7 +21,7 @@ describe('TeamPage', () => {
     deploySpy = jasmine.createSpyObj('Deploy', ['sync']);
 
     TestBed.configureTestingModule({
-      declarations: [ TeamPage ],
+      declarations: [ TeamPageComponent ],
       imports: [IonicModule.forRoot()],
       providers: [
         { provide: SettingsService, useValue: settingsSpy },
@@ -29,7 +29,7 @@ describe('TeamPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TeamPage);
+    fixture = TestBed.createComponent(TeamPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

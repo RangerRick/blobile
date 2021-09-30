@@ -8,14 +8,12 @@ import { Team } from '../../lib/model/team';
   templateUrl: './score-box.component.html',
   styleUrls: ['./score-box.component.scss'],
 })
-export class ScoreBoxComponent implements OnInit {
+export class ScoreBoxComponent {
   @Input() public hideLog: boolean;
   @Input() public openTeam: (id: string, ev?: Event) => Promise<void>;
   @Input() public game = new Game({});
   @Input() public teams = {} as { [key: string]: Team };
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

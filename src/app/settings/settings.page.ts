@@ -18,7 +18,7 @@ import { VoiceService } from 'src/lib/voice.service';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPageComponent implements OnInit {
   public loading = true;
 
   public current: Settings;
