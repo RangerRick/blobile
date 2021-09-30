@@ -6,7 +6,7 @@ import { VERSION } from '../../environments/version';
   templateUrl: 'about.page.html',
   styleUrls: ['about.page.scss']
 })
-export class AboutPage {
+export class AboutPageComponent {
   public VERSION = VERSION;
 
   constructor() {}

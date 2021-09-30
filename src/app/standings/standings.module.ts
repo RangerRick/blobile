@@ -2,7 +2,7 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { StandingsPage } from './standings.page';
+import { StandingsPageComponent } from './standings.page';
 
 import { StandingsPageRoutingModule } from './standings-routing.module';
 
@@ -13,6 +13,6 @@ import { StandingsPageRoutingModule } from './standings-routing.module';
     FormsModule,
     StandingsPageRoutingModule
   ],
-  declarations: [StandingsPage]
+  declarations: [StandingsPageComponent]
 })
 export class StandingsPageModule {}

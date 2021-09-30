@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, LoadingController } from '@ionic/angular';
 
-import { LiveFeedPage } from './live-feed.page';
+import { LiveFeedPageComponent } from './live-feed.page';
 import { SettingsService, SEGMENT } from '../../lib/settings.service';
 
 describe('LiveFeedPage', () => {
-  let component: LiveFeedPage;
-  let fixture: ComponentFixture<LiveFeedPage>;
+  let component: LiveFeedPageComponent;
+  let fixture: ComponentFixture<LiveFeedPageComponent>;
 
   let loadingSpy, settingsSpy;
 
@@ -20,7 +20,7 @@ describe('LiveFeedPage', () => {
     loadingSpy = {} as LoadingController;
 
     TestBed.configureTestingModule({
-      declarations: [LiveFeedPage],
+      declarations: [LiveFeedPageComponent],
       imports: [IonicModule.forRoot()],
       providers: [
         { provide: SettingsService, useValue: settingsSpy },
@@ -28,7 +28,7 @@ describe('LiveFeedPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LiveFeedPage);
+    fixture = TestBed.createComponent(LiveFeedPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

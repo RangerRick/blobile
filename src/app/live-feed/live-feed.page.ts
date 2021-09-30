@@ -24,7 +24,7 @@ import { PHASES } from 'src/lib/model/phases';
   templateUrl: 'live-feed.page.html',
   styleUrls: ['live-feed.page.scss']
 })
-export class LiveFeedPage implements OnInit, OnDestroy {
+export class LiveFeedPageComponent implements OnInit, OnDestroy {
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
   public streamData = new StreamData({});

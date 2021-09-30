@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { DiamondComponentModule } from '../diamond/diamond.module';
 import { GameDetailPageRoutingModule } from './game-detail-routing.module';
-import { GameDetailPage } from './game-detail.page';
+import { GameDetailPageComponent } from './game-detail.page';
 
 @NgModule({
   imports: [
@@ -14,6 +14,6 @@ import { GameDetailPage } from './game-detail.page';
     DiamondComponentModule,
     GameDetailPageRoutingModule,
   ],
-  declarations: [GameDetailPage]
+  declarations: [GameDetailPageComponent]
 })
 export class GameDetailPageModule {}

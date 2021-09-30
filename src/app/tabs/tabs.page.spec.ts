@@ -1,17 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { TabsPage } from './tabs.page';
+import { TabsPageComponent } from './tabs.page';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
 
 describe('TabsPage', () => {
-  let component: TabsPage;
-  let fixture: ComponentFixture<TabsPage>;
+  let component: TabsPageComponent;
+  let fixture: ComponentFixture<TabsPageComponent>;
   const deploySpy = Deploy;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TabsPage],
+      declarations: [TabsPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: Deploy, useValue: deploySpy },
@@ -20,7 +20,7 @@ describe('TabsPage', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabsPage);
+    fixture = TestBed.createComponent(TabsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

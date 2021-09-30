@@ -10,7 +10,7 @@ import { Subleague } from 'src/lib/model/subleague';
 import { Division } from 'src/lib/model/division';
 import { APIDatabase } from 'src/lib/api/database';
 import { Tiebreaker } from 'src/lib/model/tiebreaker';
-import { TeamPage } from '../team-page/team-page.page';
+import { TeamPageComponent } from '../team-page/team-page.page';
 
 interface LeagueData {
   id: string;
@@ -43,7 +43,7 @@ interface TeamData {
   templateUrl: 'standings.page.html',
   styleUrls: ['standings.page.scss']
 })
-export class StandingsPage implements OnInit {
+export class StandingsPageComponent implements OnInit {
   loading = true;
   leagues = new Leagues({});
   standings = new Standings({});
@@ -73,7 +73,7 @@ export class StandingsPage implements OnInit {
   async openTeam(id: string) {
     console.debug(`opening team: ${id}`);
     const modal = await this.modalController.create({
-      component: TeamPage,
+      component: TeamPageComponent,
       componentProps: {
         id,
       },
