@@ -5,7 +5,7 @@
   "author": "Benjamin Reed <github@raccoonfink.com>",
   "homepage": "https://github.com/RangerRick/blobile",
   "dependencies": {
-    "@angular-devkit/schematics": "^12.2.10",
+    "@angular-devkit/schematics": "^12.2.11",
     "@angular/common": "^12.2.7",
     "@angular/core": "^12.2.7",
     "@angular/forms": "^12.2.7",
@@ -39,7 +39,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1202.10",
+    "@angular-devkit/architect": "^0.1202.11",
     "@angular-devkit/build-angular": "^12.2.10",
     "@angular-eslint/builder": "12.5.0",
     "@angular-eslint/eslint-plugin": "12.5.0",
@@ -49,7 +49,7 @@
     "@angular/cli": "^12.2.11",
     "@angular/compiler": "^12.2.7",
     "@angular/compiler-cli": "^12.2.7",
-    "@angular/language-service": "^12.2.10",
+    "@angular/language-service": "^12.2.11",
     "@capacitor/cli": "^3.2.5",
     "@ionic/angular-toolkit": "^4.0.0",
     "@ionic/cli": "^6.17.1",
