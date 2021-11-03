@@ -23,7 +23,7 @@
     "@capacitor/keyboard": "^1.1.2",
     "@capacitor/splash-screen": "^1.1.5",
     "@capacitor/status-bar": "^1.0.5",
-    "@capacitor/storage": "^1.2.2",
+    "@capacitor/storage": "^1.2.3",
     "@egstad/marquee": "^3.0.2",
     "@ionic/angular": "^5.8.5",
     "canvas-confetti": "^1.4.0",
