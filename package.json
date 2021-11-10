@@ -21,7 +21,7 @@
     "@capacitor/haptics": "^1.1.2",
     "@capacitor/ios": "^3.2.5",
     "@capacitor/keyboard": "^1.1.3",
-    "@capacitor/splash-screen": "^1.1.5",
+    "@capacitor/splash-screen": "^1.1.6",
     "@capacitor/status-bar": "^1.0.6",
     "@capacitor/storage": "^1.2.3",
     "@egstad/marquee": "^3.0.2",
