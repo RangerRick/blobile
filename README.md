@@ -1,15 +1,21 @@
 # Blases Loaded
 
-Blases Loaded is an extremely unofficial mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.
-Blases Loaded is not developed, nor endorsed, by The Game Band.
+Blases Loaded is no more.
 
+The Game Band has a real mobile app that is coming as part of the re-launch of Blaseball, so this is obsolete.
+I'm leaving this repo up (archived) for reference, but otherwise you can consider it a dead project.
+
+~~Blases Loaded is an extremely unofficial mobile app for live-viewing [Blaseball](https://www.blaseball.com/) games.~~
+~~Blases Loaded is not developed, nor endorsed, by The Game Band.~~
+
+<!--
 <a target="_blank" href="./resources/screenshots/ios-live-feed.png"><img width="207" height="448" src="./resources/screenshots/ios-live-feed.png"></a> <a target="_blank" href="./resources/screenshots/ios-standings.png"><img width="207" height="448" src="resources/screenshots/ios-standings.png"></a> <a target="_blank" href="resources/screenshots/ios-game-over.png"><img width="207" height="448" src="resources/screenshots/ios-game-over.png"></a>
 
 ## Web App
 
 You can just run it as a "progressive" web app in your browser, with most features equivalent to the mobile version.  Just point your browser to:
 
-* https://blases-loaded.sibr.dev/
+* blases-loaded.sibr.dev
 
 ## Install from App Store
 
@@ -30,6 +36,8 @@ If you find bugs or have feature suggestions, please open an issue here on the G
 
 Also, I lurk on the official Blaseball Discord, and there is a project channel for Blases Loaded development on the [Society for Internet Blaseball Research Discord](https://discord.gg/XTZRmcb).
 Pop on in and say hi!
+
+-->
 
 ## FAQ
 
